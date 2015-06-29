@@ -1,4 +1,5 @@
-require "sql_parser/version"
+
+require "sql_parser/oracle.tab"
 
 module SqlParser
   # Your code goes here...

@@ -7,3 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
+lib/sql_parser/oracle.tab.rb
+lib/sql_parser/oracle.output

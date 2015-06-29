@@ -157,7 +157,6 @@ rule
   in_condition: IN_CONDITION {val} # not implement
   is_of_tyupe_condition: IS_OF_TYUPE_CONDITION {val} # not implement
 
-
 #  # operators
 #  unary_operator: '-' expr {val}
 #    | '+' expr {val}
@@ -168,14 +167,16 @@ end
 ---- header
   require 'pp'
   require 'strscan'
-  require './select'
-  require './number_literal'
-  require './string_literal'
-  require './condition'
-  require './comparision_condition'
-  require './ident'
-  require './where'
-
+  lib = File.expand_path('../', __FILE__)
+  require "#{lib}/oracle_reserved_words"
+  require "#{lib}/version"
+  require "#{lib}/select"
+  require "#{lib}/number_literal"
+  require "#{lib}/string_literal"
+  require "#{lib}/condition"
+  require "#{lib}/comparision_condition"
+  require "#{lib}/ident"
+  require "#{lib}/where"
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'
 
   OPERATORS = {
@@ -186,8 +187,8 @@ end
     '!=' => :op_neq,
   }
 ---- inner
+  attr_accessor :yydebug
   def parse(str)
-    @yydebug = true
     ss = StringScanner.new(str)
     @q = []
 
@@ -219,13 +220,7 @@ end
   end
 
   def self.reserved_words
-    unless defined? @@reserved_words
-      File.open(File.join(File.dirname(__FILE__), 'reserved_words.txt')) do |f|
-        @@reserved_words = f.read.split("\n")
-      end
-    end
-
-    @@reserved_words
+    OracleReservedWords.words
   end
 
   def self.reserved_words_regexp
@@ -250,6 +245,7 @@ end
   if __FILE__ == $0
     parser = SqlParser::Oracle.new
     begin
+      parser.yydebug = true
       p parser.parse "select col1 from table1 where col1 = 1"
 #      p parser.parse "select col1 from table1 where table1.col1 = 1"
     rescue Racc::ParseError => e
