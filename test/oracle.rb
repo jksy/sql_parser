@@ -153,6 +153,16 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
+  def test_select_where_with_exists_condition
+    parsed = parser.parse "select * from table1 where exists (select 1 from table2 where col1 = 1)"
+    puts parsed
+  end
+
+  def test_select_where_with_not_exists_condition
+    parsed = parser.parse "select * from table1 where not exists (select 1 from table2 where col1 = 1)"
+    puts parsed
+  end
+
   def parser
     unless @parser
       @parser = SqlParser::Oracle.new

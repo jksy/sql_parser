@@ -193,10 +193,10 @@ rule
     | condition AND condition {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
     | condition OR condition  {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
 
-  between_condition: expr BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[3])}
-    | expr NOT_BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[3])}
+  between_condition: expr BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[4])}
+    | expr NOT_BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[4])}
 
-  exists_condition: EXISTS_CONDITION # not implement
+  exists_condition: EXISTS '(' subquery ')' {result = ExistsCondition.new(val[2])}
   in_condition: IN_CONDITION # not implement
   is_of_type_condition: IS_OF_TYUPE_CONDITION # not implement
   range_condition: RANGE_CONDITION # not implement
@@ -231,6 +231,7 @@ end
   require "#{lib}/like_condition"
   require "#{lib}/null_condition"
   require "#{lib}/regexp_like_condition"
+  require "#{lib}/exists_condition"
   require "#{lib}/ident"
   require "#{lib}/where"
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'
