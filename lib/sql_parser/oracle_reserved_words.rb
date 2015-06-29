@@ -83,6 +83,7 @@ module SqlParser
         'PRIVILEGES',
         'PUBLIC',
         'RAW',
+        'REGEXP_LIKE',
         'RENAME',
         'RESOURCE',
         'REVOKE',

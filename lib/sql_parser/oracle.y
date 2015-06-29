@@ -170,8 +170,8 @@ rule
   pattern_maching_condition: like_condition
     | regexp_like_condition
     
-  like_condition: ident NOT like text_literal escape_or_empty
-    | ident like text_literal escape_or_empty
+  like_condition: ident NOT like text_literal escape_or_empty {result = LikeCondition.new(val[0], true, val[2], val[3])}
+    | ident like text_literal escape_or_empty {result = LikeCondition.new(val[0], false, val[2], val[3])}
 
   like: LIKE
     | LIKEC
@@ -183,7 +183,7 @@ rule
 
   escape: ESCAPE text_literal
 
-  regexp_like_condition: REGEXP_LIKE_CONDITION # not implement
+  regexp_like_condition: REGEXP_LIKE '(' ident ',' text_literal ')' {result = RegexpLikeCondition.new(val[2], val[4])}
 
   range_condition: RANGE_CONDITION {val} # not implement
   null_condition: NULL_CONDITION {val} # not implement
@@ -217,6 +217,8 @@ end
   require "#{lib}/condition"
   require "#{lib}/comparision_condition"
   require "#{lib}/logical_condition"
+  require "#{lib}/like_condition"
+  require "#{lib}/regexp_like_condition"
   require "#{lib}/ident"
   require "#{lib}/where"
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'
@@ -225,6 +227,8 @@ end
     '.' => '.',
     '*' => '*',
     ',' => ',',
+    '(' => '(',
+    ')' => ')',
     '+' => :op_plus,
     '-' => :op_minus,
     '!' => :op_not,

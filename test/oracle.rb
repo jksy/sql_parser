@@ -99,12 +99,17 @@ class OracleTest < Test::Unit::TestCase
   end
 
   def test_select_where_with_not_like_onditions_parseable
-    parsed = parser.parse "select * from table1 where col1 like 'abc%'"
+    parsed = parser.parse "select * from table1 where col1 not like 'abc%'"
     puts parsed
   end
 
   def test_select_where_with_like_escape_conditions_parseable
     parsed = parser.parse "select * from table1 where col1 like 'abc%'  escape '\\'"
+    puts parsed
+  end
+
+  def test_select_where_with_regexp_like_conditions_parseable
+    parsed = parser.parse "select * from table1 where regexp_like(col1,  '^Ste(v|ph)en$')"
     puts parsed
   end
 
