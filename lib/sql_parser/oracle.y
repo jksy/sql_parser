@@ -4,7 +4,6 @@ prechigh
   nonassoc UMINUS '!'
   left '*' '/'
   left '+' '-'
-
 preclow
 
 rule
@@ -50,17 +49,28 @@ rule
      | all
   all: ALL {val}
 
-  select_list: '*' {}
-    | ident  {ret = val}
+  select_list: '*' 
+    | select_list_table 
+    | select_list_expr 
 
-  select_sources: select_sources ',' select_source {val}
-                | select_source {val}
+  select_list_table: table '.' '*' {result = val}
+#    | schema '.' table '.' '*' {result = val}   # not implemented
+
+  select_list_expr:
+    | expr 
+    | expr c_alias {result = val}
+    | expr AS c_alias {result = val}
+
+  c_alias: ident 
+
+  select_sources: select_sources ',' select_source {result = val}
+                | select_source 
   select_source: table_reference                   {val}
     | join_clause                                  {val}
     | '(' join_clause ')'                          {val}
 
   where_clause_or_empty: 
-    | where_clause {ret = val}
+    | where_clause {result = val}
 
   where_clause: WHERE conditions {result = Where.new(val[1])}
 
@@ -82,8 +92,8 @@ rule
     | '*'                          {val}
     | query_table_expression       {val}
 
-  query_table_expression: table {val}
-    | schema '.' table {val}
+  query_table_expression: schema '.' table {val}
+    | table {val}
                       
   schema: ident
   table: ident
@@ -172,7 +182,7 @@ end
   require "#{lib}/version"
   require "#{lib}/select"
   require "#{lib}/number_literal"
-  require "#{lib}/string_literal"
+  require "#{lib}/text_literal"
   require "#{lib}/condition"
   require "#{lib}/comparision_condition"
   require "#{lib}/ident"
@@ -180,6 +190,8 @@ end
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'
 
   OPERATORS = {
+    '.' => '.',
+    '*' => '*',
     '+' => :op_plus,
     '-' => :op_minus,
     '!' => :op_not,
@@ -206,7 +218,7 @@ end
       elsif ss.scan(/[#{WORD_MATCHER_CHARACTERS}]+/i) 
         @q << [:IDENT, ss.matched]
       else
-        raise "no matching:#{ss.inspect}:#{ss.string}"
+        raise ParseError, "Oracle::parse no matching:#{ss.inspect}:#{ss.string}:L#{__LINE__}"
       end
     end
 
@@ -239,6 +251,14 @@ end
       end
     end
     nil
+  end
+
+  def on_error(t, val, vstack)
+    puts "t:#{t.inspect}"
+    puts "val:#{val.inspect}"
+    puts "vstack:#{vstack.inspect}"
+    raise ParseError, sprintf("\nparse error on value %s (%s)",
+                                    val.inspect, token_to_str(t) || '?')
   end
 
 ---- footer
