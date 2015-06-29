@@ -50,6 +50,7 @@ rule
   all: ALL {val}
 
   select_list: '*' 
+    | select_list ',' select_list {result = val}
     | select_list_table 
     | select_list_expr 
 
@@ -192,6 +193,7 @@ end
   OPERATORS = {
     '.' => '.',
     '*' => '*',
+    ',' => ',',
     '+' => :op_plus,
     '-' => :op_minus,
     '!' => :op_not,
