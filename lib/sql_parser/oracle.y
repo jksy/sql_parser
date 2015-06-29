@@ -116,7 +116,6 @@ rule
     | condition 
   condition: comparision_condition 
     | floating_point_codition 
-    | logical_condition
     | model_condition
     | mutiset_condition 
     | pattern_maching_condition 
@@ -162,8 +161,6 @@ rule
   group_comparision_condition: GROUP_COMPARISION_CONDITION {val} # not implement
 
   floating_point_codition: FLOATING_POINT_CODITION {val} # not implement
-  logical_condition: condition AND condition {result = LogicalCondition.new(val[0], val[1], val[2])}
-    | condition OR condition {result = LogicalCondition.new(val[0], val[1], val[2])}
   model_condition: MODEL_CONDITION {val} # not implement
   mutiset_condition: MUTISET_CONDITION {val} # not implement
 
@@ -190,7 +187,10 @@ rule
     | expr IS NULL {result = NullCondition.new(val[0], true)}
     
   xml_condition: XML_CONDITION # not implement
-  compound_condition: COMPOUND_CONDITION # not implement
+  compound_condition: '(' condition ')' {result = CompoundCondition.new(false, val[1])}
+    | NOT condition {result = CompoundCondition.new(true, val[1])}
+    | condition AND condition {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
+    | condition OR condition  {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
   exists_condition: EXISTS_CONDITION # not implement
   in_condition: IN_CONDITION # not implement
   is_of_tyupe_condition: IS_OF_TYUPE_CONDITION # not implement
@@ -218,6 +218,7 @@ end
   require "#{lib}/text_literal"
   require "#{lib}/condition"
   require "#{lib}/comparision_condition"
+  require "#{lib}/compound_condition"
   require "#{lib}/logical_condition"
   require "#{lib}/like_condition"
   require "#{lib}/null_condition"
