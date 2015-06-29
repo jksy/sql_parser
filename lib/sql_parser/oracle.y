@@ -218,7 +218,7 @@ end
         # ignore white space
       elsif ss.scan(/'[^']+'/) 
         @q << [:TEXT_LITERAL, ss.matched]
-      elsif ss.scan(/-?\d+/) 
+      elsif ss.scan(/-?\d+(\.\d+)?/) 
         @q << [:NUMBER_LITERAL, ss.matched]
       elsif matched = match_operator(ss)
         @q << [matched[1], matched[0]]

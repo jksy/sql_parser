@@ -28,6 +28,16 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
+  def test_select_literal_float_number_column_parseable
+    parsed = parser.parse 'select 1.1 from table1'
+    puts parsed
+  end
+
+  def test_select_literal_float_nagavite_number_column_parseable
+    parsed = parser.parse 'select -1.1 from table1'
+    puts parsed
+  end
+
   def test_select_literal_string_parseable
     parsed = parser.parse "select 'adslfael' from table1"
     puts parsed
