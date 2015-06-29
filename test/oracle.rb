@@ -113,6 +113,16 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
+  def test_select_where_with_null_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 is null"
+    puts parsed
+  end
+
+  def test_select_where_with_not_null_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 is not null"
+    puts parsed
+  end
+
   def parser
     unless @parser
       @parser = SqlParser::Oracle.new

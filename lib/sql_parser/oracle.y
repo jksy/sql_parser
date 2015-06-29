@@ -24,7 +24,7 @@ rule
 
   for_update_clause: FOR UPDATE OF # not implement
 
-  subquery: query_block order_by_clause_or_empty           {puts val; val.join(' ')}
+  subquery: query_block order_by_clause_or_empty           {val.join(' ')}
 #    | subquery union subquery order_by_clause_or_empty     {val}
 #    | subquery INTERSECT subquery order_by_clause_or_empty {val}
 #    | subquery MINUS subquery order_by_clause_or_empty     {val}
@@ -185,13 +185,15 @@ rule
 
   regexp_like_condition: REGEXP_LIKE '(' ident ',' text_literal ')' {result = RegexpLikeCondition.new(val[2], val[4])}
 
-  range_condition: RANGE_CONDITION {val} # not implement
-  null_condition: NULL_CONDITION {val} # not implement
-  xml_condition: XML_CONDITION {val} # not implement
-  compound_condition: COMPOUND_CONDITION {val} # not implement
-  exists_condition: EXISTS_CONDITION {val} # not implement
-  in_condition: IN_CONDITION {val} # not implement
-  is_of_tyupe_condition: IS_OF_TYUPE_CONDITION {val} # not implement
+  range_condition: RANGE_CONDITION # not implement
+  null_condition: expr IS NOT NULL {result = NullCondition.new(val[0], false)}
+    | expr IS NULL {result = NullCondition.new(val[0], true)}
+    
+  xml_condition: XML_CONDITION # not implement
+  compound_condition: COMPOUND_CONDITION # not implement
+  exists_condition: EXISTS_CONDITION # not implement
+  in_condition: IN_CONDITION # not implement
+  is_of_tyupe_condition: IS_OF_TYUPE_CONDITION # not implement
 
   not_or_empty:
     not
@@ -218,6 +220,7 @@ end
   require "#{lib}/comparision_condition"
   require "#{lib}/logical_condition"
   require "#{lib}/like_condition"
+  require "#{lib}/null_condition"
   require "#{lib}/regexp_like_condition"
   require "#{lib}/ident"
   require "#{lib}/where"
@@ -274,7 +277,7 @@ end
 
   def self.reserved_words_regexp
     unless defined? @@reserved_words_regexp
-      regexp_string = self.reserved_words.map{|word| "#{word}(?=[^#{WORD_MATCHER_CHARACTERS}])"}.join("|")
+      regexp_string = self.reserved_words.map{|word| "#{word}((?=[^#{WORD_MATCHER_CHARACTERS}])|$)"}.join("|")
       @@reserved_words_regexp = Regexp.compile(regexp_string, Regexp::IGNORECASE)
     end
 
