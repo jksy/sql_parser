@@ -123,9 +123,10 @@ rule
     | null_condition 
     | xml_condition 
     | compound_condition 
+    | between_condition 
     | exists_condition 
     | in_condition 
-    | is_of_tyupe_condition 
+    | is_of_type_condition 
 
   comparision_condition: simple_comparision_conditions 
     | group_comparision_conditions
@@ -167,7 +168,7 @@ rule
   pattern_maching_condition: like_condition
     | regexp_like_condition
     
-  like_condition: ident NOT like text_literal escape_or_empty {result = LikeCondition.new(val[0], true, val[2], val[3])}
+  like_condition: ident NOT_LIKE text_literal escape_or_empty {result = LikeCondition.new(val[0], true, val[2], val[3])}
     | ident like text_literal escape_or_empty {result = LikeCondition.new(val[0], false, val[2], val[3])}
 
   like: LIKE
@@ -182,18 +183,24 @@ rule
 
   regexp_like_condition: REGEXP_LIKE '(' ident ',' text_literal ')' {result = RegexpLikeCondition.new(val[2], val[4])}
 
-  range_condition: RANGE_CONDITION # not implement
-  null_condition: expr IS NOT NULL {result = NullCondition.new(val[0], false)}
-    | expr IS NULL {result = NullCondition.new(val[0], true)}
+  null_condition: expr IS_NOT_NULL {result = NullCondition.new(val[0], false)}
+    | expr IS_NULL {result = NullCondition.new(val[0], true)}
     
   xml_condition: XML_CONDITION # not implement
+
   compound_condition: '(' condition ')' {result = CompoundCondition.new(false, val[1])}
     | NOT condition {result = CompoundCondition.new(true, val[1])}
     | condition AND condition {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
     | condition OR condition  {result = CompoundCondition.new(false, LogicalCondition.new(val[0], val[1], val[2]))}
+
+  between_condition: expr BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[3])}
+    | expr NOT_BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[3])}
+
   exists_condition: EXISTS_CONDITION # not implement
   in_condition: IN_CONDITION # not implement
-  is_of_tyupe_condition: IS_OF_TYUPE_CONDITION # not implement
+  is_of_type_condition: IS_OF_TYUPE_CONDITION # not implement
+  range_condition: RANGE_CONDITION # not implement
+
 
   not_or_empty:
     not
@@ -217,6 +224,7 @@ end
   require "#{lib}/number_literal"
   require "#{lib}/text_literal"
   require "#{lib}/condition"
+  require "#{lib}/between_condition"
   require "#{lib}/comparision_condition"
   require "#{lib}/compound_condition"
   require "#{lib}/logical_condition"
@@ -254,7 +262,15 @@ end
         @q << [:NUMBER_LITERAL, ss.matched]
       elsif matched = match_operator(ss)
         @q << [matched[1], matched[0]]
-      elsif ss.scan(self.class.reserved_words_regexp) 
+      elsif ss.scan(self.class.reserved_plural_words_regexp) 
+        matched = ss.matched.upcase
+        found = self.class.reserved_plural_words.find do |pattern, symbol| 
+          regexp = Regexp.compile(pattern)
+          regexp.match(matched)
+        end
+
+        @q << [found[1].to_sym, matched]
+      elsif ss.scan(self.class.reserved_single_words_regexp) 
         @q << [ss.matched.upcase.to_sym, ss.matched]
       elsif ss.scan(/[#{WORD_MATCHER_CHARACTERS}]+/i) 
         @q << [:IDENT, ss.matched]
@@ -272,17 +288,33 @@ end
     @q.shift
   end
 
-  def self.reserved_words
-    OracleReservedWords.words
+  def self.reserved_single_words
+    OracleReservedWords.single_words
   end
 
-  def self.reserved_words_regexp
-    unless defined? @@reserved_words_regexp
-      regexp_string = self.reserved_words.map{|word| "#{word}((?=[^#{WORD_MATCHER_CHARACTERS}])|$)"}.join("|")
-      @@reserved_words_regexp = Regexp.compile(regexp_string, Regexp::IGNORECASE)
+  def self.reserved_single_words_regexp
+    unless defined? @@reserved_single_words_regexp
+      @@reserved_single_words_regexp = keyword_matcher(reserved_single_words)
     end
 
-    @@reserved_words_regexp
+    @@reserved_single_words_regexp
+  end
+
+  def self.reserved_plural_words
+    OracleReservedWords.plural_words
+  end
+
+  def self.reserved_plural_words_regexp
+    unless defined? @@reserved_single_words_regexp
+      @@reserved_plural_words_regexp = keyword_matcher(reserved_plural_words)
+    end
+
+    @@reserved_plural_words_regexp
+  end
+
+  def self.keyword_matcher(keywords)
+    regexp_string = keywords.map{|match_string, symbol| "#{match_string}((?=[^#{WORD_MATCHER_CHARACTERS}])|$)"}.join("|")
+    Regexp.compile(regexp_string, Regexp::IGNORECASE)
   end
 
   def match_operator(ss)

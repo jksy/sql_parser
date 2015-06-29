@@ -133,6 +133,26 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
+  def test_select_where_with_between_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 between col2 and col3"
+    puts parsed
+  end
+
+  def test_select_where_with_not_between_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 not between col2 and col3"
+    puts parsed
+  end
+
+  def test_select_where_with_between_number_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 between 1 and 100"
+    puts parsed
+  end
+
+  def test_select_where_with_between_string_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 between 'a' and 'z'"
+    puts parsed
+  end
+
   def parser
     unless @parser
       @parser = SqlParser::Oracle.new
