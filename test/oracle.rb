@@ -68,8 +68,43 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
-  def test_select_where_with_plural_conditions_parseable
+  def test_select_where_with_logical_and_conditions_parseable
     parsed = parser.parse "select * from table1 where col1 = col2 and col3 = col4"
+    puts parsed
+  end
+
+  def test_select_where_with_logical_or_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 = col2 or col3 = col4"
+    puts parsed
+  end
+
+  def test_select_where_with_like_onditions_parseable
+    parsed = parser.parse "select * from table1 where col1 like 'abc%'"
+    puts parsed
+  end
+
+  def test_select_where_with_likec_onditions_parseable
+    parsed = parser.parse "select * from table1 where col1 likec 'abc%'"
+    puts parsed
+  end
+
+  def test_select_where_with_like2_onditions_parseable
+    parsed = parser.parse "select * from table1 where col1 like2 'abc%'"
+    puts parsed
+  end
+
+  def test_select_where_with_like4_onditions_parseable
+    parsed = parser.parse "select * from table1 where col1 like4 'abc%'"
+    puts parsed
+  end
+
+  def test_select_where_with_not_like_onditions_parseable
+    parsed = parser.parse "select * from table1 where col1 like 'abc%'"
+    puts parsed
+  end
+
+  def test_select_where_with_like_escape_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 like 'abc%'  escape '\\'"
     puts parsed
   end
 

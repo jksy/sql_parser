@@ -163,9 +163,28 @@ rule
 
   floating_point_codition: FLOATING_POINT_CODITION {val} # not implement
   logical_condition: condition AND condition {result = LogicalCondition.new(val[0], val[1], val[2])}
+    | condition OR condition {result = LogicalCondition.new(val[0], val[1], val[2])}
   model_condition: MODEL_CONDITION {val} # not implement
   mutiset_condition: MUTISET_CONDITION {val} # not implement
-  pattern_maching_condition: PATTERN_MACHING_CONDITION {val} # not implement
+
+  pattern_maching_condition: like_condition
+    | regexp_like_condition
+    
+  like_condition: ident NOT like text_literal escape_or_empty
+    | ident like text_literal escape_or_empty
+
+  like: LIKE
+    | LIKEC
+    | LIKE2
+    | LIKE4
+
+  escape_or_empty:
+    | escape
+
+  escape: ESCAPE text_literal
+
+  regexp_like_condition: REGEXP_LIKE_CONDITION # not implement
+
   range_condition: RANGE_CONDITION {val} # not implement
   null_condition: NULL_CONDITION {val} # not implement
   xml_condition: XML_CONDITION {val} # not implement
@@ -173,6 +192,11 @@ rule
   exists_condition: EXISTS_CONDITION {val} # not implement
   in_condition: IN_CONDITION {val} # not implement
   is_of_tyupe_condition: IS_OF_TYUPE_CONDITION {val} # not implement
+
+  not_or_empty:
+    not
+  not: NOT
+
 
 #  # operators
 #  unary_operator: '-' expr {val}
