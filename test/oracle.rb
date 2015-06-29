@@ -56,6 +56,26 @@ class OracleTest < Test::Unit::TestCase
     parsed = parser.parse "select * from table1 where col1 = -1"
   end
 
+  def test_select_where_with_neq1_parseable
+    parsed = parser.parse "select * from table1 where col1 != 1"
+  end
+
+  def test_select_where_with_neq2_parseable
+    parsed = parser.parse "select * from table1 where col1 ^= 1"
+  end
+
+  def test_select_where_with_neq3_parseable
+    parsed = parser.parse "select * from table1 where col1 <> 1"
+  end
+
+  def test_select_where_with_less_equal_parseable
+    parsed = parser.parse "select * from table1 where col1 <= 1"
+  end
+
+  def test_select_where_with_grater_equal_parseable
+    parsed = parser.parse "select * from table1 where col1 <= 1"
+  end
+
   def test_select_where_with_logical_and_conditions_parseable
     parsed = parser.parse "select * from table1 where col1 = col2 and col3 = col4"
   end
