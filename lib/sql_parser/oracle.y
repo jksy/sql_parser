@@ -270,7 +270,8 @@ end
 
   def self.reserved_words_regexp
     unless defined? @@reserved_words_regexp
-      @@reserved_words_regexp = Regexp.compile(self.reserved_words.map{|word| "#{word}(?=[^#{WORD_MATCHER_CHARACTERS}])"}.join("|"), Regexp::IGNORECASE)
+      regexp_string = self.reserved_words.map{|word| "#{word}(?=[^#{WORD_MATCHER_CHARACTERS}])"}.join("|")
+      @@reserved_words_regexp = Regexp.compile(regexp_string, Regexp::IGNORECASE)
     end
 
     @@reserved_words_regexp
@@ -295,13 +296,14 @@ end
   end
 
 ---- footer
-  if __FILE__ == $0
+  if __FILE__ == $0 && ARGV.length != 0
     parser = SqlParser::Oracle.new
-    begin
-      parser.yydebug = true
-      p parser.parse "select col1 from table1 where col1 = 1"
-#      p parser.parse "select col1 from table1 where table1.col1 = 1"
-    rescue Racc::ParseError => e
-      $stderr.puts e
+    parser.yydebug = true
+    ARGV.each do |param|
+      begin
+        p parser.parse param
+      rescue Racc::ParseError => e
+        $stderr.puts e
+      end
     end
   end
