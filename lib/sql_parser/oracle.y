@@ -4,6 +4,12 @@ prechigh
   nonassoc UMINUS '!'
   left '*' '/'
   left '+' '-'
+
+  left '=' '!=' '<' '>' '<=' '>='
+#  left IS [NOT] NULL、LIKE、[NOT] BETWEEN、[NOT] IN、EXISTS、IS OF type # http://docs.oracle.com/cd/E16338_01/server.112/b56299/conditions001.htm
+  left NOT
+  left AND
+  left OR
 preclow
 
 rule
@@ -156,7 +162,7 @@ rule
   group_comparision_condition: GROUP_COMPARISION_CONDITION {val} # not implement
 
   floating_point_codition: FLOATING_POINT_CODITION {val} # not implement
-  logical_condition: LOGICAL_CONDITION {val} # not implement
+  logical_condition: condition AND condition {result = LogicalCondition.new(val[0], val[1], val[2])}
   model_condition: MODEL_CONDITION {val} # not implement
   mutiset_condition: MUTISET_CONDITION {val} # not implement
   pattern_maching_condition: PATTERN_MACHING_CONDITION {val} # not implement
@@ -186,6 +192,7 @@ end
   require "#{lib}/text_literal"
   require "#{lib}/condition"
   require "#{lib}/comparision_condition"
+  require "#{lib}/logical_condition"
   require "#{lib}/ident"
   require "#{lib}/where"
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'

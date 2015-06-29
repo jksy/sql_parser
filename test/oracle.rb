@@ -58,6 +58,11 @@ class OracleTest < Test::Unit::TestCase
     puts parsed
   end
 
+  def test_select_where_with_plural_conditions_parseable
+    parsed = parser.parse "select * from table1 where col1 = col2 and col3 = col4"
+    puts parsed
+  end
+
   def parser
     unless @parser
       @parser = SqlParser::Oracle.new
