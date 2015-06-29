@@ -6,6 +6,7 @@ module SqlParser
         'IS\s+NOT\s+NULL' => 'IS_NOT_NULL',
         'NOT\s+LIKE' => 'NOT_LIKE',
         'NOT\s+BETWEEN' => 'NOT_BETWEEN',
+        'NOT\s+IN' => 'NOT_IN',
       }
     end
 

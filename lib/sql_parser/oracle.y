@@ -157,6 +157,7 @@ rule
 
   expression_list: expr ',' expr {val}
     | '(' expr ',' expr ')' {val}
+    | expr {val}
 
   group_comparision_conditions: group_comparision_conditions group_comparision_condition {val}
   group_comparision_condition: GROUP_COMPARISION_CONDITION {val} # not implement
@@ -197,7 +198,10 @@ rule
     | expr NOT_BETWEEN expr AND expr {result = BetweenCondition.new(val[0], false, val[2], val[4])}
 
   exists_condition: EXISTS '(' subquery ')' {result = ExistsCondition.new(val[2])}
-  in_condition: IN_CONDITION # not implement
+  in_condition: expr NOT_IN '(' expression_list ')' {result = InCondition.new(val[0], true, val[3])}
+    | expr IN '(' expression_list ')'  {result = InCondition.new(val[0], false, val[3])}
+    | expr NOT_IN '(' subquery ')'  {result = InCondition.new(val[0], true, val[3])}
+    | expr IN '(' subquery ')'  {result = InCondition.new(val[0], false, val[3])}
   is_of_type_condition: IS_OF_TYUPE_CONDITION # not implement
   range_condition: RANGE_CONDITION # not implement
 
@@ -232,6 +236,7 @@ end
   require "#{lib}/null_condition"
   require "#{lib}/regexp_like_condition"
   require "#{lib}/exists_condition"
+  require "#{lib}/in_condition"
   require "#{lib}/ident"
   require "#{lib}/where"
   WORD_MATCHER_CHARACTERS = 'A-Z0-9_'
