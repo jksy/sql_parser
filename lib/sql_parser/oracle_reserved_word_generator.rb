@@ -196,6 +196,7 @@ EOS
         'VARCHAR',
         'VARCHAR2',
         'VIEW',
+        'WAIT',
         'WHENEVER',
         'WHERE',
       ]

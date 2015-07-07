@@ -211,4 +211,29 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select * from table1 group by cube(col1, col2)"
   end
 
+  def test_select_for_update_clause
+    parse_successful "select * from table1 for update"
+  end
+
+  def test_select_for_update_clause_column
+    parse_successful "select * from table1 for update of column1"
+  end
+
+  def test_select_for_update_clause_table_and_column
+    parse_successful "select * from table1 for update of table1.column1"
+  end
+
+  def test_select_for_update_clause_schema_and_table_and_column
+    parse_successful "select * from table1 for update of schema1.table1.column1"
+  end
+
+  def test_select_for_update_clause_nowait
+    parse_successful "select * from table1 for update nowait"
+  end
+
+  def test_select_for_update_clause_wait
+    parse_successful "select * from table1 for update wait 1"
+  end
+
+
 end
