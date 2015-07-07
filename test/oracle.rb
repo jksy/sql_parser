@@ -11,7 +11,8 @@ class OracleTest < Test::Unit::TestCase
    method_names.each do |name|
      SqlParser::OracleParser.send(:define_method, "#{name}_new") do
        indent = indent + 1
-       puts(" " * indent + name.to_s + ":#{index}")
+       parsing_text = "#{input[0..index-1]}*#{input[index..-1]}"
+       puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
        result = send("#{name}_old")
        indent = indent - 1
        result
@@ -259,5 +260,35 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select * from table1 for update wait 1"
   end
 
+  def test_select_order_by_clause_expr_parseable
+    parse_successful "select * from table1 order by col1"
+  end
 
+  def test_select_order_by_clause_position_parseable
+    parse_successful "select * from table1 order by 1"
+  end
+
+  def test_select_order_by_clause_siblings_parseable
+    parse_successful "select * from table1 order siblings by 1"
+  end
+
+  def test_select_order_by_clause_asc_parseable
+    parse_successful "select * from table1 order by col1 asc"
+  end
+
+  def test_select_order_by_clause_desc_parseable
+    parse_successful "select * from table1 order by col1 desc"
+  end
+
+  def test_select_order_by_clause_nulls_first_parseable
+    parse_successful "select * from table1 order by col1 nulls first"
+  end
+
+  def test_select_order_by_clause_nulls_last_parseable
+    parse_successful "select * from table1 order by col1 nulls last"
+  end
+
+  def test_select_order_by_clause_plural_column
+    parse_successful "select * from table1 order by col1 asc, col2 desc"
+  end
 end
