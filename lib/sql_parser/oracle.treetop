@@ -2,7 +2,7 @@ module SqlParser
   grammar Oracle
     include OracleReservedWord
     include OracleCondition
-    rule sql 
+    rule sql
       space? q:select_query {
         def ast
           q.ast
@@ -19,23 +19,23 @@ module SqlParser
     end
 
     rule subquery
-      query_block 
+      query_block
       order_by_clause:order_by_clause? {
         def ast
           query_block.ast
         end
       }
-      # subquery union subquery order_by_clause_or_empty       not implemented rules 
+      # subquery union subquery order_by_clause_or_empty       not implemented rules
       # subquery INTERSECT subquery order_by_clause_or_empty
       # subquery MINUS subquery order_by_clause_or_empty
     end
 
-    rule query_block 
+    rule query_block
       subquery_factoring_clause? space?
-      select_keyword 
-      hint? 
+      select_keyword
+      hint?
       all_keyword? space?
-      select_list space? 
+      select_list space?
       from_keyword space?
       select_sources space?
       where_clause? space?
@@ -48,7 +48,7 @@ module SqlParser
     end
 
     rule space
-      ' '+ 
+      ' '+
     end
 
     rule for_update_clause
@@ -151,7 +151,7 @@ module SqlParser
     end
 
     rule select_sources
-      ident 
+      ident
     end
 
     rule number_literal
