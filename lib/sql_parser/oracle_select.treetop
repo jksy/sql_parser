@@ -1,0 +1,126 @@
+module SqlParser
+  grammar OracleSelect
+    rule select_query
+      subquery for_update_clause? {
+        def ast
+          subquery.ast
+        end
+      }
+    end
+
+    rule subquery
+      query_block
+      (
+        (
+          union_keyword (space all_keyword?) /
+          intersect_keyword /
+          minus_keyword
+        ) space? subquery )?
+      order_by_clause? {
+        def ast
+          query_block.ast
+        end
+      }
+    end
+
+    rule query_block
+      (subquery_factoring_clause space)?
+      select_keyword space
+      hint?
+      ((all_keyword / distinct_keyword / unique_keyword) space)?
+      select_list space?
+      from_keyword space?
+      select_sources space?
+      where_clause? space?
+      group_by_clause? space?
+      model_clause? space?
+    end
+
+    rule for_update_clause
+      for_keyword space?
+      update_keyword space?
+      (of_keyword space for_update_clause_column (space? ',' space? for_update_clause_column)*)?
+      (wait_keyword space? integer / nowait_keyword)?
+    end
+
+    rule for_update_clause_column
+      (
+        schema_name space? '.' space? table_name space? '.' space? column_name /
+        table_name space? '.' space? column_name /
+        space? column_name
+      )
+    end
+
+    rule subquery_factoring_clause
+      'subquery_factoring_clause' { # not implemented
+      }
+    end
+
+    rule order_by_clause
+      order_keyword space (siblings_keyword space)? by_keyword space order_by_clause_item space? (',' space? order_by_clause_item space?)*
+    end
+
+    rule order_by_clause_item
+      ( expr / position / c_alias) space?
+      ( asc_keyword / desc_keyword )? space?
+      ( nulls_keyword space (first_keyword / last_keyword))?
+    end
+
+    rule select_list
+      select_one_column more_list:( space? ',' space? c:select_one_column space? )* {
+        def ast
+          [select_one_column, *more_columns].flatten
+        end
+
+        def more_columns
+          more_list.elements.map(&:c)
+        end
+      }
+    end
+
+    rule select_one_column
+      ( select_table /
+        select_column /
+        expr ) {
+          def ast
+            self.elements.first
+          end
+        }
+    end
+
+    rule select_table
+      (table_name '.')? '*' <Identifier>
+    end
+
+    rule select_column
+      expr ( space ( as_keyword space )? c_alias )?  {
+        def ast
+          [expr, as, c_alias]
+        end
+      }
+    end
+
+    # group
+    rule group_by_clause
+      group_keyword space by_keyword space (( expr / rollup_cube_clause / grouping_sets_clause) space?)
+        (',' space? ((expr  / rollup_cube_clause / grouping_sets_clause) space?))*
+      (having_keyword space condition)?
+    end
+
+    rule rollup_cube_clause
+      (rollup_keyword / cube_keyword) space? '(' space? grouping_expression_list space? ')'
+    end
+
+    rule grouping_sets_clause
+      'grouping_sets_clause' # not implemented
+    end
+
+    rule grouping_expression_list
+      expression_list (',' expression_list)*
+    end
+
+    rule model_clause
+      'model_clause'
+    end
+  end
+end

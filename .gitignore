@@ -10,5 +10,6 @@
 lib/sql_parser/oracle_reserved_word.rb
 lib/sql_parser/oracle_reserved_word.treetop
 lib/sql_parser/oracle_condition.rb
+lib/sql_parser/oracle_select.rb
 lib/sql_parser/oracle.rb
 *.sw?
