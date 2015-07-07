@@ -1,0 +1,116 @@
+module SqlParser
+  grammar OracleCondition
+    # where
+    rule where_clause
+      where_keyword space? logical_condition
+    end
+
+    rule condition
+      (
+        comparision_condition /
+        floating_point_condition /
+        model_condition /
+        mutiset_condition /
+        pattern_maching_condition /
+        range_condition /
+        null_condition /
+        xml_condition /
+        compound_condition /
+        between_condition /
+        exists_condition /
+        in_condition /
+        is_of_type_condition
+      )
+    end
+
+    rule logical_condition
+      left:condition space? and_keyword space? right:condition /
+      left:condition space? or_keyword space? right:condition  /
+      not_keyword space? right:condition /
+      condition
+    end
+
+    rule comparision_condition
+      (
+        simple_comparision_conditions /
+        group_comparision_conditions
+      )
+    end
+
+    rule group_comparision_conditions
+      'group_comparision_conditions'
+    end
+
+    rule simple_comparision_conditions
+      (
+        left:expr space? ('!=' / '^=' / '<>' / '>=' / '<=' / '=' / '>' / '<') space? right:expr /
+        '(' space? left:exprs space? ')' space? ('!=' / '^=' / '<>' / '=') space? '(' space? right:subquery space? ')'
+      )
+    end
+
+    rule floating_point_condition 
+      'floating_point_condition'
+    end
+
+    rule model_condition
+      'model_condition'
+    end
+
+    rule mutiset_condition 
+      'mutiset_condition'
+    end
+    
+    rule pattern_maching_condition 
+      (
+        like_condition /
+        regexp_like_condition
+      )
+    end
+
+    rule like_condition
+      ident space
+      (not_keyword space)?
+      (like_keyword / like2_keyword / like4_keyword / likec_keyword) space
+      text_literal
+      (space escape_keyword space text_literal)?
+    end
+
+    rule regexp_like_condition
+      regexp_like_keyword '(' space? ident space? ',' space? text_literal space? ')'
+    end
+
+    rule range_condition 
+      'range_condition'
+    end
+    
+    rule null_condition 
+      expr space is_keyword space (not_keyword space)? null_keyword
+    end
+    rule xml_condition 
+      'xml_condition'
+    end
+
+    rule compound_condition 
+      '(' logical_condition ')'
+    end
+
+    rule between_condition 
+      expr space (not_keyword space)? between_keyword space expr space and_keyword space expr
+    end
+
+    rule exists_condition 
+      exists_keyword space? '(' space? subquery space? ')'
+    end
+
+    rule in_condition 
+      expr space (not_keyword space)? in_keyword space? '(' space? ( exprs / subquery ) space? ')'
+    end
+
+    rule is_of_type_condition 
+      'is_of_type_condition'
+    end
+
+
+
+  end
+end
