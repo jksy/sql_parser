@@ -2,16 +2,20 @@ require "bundler/gem_tasks"
 require 'rake'
 require 'rake/testtask'
 
-task :generate => [Rake::FileList.new('lib/sql_parser/oracle.y')]
-
-rule ".y" => ->(f) do
-  output_file_name = "#{f.gsub(/\.y$/,'')}.tab.rb"
-  cmd = "racc -g -v #{f} -o #{output_file_name}"
-  puts cmd
-  `#{cmd}`
+task :gen do
+  sh "ruby lib/sql_parser/oracle_reserved_word_generator.rb"
+  tt "lib/sql_parser/oracle_reserved_word.treetop"
+  tt "lib/sql_parser/oracle.treetop"
 end
 
-task :test => [:generate]
+def tt(f)
+  output_file_name = "#{f.gsub(/\.treetop$/,'')}.rb"
+  cmd = "tt #{f} -f -o #{output_file_name}"
+  sh cmd
+end
+
+
+#task :test => [:generate]
 
 Rake::TestTask.new do |t|
   t.libs << "test"
