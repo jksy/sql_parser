@@ -1093,6 +1093,74 @@ module SqlParser
       r0
     end
 
+    module ExpressionList0
+      def exprs
+        elements[1]
+      end
+
+    end
+
+    def _nt_expression_list
+      start_index = index
+      if node_cache[:expression_list].has_key?(index)
+        cached = node_cache[:expression_list][index]
+        if cached
+          node_cache[:expression_list][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      i1, s1 = index, []
+      if (match_len = has_terminal?('(', false, index))
+        r2 = true
+        @index += match_len
+      else
+        terminal_parse_failure('\'(\'')
+        r2 = nil
+      end
+      s1 << r2
+      if r2
+        r3 = _nt_exprs
+        s1 << r3
+        if r3
+          if (match_len = has_terminal?(')', false, index))
+            r4 = true
+            @index += match_len
+          else
+            terminal_parse_failure('\')\'')
+            r4 = nil
+          end
+          s1 << r4
+        end
+      end
+      if s1.last
+        r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+        r1.extend(ExpressionList0)
+      else
+        @index = i1
+        r1 = nil
+      end
+      if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+        r0 = r1
+      else
+        r5 = _nt_exprs
+        if r5
+          r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
+          r0 = r5
+        else
+          @index = i0
+          r0 = nil
+        end
+      end
+
+      node_cache[:expression_list][start_index] = r0
+
+      r0
+    end
+
     def _nt_table_name
       start_index = index
       if node_cache[:table_name].has_key?(index)
@@ -3099,6 +3167,48 @@ module SqlParser
       r0
     end
 
+    module GroupByClause0
+    end
+
+    module GroupByClause1
+    end
+
+    module GroupByClause2
+    end
+
+    module GroupByClause3
+      def having_keyword
+        elements[0]
+      end
+
+      def space
+        elements[1]
+      end
+
+      def condition
+        elements[2]
+      end
+    end
+
+    module GroupByClause4
+      def group_keyword
+        elements[0]
+      end
+
+      def space1
+        elements[1]
+      end
+
+      def by_keyword
+        elements[2]
+      end
+
+      def space2
+        elements[3]
+      end
+
+    end
+
     def _nt_group_by_clause
       start_index = index
       if node_cache[:group_by_clause].has_key?(index)
@@ -3110,15 +3220,372 @@ module SqlParser
         return cached
       end
 
-      if (match_len = has_terminal?('group_by_clause', false, index))
-        r0 = instantiate_node(SyntaxNode,input, index...(index + match_len))
-        @index += match_len
+      i0, s0 = index, []
+      r1 = _nt_group_keyword
+      s0 << r1
+      if r1
+        r2 = _nt_space
+        s0 << r2
+        if r2
+          r3 = _nt_by_keyword
+          s0 << r3
+          if r3
+            r4 = _nt_space
+            s0 << r4
+            if r4
+              i5, s5 = index, []
+              i6 = index
+              r7 = _nt_expr
+              if r7
+                r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
+                r6 = r7
+              else
+                r8 = _nt_rollup_cube_clause
+                if r8
+                  r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
+                  r6 = r8
+                else
+                  r9 = _nt_grouping_sets_clause
+                  if r9
+                    r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
+                    r6 = r9
+                  else
+                    @index = i6
+                    r6 = nil
+                  end
+                end
+              end
+              s5 << r6
+              if r6
+                r11 = _nt_space
+                if r11
+                  r10 = r11
+                else
+                  r10 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s5 << r10
+              end
+              if s5.last
+                r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+                r5.extend(GroupByClause0)
+              else
+                @index = i5
+                r5 = nil
+              end
+              s0 << r5
+              if r5
+                s12, i12 = [], index
+                loop do
+                  i13, s13 = index, []
+                  if (match_len = has_terminal?(',', false, index))
+                    r14 = true
+                    @index += match_len
+                  else
+                    terminal_parse_failure('\',\'')
+                    r14 = nil
+                  end
+                  s13 << r14
+                  if r14
+                    r16 = _nt_space
+                    if r16
+                      r15 = r16
+                    else
+                      r15 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s13 << r15
+                    if r15
+                      i17, s17 = index, []
+                      i18 = index
+                      r19 = _nt_expr
+                      if r19
+                        r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
+                        r18 = r19
+                      else
+                        r20 = _nt_rollup_cube_clause
+                        if r20
+                          r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
+                          r18 = r20
+                        else
+                          r21 = _nt_grouping_sets_clause
+                          if r21
+                            r21 = SyntaxNode.new(input, (index-1)...index) if r21 == true
+                            r18 = r21
+                          else
+                            @index = i18
+                            r18 = nil
+                          end
+                        end
+                      end
+                      s17 << r18
+                      if r18
+                        r23 = _nt_space
+                        if r23
+                          r22 = r23
+                        else
+                          r22 = instantiate_node(SyntaxNode,input, index...index)
+                        end
+                        s17 << r22
+                      end
+                      if s17.last
+                        r17 = instantiate_node(SyntaxNode,input, i17...index, s17)
+                        r17.extend(GroupByClause1)
+                      else
+                        @index = i17
+                        r17 = nil
+                      end
+                      s13 << r17
+                    end
+                  end
+                  if s13.last
+                    r13 = instantiate_node(SyntaxNode,input, i13...index, s13)
+                    r13.extend(GroupByClause2)
+                  else
+                    @index = i13
+                    r13 = nil
+                  end
+                  if r13
+                    s12 << r13
+                  else
+                    break
+                  end
+                end
+                r12 = instantiate_node(SyntaxNode,input, i12...index, s12)
+                s0 << r12
+                if r12
+                  i25, s25 = index, []
+                  r26 = _nt_having_keyword
+                  s25 << r26
+                  if r26
+                    r27 = _nt_space
+                    s25 << r27
+                    if r27
+                      r28 = _nt_condition
+                      s25 << r28
+                    end
+                  end
+                  if s25.last
+                    r25 = instantiate_node(SyntaxNode,input, i25...index, s25)
+                    r25.extend(GroupByClause3)
+                  else
+                    @index = i25
+                    r25 = nil
+                  end
+                  if r25
+                    r24 = r25
+                  else
+                    r24 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s0 << r24
+                end
+              end
+            end
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+        r0.extend(GroupByClause4)
       else
-        terminal_parse_failure('\'group_by_clause\'')
+        @index = i0
         r0 = nil
       end
 
       node_cache[:group_by_clause][start_index] = r0
+
+      r0
+    end
+
+    module RollupCubeClause0
+      def grouping_expression_list
+        elements[4]
+      end
+
+    end
+
+    def _nt_rollup_cube_clause
+      start_index = index
+      if node_cache[:rollup_cube_clause].has_key?(index)
+        cached = node_cache[:rollup_cube_clause][index]
+        if cached
+          node_cache[:rollup_cube_clause][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      i1 = index
+      r2 = _nt_rollup_keyword
+      if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
+        r1 = r2
+      else
+        r3 = _nt_cube_keyword
+        if r3
+          r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
+          r1 = r3
+        else
+          @index = i1
+          r1 = nil
+        end
+      end
+      s0 << r1
+      if r1
+        r5 = _nt_space
+        if r5
+          r4 = r5
+        else
+          r4 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s0 << r4
+        if r4
+          if (match_len = has_terminal?('(', false, index))
+            r6 = true
+            @index += match_len
+          else
+            terminal_parse_failure('\'(\'')
+            r6 = nil
+          end
+          s0 << r6
+          if r6
+            r8 = _nt_space
+            if r8
+              r7 = r8
+            else
+              r7 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s0 << r7
+            if r7
+              r9 = _nt_grouping_expression_list
+              s0 << r9
+              if r9
+                r11 = _nt_space
+                if r11
+                  r10 = r11
+                else
+                  r10 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s0 << r10
+                if r10
+                  if (match_len = has_terminal?(')', false, index))
+                    r12 = true
+                    @index += match_len
+                  else
+                    terminal_parse_failure('\')\'')
+                    r12 = nil
+                  end
+                  s0 << r12
+                end
+              end
+            end
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+        r0.extend(RollupCubeClause0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:rollup_cube_clause][start_index] = r0
+
+      r0
+    end
+
+    def _nt_grouping_sets_clause
+      start_index = index
+      if node_cache[:grouping_sets_clause].has_key?(index)
+        cached = node_cache[:grouping_sets_clause][index]
+        if cached
+          node_cache[:grouping_sets_clause][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      if (match_len = has_terminal?('grouping_sets_clause', false, index))
+        r0 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('\'grouping_sets_clause\'')
+        r0 = nil
+      end
+
+      node_cache[:grouping_sets_clause][start_index] = r0
+
+      r0
+    end
+
+    module GroupingExpressionList0
+      def expression_list
+        elements[1]
+      end
+    end
+
+    module GroupingExpressionList1
+      def expression_list
+        elements[0]
+      end
+
+    end
+
+    def _nt_grouping_expression_list
+      start_index = index
+      if node_cache[:grouping_expression_list].has_key?(index)
+        cached = node_cache[:grouping_expression_list][index]
+        if cached
+          node_cache[:grouping_expression_list][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_expression_list
+      s0 << r1
+      if r1
+        s2, i2 = [], index
+        loop do
+          i3, s3 = index, []
+          if (match_len = has_terminal?(',', false, index))
+            r4 = true
+            @index += match_len
+          else
+            terminal_parse_failure('\',\'')
+            r4 = nil
+          end
+          s3 << r4
+          if r4
+            r5 = _nt_expression_list
+            s3 << r5
+          end
+          if s3.last
+            r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+            r3.extend(GroupingExpressionList0)
+          else
+            @index = i3
+            r3 = nil
+          end
+          if r3
+            s2 << r3
+          else
+            break
+          end
+        end
+        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+        s0 << r2
+      end
+      if s0.last
+        r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+        r0.extend(GroupingExpressionList1)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:grouping_expression_list][start_index] = r0
 
       r0
     end

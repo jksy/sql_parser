@@ -123,6 +123,10 @@ module SqlParser
       expr (space? ',' space? expr)*
     end
 
+    rule expression_list
+      ('(' exprs ')' / exprs)
+    end
+
     rule table_name
       ident
     end
@@ -260,7 +264,21 @@ module SqlParser
 
     # group
     rule group_by_clause
-      'group_by_clause'
+      group_keyword space by_keyword space (( expr / rollup_cube_clause / grouping_sets_clause) space?)
+        (',' space? ((expr  / rollup_cube_clause / grouping_sets_clause) space?))*
+      (having_keyword space condition)?
+    end
+
+    rule rollup_cube_clause
+      (rollup_keyword / cube_keyword) space? '(' space? grouping_expression_list space? ')'
+    end
+
+    rule grouping_sets_clause
+      'grouping_sets_clause' # not implemented
+    end
+
+    rule grouping_expression_list
+      expression_list (',' expression_list)*
     end
 
     rule model_clause

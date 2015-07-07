@@ -195,4 +195,20 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select * from table1 where col1 not in (select * from table2)"
   end
 
+  def test_select_group_by_expr 
+    parse_successful "select * from table1 group by col1, col2"
+  end
+
+  def test_select_group_by_having_condition
+    parse_successful "select * from table1 group by col1, col2 having col1 = col2"
+  end
+
+  def test_select_rollup_clause
+    parse_successful "select * from table1 group by rollup(col1, col2)"
+  end
+
+  def test_select_cube_clause
+    parse_successful "select * from table1 group by cube(col1, col2)"
+  end
+
 end
