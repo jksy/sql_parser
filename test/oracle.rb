@@ -51,6 +51,22 @@ class OracleTest < Test::Unit::TestCase
     parse_successful 'select unique col2 from table1'
   end
 
+  def test_select_union_parseable
+    parse_successful 'select col1 from table1 union select col1 from table2'
+  end
+
+  def test_select_union_all_parseable
+    parse_successful 'select col1 from table1 union all select col1 from table2'
+  end
+
+  def test_select_intersect_parseable
+    parse_successful 'select col1 from table1 intersect select col1 from table2'
+  end
+
+  def test_select_minus_parseable
+    parse_successful 'select col1 from table1 minus select col1 from table2'
+  end
+
   def test_select_literal_number_column_parseable
     parse_successful 'select 1 from table1'
   end

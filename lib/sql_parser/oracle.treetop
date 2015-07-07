@@ -20,14 +20,17 @@ module SqlParser
 
     rule subquery
       query_block
-      order_by_clause:order_by_clause? {
+      (
+        (
+          union_keyword (space all_keyword?) /
+          intersect_keyword /
+          minus_keyword
+        ) space? subquery )?
+      order_by_clause? {
         def ast
           query_block.ast
         end
       }
-      # subquery union subquery order_by_clause_or_empty       not implemented rules
-      # subquery INTERSECT subquery order_by_clause_or_empty
-      # subquery MINUS subquery order_by_clause_or_empty
     end
 
     rule query_block
