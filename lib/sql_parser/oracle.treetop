@@ -31,10 +31,10 @@ module SqlParser
     end
 
     rule query_block
-      subquery_factoring_clause? space?
-      select_keyword
+      (subquery_factoring_clause space)?
+      select_keyword space
       hint?
-      all_keyword? space?
+      ((all_keyword / distinct_keyword / unique_keyword) space)?
       select_list space?
       from_keyword space?
       select_sources space?

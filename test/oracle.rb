@@ -39,8 +39,16 @@ class OracleTest < Test::Unit::TestCase
     parse_successful 'select col1 from table1'
   end
 
-  def test_select_plural_column_parseable
-    parse_successful 'select col1, col2 from table1'
+  def test_select_all_parseable
+    parse_successful 'select all col1 from table1'
+  end
+
+  def test_select_distinct_parseable
+    parse_successful 'select distinct col2 from table1'
+  end
+
+  def test_select_unique_parseable
+    parse_successful 'select unique col2 from table1'
   end
 
   def test_select_literal_number_column_parseable
@@ -171,67 +179,67 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select * from table1 where col1 between 'a' and 'z'"
   end
 
-  def test_select_where_with_exists_condition
+  def test_select_where_with_exists_condition_parseable
     parse_successful "select * from table1 where exists (select 1 from table2 where col1 = 1)"
   end
 
-  def test_select_where_with_not_exists_condition
+  def test_select_where_with_not_exists_condition_parseable
     parse_successful "select * from table1 where not exists (select 1 from table2 where col1 = 1)"
   end
 
-  def test_select_where_in_expr_condition
+  def test_select_where_in_expr_condition_parseable
     parse_successful "select * from table1 where col1 in (1)"
   end
 
-  def test_select_where_not_in_expr_condition
+  def test_select_where_not_in_expr_condition_parseable
     parse_successful "select * from table1 where col1 not in (1)"
   end
 
-  def test_select_where_in_subquery_condition
+  def test_select_where_in_subquery_condition_parseable
     parse_successful "select * from table1 where col1 in (select * from table2)"
   end
 
-  def test_select_where_not_in_subquery_condition
+  def test_select_where_not_in_subquery_condition_parseable
     parse_successful "select * from table1 where col1 not in (select * from table2)"
   end
 
-  def test_select_group_by_expr 
+  def test_select_group_by_expr_parseable
     parse_successful "select * from table1 group by col1, col2"
   end
 
-  def test_select_group_by_having_condition
+  def test_select_group_by_having_condition_parseable
     parse_successful "select * from table1 group by col1, col2 having col1 = col2"
   end
 
-  def test_select_rollup_clause
+  def test_select_rollup_clause_parseable
     parse_successful "select * from table1 group by rollup(col1, col2)"
   end
 
-  def test_select_cube_clause
+  def test_select_cube_clause_parseable
     parse_successful "select * from table1 group by cube(col1, col2)"
   end
 
-  def test_select_for_update_clause
+  def test_select_for_update_clause_parseable
     parse_successful "select * from table1 for update"
   end
 
-  def test_select_for_update_clause_column
+  def test_select_for_update_clause_column_parseable
     parse_successful "select * from table1 for update of column1"
   end
 
-  def test_select_for_update_clause_table_and_column
+  def test_select_for_update_clause_table_and_column_parseable
     parse_successful "select * from table1 for update of table1.column1"
   end
 
-  def test_select_for_update_clause_schema_and_table_and_column
+  def test_select_for_update_clause_schema_and_table_and_column_parseable
     parse_successful "select * from table1 for update of schema1.table1.column1"
   end
 
-  def test_select_for_update_clause_nowait
+  def test_select_for_update_clause_nowait_parseable
     parse_successful "select * from table1 for update nowait"
   end
 
-  def test_select_for_update_clause_wait
+  def test_select_for_update_clause_wait_parseable
     parse_successful "select * from table1 for update wait 1"
   end
 
