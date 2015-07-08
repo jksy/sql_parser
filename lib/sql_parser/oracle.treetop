@@ -79,7 +79,11 @@ module SqlParser
     end
 
     rule dblink
-      ident <Identifier>
+      ident
+    end
+
+    rule cursor_name
+      ident
     end
 
     rule sequence

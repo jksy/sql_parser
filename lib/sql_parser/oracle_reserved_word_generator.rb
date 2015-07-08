@@ -96,6 +96,7 @@ EOS
         'CHAR',
         'CHECK',
         'CLUSTER',
+        'CURRENT_OF',
         'COLUMN',
         'COLUMN_VALUE',
         'COMMENT',

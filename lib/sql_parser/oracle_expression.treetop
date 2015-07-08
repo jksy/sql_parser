@@ -72,19 +72,19 @@ module SqlParser
     end
     
     rule cursor_expression
-      'cursor_expression'
+      'cursor_expression' # not implemented
     end
 
     rule datetime_expression
-      'datetime_expression'
+      'datetime_expression' # not implemented
     end
 
     rule function_expression
-      'function_expression'
+      'function_expression' # not implemented
     end
 
     rule interval_expression
-      'interval_expression'
+      'interval_expression' # not implemented
     end
 
     rule object_access_expression
@@ -96,7 +96,7 @@ module SqlParser
     end
 
     rule model_expression
-      'model_expression'
+      'model_expression' #
     end
 
     rule type_constructor_expression

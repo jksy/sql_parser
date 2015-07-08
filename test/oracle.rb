@@ -302,6 +302,14 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "update table1 set col1 = 1, col2 = 2"
   end
 
+  def test_update_condition_parseable
+    parse_successful "update table1 set col1 = 1 where col2 = 1"
+  end
+
+  def test_update_current_of_condition_parseable
+    parse_successful "update table1 set col1 = 1 where current_of cursor_name"
+  end
+
   # expression
   def test_simple_expression_rownum_parseable
     parse_successful "select rownum from dual"
