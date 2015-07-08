@@ -5,14 +5,14 @@ module SqlParser::Oracle
     include SqlParser::Oracle::Expression
     include SqlParser::Oracle::Select
     include SqlParser::Oracle::Update
+    include SqlParser::Oracle::Delete
     rule sql
-      q:(select_statement / update_statement) {
+      q:(select_statement / update_statement / delete_statement) {
         def ast
           q.ast
         end
       }
     end
-
 
     rule ident
       !keyword [a-zA-Z] [a-zA-Z0-9_]* <SqlParser::Identifier>
@@ -21,7 +21,6 @@ module SqlParser::Oracle
     rule space
       ' '+
     end
-
 
     rule hint # not implemented
       '/*+' '*/' {

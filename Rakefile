@@ -10,6 +10,7 @@ task :gen do
   tt "lib/sql_parser/oracle/select.treetop"
   tt "lib/sql_parser/oracle/update.treetop"
   tt "lib/sql_parser/oracle/oracle.treetop"
+  tt "lib/sql_parser/oracle/delete.treetop"
 end
 
 def tt(f)

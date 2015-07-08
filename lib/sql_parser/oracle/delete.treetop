@@ -1,0 +1,30 @@
+module SqlParser::Oracle
+  grammar Delete
+    rule delete_statement
+      delete_keyword space? 
+      delete_from_clause space?
+      delete_condition?
+      returning_clause?
+    end
+
+    rule delete_from_clause
+      from_keyword space? delete_target
+    end
+
+    rule delete_target
+      ( 
+        table_reference / 
+        (table_keyword space)? '(' space? subquery space? ')' 
+      ) space? 
+      t_alias?
+    end
+
+    rule delete_condition
+      where_keyword space?
+      (
+        search_condition /
+        current_of_keyword space? cursor_name
+      )
+    end
+  end
+end

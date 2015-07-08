@@ -362,4 +362,33 @@ class OracleTest < Test::Unit::TestCase
   def test_searched_case_expression_else_parseable
     parse_successful "select case when salary > 2000 then salary else 2000 end from customers"
   end
+
+  # delete
+  def test_delete_parseable
+    parse_successful "delete from table1"
+  end
+
+  def test_delete_target_table_reference_parseable
+    parse_successful "delete from table1"
+  end
+
+  def test_delete_target_table_subquery_parseable
+    parse_successful "delete from (select 1 from dual)"
+  end
+
+  def test_delete_target_table_keyword_parseable
+    parse_successful "delete from table (select 1 from dual)"
+  end
+
+  def test_delete_target_alias_parseable
+    parse_successful "delete from table1 table_alias"
+  end
+
+  def test_delete_condition_with_search_condition_parseable
+    parse_successful "delete from table1 where col1 = 1"
+  end
+
+  def test_delete_condition_with_current_of_parseable
+    parse_successful "delete from table1 where current_of cursor_name"
+  end
 end
