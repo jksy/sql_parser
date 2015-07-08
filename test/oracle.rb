@@ -7,7 +7,7 @@ class OracleTest < Test::Unit::TestCase
 
   def enable_debug
    indent = 0
-   method_names = SqlParser::OracleParser.instance_methods.grep(/_nt_.*/)
+   method_names = SqlParser::Oracle::OracleParser.instance_methods.grep(/_nt_.*/)
    method_names.each do |name|
      SqlParser::Oracle::OracleParser.send(:define_method, "#{name}_new") do
        indent = indent + 1
@@ -31,7 +31,7 @@ class OracleTest < Test::Unit::TestCase
     parser = SqlParser::Oracle::OracleParser.new
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n" 
+      message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
       raise parser.failure_reason + message
     end
   end
@@ -95,6 +95,54 @@ class OracleTest < Test::Unit::TestCase
 
   def test_select_table_and_asterisk_parseable
     parse_successful "select table1.* from table1"
+  end
+
+  def test_join_clause_parseable
+    parse_successful "select * from table1 inner join table2 on table1.col1 = table2.col1"
+  end
+
+  def test_inner_join_clause_with_on_parseable
+    parse_successful "select * from table1 inner join table2 on table1.col1 = table2.col1"
+  end
+
+  def test_inner_join_clause_with_using_parseable
+    parse_successful "select * from table1 inner join table2 using (col1, col2)"
+  end
+
+  def test_cross_join_clause_parseable
+    parse_successful "select * from table1 cross join table2"
+  end
+
+  def test_cross_join_clause_with_natual_parseable
+    parse_successful "select * from table1 natural join table2"
+  end
+
+  def test_cross_join_clause_with_natural_using_parseable
+    parse_successful "select * from table1 natural inner join table2"
+  end
+
+  def test_outer_join_clause_full_join_parseable
+    parse_successful "select * from table1 full outer join table2 on table1.col1 = table2.col2"
+  end
+
+  def test_outer_join_clause_left_join_parseable
+    parse_successful "select * from table1 left join table2 on table1.col1 = table2.col2"
+  end
+
+  def test_outer_join_clause_right_join_parseable
+    parse_successful "select * from table1 right join table2 on table1.col1 = table2.col2"
+  end
+
+  def test_outer_join_clause_natural_join_parseable
+    parse_successful "select * from table1 natural join table2 on table1.col1 = table2.col2"
+  end
+
+  def test_outer_join_clause_natural_jointype_parseable
+    parse_successful "select * from table1 natural left join table2 on table1.col1 = table2.col2"
+  end
+
+  def test_outer_join_clause_using_parseable
+    parse_successful "select * from table1 natural left join table2 using (col1, col2)"
   end
 
   def test_select_where_parseable

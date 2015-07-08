@@ -50,10 +50,6 @@ module SqlParser::Oracle
       ident
     end
 
-    rule select_sources
-      ident
-    end
-
     rule number_literal
       '-'? [0-9]+ ([.] [0-9]+)? <SqlParser::NumberLiteral>
     end

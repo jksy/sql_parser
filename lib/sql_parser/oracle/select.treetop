@@ -36,6 +36,70 @@ module SqlParser::Oracle
       model_clause? space?
     end
 
+    rule select_sources
+      join_clause /
+      '(' space? join_clause space? ')' /
+      table_reference
+    end
+
+    rule join_clause
+      table_reference space
+      (
+        outer_join_clause /
+        inner_cross_join_clause
+      )
+    end
+
+    rule inner_cross_join_clause
+      inner_join_clause /
+      cross_join_clause
+    end
+
+    rule inner_join_clause
+      inner_keyword space? join_keyword space? table_reference space?
+      (
+        on_keyword space? condition /
+        using_keyword space? '(' space? column_list space? ')'
+      )
+    end
+
+    rule cross_join_clause
+      (
+        cross_keyword /
+        natural_keyword (space inner_keyword)?
+      ) space join_keyword space table_reference
+    end
+
+    rule column_list
+      column_name (space? ',' space? column_name)*
+    end
+
+    rule outer_join_clause
+      query_partition_clause?
+      (
+        outer_join_type space? join_keyword /
+        natural_keyword space? outer_join_type? space? join_keyword
+      ) space
+      table_reference space
+      (query_partition_clause space)?
+      (
+        on_keyword space? condition /
+        using_keyword space '(' space? column_list space? ')'
+      )
+    end
+
+    rule query_partition_clause
+      'query_partition_clause'
+    end
+
+    rule outer_join_type
+      (
+        full_keyword /
+        left_keyword /
+        right_keyword
+      ) (space outer_keyword)?
+    end
+
     rule for_update_clause
       for_keyword space?
       update_keyword space?
