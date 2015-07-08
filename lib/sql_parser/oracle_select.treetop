@@ -93,9 +93,9 @@ module SqlParser
     end
 
     rule select_column
-      expr ( space ( as_keyword space )? c_alias )?  {
+      sql_expression ( space ( as_keyword space )? c_alias )?  {
         def ast
-          [expr, as, c_alias]
+          [sql_expression, as, c_alias]
         end
       }
     end

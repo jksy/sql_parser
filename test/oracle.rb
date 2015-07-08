@@ -289,13 +289,57 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select * from table1 order by col1 nulls last"
   end
 
-  def test_select_order_by_clause_plural_column
+  def test_select_order_by_clause_plural_column_parseable
     parse_successful "select * from table1 order by col1 asc, col2 desc"
   end
 
   # update
-  def test_update
-#    enable_debug
+  def test_update_parseable
     parse_successful "update table1 set col1 = 1"
+  end
+
+  def test_update_plural_column_parseable
+    parse_successful "update table1 set col1 = 1, col2 = 2"
+  end
+
+  # expression
+  def test_simple_expression_rownum_parseable
+    parse_successful "select rownum from dual"
+  end
+
+  def test_simple_expression_text_literal_parseable
+    parse_successful "select 'asdlfjasldfja' from dual"
+  end
+
+  def test_simple_expression_number_literal_parseable
+    parse_successful "select 13123 from dual"
+  end
+
+  def test_simple_expression_sequence_nextval_parseable
+    parse_successful "select sequence_name.nextval from dual"
+  end
+
+  def test_simple_expression_sequence_currval_parseable
+    parse_successful "select sequence_name.currval from dual"
+  end
+
+  def test_simple_expression_null_parseable
+    parse_successful "select null from dual"
+  end
+
+  def test_simple_expression_column_by_schema_table_column_parseable
+    parse_successful "select schema1.table1.column1 from dual"
+  end
+
+  def test_simple_expression_column_by_table_column_parseable
+    parse_successful "select table1.column1 from dual"
+  end
+
+  def test_simple_expression_column_by_column_parseable
+    parse_successful "select column1 from dual"
+  end
+
+  def test_simple_expression_column_by_rowid_parseable
+    parse_successful "select rowid from dual"
   end
 end

@@ -1,7 +1,80 @@
 module SqlParser
   grammar OracleExpression
     rule sql_expression
-      expr
+      simple_expression /
+      compound_expression /
+      case_expression /
+      cursor_expression /
+      datetime_expression /
+      function_expression /
+      interval_expression /
+      object_access_expression /
+      scalar_subquery_expression /
+      model_expression /
+      type_constructor_expression /
+      variable_expression
+    end
+
+    rule simple_expression
+      (
+        rownum_keyword /
+        text_literal /
+        number_literal /
+        sequence /
+        null_keyword /
+        simple_expression_column
+      )
+    end
+
+    rule simple_expression_column
+      (
+        ( schema_name space? '.' space? table_name '.' / table_name space? '.' space? )? 
+        ( rowid_keyword / column_name )
+      )
+    end
+
+    rule compound_expression
+      'compound_expression'
+    end
+
+    rule case_expression
+      'case_expression'
+    end
+    
+    rule cursor_expression
+      'cursor_expression'
+    end
+
+    rule datetime_expression
+      'datetime_expression'
+    end
+
+    rule function_expression
+      'function_expression'
+    end
+
+    rule interval_expression
+      'interval_expression'
+    end
+
+    rule object_access_expression
+      'object_access_expression'
+    end
+
+    rule scalar_subquery_expression
+      'scalar_subquery_expression'
+    end
+
+    rule model_expression
+      'model_expression'
+    end
+
+    rule type_constructor_expression
+      'type_constructor_expression'
+    end
+
+    rule variable_expression
+      'variable_expression'
     end
 
     rule expr
