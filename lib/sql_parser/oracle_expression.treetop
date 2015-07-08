@@ -2,9 +2,9 @@ module SqlParser
   grammar OracleExpression
     rule sql_expression
       simple_expression /
-      compound_expression /
       case_expression /
       cursor_expression /
+      compound_expression /
       datetime_expression /
       function_expression /
       interval_expression /
@@ -34,11 +34,41 @@ module SqlParser
     end
 
     rule compound_expression
-      'compound_expression'
+      'compound_expression' # not implemented
+#      (
+#        ('+' / '-' / prior_keyword) space? expr /
+#        (expr space? ('||' / '*' / '/' / '+' / '-') space? expr) /
+#        '(' space? expr space? ')'
+#      )
     end
 
     rule case_expression
-      'case_expression'
+      case_keyword space? (simple_case_expression / searched_case_expression) space?
+      else_clause? space? end_keyword
+    end
+
+    rule simple_case_expression
+      expr space (when_keyword space comparison_expr space then_keyword space? return_expr space?)+
+    end
+
+    rule comparison_expr
+      expr
+    end
+
+    rule return_expr
+      expr
+    end
+
+    rule else_expr
+      expr
+    end
+
+    rule searched_case_expression
+      when_keyword space? condition space? then_keyword space? return_expr
+    end
+
+    rule else_clause
+      else_keyword space? else_expr
     end
     
     rule cursor_expression
@@ -78,7 +108,7 @@ module SqlParser
     end
 
     rule expr
-      ident / text_literal / number_literal
+      sql_expression
     end
 
     rule exprs

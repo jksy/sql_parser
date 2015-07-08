@@ -92,6 +92,7 @@ EOS
         'AUDIT',
         'BETWEEN',
         'BY',
+        'CASE',
         'CHAR',
         'CHECK',
         'CLUSTER',
@@ -112,6 +113,7 @@ EOS
         'DISTINCT',
         'DROP',
         'ELSE',
+        'END',
         'ESCAPE',
         'EXCLUSIVE',
         'EXISTS',
@@ -203,6 +205,7 @@ EOS
         'VARCHAR2',
         'VIEW',
         'WAIT',
+        'WHEN',
         'WHENEVER',
         'WHERE',
       ]

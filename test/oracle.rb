@@ -342,4 +342,16 @@ class OracleTest < Test::Unit::TestCase
   def test_simple_expression_column_by_rowid_parseable
     parse_successful "select rowid from dual"
   end
+
+  def test_simple_case_expression_parseable
+    parse_successful "select case credit_limit when 100 then 'low' when 5000 then 'high' end from customers"
+  end
+
+  def test_simple_case_expression_else_parseable
+    parse_successful "select case credit_limit when 100 then 'low' when 5000 then 'high' else 'medium' end from customers"
+  end
+
+  def test_searched_case_expression_else_parseable
+    parse_successful "select case when salary > 2000 then salary else 2000 end from customers"
+  end
 end
