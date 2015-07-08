@@ -5,8 +5,10 @@ require 'rake/testtask'
 task :gen do
   sh "ruby lib/sql_parser/oracle_reserved_word_generator.rb"
   tt "lib/sql_parser/oracle_reserved_word.treetop"
+  tt "lib/sql_parser/oracle_expression.treetop"
   tt "lib/sql_parser/oracle_condition.treetop"
   tt "lib/sql_parser/oracle_select.treetop"
+  tt "lib/sql_parser/oracle_update.treetop"
   tt "lib/sql_parser/oracle.treetop"
 end
 

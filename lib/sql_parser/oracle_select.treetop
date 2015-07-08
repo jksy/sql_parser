@@ -1,6 +1,6 @@
 module SqlParser
   grammar OracleSelect
-    rule select_query
+    rule select_statement
       subquery for_update_clause? {
         def ast
           subquery.ast

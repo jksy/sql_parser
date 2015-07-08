@@ -36,6 +36,7 @@ class OracleTest < Test::Unit::TestCase
     end
   end
 
+  # select
   def test_select_parseable
     parse_successful 'select col1 from table1'
   end
@@ -290,5 +291,11 @@ class OracleTest < Test::Unit::TestCase
 
   def test_select_order_by_clause_plural_column
     parse_successful "select * from table1 order by col1 asc, col2 desc"
+  end
+
+  # update
+  def test_update
+#    enable_debug
+    parse_successful "update table1 set col1 = 1"
   end
 end

@@ -2,9 +2,11 @@ module SqlParser
   grammar Oracle
     include OracleReservedWord
     include OracleCondition
+    include OracleExpression
     include OracleSelect
+    include OracleUpdate
     rule sql
-      space? q:select_query {
+      q:(select_statement / update_statement) {
         def ast
           q.ast
         end
@@ -35,18 +37,6 @@ module SqlParser
 
     rule c_alias
       ident
-    end
-
-    rule expr
-      ident / text_literal / number_literal
-    end
-
-    rule exprs
-      expr (space? ',' space? expr)*
-    end
-
-    rule expression_list
-      ('(' exprs ')' / exprs)
     end
 
     rule table_name
@@ -80,6 +70,17 @@ module SqlParser
 
     rule text_literal
       "'" ("\\'" / !"'" .)* "'" <TextLiteral>
+    end
+
+    rule table_reference
+      (
+        schema_name '.' table_name /
+        table_name
+      ) ('@' dblink)?
+    end
+
+    rule dblink
+      ident <Identifier>
     end
 
   end

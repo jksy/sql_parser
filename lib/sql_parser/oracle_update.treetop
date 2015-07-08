@@ -1,0 +1,30 @@
+module SqlParser
+  grammar OracleUpdate
+    rule update_statement
+      update_keyword space update_target_table space?
+      set_keyword space update_target_column (space? ',' space? update_target_columns)* space?
+      (where_keyword update_condition)? space?
+      returning_clause?
+    end
+
+    rule update_target_table
+      (table_reference / '(' space? subquery space? ')' / table_keyword space? '(' space? subquery space? ')') (space? alias)?
+    end
+
+    rule update_target_column
+      column_name space? '=' space? sql_expression
+    end
+
+    rule update_condition
+      search_condition
+    end
+
+    rule returning_clause
+      'returning_clause'
+    end
+
+    rule alias
+      ident
+    end
+  end
+end

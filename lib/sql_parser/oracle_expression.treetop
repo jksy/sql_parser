@@ -1,0 +1,19 @@
+module SqlParser
+  grammar OracleExpression
+    rule sql_expression
+      expr
+    end
+
+    rule expr
+      ident / text_literal / number_literal
+    end
+
+    rule exprs
+      expr (space? ',' space? expr)*
+    end
+
+    rule expression_list
+      ('(' exprs ')' / exprs)
+    end
+  end
+end
