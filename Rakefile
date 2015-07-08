@@ -3,13 +3,13 @@ require 'rake'
 require 'rake/testtask'
 
 task :gen do
-  sh "ruby lib/sql_parser/oracle_reserved_word_generator.rb"
-  tt "lib/sql_parser/oracle_reserved_word.treetop"
-  tt "lib/sql_parser/oracle_expression.treetop"
-  tt "lib/sql_parser/oracle_condition.treetop"
-  tt "lib/sql_parser/oracle_select.treetop"
-  tt "lib/sql_parser/oracle_update.treetop"
-  tt "lib/sql_parser/oracle.treetop"
+  sh "ruby lib/sql_parser/oracle/reserved_word_generator.rb"
+  tt "lib/sql_parser/oracle/reserved_word.treetop"
+  tt "lib/sql_parser/oracle/expression.treetop"
+  tt "lib/sql_parser/oracle/condition.treetop"
+  tt "lib/sql_parser/oracle/select.treetop"
+  tt "lib/sql_parser/oracle/update.treetop"
+  tt "lib/sql_parser/oracle/oracle.treetop"
 end
 
 def tt(f)

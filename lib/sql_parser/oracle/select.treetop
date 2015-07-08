@@ -1,5 +1,5 @@
-module SqlParser
-  grammar OracleSelect
+module SqlParser::Oracle
+  grammar Select
     rule select_statement
       subquery for_update_clause? {
         def ast
@@ -89,7 +89,7 @@ module SqlParser
     end
 
     rule select_table
-      (table_name '.')? '*' <Identifier>
+      (table_name '.')? '*'
     end
 
     rule select_column

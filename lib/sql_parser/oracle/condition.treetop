@@ -1,5 +1,5 @@
-module SqlParser
-  grammar OracleCondition
+module SqlParser::Oracle
+  grammar Condition
     # where
     rule where_clause
       where_keyword space? logical_condition

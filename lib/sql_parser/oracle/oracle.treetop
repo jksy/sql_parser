@@ -1,10 +1,10 @@
-module SqlParser
+module SqlParser::Oracle
   grammar Oracle
-    include OracleReservedWord
-    include OracleCondition
-    include OracleExpression
-    include OracleSelect
-    include OracleUpdate
+    include SqlParser::Oracle::ReservedWord
+    include SqlParser::Oracle::Condition
+    include SqlParser::Oracle::Expression
+    include SqlParser::Oracle::Select
+    include SqlParser::Oracle::Update
     rule sql
       q:(select_statement / update_statement) {
         def ast
@@ -15,7 +15,7 @@ module SqlParser
 
 
     rule ident
-      !keyword [a-zA-Z] [a-zA-Z0-9_]* <Identifier>
+      !keyword [a-zA-Z] [a-zA-Z0-9_]* <SqlParser::Identifier>
     end
 
     rule space
@@ -56,7 +56,7 @@ module SqlParser
     end
 
     rule number_literal
-      '-'? [0-9]+ ([.] [0-9]+)? <NumberLiteral>
+      '-'? [0-9]+ ([.] [0-9]+)? <SqlParser::NumberLiteral>
     end
 
     rule position
@@ -64,11 +64,11 @@ module SqlParser
     end
 
     rule integer
-      '-'? [0-9]+ <NumberLiteral>
+      '-'? [0-9]+ <SqlParser::NumberLiteral>
     end
 
     rule text_literal
-      "'" ("\\'" / !"'" .)* "'" <TextLiteral>
+      "'" ("\\'" / !"'" .)* "'" <SqlParser::TextLiteral>
     end
 
     rule table_reference

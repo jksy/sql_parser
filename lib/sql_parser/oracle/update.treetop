@@ -1,5 +1,5 @@
-module SqlParser
-  grammar OracleUpdate
+module SqlParser::Oracle
+  grammar Update
     rule update_statement
       update_target_clause space?
       update_set_clause space?

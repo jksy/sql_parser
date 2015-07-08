@@ -9,7 +9,7 @@ class OracleTest < Test::Unit::TestCase
    indent = 0
    method_names = SqlParser::OracleParser.instance_methods.grep(/_nt_.*/)
    method_names.each do |name|
-     SqlParser::OracleParser.send(:define_method, "#{name}_new") do
+     SqlParser::Oracle::OracleParser.send(:define_method, "#{name}_new") do
        indent = indent + 1
        parsing_text = "#{input[0..index-1]}*#{input[index..-1]}"
        puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
@@ -17,7 +17,7 @@ class OracleTest < Test::Unit::TestCase
        indent = indent - 1
        result
      end
-     SqlParser::OracleParser.class_eval do
+     SqlParser::Oracle::OracleParser.class_eval do
        alias_method "#{name}_old", "#{name}"
        alias_method "#{name}", "#{name}_new"
      end
@@ -28,7 +28,7 @@ class OracleTest < Test::Unit::TestCase
   end
 
   def parse_successful(query)
-    parser = SqlParser::OracleParser.new
+    parser = SqlParser::Oracle::OracleParser.new
     result = parser.parse query
     if result.nil?
       message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n" 

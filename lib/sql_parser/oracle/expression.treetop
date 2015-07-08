@@ -1,5 +1,5 @@
-module SqlParser
-  grammar OracleExpression
+module SqlParser::Oracle
+  grammar Expression
     rule sql_expression
       simple_expression /
       case_expression /
