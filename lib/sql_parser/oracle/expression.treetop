@@ -1,12 +1,12 @@
 module SqlParser::Oracle
   grammar Expression
     rule sql_expression
+      function_expression /
       simple_expression /
       case_expression /
       cursor_expression /
       compound_expression /
       datetime_expression /
-      function_expression /
       interval_expression /
       object_access_expression /
       scalar_subquery_expression /
@@ -28,7 +28,7 @@ module SqlParser::Oracle
 
     rule simple_expression_column
       (
-        ( schema_name space? '.' space? table_name '.' / table_name space? '.' space? )? 
+        ( schema_name space? '.' space? table_name '.' / table_name space? '.' space? )?
         ( rowid_keyword / column_name )
       )
     end
@@ -80,7 +80,20 @@ module SqlParser::Oracle
     end
 
     rule function_expression
-      'function_expression' # not implemented
+      function_name space? '(' space? function_args? space? ')'
+    end
+
+    rule function_name
+      package_name '.' procedure_name /
+      procedure_name
+    end
+
+    rule function_args
+      function_arg ( space? ',' space? function_arg )*
+    end
+
+    rule function_arg
+      expr
     end
 
     rule interval_expression

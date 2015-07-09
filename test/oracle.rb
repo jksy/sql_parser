@@ -411,6 +411,22 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select case when salary > 2000 then salary else 2000 end from customers"
   end
 
+  def test_function_expression_no_args_parseable
+    parse_successful "select func() from dual"
+  end
+
+  def test_function_expression_one_args_parseable
+    parse_successful "select one_arg_function(col1) from customers"
+  end
+
+  def test_function_expression_two_args_parseable
+    parse_successful "select two_args_function(1, '0') from dual"
+  end
+
+  def test_function_expression_package_name_parseable
+    parse_successful "select package_name.procedure_name(col1) from customers"
+  end
+
   # delete
   def test_delete_parseable
     parse_successful "delete from table1"

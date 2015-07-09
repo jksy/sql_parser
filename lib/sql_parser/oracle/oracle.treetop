@@ -85,5 +85,12 @@ module SqlParser::Oracle
       ident space? '.' space? (currval_keyword / nextval_keyword)
     end
 
+    rule package_name
+      ident
+    end
+
+    rule procedure_name
+      ident
+    end
   end
 end
