@@ -18,6 +18,8 @@ module SqlParser::Oracle
     rule simple_expression
       (
         rownum_keyword /
+        sysdate_keyword /
+        systimestamp_keyword /
         text_literal /
         number_literal /
         sequence /

@@ -427,6 +427,10 @@ class OracleTest < Test::Unit::TestCase
     parse_successful "select package_name.procedure_name(col1) from customers"
   end
 
+  def test_function_expression_function_in_args_parseable
+    parse_successful "select to_date(to_char(sysdate, 'yyyy/mm/dd hh24:mi:ss')) from dual"
+  end
+
   # delete
   def test_delete_parseable
     parse_successful "delete from table1"

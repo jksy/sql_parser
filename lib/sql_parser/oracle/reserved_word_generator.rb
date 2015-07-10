@@ -200,6 +200,7 @@ EOS
           'SUCCESSFUL',
           'SYNONYM',
           'SYSDATE',
+          'SYSTIMESTAMP',
           'TABLE',
           'THEN',
           'TO',
