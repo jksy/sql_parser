@@ -17,7 +17,11 @@ module SqlParser
         def to_s
           content = []
           content << "    rule #{rule_name}"
-          content << "      #{matcher} <SqlParser::Keyword>"
+          content << "      #{matcher} {"
+          content << "        def ast"
+          content << "          SqlParser::Ast::Keyword.new(:name => text_value)"
+          content << "        end"
+          content << "      }"
           content << "    end"
           content.join("\n")
         end

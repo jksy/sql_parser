@@ -1,9 +1,10 @@
 module SqlParser::Oracle
   grammar Select
     rule select_statement
-      subquery for_update_clause? {
+      subquery for_update_clause:for_update_clause? {
         def ast
-          subquery.ast
+          SqlParser::Ast::SelectStatement.new(:subquery => subquery.ast,
+                                              :for_update_clause => for_update_clause.ast)
         end
       }
     end
@@ -11,48 +12,80 @@ module SqlParser::Oracle
     rule subquery
       query_block
       (
-        (
+        more_queries:(
           union_keyword (space all_keyword?) /
           intersect_keyword /
           minus_keyword
         ) space? subquery )?
-      order_by_clause? {
+      order_by_clause:order_by_clause? {
         def ast
-          query_block.ast
+          SqlParser::Ast::Base.new(:query_block => query_block.ast,
+                                   :order_by_clause => order_by_clause.ast)
         end
       }
     end
 
     rule query_block
-      (subquery_factoring_clause space)?
+      (subquery_factoring_clause:subquery_factoring_clause space)?
       select_keyword space
-      hint?
-      ((all_keyword / distinct_keyword / unique_keyword) space)?
+      hint:hint?
+      mod:(modifier:(all_keyword / distinct_keyword / unique_keyword) space)?
       select_list space?
       from_keyword space?
       select_sources space?
-      where_clause? space?
-      group_by_clause? space?
-      model_clause? space?
+      where_clause:where_clause? space?
+      group_by_clause:group_by_clause? space?
+      model_clause:model_clause? space? {
+        def ast
+          SqlParser::Ast::Base.new(:hint => hint.ast,
+                                   :modifier => modifier.ast,
+                                   :select_list => select_list.ast,
+                                   :select_sources => select_sources.ast,
+                                   :where_clause => where_clause.ast,
+                                   :group_by_clause => group_by_clause.ast,
+                                   :model_clause => model_clause.ast)
+
+        end
+
+        def modifier
+          mod.modifier if mod.respond_to? :modifier
+        end
+      }
     end
 
     rule select_sources
       join_clause /
       '(' space? join_clause space? ')' /
-      table_reference
+      table_reference  {
+        def ast
+          if respond_to? :join_clause
+            join_clause.ast
+          else
+            super
+          end
+        end
+      }
     end
 
     rule join_clause
       table_reference space
       (
         outer_join_clause /
-        inner_cross_join_clause
+        inner_cross_join_clause {
+          def ast
+            super
+          end
+        }
       )
     end
 
     rule inner_cross_join_clause
       inner_join_clause /
-      cross_join_clause
+      cross_join_clause {
+        def ast
+          super
+        end
+      }
     end
 
     rule inner_join_clause
@@ -89,7 +122,11 @@ module SqlParser::Oracle
     end
 
     rule query_partition_clause
-      'query_partition_clause'
+      'query_partition_clause' {
+        def ast
+          nil
+        end
+      }
     end
 
     rule outer_join_type
@@ -117,6 +154,9 @@ module SqlParser::Oracle
 
     rule subquery_factoring_clause
       'subquery_factoring_clause' { # not implemented
+        def ast
+          nil
+        end
       }
     end
 
@@ -133,33 +173,38 @@ module SqlParser::Oracle
     rule select_list
       select_one_column more_list:( space? ',' space? c:select_one_column space? )* {
         def ast
-          [select_one_column, *more_columns].flatten
+          SqlParser::Ast::Base.new([select_one_column.ast] + more_columns.map(&:ast))
         end
 
         def more_columns
-          more_list.elements.map(&:c)
+          more_list.elements.map{|element| element.c}
         end
       }
     end
 
     rule select_one_column
       ( select_table /
-        select_column /
-        expr ) {
-          def ast
-            self.elements.first
-          end
-        }
+        expr /
+        select_column
+        ) {
+        def ast
+          super
+        end
+      }
     end
 
     rule select_table
-      (table_name '.')? '*'
+      (table_name '.')? '*' {
+        def ast
+          SqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
     end
 
     rule select_column
       sql_expression ( space ( as_keyword space )? c_alias )?  {
         def ast
-          [sql_expression, as, c_alias]
+          sql_expression.ast
         end
       }
     end
@@ -176,7 +221,11 @@ module SqlParser::Oracle
     end
 
     rule grouping_sets_clause
-      'grouping_sets_clause' # not implemented
+      'grouping_sets_clause' { # not implemented
+        def ast
+          nil
+        end
+      }
     end
 
     rule grouping_expression_list
@@ -184,7 +233,11 @@ module SqlParser::Oracle
     end
 
     rule model_clause
-      'model_clause'
+      'model_clause' {
+        def ast
+          nil
+        end
+      }
     end
   end
 end

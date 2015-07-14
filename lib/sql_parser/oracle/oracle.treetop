@@ -15,7 +15,11 @@ module SqlParser::Oracle
     end
 
     rule ident
-      !keyword [a-zA-Z] [a-zA-Z0-9_]* <SqlParser::Identifier>
+      !keyword [a-zA-Z] [a-zA-Z0-9_]* {
+        def ast
+          SqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
     end
 
     rule space
@@ -51,7 +55,11 @@ module SqlParser::Oracle
     end
 
     rule number_literal
-      '-'? [0-9]+ ([.] [0-9]+)? <SqlParser::NumberLiteral>
+      '-'? [0-9]+ ([.] [0-9]+)? {
+        def ast
+          SqlParser::Ast::NumberLiteral.new(:value => text_value)
+        end
+      }
     end
 
     rule position
@@ -59,11 +67,19 @@ module SqlParser::Oracle
     end
 
     rule integer
-      '-'? [0-9]+ <SqlParser::NumberLiteral>
+      '-'? [0-9]+ {
+        def ast
+          SqlParser::Ast::NumberLiteral.new(:value => text_value)
+        end
+      }
     end
 
     rule text_literal
-      "'" ("\\'" / !"'" .)* "'" <SqlParser::TextLiteral>
+      "'" ("\\'" / !"'" .)* "'" {
+        def ast
+          SqlParser::Ast::TextLiteral.new(:value => text_value)
+        end
+      }
     end
 
     rule table_reference

@@ -1,27 +1,7 @@
 require File.expand_path('test_helper.rb', File.dirname(__FILE__))
-require 'sql_parser'
 
 class OracleTest < Test::Unit::TestCase
   def setup
-  end
-
-  def enable_debug
-   indent = 0
-   method_names = SqlParser::Oracle::OracleParser.instance_methods.grep(/_nt_.*/)
-   method_names.each do |name|
-     SqlParser::Oracle::OracleParser.send(:define_method, "#{name}_new") do
-       indent = indent + 1
-       parsing_text = "#{input[0..index-1]}*#{input[index..-1]}"
-       puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
-       result = send("#{name}_old")
-       indent = indent - 1
-       result
-     end
-     SqlParser::Oracle::OracleParser.class_eval do
-       alias_method "#{name}_old", "#{name}"
-       alias_method "#{name}", "#{name}_new"
-     end
-   end
   end
 
   def teardown
@@ -34,6 +14,7 @@ class OracleTest < Test::Unit::TestCase
       message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
       raise parser.failure_reason + message
     end
+    result
   end
 
   # select
@@ -458,5 +439,41 @@ class OracleTest < Test::Unit::TestCase
 
   def test_delete_condition_with_current_of_parseable
     parse_successful "delete from table1 where current_of cursor_name"
+  end
+
+  # ast
+  def ast_sameness?(query, expect)
+    parsed =parse_successful(query)
+    actual = parsed.ast
+    need_equal(expect, actual)
+  end
+
+  def test_ast
+    ast_sameness?("select *, sysdate from dual where col1 = 1",
+      expect = Ast::SelectStatement[
+        :subquery => Ast::Base[
+          :query_block => Ast::Base[
+            :hint => nil,
+            :modifier => nil,
+            :select_list => Ast::Base[[
+                Ast::Identifier[:name => '*'],
+                Ast::Keyword[:name => 'sysdate']
+              ]],
+            :select_sources => Ast::Base["dual"],
+            :where_clause => Ast::WhereClause[
+              :condition => Ast::Base[
+                :left  => Ast::Base["col1"],
+                :op    => '=',
+                :right => Ast::NumberLiteral[:value => "1"]
+              ]
+            ],
+            :gropu_by_clause => nil,
+            :model_clause => nil
+          ],
+          :order_by_clause => nil
+        ],
+        :for_update_clause => nil
+      ]
+    )
   end
 end
