@@ -13,10 +13,13 @@ task :gen do
   tt "lib/sql_parser/oracle/delete.treetop"
 end
 
-def tt(f)
+def tt(f, force = false)
   output_file_name = "#{f.gsub(/\.treetop$/,'')}.rb"
-  cmd = "tt #{f} -f -o #{output_file_name}"
-  sh cmd
+
+  force = true unless File.exists?(output_file_name)
+  if !force && File::Stat.new(f).mtime >= File::Stat.new(output_file_name).mtime
+    sh "tt #{f} -f -o #{output_file_name}"
+  end
 end
 
 
