@@ -37,12 +37,12 @@ module SqlParser::Oracle
     end
 
     rule simple_expression_column
-      (
+      name:(
         ( schema_name space? '.' space? table_name '.' / table_name space? '.' space? )?
         ( rowid_keyword / column_name )
       ) {
         def ast
-          SqlParser::Ast::Base.new('simple_expression_column')
+          SqlParser::Ast::Identifier.new(:name => text_value)
         end
       }
     end
@@ -60,7 +60,7 @@ module SqlParser::Oracle
       case_keyword space? (simple_case_expression / searched_case_expression) space?
       else_clause? space? end_keyword {
         def ast
-          SqlParser::Ast::Base.new('case_expression')
+          'case_expression'
         end
       }
     end
@@ -68,7 +68,7 @@ module SqlParser::Oracle
     rule simple_case_expression
       expr space (when_keyword space comparison_expr space then_keyword space? return_expr space?)+ {
         def ast
-          SqlParser::Ast::Base.new('simple_case_expression')
+          'simple_case_expression'
         end
       }
     end
@@ -100,7 +100,7 @@ module SqlParser::Oracle
     rule searched_case_expression
       when_keyword space? condition space? then_keyword space? return_expr {
         def ast
-          SqlParser::Ast::Base.new('searched_case_expression')
+          'searched_case_expression'
         end
       }
     end
@@ -108,7 +108,7 @@ module SqlParser::Oracle
     rule else_clause
       else_keyword space? else_expr {
         def ast
-          SqlParser::Ast::Base.new('else_clause')
+          'else_clause'
         end
       }
     end
@@ -124,16 +124,18 @@ module SqlParser::Oracle
     rule function_expression
       function_name space? '(' space? function_args? space? ')' {
         def ast
-          SqlParser::Ast::Base.new('function_expression')
+          'function_expression'
         end
       }
     end
 
     rule function_name
-      package_name '.' procedure_name /
-      procedure_name {
+      (
+        package_name '.' procedure_name /
+        procedure_name 
+      ) {
         def ast
-          SqlParser::Ast::Base.new('function_name')
+          super
         end
       }
     end
@@ -141,7 +143,7 @@ module SqlParser::Oracle
     rule function_args
       function_arg ( space? ',' space? function_arg )* {
         def ast
-          SqlParser::Ast::Base.new('function_args')
+          'function_args'
         end
       }
     end
@@ -187,17 +189,24 @@ module SqlParser::Oracle
     end
 
     rule exprs
-      expr (space? ',' space? expr)* {
+      expr more:(space? ',' space? more_expr:expr)* {
         def ast
-          SqlParser::Ast::Base.new('exprs')
+          SqlParser::Ast::Base[[expr.ast] + more_exprs.map(&:ast)]
+        end
+
+        def more_exprs
+          more.elements.map{|e| e.more_expr}
         end
       }
     end
 
     rule expression_list
-      ('(' exprs ')' / exprs) {
+      (
+        '(' e:exprs ')' /
+        e:exprs
+      ) {
         def ast
-          SqlParser::Ast::Base.new('expression_list')
+          e.ast
         end
       }
     end

@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class TextLiteral < Base
+  class BetweenCondition < Base
   end
 end

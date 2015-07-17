@@ -1,4 +1,5 @@
 module SqlParser::Ast
-  class TextLiteral < Base
+  class Subquery < Base
+
   end
 end

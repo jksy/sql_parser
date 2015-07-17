@@ -35,23 +35,43 @@ module SqlParser::Oracle
     end
 
     rule t_alias
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule c_alias
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule table_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule column_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule schema_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule number_literal
@@ -63,7 +83,11 @@ module SqlParser::Oracle
     end
 
     rule position
-      integer
+      integer {
+        def ast
+          super
+        end
+      }
     end
 
     rule integer
@@ -77,7 +101,7 @@ module SqlParser::Oracle
     rule text_literal
       "'" ("\\'" / !"'" .)* "'" {
         def ast
-          SqlParser::Ast::TextLiteral.new(:value => text_value)
+          SqlParser::Ast::TextLiteral.new(:value => text_value[1..-2])
         end
       }
     end
@@ -86,27 +110,51 @@ module SqlParser::Oracle
       (
         schema_name '.' table_name /
         table_name
-      ) ('@' dblink)?
+      ) ('@' dblink)? {
+        def ast
+          SqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
     end
 
     rule dblink
-      ident
+      ident {
+        def ast 
+          super
+        end
+      }
     end
 
     rule cursor_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule sequence
-      ident space? '.' space? (currval_keyword / nextval_keyword)
+      ident space? '.' space? (currval_keyword / nextval_keyword) {
+        def ast
+          'sequence'
+        end
+      }
     end
 
     rule package_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
 
     rule procedure_name
-      ident
+      ident {
+        def ast
+          super
+        end
+      }
     end
   end
 end

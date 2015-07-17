@@ -19,8 +19,8 @@ module SqlParser::Oracle
         ) space? subquery )?
       order_by_clause:order_by_clause? {
         def ast
-          SqlParser::Ast::Base.new(:query_block => query_block.ast,
-                                   :order_by_clause => order_by_clause.ast)
+          SqlParser::Ast::Subquery.new(:query_block => query_block.ast,
+                                       :order_by_clause => order_by_clause.ast)
         end
       }
     end
@@ -93,18 +93,30 @@ module SqlParser::Oracle
       (
         on_keyword space? condition /
         using_keyword space? '(' space? column_list space? ')'
-      )
+      ) {
+        def ast
+          'inner_join_clause'
+        end
+      }
     end
 
     rule cross_join_clause
       (
         cross_keyword /
         natural_keyword (space inner_keyword)?
-      ) space join_keyword space table_reference
+      ) space join_keyword space table_reference {
+        def ast
+          'cross_join_clause'
+        end
+      }
     end
 
     rule column_list
-      column_name (space? ',' space? column_name)*
+      column_name (space? ',' space? column_name)* {
+        def ast
+          'column_list'
+        end
+      }
     end
 
     rule outer_join_clause
@@ -118,13 +130,17 @@ module SqlParser::Oracle
       (
         on_keyword space? condition /
         using_keyword space '(' space? column_list space? ')'
-      )
+      ) {
+        def ast
+          'outer_join_clause'
+        end
+      }
     end
 
     rule query_partition_clause
       'query_partition_clause' {
         def ast
-          nil
+          'query_partition_clause'
         end
       }
     end
@@ -134,14 +150,56 @@ module SqlParser::Oracle
         full_keyword /
         left_keyword /
         right_keyword
-      ) (space outer_keyword)?
+      ) (space outer_keyword)? {
+        def ast
+          'outer_join_type'
+        end
+      }
     end
 
     rule for_update_clause
       for_keyword space?
       update_keyword space?
-      (of_keyword space for_update_clause_column (space? ',' space? for_update_clause_column)*)?
-      (wait_keyword space? integer / nowait_keyword)?
+      f:(of_keyword space for_update_clause_columns)?
+      wait:(wait_with_integer / nowait_keyword)? {
+        def ast
+          SqlParser::Ast::ForUpdateClause[
+            :columns => for_update_clause_columns.ast,
+            :wait => wait.ast
+          ].remove_nil_values!
+        end
+
+        def for_update_clause_columns
+          if f.respond_to? :for_update_clause_columns
+            f.for_update_clause_columns
+          else
+            nil
+          end
+        end
+      }
+    end
+
+    rule wait_with_integer
+      wait_keyword space? integer {
+        def ast
+          integer.ast
+        end
+      }
+    end
+
+    rule for_update_clause_columns
+      for_update_clause_column more:(space? ',' space? more_for_update_clause_columns:for_update_clause_column)* {
+        def ast
+          SqlParser::Ast::Base[
+            [for_update_clause_column.ast] +
+            more_for_update_clause_columns.map(&:ast)
+          ]
+        end
+
+        def more_for_update_clause_columns
+          more.elements.map(&:more_for_update_clause_columns)
+        end
+      }
     end
 
     rule for_update_clause_column
@@ -149,25 +207,68 @@ module SqlParser::Oracle
         schema_name space? '.' space? table_name space? '.' space? column_name /
         table_name space? '.' space? column_name /
         space? column_name
-      )
+      ) {
+        def ast
+          SqlParser::Ast::Identifier[:name => text_value]
+        end
+      }
     end
 
     rule subquery_factoring_clause
       'subquery_factoring_clause' { # not implemented
         def ast
-          nil
+          'subquery_factoring_clause'
         end
       }
     end
 
     rule order_by_clause
-      order_keyword space (siblings_keyword space)? by_keyword space order_by_clause_item space? (',' space? order_by_clause_item space?)*
+      order_keyword space siblings:siblings_keyword? space? by_keyword space order_by_clause_items {
+        def ast
+          SqlParser::Ast::OrderByClause[
+            :siblings => siblings.ast,
+            :items => order_by_clause_items.ast
+          ]
+        end
+      }
+    end
+
+    rule order_by_clause_items
+      order_by_clause_item
+      more:(space? ',' space? order_by_clause_item space?)* {
+        def ast
+          SqlParser::Ast::Base[
+            [order_by_clause_item.ast] +
+            more_order_by_clause_items.map(&:ast)
+          ]
+        end
+
+        def more_order_by_clause_items
+          more.elements.map(&:order_by_clause_item)
+        end
+      }
     end
 
     rule order_by_clause_item
-      ( expr / position / c_alias) space?
-      ( asc_keyword / desc_keyword )? space?
-      ( nulls_keyword space (first_keyword / last_keyword))?
+      target:(expr / position / c_alias) space?
+      asc:(asc_keyword / desc_keyword)? space?
+      null:(nulls_keyword space first_or_last:(first_keyword / last_keyword))? {
+        def ast
+          SqlParser::Ast::OrderByClauseItem[
+            :target => target.ast,
+            :asc => asc.ast,
+            :nulls => nulls.ast
+          ]
+        end
+
+        def nulls
+          if null.respond_to? :first_or_last
+            null.first_or_last
+          else
+            nil
+          end
+        end
+      }
     end
 
     rule select_list
@@ -211,31 +312,75 @@ module SqlParser::Oracle
 
     # group
     rule group_by_clause
-      group_keyword space by_keyword space (( expr / rollup_cube_clause / grouping_sets_clause) space?)
-        (',' space? ((expr  / rollup_cube_clause / grouping_sets_clause) space?))*
-      (having_keyword space condition)?
+      group_keyword space by_keyword space target:group_column space?
+        t:(',' space? more_target:group_column space?)*
+        h:(having_keyword space condition:condition)? {
+        def ast
+          SqlParser::Ast::GroupByClause[
+            :targets => SqlParser::Ast::Base[
+              [target.ast] + more_targets.map(&:ast)
+            ],
+            :having => condition.ast
+          ]
+        end
+
+        def more_targets
+          t.elements.map{|e| e.more_target}
+        end
+
+        def condition
+          if h.respond_to? :condition
+            h.condition
+          else
+            nil
+          end
+        end
+      }
+    end
+
+    rule group_column
+      (
+        expr /
+        rollup_cube_clause /
+        grouping_sets_clause
+      ) {
+        def ast
+          super
+        end
+      }
     end
 
     rule rollup_cube_clause
-      (rollup_keyword / cube_keyword) space? '(' space? grouping_expression_list space? ')'
+      func_name:(rollup_keyword / cube_keyword) space? grouping_expression_list {
+        def ast
+          SqlParser::Ast::RollupCubeClause[
+            :func_name => func_name.ast,
+            :args => grouping_expression_list.ast
+          ]
+        end
+      }
     end
 
     rule grouping_sets_clause
       'grouping_sets_clause' { # not implemented
         def ast
-          nil
+          'grouping_sets_clause'
         end
       }
     end
 
     rule grouping_expression_list
-      expression_list (',' expression_list)*
+      expression_list {
+        def ast
+          super
+        end
+      }
     end
 
     rule model_clause
       'model_clause' {
         def ast
-          nil
+          'model_clause'
         end
       }
     end

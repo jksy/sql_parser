@@ -5,8 +5,22 @@ end
 module SqlParser::Ast
   class Base
     def initialize(args)
-      @ast = args
+      if args == nil
+        @ast = {}
+      else
+        @ast = args
+      end
       @diff = nil
+    end
+
+    def remove_nil_values!
+      case @ast
+      when Hash
+        @ast.delete_if{|key, value| value == nil}
+      when Base
+        @ast.remove_nil_values!
+      end
+      self
     end
 
     def inspect
@@ -25,20 +39,28 @@ module SqlParser::Ast
     end
 
     def method_missing(name, *args)
-      return @ast.send(:name, args) if @ast.has_key? name
-      raise "no method:#{name}"
+      return @ast.send(:[], name) if @ast.has_key? name
+      raise "no method:#{name}, #{@ast.class} in #{self.class}"
     end
 
     def to_s
       "<#{self.class} #{@ast.inspect}>"
     end
 
+    def to_ary
+      [self]
+    end
+
     def ast
       raise "do not call ast method"
     end
 
-    def self.[](value)
-      self.new(value)
+    def self.[](*value)
+      if value.length ==0
+        self.new(nil)
+      else
+        self.new(*value)
+      end
     end
 
     def self.find_different_value(left, right, &block)
@@ -59,8 +81,13 @@ module SqlParser::Ast
           result ||= self.find_different_value(left[key], right[key], &block)
         end
       when Array
-        left.each_with_index do |value, index|
-          result ||= self.find_different_value(value, right[index], &block)
+        if left.size == right.size
+          left.each_with_index do |value, index|
+            result ||= self.find_different_value(value, right[index], &block)
+          end
+        else
+          block.call(left, right) if block_given?
+          result = true
         end
       else
         if left != right

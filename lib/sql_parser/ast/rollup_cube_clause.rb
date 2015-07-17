@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class TextLiteral < Base
+  class RollupCubeClause < Base
   end
 end

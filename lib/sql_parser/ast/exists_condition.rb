@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class TextLiteral < Base
+  class ExistsCondition < Base
   end
 end
