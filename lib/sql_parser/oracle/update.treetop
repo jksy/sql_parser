@@ -3,39 +3,105 @@ module SqlParser::Oracle
     rule update_statement
       update_target_clause space?
       update_set_clause space?
-      update_where_clause?
-      returning_clause?
+      condition:update_where_clause?
+      returing:returning_clause? {
+        def ast
+          Ast::UpdateStatement[
+            :target => update_target_clause.ast,
+            :set => update_set_clause.ast,
+            :condition =>  condition.ast,
+            :returning =>  returing.ast
+          ]
+        end
+      }
     end
 
     rule update_target_clause
-      update_keyword space update_target_table
+      update_keyword space update_target_table {
+        def ast
+          update_target_table.ast
+        end
+      }
     end
 
     rule update_target_table
-      (
-        table_reference / 
-        '(' space? subquery space? ')' / 
-        table_keyword space? '(' space? subquery space? ')'
-      ) (space? t_alias)?
+      query_name:(
+        t:table_reference /
+        '(' space? t:subquery space? ')' /
+        table_keyword space? '(' space? t:subquery space? ')' # need saving table keyword
+      ) (space? t_alias:t_alias)? {
+        def ast
+          if respond_to? :t_alias
+            SqlParser::Ast::Base[:name => query_name.t.ast,
+                                 :alias => t_alias.ast]
+          else
+            query_name.t.ast
+          end
+        end
+      }
     end
 
     rule update_set_clause
-      set_keyword space update_target_column (space? ',' space? update_target_column)* space?
+      set_keyword space update_target_columns space? {
+        def ast
+          update_target_columns.ast
+        end
+      }
+    end
+
+    rule update_target_columns
+      update_target_column more:(space? ',' space? c:update_target_column)* {
+        def ast
+          SqlParser::Ast::Base[
+            [update_target_column.ast] + more_update_target_columns.map(&:ast)
+          ]
+        end
+
+        def more_update_target_columns
+          more.elements.map(&:c)
+        end
+      }
     end
 
     rule update_target_column
-      column_name space? '=' space? sql_expression
+      column_name space? op:'=' space? sql_expression {
+        def ast
+          SqlParser::Ast::UpdateSetColumn[
+            :column_name => column_name.ast,
+            :op => '=',
+            :value => sql_expression.ast
+          ]
+        end
+      }
     end
 
     rule update_where_clause
-      where_keyword space? (update_condition)
+      where_keyword space? update_condition {
+        def ast
+          SqlParser::Ast::WhereClause[
+            update_condition.ast
+          ]
+        end
+      }
     end
 
     rule update_condition
-      (
-        current_of_keyword space? cursor_name /
-        search_condition
-      )
+      update_current_of /
+      search_condition {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule update_current_of
+      current_of_keyword space? cursor_name {
+        def ast
+          SqlParser::Ast::CurrentOf[
+            :cursor_name => cursor_name.ast
+          ]
+        end
+      }
     end
 
     rule search_condition
