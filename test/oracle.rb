@@ -140,7 +140,7 @@ class OracleTest < Test::Unit::TestCase
   end
 
   def test_select_literal_float_nagavite_number_column_parseable
-    ast_sameness? 'select -1.1 from table1', 
+    ast_sameness? 'select -1.1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
@@ -453,7 +453,7 @@ class OracleTest < Test::Unit::TestCase
   end
 
   def test_select_where_with_logical_or_conditions_parseable
-    ast_sameness? "select * from table1 where col1 = col2 or col3 = col4", 
+    ast_sameness? "select * from table1 where col1 = col2 or col3 = col4",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
@@ -479,7 +479,6 @@ class OracleTest < Test::Unit::TestCase
           ]
         ]
       ]
-      
   end
 
   def test_select_where_with_like_onditions_parseable
@@ -631,7 +630,7 @@ class OracleTest < Test::Unit::TestCase
   end
 
   def test_select_where_with_null_conditions_parseable
-    ast_sameness? "select * from table1 where col1 is null", 
+    ast_sameness? "select * from table1 where col1 is null",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[

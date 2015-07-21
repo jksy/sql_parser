@@ -1,7 +1,7 @@
 module SqlParser::Oracle
   grammar Delete
     rule delete_statement
-      delete_keyword space? 
+      delete_keyword space?
       delete_from_clause space?
       delete_condition?
       returning_clause?
@@ -12,10 +12,10 @@ module SqlParser::Oracle
     end
 
     rule delete_target
-      ( 
-        table_reference / 
-        (table_keyword space)? '(' space? subquery space? ')' 
-      ) space? 
+      (
+        table_reference /
+        (table_keyword space)? '(' space? subquery space? ')'
+      ) space?
       t_alias?
     end
 

@@ -7,13 +7,13 @@ module SqlParser
           f.write self.generate_grammer_string(filename)
         end
       end
-  
+
       class KeywordRule
         attr_reader :keyword
         def initialize(keyword)
           @keyword = keyword
         end
-  
+
         def to_s
           content = []
           content << "    rule #{rule_name}"
@@ -25,11 +25,11 @@ module SqlParser
           content << "    end"
           content.join("\n")
         end
-  
+
         def rule_name
           "#{@keyword.downcase}_keyword"
         end
-  
+
         def matcher
           matcher = []
           keyword.each_char do |ch|
@@ -43,13 +43,13 @@ module SqlParser
           matcher.join(' ')
         end
       end
-  
+
       class MatchKeyword < Array
         attr_reader :rule_name
         def initialize(rule_name)
           @rule_name = rule_name
         end
-  
+
         def to_s
           content = []
           content << "    rule #{rule_name}"
@@ -58,7 +58,7 @@ module SqlParser
           content.join("\n")
         end
       end
-  
+
       def self.generate_grammer_string(filename)
         header = <<EOS
 #
@@ -68,7 +68,7 @@ module SqlParser::Oracle
   grammar ReservedWord
 EOS
         content = []
-  
+
         footer = <<EOS
   end
 end
@@ -79,11 +79,11 @@ EOS
           content << rule.to_s
           not_match_keyword << keyword
         end
-  
+
         content.unshift not_match_keyword.to_s
         header + content.join("\n") + footer
       end
-  
+
       def self.keywords
         [
           'ACCESS',

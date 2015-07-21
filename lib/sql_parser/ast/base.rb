@@ -73,7 +73,7 @@ module SqlParser::Ast
       case left
       when Base
         result ||= self.find_different_value(
-                      left.instance_variable_get(:@ast), 
+                      left.instance_variable_get(:@ast),
                       right.instance_variable_get(:@ast),
                       &block)
       when Hash

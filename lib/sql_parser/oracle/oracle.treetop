@@ -119,7 +119,7 @@ module SqlParser::Oracle
 
     rule dblink
       ident {
-        def ast 
+        def ast
           super
         end
       }
