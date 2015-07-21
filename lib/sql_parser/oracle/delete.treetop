@@ -3,28 +3,66 @@ module SqlParser::Oracle
     rule delete_statement
       delete_keyword space?
       delete_from_clause space?
-      delete_condition?
-      returning_clause?
+      delete_condition:delete_condition?
+      returning_clause:returning_clause? {
+        def ast
+          SqlParser::Ast::DeleteStatement[
+            :target => delete_from_clause.ast,
+            :condition => delete_condition.ast
+          ]
+        end
+      }
     end
 
     rule delete_from_clause
-      from_keyword space? delete_target
+      from_keyword space? delete_target {
+        def ast
+          delete_target.ast
+        end
+      }
     end
 
     rule delete_target
-      (
+      t:(
         table_reference /
-        (table_keyword space)? '(' space? subquery space? ')'
+        delete_target_subquery
       ) space?
-      t_alias?
+      t_alias:t_alias? {
+        def ast
+          Ast::DeleteTarget[
+            :name => t.ast,
+            :alias => t_alias.ast
+          ]
+        end
+      }
+    end
+
+    rule delete_target_subquery
+      (table_keyword space)? '(' space? subquery space? ')' {
+        def ast
+          subquery.ast
+        end
+      }
     end
 
     rule delete_condition
       where_keyword space?
-      (
+      where:(
         search_condition /
-        current_of_keyword space? cursor_name
-      )
+        current_of
+      ) {
+        def ast
+          where.ast
+        end
+      }
+    end
+
+    rule current_of
+      current_of_keyword space? cursor_name {
+        def ast
+          cursor_name.ast
+        end
+      }
     end
   end
 end
