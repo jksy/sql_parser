@@ -13,7 +13,7 @@ class OracleTest < Test::Unit::TestCase
 
   def same_ast?(query, expect)
     actual = generate_ast(query)
-    need_equal(expect, actual)
+    assert_ast_equal(expect, actual)
   end
 
   # select
