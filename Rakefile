@@ -27,7 +27,12 @@ end
 
 Rake::TestTask.new do |t|
   t.libs << "test"
-  t.test_files = FileList['test/oracle.rb']
+  t.test_files = FileList[
+                    'test/oracle_select.rb',
+                    'test/oracle_update.rb',
+                    'test/oracle_expression.rb',
+                    'test/oracle_delete.rb',
+                    ]
   t.verbose = true
 end
 
