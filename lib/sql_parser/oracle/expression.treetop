@@ -20,7 +20,6 @@ module SqlParser::Oracle
     end
 
     rule simple_expression
-      (
         rownum_keyword /
         sysdate_keyword /
         systimestamp_keyword /
@@ -28,8 +27,7 @@ module SqlParser::Oracle
         text_literal /
         number_literal /
         sequence /
-        simple_expression_column
-      ) {
+        simple_expression_column {
         def ast
           super
         end
@@ -57,18 +55,32 @@ module SqlParser::Oracle
     end
 
     rule case_expression
-      case_keyword space? (simple_case_expression / searched_case_expression) space?
-      else_clause? space? end_keyword {
+      case_keyword space? case_expression:(simple_case_expression / searched_case_expression) space?
+      else_clause:else_clause? space? end_keyword {
         def ast
-          'case_expression'
+          ast = case_expression.ast
+          ast.else_clause = else_clause.ast
+          ast
         end
       }
     end
 
     rule simple_case_expression
-      expr space (when_keyword space comparison_expr space then_keyword space? return_expr space?)+ {
+      expr space w:(when_keyword space comparison_expr space then_keyword space? return_expr space?)+ {
         def ast
-          'simple_case_expression'
+          SqlParser::Ast::SimpleCaseExpression[
+            :condition => expr.ast,
+            :when_clauses => SqlParser::Ast::Base[when_clauses]
+          ]
+        end
+
+        def when_clauses
+          w.elements.map do |elem|
+            SqlParser::Ast::Base[
+              :when_expr => elem.comparison_expr.ast,
+              :return_expr => elem.return_expr.ast
+            ]
+          end
         end
       }
     end
@@ -100,7 +112,10 @@ module SqlParser::Oracle
     rule searched_case_expression
       when_keyword space? condition space? then_keyword space? return_expr {
         def ast
-          'searched_case_expression'
+          SqlParser::Ast::SearchedCaseExpression[
+            :when_condition => condition.ast,
+            :return_expr => return_expr.ast
+          ]
         end
       }
     end
@@ -108,11 +123,11 @@ module SqlParser::Oracle
     rule else_clause
       else_keyword space? else_expr {
         def ast
-          'else_clause'
+          else_expr.ast
         end
       }
     end
-    
+
     rule cursor_expression
       'cursor_expression' # not implemented
     end
@@ -122,9 +137,12 @@ module SqlParser::Oracle
     end
 
     rule function_expression
-      function_name space? '(' space? function_args? space? ')' {
+      function_name space? '(' space? function_args:function_args? space? ')' {
         def ast
-          'function_expression'
+          SqlParser::Ast::FunctionExpressoin[
+            :name => function_name.ast,
+            :args => function_args ? function_args.ast : nil
+          ]
         end
       }
     end
@@ -132,18 +150,22 @@ module SqlParser::Oracle
     rule function_name
       (
         package_name '.' procedure_name /
-        procedure_name 
+        procedure_name
       ) {
         def ast
-          super
+          Ast::Identifier[:name => text_value]
         end
       }
     end
 
     rule function_args
-      function_arg ( space? ',' space? function_arg )* {
+      function_arg more:(space? ',' space? function_arg)* {
         def ast
-          'function_args'
+          Ast::Base[[function_arg.ast] + more_function_args.map(&:ast)]
+        end
+
+        def more_function_args
+          more.elements.map(&:function_arg)
         end
       }
     end

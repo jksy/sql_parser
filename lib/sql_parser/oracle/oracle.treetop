@@ -134,9 +134,9 @@ module SqlParser::Oracle
     end
 
     rule sequence
-      ident space? '.' space? (currval_keyword / nextval_keyword) {
+      ident space? '.' space? n:(currval_keyword / nextval_keyword) {
         def ast
-          'sequence'
+          SqlParser::Ast::Identifier[:value => text_value]
         end
       }
     end
