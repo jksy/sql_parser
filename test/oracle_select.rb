@@ -1,12 +1,6 @@
 require File.expand_path('test_helper.rb', File.dirname(__FILE__))
 
 class OracleSelect < Base
-  def setup
-  end
-
-  def teardown
-  end
-
   def test_select_parseable
     same_ast?("select col1 from table1",
        Ast::SelectStatement[

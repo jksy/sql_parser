@@ -5,9 +5,15 @@ module SqlParser::Oracle
     include SqlParser::Oracle::Expression
     include SqlParser::Oracle::Select
     include SqlParser::Oracle::Update
+    include SqlParser::Oracle::Insert
     include SqlParser::Oracle::Delete
     rule sql
-      q:(select_statement / update_statement / delete_statement) {
+      q:(
+        select_statement /
+        update_statement /
+        insert_statement /
+        delete_statement
+      ) {
         def ast
           q.ast
         end
