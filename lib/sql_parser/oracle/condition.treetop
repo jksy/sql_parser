@@ -10,25 +10,23 @@ module SqlParser::Oracle
     end
 
     rule condition
-      (
-        comparision_condition /
-        floating_point_condition /
-        model_condition /
-        mutiset_condition /
-        pattern_maching_condition /
-        range_condition /
-        null_condition /
-        xml_condition /
-        compound_condition /
-        between_condition /
-        exists_condition /
-        in_condition /
-        is_of_type_condition {
+      comparision_condition /
+      floating_point_condition /
+      model_condition /
+      mutiset_condition /
+      pattern_maching_condition /
+      range_condition /
+      null_condition /
+      xml_condition /
+      compound_condition /
+      between_condition /
+      exists_condition /
+      in_condition /
+      is_of_type_condition {
           def ast
             super
           end
         }
-      )
     end
 
     rule logical_condition
