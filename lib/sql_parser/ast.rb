@@ -4,6 +4,7 @@ module SqlParser
 end
 
 require 'sql_parser/ast/base.rb'
+require 'sql_parser/ast/array.rb'
 require 'sql_parser/ast/select_statement.rb'
 require 'sql_parser/ast/subquery.rb'
 require 'sql_parser/ast/where_clause.rb'

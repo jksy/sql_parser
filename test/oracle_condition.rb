@@ -6,9 +6,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -27,9 +27,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -48,9 +48,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -69,9 +69,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -90,9 +90,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -111,9 +111,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -132,9 +132,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -153,9 +153,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -174,9 +174,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LogicalCondition[
@@ -203,9 +203,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LogicalCondition[
@@ -232,9 +232,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -253,9 +253,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -274,9 +274,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -295,9 +295,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -316,9 +316,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -338,9 +338,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LikeCondition[
@@ -360,9 +360,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::RegexpCondition[
@@ -380,9 +380,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::NullCondition[
@@ -400,9 +400,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::NullCondition[
@@ -420,9 +420,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[
@@ -441,9 +441,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LogicalCondition[
@@ -465,9 +465,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::BetweenCondition[
@@ -486,9 +486,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::BetweenCondition[
@@ -509,9 +509,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::BetweenCondition[
@@ -530,9 +530,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::BetweenCondition[
@@ -551,9 +551,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::ExistsCondition[
@@ -570,9 +570,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::LogicalCondition[
@@ -592,9 +592,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::InCondition[
@@ -614,9 +614,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::InCondition[
@@ -637,9 +637,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::InCondition[
@@ -657,9 +657,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::InCondition[
@@ -678,9 +678,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
               :targets => Ast::Base[[
@@ -698,9 +698,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
               :targets => Ast::Base[[
@@ -723,9 +723,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
               :targets => Ast::Base[[
@@ -748,9 +748,9 @@ class OracleCondition < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
               :targets => Ast::Base[[
@@ -838,11 +838,11 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -854,11 +854,11 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::NumberLiteral[:value => '1']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -871,11 +871,11 @@ class OracleCondition < Base
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
             :siblings => Ast::Keyword[:name => 'siblings'],
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::NumberLiteral[:value => '1']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -887,12 +887,12 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1'],
                 :asc => Ast::Keyword[:name => 'asc']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -904,12 +904,12 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1'],
                 :asc => Ast::Keyword[:name => 'desc']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -921,12 +921,12 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1'],
                 :nulls => Ast::Keyword[:name => 'first']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -938,12 +938,12 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1'],
                 :nulls => Ast::Keyword[:name => 'last']
               ]
-            ]]
+            ]
           ]
         ]
       ]
@@ -955,7 +955,7 @@ class OracleCondition < Base
         :subquery => Ast::Subquery[
           :query_block => generate_ast("select * from table1").subquery.query_block,
           :order_by_clause => Ast::OrderByClause[
-            :items => Ast::Base[[
+            :items => Ast::Array[
               Ast::OrderByClauseItem[
                 :target => Ast::Identifier[:name => 'col1'],
                 :asc => Ast::Keyword[:name => 'asc']
@@ -964,7 +964,7 @@ class OracleCondition < Base
                 :target => Ast::Identifier[:name => 'col2'],
                 :asc => Ast::Keyword[:name => 'desc']
               ]
-            ]]
+            ]
           ]
         ]
       ]

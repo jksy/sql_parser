@@ -6,9 +6,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Keyword[:name => 'rownum']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -20,9 +20,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::TextLiteral[:value => 'asdlfjasldfja']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -34,9 +34,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '13123']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -48,9 +48,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:value => 'sequence_name.nextval']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -62,9 +62,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:value => 'sequence_name.currval']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -76,9 +76,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Keyword[:name => 'null']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -90,9 +90,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'schema1.table1.column1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -104,9 +104,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'table1.column1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -118,9 +118,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'column1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -132,9 +132,9 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'rowid']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ],
@@ -146,7 +146,7 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::SimpleCaseExpression[
                 :condition => Ast::Identifier[:name => 'credit_limit'],
                 :when_clauses => Ast::Base[[
@@ -160,7 +160,7 @@ class OracleExpression < Base
                   ]
                 ]]
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'customers']
           ]
         ]
@@ -172,7 +172,7 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::SimpleCaseExpression[
                 :condition => Ast::Identifier[:name => 'credit_limit'],
                 :when_clauses => Ast::Base[[
@@ -187,7 +187,7 @@ class OracleExpression < Base
                 ]],
                 :else_clause => Ast::TextLiteral[:value => 'medium']
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'customers']
           ]
         ]
@@ -199,7 +199,7 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::SearchedCaseExpression[
                 :when_condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'salary'],
@@ -209,7 +209,7 @@ class OracleExpression < Base
                 :return_expr => Ast::Identifier[:name=>'salary'],
                 :else_clause => Ast::NumberLiteral[:value => '2001']
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'customers']
           ]
         ]
@@ -221,11 +221,11 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::FunctionExpressoin[
                 :name => Ast::Identifier[:name =>'func'],
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ]
@@ -237,14 +237,14 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::FunctionExpressoin[
                 :name => Ast::Identifier[:name => 'one_arg_function'],
                 :args => Ast::Base[[
                   Ast::Identifier[:name => 'col1']
                 ]],
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'customers']
           ],
         ]
@@ -256,7 +256,7 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::FunctionExpressoin[
                 :name => Ast::Identifier[:name => 'two_args_function'],
                 :args => Ast::Base[[
@@ -264,7 +264,7 @@ class OracleExpression < Base
                   Ast::TextLiteral[:value => '0'],
                 ]],
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ]
@@ -276,14 +276,14 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::FunctionExpressoin[
                 :name => Ast::Identifier[:name => 'package_name.procedure_name'],
                 :args => Ast::Base[[
                   Ast::Identifier[:name => 'col1'],
                 ]],
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'customers']
           ],
         ]
@@ -295,7 +295,7 @@ class OracleExpression < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::FunctionExpressoin[
                 :name => Ast::Identifier[:name => 'to_date'],
                 :args => Ast::Base[[
@@ -308,7 +308,7 @@ class OracleExpression < Base
                   ]
                 ]],
               ]
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'dual']
           ],
         ]

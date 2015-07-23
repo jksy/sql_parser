@@ -6,9 +6,9 @@ class OracleSelect < Base
        Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'col1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ],
         ],
@@ -22,9 +22,9 @@ class OracleSelect < Base
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
             :modifier => Ast::Keyword[:name => 'all'],
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'col1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -37,9 +37,9 @@ class OracleSelect < Base
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
             :modifier => Ast::Keyword[:name => 'distinct'],
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'col2']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -52,9 +52,9 @@ class OracleSelect < Base
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
             :modifier => Ast::Keyword[:name => 'unique'],
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'col2']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -86,9 +86,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -100,9 +100,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '-1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -114,9 +114,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '1.1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -128,9 +128,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '-1.1']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -142,9 +142,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::TextLiteral[:value => 'adslfael']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -156,9 +156,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -170,9 +170,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => 'table1.*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1']
           ]
         ]
@@ -244,9 +244,9 @@ class OracleSelect < Base
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
           :query_block => Ast::Base[
-            :select_list => Ast::Base[[
+            :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
-            ]],
+            ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :where_clause => Ast::WhereClause[
               :condition => Ast::SimpleComparisionCondition[

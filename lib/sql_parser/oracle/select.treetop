@@ -237,9 +237,8 @@ module SqlParser::Oracle
       order_by_clause_item
       more:(space? ',' space? order_by_clause_item space?)* {
         def ast
-          SqlParser::Ast::Base[
-            [order_by_clause_item.ast] +
-            more_order_by_clause_items.map(&:ast)
+          SqlParser::Ast::Array[
+            order_by_clause_item.ast, *more_order_by_clause_items.map(&:ast)
           ]
         end
 
@@ -274,7 +273,7 @@ module SqlParser::Oracle
     rule select_list
       select_one_column more_list:( space? ',' space? c:select_one_column space? )* {
         def ast
-          SqlParser::Ast::Base.new([select_one_column.ast] + more_columns.map(&:ast))
+          SqlParser::Ast::Array[select_one_column.ast, *more_columns.map(&:ast)]
         end
 
         def more_columns
