@@ -316,8 +316,8 @@ module SqlParser::Oracle
         h:(having_keyword space condition:condition)? {
         def ast
           SqlParser::Ast::GroupByClause[
-            :targets => SqlParser::Ast::Base[
-              [target.ast] + more_targets.map(&:ast)
+            :targets => SqlParser::Ast::Array[
+              target.ast, *more_targets.map(&:ast)
             ],
             :having => condition.ast
           ]

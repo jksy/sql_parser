@@ -683,10 +683,10 @@ class OracleCondition < Base
             ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
-              :targets => Ast::Base[[
+              :targets => Ast::Array[
                 Ast::Identifier[:name => 'col1'],
                 Ast::Identifier[:name => 'col2']
-              ]]
+              ]
             ]
           ]
         ]
@@ -703,10 +703,10 @@ class OracleCondition < Base
             ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
-              :targets => Ast::Base[[
+              :targets => Ast::Array[
                 Ast::Identifier[:name => 'col1'],
                 Ast::Identifier[:name => 'col2']
-              ]],
+              ],
               :having => Ast::SimpleComparisionCondition[
                 :left => Ast::Identifier[:name => 'col1'],
                 :op => '=',
@@ -728,7 +728,7 @@ class OracleCondition < Base
             ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
-              :targets => Ast::Base[[
+              :targets => Ast::Array[
                 Ast::RollupCubeClause[
                   :func_name => Ast::Keyword[:name => 'rollup'],
                   :args => Ast::Base[[
@@ -736,7 +736,7 @@ class OracleCondition < Base
                     Ast::Identifier[:name => 'col2']
                   ]]
                 ],
-              ]]
+              ]
             ]
           ]
         ]
@@ -753,7 +753,7 @@ class OracleCondition < Base
             ],
             :select_sources => Ast::Identifier[:name => 'table1'],
             :group_by_clause => Ast::GroupByClause[
-              :targets => Ast::Base[[
+              :targets => Ast::Array[
                 Ast::RollupCubeClause[
                   :func_name => Ast::Keyword[:name => 'cube'],
                   :args => Ast::Base[[
@@ -761,7 +761,7 @@ class OracleCondition < Base
                     Ast::Identifier[:name => 'col2']
                   ]]
                 ],
-              ]]
+              ]
             ]
           ]
         ]
