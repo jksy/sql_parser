@@ -32,6 +32,7 @@ Rake::TestTask.new do |t|
                     'test/oracle_select.rb',
                     'test/oracle_update.rb',
                     'test/oracle_expression.rb',
+                    'test/oracle_condition.rb',
                     'test/oracle_delete.rb',
                     'test/oracle_insert.rb',
                     ]
