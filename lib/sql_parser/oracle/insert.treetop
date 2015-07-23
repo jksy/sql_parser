@@ -52,9 +52,7 @@ module SqlParser::Oracle
     rule insert_column_names
       '(' space? column_name more:(space? ',' space? column_name)* ')' {
         def ast
-          SqlParser::Ast::Base[
-            [column_name.ast] + more_column_names.map(&:ast)
-          ]
+          SqlParser::Ast::Array[column_name.ast, *more_column_names.map(&:ast)]
         end
 
         def more_column_names
@@ -74,7 +72,7 @@ module SqlParser::Oracle
     rule insert_values
       expr_or_default more:(space? ',' space? e:expr_or_default)* {
         def ast
-          Ast::Base[[expr_or_default.ast] + more_expr_or_defaults.map(&:ast)]
+          Ast::Array[expr_or_default.ast, *more_expr_or_defaults.map(&:ast)]
         end
 
         def more_expr_or_defaults

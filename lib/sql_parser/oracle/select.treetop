@@ -190,9 +190,8 @@ module SqlParser::Oracle
     rule for_update_clause_columns
       for_update_clause_column more:(space? ',' space? more_for_update_clause_columns:for_update_clause_column)* {
         def ast
-          SqlParser::Ast::Base[
-            [for_update_clause_column.ast] +
-            more_for_update_clause_columns.map(&:ast)
+          SqlParser::Ast::Array[
+            for_update_clause_column.ast, *more_for_update_clause_columns.map(&:ast)
           ]
         end
 

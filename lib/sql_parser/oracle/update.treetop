@@ -52,9 +52,7 @@ module SqlParser::Oracle
     rule update_target_columns
       update_target_column more:(space? ',' space? c:update_target_column)* {
         def ast
-          SqlParser::Ast::Base[
-            [update_target_column.ast] + more_update_target_columns.map(&:ast)
-          ]
+          SqlParser::Ast::Array[update_target_column.ast, *more_update_target_columns.map(&:ast)]
         end
 
         def more_update_target_columns

@@ -5,11 +5,11 @@ class OracleUpdate < Base
     same_ast? "update table1 set col1 = 1",
       Ast::UpdateStatement[
         :target => Ast::Identifier[:name => 'table1'],
-        :set => Ast::Base[[
+        :set => Ast::Array[
             Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
                                  :op => '=',
                                  :value => Ast::NumberLiteral[:value => '1']]
-        ]]
+        ]
       ]
   end
 
@@ -17,15 +17,13 @@ class OracleUpdate < Base
     same_ast? "update table1 set col1 = 1, col2 = 2",
       Ast::UpdateStatement[
         :target => Ast::Identifier[:name => 'table1'],
-        :set => Ast::Base[
-          [
+        :set => Ast::Array[
             Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
                                  :op => '=',
                                  :value => Ast::NumberLiteral[:value => '1']],
             Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col2'],
                                  :op => '=',
                                  :value => Ast::NumberLiteral[:value => '2']]
-          ]
         ]
       ]
   end

@@ -70,7 +70,7 @@ module SqlParser::Oracle
         def ast
           SqlParser::Ast::SimpleCaseExpression[
             :condition => expr.ast,
-            :when_clauses => SqlParser::Ast::Base[when_clauses]
+            :when_clauses => SqlParser::Ast::Array[*when_clauses]
           ]
         end
 
@@ -161,7 +161,7 @@ module SqlParser::Oracle
     rule function_args
       function_arg more:(space? ',' space? function_arg)* {
         def ast
-          Ast::Base[[function_arg.ast] + more_function_args.map(&:ast)]
+          Ast::Array[function_arg.ast, *more_function_args.map(&:ast)]
         end
 
         def more_function_args
@@ -213,7 +213,7 @@ module SqlParser::Oracle
     rule exprs
       expr more:(space? ',' space? more_expr:expr)* {
         def ast
-          SqlParser::Ast::Base[[expr.ast] + more_exprs.map(&:ast)]
+          SqlParser::Ast::Array[expr.ast, *more_exprs.map(&:ast)]
         end
 
         def more_exprs

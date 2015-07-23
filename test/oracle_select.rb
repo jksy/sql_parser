@@ -259,4 +259,301 @@ class OracleSelect < Base
         ]
       ]
   end
+
+  def test_select_group_by_expr_parseable
+    same_ast? "select * from table1 group by col1, col2",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => Ast::Base[
+            :select_list => Ast::Array[
+              Ast::Identifier[:name => '*']
+            ],
+            :select_sources => Ast::Identifier[:name => 'table1'],
+            :group_by_clause => Ast::GroupByClause[
+              :targets => Ast::Array[
+                Ast::Identifier[:name => 'col1'],
+                Ast::Identifier[:name => 'col2']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_group_by_having_condition_parseable
+    same_ast? "select * from table1 group by col1, col2 having col1 = col2",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => Ast::Base[
+            :select_list => Ast::Array[
+              Ast::Identifier[:name => '*']
+            ],
+            :select_sources => Ast::Identifier[:name => 'table1'],
+            :group_by_clause => Ast::GroupByClause[
+              :targets => Ast::Array[
+                Ast::Identifier[:name => 'col1'],
+                Ast::Identifier[:name => 'col2']
+              ],
+              :having => Ast::SimpleComparisionCondition[
+                :left => Ast::Identifier[:name => 'col1'],
+                :op => '=',
+                :right => Ast::Identifier[:name => 'col2']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_rollup_clause_parseable
+    same_ast? "select * from table1 group by rollup(col1, col2)",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => Ast::Base[
+            :select_list => Ast::Array[
+              Ast::Identifier[:name => '*']
+            ],
+            :select_sources => Ast::Identifier[:name => 'table1'],
+            :group_by_clause => Ast::GroupByClause[
+              :targets => Ast::Array[
+                Ast::RollupCubeClause[
+                  :func_name => Ast::Keyword[:name => 'rollup'],
+                  :args => Ast::Array[
+                    Ast::Identifier[:name => 'col1'],
+                    Ast::Identifier[:name => 'col2']
+                  ]
+                ],
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_cube_clause_parseable
+    same_ast? "select * from table1 group by cube(col1, col2)",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => Ast::Base[
+            :select_list => Ast::Array[
+              Ast::Identifier[:name => '*']
+            ],
+            :select_sources => Ast::Identifier[:name => 'table1'],
+            :group_by_clause => Ast::GroupByClause[
+              :targets => Ast::Array[
+                Ast::RollupCubeClause[
+                  :func_name => Ast::Keyword[:name => 'cube'],
+                  :args => Ast::Array[
+                    Ast::Identifier[:name => 'col1'],
+                    Ast::Identifier[:name => 'col2']
+                  ]
+                ],
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_for_update_clause_parseable
+    same_ast? "select * from table1 for update",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[]
+      ]
+  end
+
+  def test_select_for_update_clause_column_parseable
+    same_ast? "select * from table1 for update of column1",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[
+          :columns => Ast::Array[
+            Ast::Identifier[:name => 'column1']
+          ]
+        ]
+      ]
+  end
+
+  def test_select_for_update_clause_table_and_column_parseable
+    same_ast? "select * from table1 for update of table1.column1",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[
+          :columns => Ast::Array[
+            Ast::Identifier[:name => 'table1.column1']
+          ]
+        ]
+      ]
+  end
+
+  def test_select_for_update_clause_schema_and_table_and_column_parseable
+    same_ast? "select * from table1 for update of schema1.table1.column1",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[
+          :columns => Ast::Array[
+            Ast::Identifier[:name => 'schema1.table1.column1']
+          ]
+        ]
+      ]
+  end
+
+  def test_select_for_update_clause_nowait_parseable
+    same_ast? "select * from table1 for update nowait",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[
+          :wait => Ast::Keyword[:name => 'nowait']
+        ]
+      ]
+  end
+
+  def test_select_for_update_clause_wait_parseable
+    same_ast? "select * from table1 for update wait 1",
+      Ast::SelectStatement[
+        :subquery => generate_ast("select * from table1").subquery,
+        :for_update_clause => Ast::ForUpdateClause[
+          :wait => Ast::NumberLiteral[:value => '1']
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_expr_parseable
+    same_ast? "select * from table1 order by col1",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_position_parseable
+    same_ast? "select * from table1 order by 1",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::NumberLiteral[:value => '1']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_siblings_parseable
+    same_ast? "select * from table1 order siblings by 1",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :siblings => Ast::Keyword[:name => 'siblings'],
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::NumberLiteral[:value => '1']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_asc_parseable
+    same_ast? "select * from table1 order by col1 asc",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1'],
+                :asc => Ast::Keyword[:name => 'asc']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_desc_parseable
+    same_ast? "select * from table1 order by col1 desc",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1'],
+                :asc => Ast::Keyword[:name => 'desc']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_nulls_first_parseable
+    same_ast? "select * from table1 order by col1 nulls first",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1'],
+                :nulls => Ast::Keyword[:name => 'first']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_nulls_last_parseable
+    same_ast? "select * from table1 order by col1 nulls last",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1'],
+                :nulls => Ast::Keyword[:name => 'last']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
+
+  def test_select_order_by_clause_plural_column_parseable
+    same_ast? "select * from table1 order by col1 asc, col2 desc",
+      Ast::SelectStatement[
+        :subquery => Ast::Subquery[
+          :query_block => generate_ast("select * from table1").subquery.query_block,
+          :order_by_clause => Ast::OrderByClause[
+            :items => Ast::Array[
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col1'],
+                :asc => Ast::Keyword[:name => 'asc']
+              ],
+              Ast::OrderByClauseItem[
+                :target => Ast::Identifier[:name => 'col2'],
+                :asc => Ast::Keyword[:name => 'desc']
+              ]
+            ]
+          ]
+        ]
+      ]
+  end
 end
