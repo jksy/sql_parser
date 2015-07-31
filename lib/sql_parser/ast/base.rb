@@ -4,47 +4,27 @@ end
 
 module SqlParser::Ast
   class Base
-    def initialize(args)
-      if args == nil
-        @ast = {}
-      else
-        @ast = args
+    def initialize(arg)
+      if arg.instance_of?(Array) || arg.instance_of?(Hash)
+        raise "cant assign #{arg.class} Base.new()"
       end
-      @diff = nil
+      @ast = arg
     end
 
     def remove_nil_values!
-      case @ast
-      when Hash
-        @ast.delete_if{|key, value| value == nil}
-      when Base
-        @ast.remove_nil_values!
-      end
+      @ast.remove_nil_values! if @ast.respond_to? :remove_nil_values!
       self
     end
 
     def inspect
-      r = []
-      case @ast
-      when nil
-        r << "#<#{self.class.name} nil>"
-      when Hash, Array
-        r << "#<#{self.class.name} #{@ast.inspect}>"
-      when Array
-        r << "#<#{self.class.name} #{@ast.inspect}>"
-      else
-        r << "#<#{self.class.name} #{@ast.inspect}>"
-      end
-      r.join("\n")
+      "#<#{self.class.name} #{@ast.inspect}>"
     end
+
+    alias :to_s :inspect
 
     def method_missing(name, *args)
       return @ast.send(:[], name) if @ast.has_key? name
       raise "no method:#{name}, #{@ast.class} in #{self.class}"
-    end
-
-    def to_s
-      "<#{self.class} #{@ast.inspect}>"
     end
 
     def to_ary
@@ -80,7 +60,7 @@ module SqlParser::Ast
         (left.keys + right.keys).uniq.each do |key|
           result ||= self.find_different_value(left[key], right[key], &block)
         end
-      when Array
+      when SqlParser::Ast::Array
         if left.size == right.size
           left.each_with_index do |value, index|
             result ||= self.find_different_value(value, right[index], &block)

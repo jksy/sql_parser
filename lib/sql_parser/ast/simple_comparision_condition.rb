@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class SimpleComparisionCondition < Base
+  class SimpleComparisionCondition < Hash
   end
 end

@@ -41,7 +41,7 @@ module SqlParser::Oracle
       (t_alias space)?
       insert_column_names:insert_column_names? {
         def ast
-          SqlParser::Ast::Base[
+          SqlParser::Ast::Hash[
             :table => dml_table_expression_clause.ast,
             :column => insert_column_names.ast
           ]

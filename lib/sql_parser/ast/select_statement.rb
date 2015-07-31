@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class SelectStatement < Base
+  class SelectStatement < Hash
 
   end
 end

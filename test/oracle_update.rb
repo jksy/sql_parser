@@ -34,8 +34,8 @@ class OracleUpdate < Base
       Ast::UpdateStatement[
         :target => ast.target,
         :set => ast.set,
-        :condition => Ast::WhereClause[
-          Ast::SimpleComparisionCondition[
+        :where_clause => Ast::WhereClause[
+          :condition => Ast::SimpleComparisionCondition[
             :left => Ast::Identifier[:name => 'col2'],
             :op => '=',
             :right => Ast::NumberLiteral[:value => '1']
@@ -50,8 +50,8 @@ class OracleUpdate < Base
       Ast::UpdateStatement[
         :target => ast.target,
         :set => ast.set,
-        :condition => Ast::WhereClause[
-          SqlParser::Ast::CurrentOf[
+        :where_clause => Ast::WhereClause[
+          :condition => SqlParser::Ast::CurrentOf[
             :cursor_name => Ast::Identifier[:name => 'cursor_name']
           ]
         ]

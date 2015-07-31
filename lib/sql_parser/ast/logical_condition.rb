@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class LogicalCondition < Base
+  class LogicalCondition < Hash
   end
 end

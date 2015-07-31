@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class ForUpdateClause < Base
+  class ForUpdateClause < Hash
   end
 end

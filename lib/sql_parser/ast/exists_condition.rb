@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class ExistsCondition < Base
+  class ExistsCondition < Hash
   end
 end

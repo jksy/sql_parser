@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class FunctionExpressoin < Base
+  class FunctionExpressoin < Hash
   end
 end

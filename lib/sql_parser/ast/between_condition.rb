@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class BetweenCondition < Base
+  class BetweenCondition < Hash
   end
 end

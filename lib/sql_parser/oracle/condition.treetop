@@ -4,7 +4,7 @@ module SqlParser::Oracle
     rule where_clause
       where_keyword space? logical_condition {
         def ast
-          SqlParser::Ast::WhereClause.new(:condition => logical_condition.ast)
+          SqlParser::Ast::WhereClause[:condition => logical_condition.ast]
         end
       }
     end
@@ -39,12 +39,12 @@ module SqlParser::Oracle
         def ast
           if respond_to? :op
             if respond_to? :left
-              SqlParser::Ast::LogicalCondition.new(:left => left.ast,
-                                                   :op => op.ast,
-                                                   :right => right.ast)
+              SqlParser::Ast::LogicalCondition[:left => left.ast,
+                                               :op => op.ast,
+                                               :right => right.ast]
             else
-              SqlParser::Ast::LogicalCondition.new(:op => op.ast,
-                                                   :right => right.ast)
+              SqlParser::Ast::LogicalCondition[:op => op.ast,
+                                               :right => right.ast]
             end
           else
             cond.ast
@@ -74,9 +74,9 @@ module SqlParser::Oracle
         '(' space? left:exprs space? ')' op:space? ('!=' / '^=' / '<>' / '=') space? '(' space? right:subquery space? ')'
       ) {
         def ast
-          SqlParser::Ast::SimpleComparisionCondition.new(:left => left.ast,
-                                                         :op => op.text_value,
-                                                         :right => right.ast)
+          SqlParser::Ast::SimpleComparisionCondition[:left => left.ast,
+                                                     :op => op.text_value,
+                                                     :right => right.ast]
         end
       }
     end

@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class LikeCondition < Base
+  class LikeCondition < Hash
   end
 end

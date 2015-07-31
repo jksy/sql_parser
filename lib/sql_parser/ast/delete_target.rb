@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class DeleteTarget < Base
+  class DeleteTarget < Hash
 
   end
 end

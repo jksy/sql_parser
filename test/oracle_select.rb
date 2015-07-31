@@ -5,7 +5,7 @@ class OracleSelect < Base
     same_ast?("select col1 from table1",
        Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => 'col1']
             ],
@@ -20,7 +20,7 @@ class OracleSelect < Base
     same_ast? 'select all col1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :modifier => Ast::Keyword[:name => 'all'],
             :select_list => Ast::Array[
               Ast::Identifier[:name => 'col1']
@@ -35,7 +35,7 @@ class OracleSelect < Base
     same_ast? 'select distinct col2 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :modifier => Ast::Keyword[:name => 'distinct'],
             :select_list => Ast::Array[
               Ast::Identifier[:name => 'col2']
@@ -50,7 +50,7 @@ class OracleSelect < Base
     same_ast? 'select unique col2 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :modifier => Ast::Keyword[:name => 'unique'],
             :select_list => Ast::Array[
               Ast::Identifier[:name => 'col2']
@@ -85,7 +85,7 @@ class OracleSelect < Base
     same_ast? 'select 1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '1']
             ],
@@ -99,7 +99,7 @@ class OracleSelect < Base
     same_ast? 'select -1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '-1']
             ],
@@ -113,7 +113,7 @@ class OracleSelect < Base
     same_ast? 'select 1.1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '1.1']
             ],
@@ -127,7 +127,7 @@ class OracleSelect < Base
     same_ast? 'select -1.1 from table1',
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::NumberLiteral[:value => '-1.1']
             ],
@@ -141,7 +141,7 @@ class OracleSelect < Base
     same_ast? "select 'adslfael' from table1" ,
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::TextLiteral[:value => 'adslfael']
             ],
@@ -155,7 +155,7 @@ class OracleSelect < Base
     same_ast? "select * from table1",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -169,7 +169,7 @@ class OracleSelect < Base
     same_ast? "select table1.* from table1",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => 'table1.*']
             ],
@@ -243,7 +243,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 where col1 = col1",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -264,7 +264,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 group by col1, col2",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -284,7 +284,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 group by col1, col2 having col1 = col2",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -309,7 +309,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 group by rollup(col1, col2)",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -334,7 +334,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 group by cube(col1, col2)",
       Ast::SelectStatement[
         :subquery => Ast::Subquery[
-          :query_block => Ast::Base[
+          :query_block => Ast::Hash[
             :select_list => Ast::Array[
               Ast::Identifier[:name => '*']
             ],
@@ -359,7 +359,7 @@ class OracleSelect < Base
     same_ast? "select * from table1 for update",
       Ast::SelectStatement[
         :subquery => generate_ast("select * from table1").subquery,
-        :for_update_clause => Ast::ForUpdateClause[]
+        :for_update_clause => Ast::ForUpdateClause[{}]
       ]
   end
 

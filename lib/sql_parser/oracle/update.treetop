@@ -3,13 +3,13 @@ module SqlParser::Oracle
     rule update_statement
       update_target_clause space?
       update_set_clause space?
-      condition:update_where_clause?
+      update_where_clause:update_where_clause?
       returing:returning_clause? {
         def ast
           Ast::UpdateStatement[
             :target => update_target_clause.ast,
             :set => update_set_clause.ast,
-            :condition =>  condition.ast,
+            :where_clause => update_where_clause.ast,
             :returning =>  returing.ast
           ]
         end
@@ -32,7 +32,7 @@ module SqlParser::Oracle
       ) (space? t_alias:t_alias)? {
         def ast
           if respond_to? :t_alias
-            SqlParser::Ast::Base[:name => query_name.t.ast,
+            SqlParser::Ast::Hash[:name => query_name.t.ast,
                                  :alias => t_alias.ast]
           else
             query_name.t.ast
@@ -77,7 +77,7 @@ module SqlParser::Oracle
       where_keyword space? update_condition {
         def ast
           SqlParser::Ast::WhereClause[
-            update_condition.ast
+            :condition => update_condition.ast
           ]
         end
       }

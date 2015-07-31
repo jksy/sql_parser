@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class UpdateSetColumn < Base
+  class UpdateSetColumn < Hash
   end
 end

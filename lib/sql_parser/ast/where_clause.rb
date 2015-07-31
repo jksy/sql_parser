@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class WhereClause < Base
+  class WhereClause < Hash
   end
 end

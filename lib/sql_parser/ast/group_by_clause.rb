@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class GroupByClause < Base
+  class GroupByClause < Hash
   end
 end

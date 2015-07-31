@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class InsertStatement < Base
+  class InsertStatement < Hash
 
   end
 end

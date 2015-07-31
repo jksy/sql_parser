@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class RollupCubeClause < Base
+  class RollupCubeClause < Hash
   end
 end

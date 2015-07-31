@@ -18,6 +18,8 @@ class Base < Test::Unit::TestCase
 
   def same_ast?(query, expect)
     actual = generate_ast(query)
+    expect.remove_nil_values!
+    actual.remove_nil_values!
     assert_ast_equal(expect, actual)
   end
 

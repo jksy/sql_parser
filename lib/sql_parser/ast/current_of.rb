@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class CurrentOf < Base
+  class CurrentOf < Hash
   end
 end

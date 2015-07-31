@@ -76,7 +76,7 @@ module SqlParser::Oracle
 
         def when_clauses
           w.elements.map do |elem|
-            SqlParser::Ast::Base[
+            SqlParser::Ast::Hash[
               :when_expr => elem.comparison_expr.ast,
               :return_expr => elem.return_expr.ast
             ]

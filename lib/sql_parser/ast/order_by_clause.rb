@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class OrderByClause < Base
+  class OrderByClause < Hash
   end
 end

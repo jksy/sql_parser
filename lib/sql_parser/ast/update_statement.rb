@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class UpdateStatement < Base
+  class UpdateStatement < Hash
   end
 end

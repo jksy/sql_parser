@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class SimpleCaseExpression < Base
+  class SimpleCaseExpression < Hash
     def else_clause=(ast)
       @ast[:else_clause] = ast
     end

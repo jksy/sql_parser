@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class Identifier < Base
+  class Identifier < Hash
   end
 end

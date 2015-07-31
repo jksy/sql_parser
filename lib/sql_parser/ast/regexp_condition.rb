@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class RegexpCondition < Base
+  class RegexpCondition < Hash
   end
 end

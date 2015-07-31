@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class InCondition < Base
+  class InCondition < Hash
   end
 end

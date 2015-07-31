@@ -1,4 +1,4 @@
 module SqlParser::Ast
-  class NullCondition < Base
+  class NullCondition < Hash
   end
 end

@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class Keyword < Base
+  class Keyword < Hash
   end
 end
 

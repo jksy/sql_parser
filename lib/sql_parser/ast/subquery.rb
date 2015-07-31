@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class Subquery < Base
+  class Subquery < Hash
 
   end
 end

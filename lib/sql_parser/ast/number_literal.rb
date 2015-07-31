@@ -1,5 +1,5 @@
 module SqlParser::Ast
-  class NumberLiteral < Base
+  class NumberLiteral < Hash
   end
 end
 
