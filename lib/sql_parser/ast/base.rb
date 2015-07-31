@@ -22,25 +22,12 @@ module SqlParser::Ast
 
     alias :to_s :inspect
 
-    def method_missing(name, *args)
-      return @ast.send(:[], name) if @ast.has_key? name
-      raise "no method:#{name}, #{@ast.class} in #{self.class}"
-    end
-
-    def to_ary
-      [self]
-    end
-
     def ast
       raise "do not call ast method"
     end
 
-    def self.[](*value)
-      if value.length ==0
-        self.new(nil)
-      else
-        self.new(*value)
-      end
+    def self.[](value)
+      self.new(value)
     end
 
     def self.find_different_value(left, right, &block)

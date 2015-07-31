@@ -4,6 +4,9 @@ module SqlParser::Ast
   class Array < Base
     extend Forwardable
     def_delegator :@ast, :each, :[]
+    def self.[](*values)
+      self.new(*values)
+    end
 
     def initialize(*args)
       @ast = args
@@ -13,10 +16,6 @@ module SqlParser::Ast
       @ast.delete_if{|v| v.nil?}
       @ast.each {|v| v.remove_nil_values! if v.respond_to? :remove_nil_values!}
       self
-    end
-
-    def self.[](*values)
-      self.new(*values)
     end
   end
 end
