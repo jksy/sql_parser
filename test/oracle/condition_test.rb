@@ -6,7 +6,7 @@ module Oracle
       same_ast? "select * from table1 where col1 = col1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -27,7 +27,7 @@ module Oracle
       same_ast? "select * from table1 where col1 = 'abc'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -48,7 +48,7 @@ module Oracle
       same_ast? "select * from table1 where col1 = -1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -69,7 +69,7 @@ module Oracle
       same_ast? "select * from table1 where col1 != 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -90,7 +90,7 @@ module Oracle
       same_ast? "select * from table1 where col1 ^= 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -111,7 +111,7 @@ module Oracle
       same_ast? "select * from table1 where col1 <> 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -132,7 +132,7 @@ module Oracle
       same_ast? "select * from table1 where col1 <= 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -153,7 +153,7 @@ module Oracle
       same_ast? "select * from table1 where col1 >= 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -174,7 +174,7 @@ module Oracle
       same_ast? "select * from table1 where col1 = col2 and col3 = col4",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -203,7 +203,7 @@ module Oracle
       same_ast? "select * from table1 where col1 = col2 or col3 = col4",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -232,7 +232,7 @@ module Oracle
       same_ast? "select * from table1 where col1 like 'abc%'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -253,7 +253,7 @@ module Oracle
       same_ast? "select * from table1 where col1 likec 'abc%'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -274,7 +274,7 @@ module Oracle
       same_ast? "select * from table1 where col1 like2 'abc%'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -295,7 +295,7 @@ module Oracle
       same_ast? "select * from table1 where col1 like4 'abc%'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -316,7 +316,7 @@ module Oracle
       same_ast? "select * from table1 where col1 not like 'abc%'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -338,7 +338,7 @@ module Oracle
       same_ast? "select * from table1 where col1 like 'abc%' escape '@'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -360,7 +360,7 @@ module Oracle
       same_ast? "select * from table1 where regexp_like(col1,  '^Ste(v|ph)en$')",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -380,7 +380,7 @@ module Oracle
       same_ast? "select * from table1 where col1 is null",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -400,7 +400,7 @@ module Oracle
       same_ast? "select * from table1 where col1 is not null",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -420,7 +420,7 @@ module Oracle
       same_ast? "select * from table1 where (col1 = col2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -441,7 +441,7 @@ module Oracle
       same_ast? "select * from table1 where not col1 = col2",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -465,7 +465,7 @@ module Oracle
       same_ast? "select * from table1 where col1 between col2 and col3",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -486,7 +486,7 @@ module Oracle
       same_ast? "select * from table1 where col1 not between col2 and col3",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -509,7 +509,7 @@ module Oracle
       same_ast? "select * from table1 where col1 between 1 and 100",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -530,7 +530,7 @@ module Oracle
       same_ast? "select * from table1 where col1 between 'a' and 'z'",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -551,7 +551,7 @@ module Oracle
       same_ast? "select * from table1 where exists (select 1 from table2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -570,7 +570,7 @@ module Oracle
       same_ast? "select * from table1 where not exists (select 1 from table2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -592,7 +592,7 @@ module Oracle
       same_ast? "select * from table1 where col1 in (1)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -614,7 +614,7 @@ module Oracle
       same_ast? "select * from table1 where col1 not in (1)" ,
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -637,7 +637,7 @@ module Oracle
       same_ast? "select * from table1 where col1 in (select * from table2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
@@ -657,7 +657,7 @@ module Oracle
       same_ast? "select * from table1 where col1 not in (select * from table2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],

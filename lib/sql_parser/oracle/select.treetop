@@ -37,13 +37,13 @@ module SqlParser::Oracle
       group_by_clause:group_by_clause? space?
       model_clause:model_clause? space? {
         def ast
-          SqlParser::Ast::Hash[:hint => hint.ast,
-                               :modifier => modifier.ast,
-                               :select_list => select_list.ast,
-                               :select_sources => select_sources.ast,
-                               :where_clause => where_clause.ast,
-                               :group_by_clause => group_by_clause.ast,
-                               :model_clause => model_clause.ast]
+          SqlParser::Ast::QueryBlock[:hint => hint.ast,
+                                     :modifier => modifier.ast,
+                                     :select_list => select_list.ast,
+                                     :select_sources => select_sources.ast,
+                                     :where_clause => where_clause.ast,
+                                     :group_by_clause => group_by_clause.ast,
+                                     :model_clause => model_clause.ast]
 
         end
 

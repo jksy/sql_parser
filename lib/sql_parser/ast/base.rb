@@ -2,6 +2,16 @@ def nil.ast
   nil
 end
 
+def nil.to_sql
+  nil
+end
+
+class String
+  def to_sql
+    self
+  end
+end
+
 module SqlParser::Ast
   class Base
     def initialize(arg)
@@ -19,11 +29,18 @@ module SqlParser::Ast
     def inspect
       "#<#{self.class.name} #{@ast.inspect}>"
     end
-
     alias :to_s :inspect
 
     def ast
       raise "do not call ast method"
+    end
+
+    def to_sql
+      if @ast.respond_to? :to_sql
+        @ast.to_sql
+      else
+        @ast.to_s
+      end
     end
 
     def self.[](value)

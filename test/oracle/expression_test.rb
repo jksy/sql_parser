@@ -6,7 +6,7 @@ module Oracle
       same_ast? "select rownum from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Keyword[:name => 'rownum']
               ],
@@ -20,7 +20,7 @@ module Oracle
       same_ast? "select 'asdlfjasldfja' from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::TextLiteral[:value => 'asdlfjasldfja']
               ],
@@ -34,7 +34,7 @@ module Oracle
       same_ast? "select 13123 from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '13123']
               ],
@@ -48,7 +48,7 @@ module Oracle
       same_ast? "select sequence_name.nextval from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:value => 'sequence_name.nextval']
               ],
@@ -62,7 +62,7 @@ module Oracle
       same_ast? "select sequence_name.currval from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:value => 'sequence_name.currval']
               ],
@@ -76,7 +76,7 @@ module Oracle
       same_ast? "select null from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Keyword[:name => 'null']
               ],
@@ -90,7 +90,7 @@ module Oracle
       same_ast? "select schema1.table1.column1 from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'schema1.table1.column1']
               ],
@@ -104,7 +104,7 @@ module Oracle
       same_ast? "select table1.column1 from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'table1.column1']
               ],
@@ -118,7 +118,7 @@ module Oracle
       same_ast? "select column1 from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'column1']
               ],
@@ -132,7 +132,7 @@ module Oracle
       same_ast? "select rowid from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'rowid']
               ],
@@ -146,7 +146,7 @@ module Oracle
       same_ast? "select case credit_limit when 100 then 'low' when 5000 then 'high' end from customers",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SimpleCaseExpression[
                   :condition => Ast::Identifier[:name => 'credit_limit'],
@@ -172,7 +172,7 @@ module Oracle
       same_ast? "select case credit_limit when 100 then 'low' when 5000 then 'high' else 'medium' end from customers",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SimpleCaseExpression[
                   :condition => Ast::Identifier[:name => 'credit_limit'],
@@ -199,7 +199,7 @@ module Oracle
       same_ast? "select case when salary > 2000 then salary else 2001 end from customers",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SearchedCaseExpression[
                   :when_condition => Ast::SimpleComparisionCondition[
@@ -221,7 +221,7 @@ module Oracle
       same_ast? "select func() from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::FunctionExpressoin[
                   :name => Ast::Identifier[:name =>'func'],
@@ -237,7 +237,7 @@ module Oracle
       same_ast? "select one_arg_function(col1) from customers",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::FunctionExpressoin[
                   :name => Ast::Identifier[:name => 'one_arg_function'],
@@ -256,7 +256,7 @@ module Oracle
       same_ast? "select two_args_function(1, '0') from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::FunctionExpressoin[
                   :name => Ast::Identifier[:name => 'two_args_function'],
@@ -276,7 +276,7 @@ module Oracle
       same_ast? "select package_name.procedure_name(col1) from customers",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::FunctionExpressoin[
                   :name => Ast::Identifier[:name => 'package_name.procedure_name'],
@@ -295,7 +295,7 @@ module Oracle
       same_ast? "select to_date(to_char(sysdate, 'yyyy/mm/dd hh24:mi:ss')) from dual",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
-            :query_block => Ast::Hash[
+            :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::FunctionExpressoin[
                   :name => Ast::Identifier[:name => 'to_date'],
