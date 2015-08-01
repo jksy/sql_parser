@@ -3,7 +3,8 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Oracle
   class SelectTest < BaseTest
     def test_select_parseable
-      same_ast?("select col1 from table1",
+      assert_ast_sql_eual(
+        "select col1 from table1",
          Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -18,7 +19,8 @@ module Oracle
     end
   
     def test_select_all_parseable
-      same_ast? 'select all col1 from table1',
+      assert_ast_sql_eual(
+        'select all col1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -30,10 +32,12 @@ module Oracle
             ]
           ]
         ]
+      )
     end
   
     def test_select_distinct_parseable
-      same_ast? 'select distinct col2 from table1',
+      assert_ast_sql_eual(
+        'select distinct col2 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -45,6 +49,7 @@ module Oracle
             ]
           ]
         ]
+      )
     end
   
     def test_select_unique_parseable

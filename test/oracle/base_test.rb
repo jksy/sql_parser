@@ -19,11 +19,23 @@ module Oracle
       generate_ast(query)
     end
   
+    def assert_ast_sql_eual(query, expect_ast)
+      actual_ast = generate_ast(query)
+      actual_ast.remove_nil_values!
+      assert_ast_equal(expect_ast, expect_ast)
+      assert_sql_equal(expect_ast, query)
+    end
+
+    # obsolete, replace to assert_ast_sql_eual
     def same_ast?(query, expect)
       actual = generate_ast(query)
       expect.remove_nil_values!
       actual.remove_nil_values!
       assert_ast_equal(expect, actual)
+    end
+
+    def assert_sql_equal(ast, query)
+      assert_equal(ast.to_sql, query)
     end
   
     def enable_debug
