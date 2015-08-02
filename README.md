@@ -1,8 +1,6 @@
 # SqlParser
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sql_parser`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+SQL Parser for Oracle
 
 ## Installation
 
@@ -22,15 +20,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+query = "select 1 from dual"
+parser = SqlParser::Oracle::OracleParser.new
+syntax_tree = parser.parse query
+if syntax_tree
+  message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
+  raise parser.failure_reason + message
+end
+ast = syntax_tree.ast
+```
+<pre>
+irb(main):008:0> ast
+=> #<SqlParser::Ast::SelectStatement
+  :subquery => #<SqlParser::Ast::Subquery
+    :query_block => #<SqlParser::Ast::QueryBlock
+      :hint => nil,
+      :modifier => nil,
+      :select_list => #<SqlParser::Ast::Array [
+        #<SqlParser::Ast::NumberLiteral {:value=>"1"}>
+      ]>
+      ,
+      :select_sources => #<SqlParser::Ast::Identifier {:name=>"dual"}>,
+      :where_clause => nil,
+      :group_by_clause => nil,
+      :model_clause => nil}>
+    ,
+    :order_by_clause => nil}>
+  ,
+  :for_update_clause => nil}>
+</pre>
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake false` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sql_parser.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jksy/sql_parser.
 
