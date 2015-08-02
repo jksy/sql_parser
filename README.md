@@ -32,23 +32,23 @@ ast = syntax_tree.ast
 ```
 <pre>
 irb(main):008:0> ast
-=> #<SqlParser::Ast::SelectStatement
-  :subquery => #<SqlParser::Ast::Subquery
-    :query_block => #<SqlParser::Ast::QueryBlock
-      :hint => nil,
-      :modifier => nil,
-      :select_list => #<SqlParser::Ast::Array [
-        #<SqlParser::Ast::NumberLiteral {:value=>"1"}>
+=> #&lt;SqlParser::Ast::SelectStatement
+  :subquery =&gt; #&lt;SqlParser::Ast::Subquery
+    :query_block =&gt; #&lt;SqlParser::Ast::QueryBlock
+      :hint =&gt; nil,
+      :modifier =&gt; nil,
+      :select_list =&gt; #&lt;SqlParser::Ast::Array [
+        #&lt;SqlParser::Ast::NumberLiteral {:value=&gt;"1"}>
       ]>
       ,
-      :select_sources => #<SqlParser::Ast::Identifier {:name=>"dual"}>,
-      :where_clause => nil,
-      :group_by_clause => nil,
-      :model_clause => nil}>
+      :select_sources =&gt; #&lt;SqlParser::Ast::Identifier {:name=&gt;"dual"}>,
+      :where_clause =&gt; nil,
+      :group_by_clause =&gt; nil,
+      :model_clause =&gt; nil}>
     ,
-    :order_by_clause => nil}>
+    :order_by_clause =&gt; nil}>
   ,
-  :for_update_clause => nil}>
+  :for_update_clause =&gt; nil}>
 </pre>
 
 
