@@ -153,7 +153,7 @@ module SqlParser::Oracle
         procedure_name
       ) {
         def ast
-          Ast::Identifier[:name => text_value]
+          SqlParser::Ast::Identifier[:name => text_value]
         end
       }
     end
@@ -161,7 +161,7 @@ module SqlParser::Oracle
     rule function_args
       function_arg more:(space? ',' space? function_arg)* {
         def ast
-          Ast::Array[function_arg.ast, *more_function_args.map(&:ast)]
+          SqlParser::Ast::Array[function_arg.ast, *more_function_args.map(&:ast)]
         end
 
         def more_function_args

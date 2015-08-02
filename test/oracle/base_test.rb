@@ -2,6 +2,7 @@ require File.expand_path('../test_helper.rb', File.dirname(__FILE__))
 
 module Oracle
   class BaseTest < Test::Unit::TestCase
+    Ast = SqlParser::Ast
     def parser
       parser ||= SqlParser::Oracle::OracleParser.new
     end

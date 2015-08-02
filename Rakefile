@@ -35,7 +35,6 @@ Rake::TestTask.new do |t|
                     'test/oracle/condition_test.rb',
                     'test/oracle/delete_test.rb',
                     'test/oracle/insert_test.rb',
-                    'test/ast/select_statement_test.rb',
                     ]
   t.verbose = true
 end

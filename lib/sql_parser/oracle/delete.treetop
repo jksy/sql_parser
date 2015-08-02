@@ -29,7 +29,7 @@ module SqlParser::Oracle
       ) space?
       t_alias:t_alias? {
         def ast
-          Ast::DeleteTarget[
+          SqlParser::Ast::DeleteTarget[
             :name => t.ast,
             :alias => t_alias.ast
           ]

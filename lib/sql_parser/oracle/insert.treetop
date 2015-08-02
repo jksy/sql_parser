@@ -72,7 +72,7 @@ module SqlParser::Oracle
     rule insert_values
       expr_or_default more:(space? ',' space? e:expr_or_default)* {
         def ast
-          Ast::Array[expr_or_default.ast, *more_expr_or_defaults.map(&:ast)]
+          SqlParser::Ast::Array[expr_or_default.ast, *more_expr_or_defaults.map(&:ast)]
         end
 
         def more_expr_or_defaults

@@ -6,7 +6,7 @@ module SqlParser::Oracle
       update_where_clause:update_where_clause?
       returing:returning_clause? {
         def ast
-          Ast::UpdateStatement[
+          SqlParser::Ast::UpdateStatement[
             :target => update_target_clause.ast,
             :set => update_set_clause.ast,
             :where_clause => update_where_clause.ast,

@@ -4,12 +4,10 @@ lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sql_parser'
 
-Ast = SqlParser::Ast
-
 module Test::Unit::Assertions
   def assert_ast_equal(expect, actual)
     difference = []
-    Ast::Base.find_different_value(expect, actual) do |left, right|
+    SqlParser::Ast::Base.find_different_value(expect, actual) do |left, right|
       difference << {:expect => left, :actual => right}
     end
     full_message = build_message(<<EOS)
