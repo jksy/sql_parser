@@ -27,5 +27,11 @@ module SqlParser::Ast
       @ast.each {|v| v.remove_nil_values! if v.respond_to? :remove_nil_values!}
       self
     end
+
+    def inspect
+      "#<#{self.class.name} [\n" + 
+      @ast.map{|v| "#{v.inspect}"}.join(",\n").gsub(/^/, '  ') +
+      "\n]>\n"
+    end
   end
 end

@@ -16,6 +16,12 @@ module SqlParser::Ast
       self
     end
 
+    def inspect
+      "#<#{self.class.name}\n" + 
+      @ast.map{|k,v| "#{k.inspect} => #{v.inspect}"}.join(",\n").gsub(/^/, '  ') +
+      "}>\n"
+    end
+
     def to_sql
       @ast.map do |k,v|
         if v.respond_to? :to_sql
