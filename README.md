@@ -1,4 +1,4 @@
-# SqlParser
+# OracleSqlParser
 
 SQL Parser for Oracle
 
