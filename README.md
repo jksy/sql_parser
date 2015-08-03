@@ -7,7 +7,7 @@ SQL Parser for Oracle
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sql_parser'
+gem 'oracle-sql-parser'
 ```
 
 And then execute:
@@ -16,13 +16,13 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install sql_parser
+    $ gem install oracle-sql-parser
 
 ## Usage
 
 ```ruby
 query = "select 1 from dual"
-parser = SqlParser::Oracle::OracleParser.new
+parser = OracleSqlParser::Grammar::GrammarParser.new
 syntax_tree = parser.parse query
 if syntax_tree
   message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
@@ -32,16 +32,16 @@ ast = syntax_tree.ast
 ```
 <pre>
 irb(main):008:0> ast
-=> #&lt;SqlParser::Ast::SelectStatement
-  :subquery =&gt; #&lt;SqlParser::Ast::Subquery
-    :query_block =&gt; #&lt;SqlParser::Ast::QueryBlock
+=> #&lt;OracleSqlParser::Ast::SelectStatement
+  :subquery =&gt; #&lt;OracleSqlParser::Ast::Subquery
+    :query_block =&gt; #&lt;OracleSqlParser::Ast::QueryBlock
       :hint =&gt; nil,
       :modifier =&gt; nil,
-      :select_list =&gt; #&lt;SqlParser::Ast::Array [
-        #&lt;SqlParser::Ast::NumberLiteral {:value=&gt;"1"}>
+      :select_list =&gt; #&lt;OracleSqlParser::Ast::Array [
+        #&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}>
       ]>
       ,
-      :select_sources =&gt; #&lt;SqlParser::Ast::Identifier {:name=&gt;"dual"}>,
+      :select_sources =&gt; #&lt;OracleSqlParser::Ast::Identifier {:name=&gt;"dual"}>,
       :where_clause =&gt; nil,
       :group_by_clause =&gt; nil,
       :model_clause =&gt; nil}>
