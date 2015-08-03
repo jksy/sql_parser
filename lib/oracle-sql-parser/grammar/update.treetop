@@ -1,0 +1,113 @@
+module OracleSqlParser::Grammar
+  grammar Update
+    rule update_statement
+      update_target_clause space?
+      update_set_clause space?
+      update_where_clause:update_where_clause?
+      returing:returning_clause? {
+        def ast
+          OracleSqlParser::Ast::UpdateStatement[
+            :target => update_target_clause.ast,
+            :set => update_set_clause.ast,
+            :where_clause => update_where_clause.ast,
+            :returning =>  returing.ast
+          ]
+        end
+      }
+    end
+
+    rule update_target_clause
+      update_keyword space update_target_table {
+        def ast
+          update_target_table.ast
+        end
+      }
+    end
+
+    rule update_target_table
+      query_name:(
+        t:table_reference /
+        '(' space? t:subquery space? ')' /
+        table_keyword space? '(' space? t:subquery space? ')' # need saving table keyword
+      ) (space? t_alias:t_alias)? {
+        def ast
+          if respond_to? :t_alias
+            OracleSqlParser::Ast::Hash[:name => query_name.t.ast,
+                                 :alias => t_alias.ast]
+          else
+            query_name.t.ast
+          end
+        end
+      }
+    end
+
+    rule update_set_clause
+      set_keyword space update_target_columns space? {
+        def ast
+          update_target_columns.ast
+        end
+      }
+    end
+
+    rule update_target_columns
+      update_target_column more:(space? ',' space? c:update_target_column)* {
+        def ast
+          OracleSqlParser::Ast::Array[update_target_column.ast, *more_update_target_columns.map(&:ast)]
+        end
+
+        def more_update_target_columns
+          more.elements.map(&:c)
+        end
+      }
+    end
+
+    rule update_target_column
+      column_name space? op:'=' space? sql_expression {
+        def ast
+          OracleSqlParser::Ast::UpdateSetColumn[
+            :column_name => column_name.ast,
+            :op => '=',
+            :value => sql_expression.ast
+          ]
+        end
+      }
+    end
+
+    rule update_where_clause
+      where_keyword space? update_condition {
+        def ast
+          OracleSqlParser::Ast::WhereClause[
+            :condition => update_condition.ast
+          ]
+        end
+      }
+    end
+
+    rule update_condition
+      update_current_of /
+      search_condition {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule update_current_of
+      current_of_keyword space? cursor_name {
+        def ast
+          OracleSqlParser::Ast::CurrentOf[
+            :cursor_name => cursor_name.ast
+          ]
+        end
+      }
+    end
+
+    rule search_condition
+      logical_condition
+    end
+
+    rule returning_clause
+      'returning_clause' # not impremented
+    end
+  end
+end

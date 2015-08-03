@@ -1,0 +1,112 @@
+module OracleSqlParser::Grammar
+  grammar Insert
+    rule insert_statement
+      insert_keyword space?
+      hint?
+      t:(
+        single_table_insert /
+        multi_table_insert
+      ) {
+        def ast
+          t.ast
+        end
+      }
+    end
+
+    rule single_table_insert
+      insert_into_clause space?
+      t:(
+        values_clause returning_clause? /
+        subquery
+      ) space?
+      error_logging_clause? {
+        def ast
+          insert_into_ast = insert_into_clause.ast
+          OracleSqlParser::Ast::InsertStatement[
+            :insert => insert_into_ast.table,
+            :columns => insert_into_ast.column,
+            :values => values.ast
+          ]
+        end
+
+        def values
+          t.elements.first
+        end
+      }
+    end
+
+    rule insert_into_clause
+      into_keyword space
+      dml_table_expression_clause space
+      (t_alias space)?
+      insert_column_names:insert_column_names? {
+        def ast
+          OracleSqlParser::Ast::Hash[
+            :table => dml_table_expression_clause.ast,
+            :column => insert_column_names.ast
+          ]
+        end
+      }
+    end
+
+    rule insert_column_names
+      '(' space? column_name more:(space? ',' space? column_name)* ')' {
+        def ast
+          OracleSqlParser::Ast::Array[column_name.ast, *more_column_names.map(&:ast)]
+        end
+
+        def more_column_names
+          more.elements.map(&:column_name)
+        end
+      }
+    end
+
+    rule values_clause
+      values_keyword space? '(' space? insert_values space? ')' {
+        def ast
+          insert_values.ast
+        end
+      }
+    end
+
+    rule insert_values
+      expr_or_default more:(space? ',' space? e:expr_or_default)* {
+        def ast
+          OracleSqlParser::Ast::Array[expr_or_default.ast, *more_expr_or_defaults.map(&:ast)]
+        end
+
+        def more_expr_or_defaults
+          more.elements.map(&:e)
+        end
+      }
+    end
+
+    rule expr_or_default
+      expr / default_keyword {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule dml_table_expression_clause
+      (
+        schema_name '.' table_name '@' dblink /
+        schema_name '.' table_name /
+        table_name
+      ) {
+        def ast
+          OracleSqlParser::Ast::Identifier[:name => text_value]
+        end
+      }
+    end
+
+    rule multi_table_insert
+      'multi_table_insert' # do not support
+    end
+
+    rule error_logging_clause
+      'error_logging_clause' # do not support
+    end
+  end
+end

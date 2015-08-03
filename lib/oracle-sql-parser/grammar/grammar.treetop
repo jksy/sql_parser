@@ -1,0 +1,166 @@
+module OracleSqlParser::Grammar
+  grammar Grammar
+    include OracleSqlParser::Grammar::ReservedWord
+    include OracleSqlParser::Grammar::Condition
+    include OracleSqlParser::Grammar::Expression
+    include OracleSqlParser::Grammar::Select
+    include OracleSqlParser::Grammar::Update
+    include OracleSqlParser::Grammar::Insert
+    include OracleSqlParser::Grammar::Delete
+    rule sql
+      q:(
+        select_statement /
+        update_statement /
+        insert_statement /
+        delete_statement
+      ) {
+        def ast
+          q.ast
+        end
+      }
+    end
+
+    rule ident
+      !keyword [a-zA-Z] [a-zA-Z0-9_]* {
+        def ast
+          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
+    end
+
+    rule space
+      ' '+
+    end
+
+    rule hint # not implemented
+      '/*+' '*/' {
+        def ast
+          nil
+        end
+      }
+    end
+
+    rule t_alias
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule c_alias
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule table_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule column_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule schema_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule number_literal
+      '-'? [0-9]+ ([.] [0-9]+)? {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+        end
+      }
+    end
+
+    rule position
+      integer {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule integer
+      '-'? [0-9]+ {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+        end
+      }
+    end
+
+    rule text_literal
+      "'" ("\\'" / !"'" .)* "'" {
+        def ast
+          OracleSqlParser::Ast::TextLiteral.new(:value => text_value[1..-2])
+        end
+      }
+    end
+
+    rule table_reference
+      (
+        schema_name '.' table_name /
+        table_name
+      ) ('@' dblink)? {
+        def ast
+          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
+    end
+
+    rule dblink
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule cursor_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule sequence
+      ident space? '.' space? n:(currval_keyword / nextval_keyword) {
+        def ast
+          OracleSqlParser::Ast::Identifier[:value => text_value]
+        end
+      }
+    end
+
+    rule package_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule procedure_name
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+  end
+end

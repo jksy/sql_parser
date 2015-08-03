@@ -3,15 +3,15 @@ require 'rake'
 require 'rake/testtask'
 
 task :gen do
-  sh "ruby lib/sql_parser/oracle/reserved_word_generator.rb"
-  tt "lib/sql_parser/oracle/reserved_word.treetop"
-  tt "lib/sql_parser/oracle/expression.treetop"
-  tt "lib/sql_parser/oracle/condition.treetop"
-  tt "lib/sql_parser/oracle/select.treetop"
-  tt "lib/sql_parser/oracle/update.treetop"
-  tt "lib/sql_parser/oracle/delete.treetop"
-  tt "lib/sql_parser/oracle/insert.treetop"
-  tt "lib/sql_parser/oracle/oracle.treetop"
+  sh "ruby lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
+  tt "lib/oracle-sql-parser/grammar/reserved_word.treetop"
+  tt "lib/oracle-sql-parser/grammar/expression.treetop"
+  tt "lib/oracle-sql-parser/grammar/condition.treetop"
+  tt "lib/oracle-sql-parser/grammar/select.treetop"
+  tt "lib/oracle-sql-parser/grammar/update.treetop"
+  tt "lib/oracle-sql-parser/grammar/delete.treetop"
+  tt "lib/oracle-sql-parser/grammar/insert.treetop"
+  tt "lib/oracle-sql-parser/grammar/grammar.treetop"
 end
 
 def tt(f, force = false)
@@ -29,12 +29,12 @@ end
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList[
-                    'test/oracle/select_test.rb',
-                    'test/oracle/update_test.rb',
-                    'test/oracle/expression_test.rb',
-                    'test/oracle/condition_test.rb',
-                    'test/oracle/delete_test.rb',
-                    'test/oracle/insert_test.rb',
+                    'test/grammar/select_test.rb',
+                    'test/grammar/update_test.rb',
+                    'test/grammar/expression_test.rb',
+                    'test/grammar/condition_test.rb',
+                    'test/grammar/delete_test.rb',
+                    'test/grammar/insert_test.rb',
                     ]
   t.verbose = true
 end
