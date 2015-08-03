@@ -56,3 +56,6 @@ irb(main):008:0> ast
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jksy/sql_parser.
 
+## Test Page
+
+http://dev.jksy.org/
