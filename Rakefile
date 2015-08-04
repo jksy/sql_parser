@@ -2,29 +2,26 @@ require "bundler/gem_tasks"
 require 'rake'
 require 'rake/testtask'
 
+GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/*.treetop']
+
 task :gen do
-  sh "ruby lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
-  tt "lib/oracle-sql-parser/grammar/reserved_word.treetop"
-  tt "lib/oracle-sql-parser/grammar/expression.treetop"
-  tt "lib/oracle-sql-parser/grammar/condition.treetop"
-  tt "lib/oracle-sql-parser/grammar/select.treetop"
-  tt "lib/oracle-sql-parser/grammar/update.treetop"
-  tt "lib/oracle-sql-parser/grammar/delete.treetop"
-  tt "lib/oracle-sql-parser/grammar/insert.treetop"
-  tt "lib/oracle-sql-parser/grammar/grammar.treetop"
+  generate_parser_files(false)
 end
 
-def tt(f, force = false)
-  output_file_name = "#{f.gsub(/\.treetop$/,'')}.rb"
+task :gen_force do
+  generate_parser_files(true)
+end
 
-  force = true unless File.exists?(output_file_name)
-  if force || File::Stat.new(f).mtime >= File::Stat.new(output_file_name).mtime
-    sh "tt #{f} -f -o #{output_file_name}"
+task :clean do
+  GRAMMAR_FILES.each do |f|
+    file = "#{f.gsub(/\.treetop$/,'')}.rb"
+    File.unlink file if File.exists? file
   end
 end
 
-
-#task :test => [:generate]
+task :build_gem => [:gen_force] do
+  sh 'gem build oracle-sql-parser.gemspec'
+end
 
 Rake::TestTask.new do |t|
   t.libs << "test"
@@ -37,5 +34,22 @@ Rake::TestTask.new do |t|
                     'test/grammar/insert_test.rb',
                     ]
   t.verbose = true
+end
+
+
+def generate_parser_files(force = false)
+  sh "ruby lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
+  GRAMMAR_FILES.each do |f|
+    tt(f, force)
+  end
+end
+
+def tt(f, force = false)
+  output_file_name = "#{f.gsub(/\.treetop$/,'')}.rb"
+
+  force = true unless File.exists?(output_file_name)
+  if force || File::Stat.new(f).mtime >= File::Stat.new(output_file_name).mtime
+    sh "tt #{f} -f -o #{output_file_name}"
+  end
 end
 
