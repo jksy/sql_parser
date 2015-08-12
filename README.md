@@ -31,7 +31,6 @@ end
 ast = syntax_tree.ast
 ```
 <pre>
-irb(main):008:0> ast
 => #&lt;OracleSqlParser::Ast::SelectStatement
   :subquery =&gt; #&lt;OracleSqlParser::Ast::Subquery
     :query_block =&gt; #&lt;OracleSqlParser::Ast::QueryBlock
