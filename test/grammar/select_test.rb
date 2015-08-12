@@ -17,6 +17,22 @@ module Grammar
         ]
       )
     end
+
+    def test_identifier_is_wrapperd_double_quote
+      assert_ast_sql_eual(
+        'select col1 from "table1"',
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1']
+              ],
+              :select_sources => Ast::Identifier[:name => 'table1', :quoted => true]
+            ],
+          ],
+        ]
+      )
+    end
   
     def test_select_all_parseable
       assert_ast_sql_eual(

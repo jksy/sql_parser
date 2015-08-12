@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rake", "~> 10.0"
   spec.add_dependency "test-unit", "~> 3.1.2"
   spec.add_dependency "treetop", "~> 1.6.3"
+  spec.add_development_dependency "pry-byebug"
 end

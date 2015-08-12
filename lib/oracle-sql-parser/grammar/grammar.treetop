@@ -21,9 +21,29 @@ module OracleSqlParser::Grammar
     end
 
     rule ident
-      !keyword [a-zA-Z] [a-zA-Z0-9_]* {
+      !keyword
+      i:(
+        c:ident_content_with_double_quote /
+        c:ident_content
+      ) {
         def ast
-          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+          i.c.ast
+        end
+      }
+    end
+
+    rule ident_content
+      [a-zA-Z] [a-zA-Z0-9_]* {
+        def ast
+          OracleSqlParser::Ast::Identifier[:name => text_value]
+        end
+      }
+    end
+
+    rule ident_content_with_double_quote
+      '"' name:[^"]* '"' {
+        def ast
+          OracleSqlParser::Ast::Identifier[:name => name.text_value, :quoted => true]
         end
       }
     end
@@ -118,7 +138,11 @@ module OracleSqlParser::Grammar
         table_name
       ) ('@' dblink)? {
         def ast
-          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+          if(!respond_to?(:schema_name) || !respond_to?(:dblink))
+            OracleSqlParser::Ast::Identifier.new(:name => text_value)
+          else
+            table_name.ast
+          end
         end
       }
     end
