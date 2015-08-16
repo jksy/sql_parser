@@ -11,7 +11,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ],
           ],
         ]
@@ -27,7 +27,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1', :quoted => true]
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1', :quoted => true]]
             ],
           ],
         ]
@@ -44,7 +44,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -61,7 +61,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col2']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -77,7 +77,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col2']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -111,7 +111,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -125,7 +125,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '-1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -139,7 +139,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '1.1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -153,7 +153,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '-1.1']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -167,7 +167,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::TextLiteral[:value => 'adslfael']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -181,7 +181,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -195,7 +195,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'table1.*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1']
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
             ]
           ]
         ]
@@ -269,7 +269,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -290,7 +290,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::Identifier[:name => 'col1'],
@@ -310,7 +310,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::Identifier[:name => 'col1'],
@@ -335,7 +335,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::RollupCubeClause[
@@ -360,7 +360,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::RollupCubeClause[

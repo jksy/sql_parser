@@ -5,7 +5,9 @@ module Grammar
     def test_update_parseable
       same_ast? "update table1 set col1 = 1",
         Ast::UpdateStatement[
-          :target => Ast::Identifier[:name => 'table1'],
+          :target => Ast::TableReference[
+            :table_name => Ast::Identifier[:name => 'table1']
+          ],
           :set => Ast::Array[
               Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
                                    :op => '=',
@@ -17,7 +19,9 @@ module Grammar
     def test_update_plural_column_parseable
       same_ast? "update table1 set col1 = 1, col2 = 2",
         Ast::UpdateStatement[
-          :target => Ast::Identifier[:name => 'table1'],
+          :target => Ast::TableReference[
+            :table_name => Ast::Identifier[:name => 'table1']
+          ],
           :set => Ast::Array[
               Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
                                    :op => '=',

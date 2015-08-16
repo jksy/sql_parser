@@ -133,16 +133,16 @@ module OracleSqlParser::Grammar
     end
 
     rule table_reference
-      (
-        schema_name '.' table_name /
-        table_name
+      t:(
+        schema_name:schema_name '.' table_name:table_name /
+        table_name:table_name
       ) ('@' dblink)? {
         def ast
-          if(!respond_to?(:schema_name) || !respond_to?(:dblink))
-            OracleSqlParser::Ast::Identifier.new(:name => text_value)
-          else
-            table_name.ast
-          end
+          OracleSqlParser::Ast::TableReference[
+            :schema_name => t.try(:schema_name).ast,
+            :table_name => t.try(:table_name).ast,
+            :dblink => try(:dblink).ast
+          ]
         end
       }
     end

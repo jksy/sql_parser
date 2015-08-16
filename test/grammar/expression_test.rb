@@ -10,7 +10,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Keyword[:name => 'rownum']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -24,7 +26,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::TextLiteral[:value => 'asdlfjasldfja']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -38,7 +42,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '13123']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -52,7 +58,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:value => 'sequence_name.nextval']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -66,7 +74,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:value => 'sequence_name.currval']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -80,7 +90,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Keyword[:name => 'null']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -94,7 +106,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'schema1.table1.column1']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -108,7 +122,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'table1.column1']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -122,7 +138,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'column1']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -136,7 +154,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'rowid']
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ],
         ]
@@ -162,7 +182,9 @@ module Grammar
                   ]
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'customers']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'customers']
+              ]
             ]
           ]
         ]
@@ -189,7 +211,9 @@ module Grammar
                   :else_clause => Ast::TextLiteral[:value => 'medium']
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'customers']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'customers']
+              ]
             ]
           ]
         ]
@@ -211,7 +235,9 @@ module Grammar
                   :else_clause => Ast::NumberLiteral[:value => '2001']
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'customers']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'customers']
+              ]
             ]
           ]
         ]
@@ -227,7 +253,9 @@ module Grammar
                   :name => Ast::Identifier[:name =>'func'],
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ]
             ],
           ]
         ]
@@ -246,7 +274,9 @@ module Grammar
                   ],
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'customers']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'customers']
+              ]
             ],
           ]
         ]
@@ -266,7 +296,9 @@ module Grammar
                   ],
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'dual']
+              ] 
             ],
           ]
         ]
@@ -285,7 +317,9 @@ module Grammar
                   ],
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'customers']
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'customers']
+              ]
             ],
           ]
         ]
@@ -310,7 +344,9 @@ module Grammar
                   ],
                 ]
               ],
-              :select_sources => Ast::Identifier[:name => 'dual']
+              :select_sources => Ast::TableReference[
+                :table_name =>Ast::Identifier[:name => 'dual']
+              ]
             ],
           ]
         ]

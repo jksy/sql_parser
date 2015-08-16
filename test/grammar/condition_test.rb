@@ -10,7 +10,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -31,7 +33,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -52,7 +56,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -73,7 +79,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -94,7 +102,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -115,7 +125,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -136,7 +148,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name =>Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -157,7 +171,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -178,7 +194,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
                   :left => Ast::SimpleComparisionCondition[
@@ -207,7 +225,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
                   :left => Ast::SimpleComparisionCondition[
@@ -236,7 +256,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -257,7 +279,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -278,7 +302,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -299,7 +325,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -320,7 +348,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -342,7 +372,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LikeCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -364,7 +396,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::RegexpCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -384,7 +418,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::NullCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -404,7 +440,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::NullCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -424,7 +462,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -445,7 +485,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
                   :op => Ast::Keyword[:name => 'not'],
@@ -469,7 +511,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::BetweenCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -490,7 +534,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::BetweenCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -513,7 +559,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::BetweenCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -534,7 +582,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::BetweenCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -555,7 +605,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::ExistsCondition[
                   :target => generate_ast("select 1 from table2").subquery
@@ -574,7 +626,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
                   :op => Ast::Keyword[:name => 'not'],
@@ -596,7 +650,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::InCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -618,7 +674,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::InCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -641,7 +699,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name =>Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::InCondition[
                   :target => Ast::Identifier[:name => 'col1'],
@@ -661,7 +721,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::Identifier[:name => 'table1'],
+              :select_sources => Ast::TableReference[
+                :table_name => Ast::Identifier[:name => 'table1']
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::InCondition[
                   :target => Ast::Identifier[:name => 'col1'],

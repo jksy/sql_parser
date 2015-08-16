@@ -6,7 +6,9 @@ module Grammar
       same_ast? "delete from table1",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => Ast::Identifier[:name => 'table1']
+            :name => Ast::TableReference[
+              :table_name => Ast::Identifier[:name => 'table1']
+            ]
           ]
         ]
     end
@@ -15,7 +17,9 @@ module Grammar
       same_ast? "delete from table1",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => Ast::Identifier[:name => 'table1']
+            :name => Ast::TableReference[
+              :table_name => Ast::Identifier[:name => 'table1']
+            ]
           ]
         ]
     end
@@ -44,7 +48,9 @@ module Grammar
       same_ast? "delete from table1 table_alias",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => Ast::Identifier[:name => 'table1'],
+            :name => Ast::TableReference[
+              :table_name => Ast::Identifier[:name => 'table1']
+            ],
             :alias => Ast::Identifier[:name => 'table_alias'],
           ]
         ]
@@ -56,7 +62,9 @@ module Grammar
       same_ast? "delete from table1 where col1 = 1",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => Ast::Identifier[:name => 'table1'],
+            :name => Ast::TableReference[
+              :table_name =>Ast::Identifier[:name => 'table1']
+            ],
           ],
           :condition => condition_ast
         ]
@@ -66,7 +74,9 @@ module Grammar
       same_ast? "delete from table1 where current_of cursor_name",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => Ast::Identifier[:name => 'table1'],
+            :name => Ast::TableReference[
+              :table_name => Ast::Identifier[:name => 'table1']
+            ],
           ],
           :condition => Ast::Identifier[:name => 'cursor_name']
         ]
