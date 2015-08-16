@@ -23,7 +23,7 @@ module Grammar
     def assert_ast_sql_eual(query, expect_ast)
       actual_ast = generate_ast(query)
       actual_ast.remove_nil_values!
-      assert_ast_equal(expect_ast, expect_ast)
+      assert_ast_equal(expect_ast, actual_ast)
       assert_sql_equal(expect_ast, query)
     end
 
