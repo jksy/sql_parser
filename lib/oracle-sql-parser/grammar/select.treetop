@@ -162,29 +162,17 @@ module OracleSqlParser::Grammar
     rule for_update_clause
       for_keyword space?
       update_keyword space?
-      f:(of_keyword space for_update_clause_columns)?
-      wait:(wait_with_integer / nowait_keyword)? {
+      of:(of_keyword space for_update_clause_columns space?)?
+      wait:(
+        w:wait_keyword space? time:integer / 
+        w:nowait_keyword
+      )? {
         def ast
           OracleSqlParser::Ast::ForUpdateClause[
-            :columns => for_update_clause_columns.ast,
-            :wait => wait.ast
+            :columns => of.try(:for_update_clause_columns).ast,
+            :wait => wait.try(:w).ast,
+            :time => wait.try(:time).ast
           ].remove_nil_values!
-        end
-
-        def for_update_clause_columns
-          if f.respond_to? :for_update_clause_columns
-            f.for_update_clause_columns
-          else
-            nil
-          end
-        end
-      }
-    end
-
-    rule wait_with_integer
-      wait_keyword space? integer {
-        def ast
-          integer.ast
         end
       }
     end

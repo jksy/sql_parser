@@ -423,8 +423,7 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::NullCondition[
-                  :target => Ast::Identifier[:name => 'col1'],
-                  :not => nil
+                  :target => Ast::Identifier[:name => 'col1']
                 ]
               ]
             ]

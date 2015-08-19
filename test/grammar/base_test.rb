@@ -13,25 +13,24 @@ module Grammar
         message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
         raise parser.failure_reason + message
       end
-      result.ast
+      ast = result.ast
+      ast.remove_nil_values!
+      ast
     end
   
     def parse_successful(query)
       generate_ast(query)
     end
   
-    def assert_ast_sql_eual(query, expect_ast)
+    def assert_ast_sql_equal(query, expect_ast)
       actual_ast = generate_ast(query)
-      actual_ast.remove_nil_values!
       assert_ast_equal(expect_ast, actual_ast)
       assert_sql_equal(expect_ast, query)
     end
 
-    # obsolete, replace to assert_ast_sql_eual
+    # obsolete, replace to assert_ast_sql_equal
     def same_ast?(query, expect)
       actual = generate_ast(query)
-      expect.remove_nil_values!
-      actual.remove_nil_values!
       assert_ast_equal(expect, actual)
     end
 

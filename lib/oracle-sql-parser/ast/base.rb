@@ -6,6 +6,10 @@ def nil.to_sql
   nil
 end
 
+def nil.until_nil(&block)
+
+end
+
 unless Object.respond_to? :try
   class Object
     def try(name, *args)
@@ -14,6 +18,10 @@ unless Object.respond_to? :try
       else
         nil
       end
+    end
+
+    def until_nil(&block)
+      block.call(self)
     end
   end
 end

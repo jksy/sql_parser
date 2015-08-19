@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class SelectTest < BaseTest
     def test_select_parseable
-      assert_ast_sql_eual(
+      assert_ast_sql_equal(
         "select col1 from table1",
          Ast::SelectStatement[
           :subquery => Ast::Subquery[
@@ -19,7 +19,7 @@ module Grammar
     end
 
     def test_identifier_is_wrapperd_double_quote
-      assert_ast_sql_eual(
+      assert_ast_sql_equal(
         'select col1 from "table1"',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
@@ -35,7 +35,7 @@ module Grammar
     end
   
     def test_select_all_parseable
-      assert_ast_sql_eual(
+      assert_ast_sql_equal(
         'select all col1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
@@ -52,7 +52,7 @@ module Grammar
     end
   
     def test_select_distinct_parseable
-      assert_ast_sql_eual(
+      assert_ast_sql_equal(
         'select distinct col2 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
@@ -69,7 +69,8 @@ module Grammar
     end
   
     def test_select_unique_parseable
-      same_ast? 'select unique col2 from table1',
+      assert_ast_sql_equal(
+        'select unique col2 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -81,6 +82,7 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_union_parseable
@@ -104,7 +106,8 @@ module Grammar
     end
   
     def test_select_literal_number_column_parseable
-      same_ast? 'select 1 from table1',
+      assert_ast_sql_equal(
+        'select 1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -115,10 +118,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_literal_nagative_number_column_parseable
-      same_ast? 'select -1 from table1',
+      assert_ast_sql_equal(
+        'select -1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -129,10 +134,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_literal_float_number_column_parseable
-      same_ast? 'select 1.1 from table1',
+      assert_ast_sql_equal(
+        'select 1.1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -143,10 +150,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_literal_float_nagavite_number_column_parseable
-      same_ast? 'select -1.1 from table1',
+      assert_ast_sql_equal(
+        'select -1.1 from table1',
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -157,10 +166,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_literal_string_parseable
-      same_ast? "select 'adslfael' from table1" ,
+      assert_ast_sql_equal(
+        "select 'adslfael' from table1" ,
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -171,10 +182,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_asterisk_parseable
-      same_ast? "select * from table1",
+      assert_ast_sql_equal(
+        "select * from table1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -185,10 +198,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_table_and_asterisk_parseable
-      same_ast? "select table1.* from table1",
+      assert_ast_sql_equal(
+        "select table1.* from table1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -199,6 +214,7 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_join_clause_parseable
@@ -262,7 +278,8 @@ module Grammar
     end
   
     def test_select_where_parseable
-      same_ast? "select * from table1 where col1 = col1",
+      assert_ast_sql_equal(
+        "select * from table1 where col1 = col1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -280,10 +297,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_group_by_expr_parseable
-      same_ast? "select * from table1 group by col1, col2",
+      assert_ast_sql_equal(
+        "select * from table1 group by col1,col2",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -300,10 +319,12 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_group_by_having_condition_parseable
-      same_ast? "select * from table1 group by col1, col2 having col1 = col2",
+      assert_ast_sql_equal(
+        "select * from table1 group by col1,col2 having col1 = col2",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -325,10 +346,11 @@ module Grammar
             ]
           ]
         ]
+      )
     end
   
     def test_select_rollup_clause_parseable
-      same_ast? "select * from table1 group by rollup(col1, col2)",
+      assert_ast_sql_equal "select * from table1 group by rollup(col1,col2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -353,7 +375,7 @@ module Grammar
     end
   
     def test_select_cube_clause_parseable
-      same_ast? "select * from table1 group by cube(col1, col2)",
+      assert_ast_sql_equal "select * from table1 group by cube(col1,col2)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -378,7 +400,7 @@ module Grammar
     end
   
     def test_select_for_update_clause_parseable
-      same_ast? "select * from table1 for update",
+      assert_ast_sql_equal "select * from table1 for update",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[{}]
@@ -386,7 +408,7 @@ module Grammar
     end
   
     def test_select_for_update_clause_column_parseable
-      same_ast? "select * from table1 for update of column1",
+      assert_ast_sql_equal "select * from table1 for update of column1",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[
@@ -398,7 +420,7 @@ module Grammar
     end
   
     def test_select_for_update_clause_table_and_column_parseable
-      same_ast? "select * from table1 for update of table1.column1",
+      assert_ast_sql_equal "select * from table1 for update of table1.column1",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[
@@ -410,7 +432,7 @@ module Grammar
     end
   
     def test_select_for_update_clause_schema_and_table_and_column_parseable
-      same_ast? "select * from table1 for update of schema1.table1.column1",
+      assert_ast_sql_equal "select * from table1 for update of schema1.table1.column1",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[
@@ -422,7 +444,7 @@ module Grammar
     end
   
     def test_select_for_update_clause_nowait_parseable
-      same_ast? "select * from table1 for update nowait",
+      assert_ast_sql_equal "select * from table1 for update nowait",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[
@@ -432,17 +454,18 @@ module Grammar
     end
   
     def test_select_for_update_clause_wait_parseable
-      same_ast? "select * from table1 for update wait 1",
+      assert_ast_sql_equal "select * from table1 for update wait 1",
         Ast::SelectStatement[
           :subquery => generate_ast("select * from table1").subquery,
           :for_update_clause => Ast::ForUpdateClause[
-            :wait => Ast::NumberLiteral[:value => '1']
+            :wait => Ast::Keyword[:name => 'wait'],
+            :time => Ast::NumberLiteral[:value => '1']
           ]
         ]
     end
   
     def test_select_order_by_clause_expr_parseable
-      same_ast? "select * from table1 order by col1",
+      assert_ast_sql_equal "select * from table1 order by col1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -458,7 +481,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_position_parseable
-      same_ast? "select * from table1 order by 1",
+      assert_ast_sql_equal "select * from table1 order by 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -474,7 +497,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_siblings_parseable
-      same_ast? "select * from table1 order siblings by 1",
+      assert_ast_sql_equal "select * from table1 order siblings by 1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -491,7 +514,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_asc_parseable
-      same_ast? "select * from table1 order by col1 asc",
+      assert_ast_sql_equal "select * from table1 order by col1 asc",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -508,7 +531,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_desc_parseable
-      same_ast? "select * from table1 order by col1 desc",
+      assert_ast_sql_equal "select * from table1 order by col1 desc",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -525,7 +548,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_nulls_first_parseable
-      same_ast? "select * from table1 order by col1 nulls first",
+      assert_ast_sql_equal "select * from table1 order by col1 nulls first",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -542,7 +565,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_nulls_last_parseable
-      same_ast? "select * from table1 order by col1 nulls last",
+      assert_ast_sql_equal "select * from table1 order by col1 nulls last",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
@@ -559,7 +582,7 @@ module Grammar
     end
   
     def test_select_order_by_clause_plural_column_parseable
-      same_ast? "select * from table1 order by col1 asc, col2 desc",
+      assert_ast_sql_equal "select * from table1 order by col1 asc,col2 desc",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
