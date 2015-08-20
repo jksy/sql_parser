@@ -14,7 +14,6 @@ module OracleSqlParser::Ast
         sql << @ast[:else_clause]
       end
       sql << 'end'
-      puts sql.inspect
       sql.compact.map(&:to_sql).join(' ')
     end
   end
