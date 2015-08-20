@@ -2,7 +2,7 @@ def nil.ast
   nil
 end
 
-def nil.to_sql
+def nil.to_sql(options = {})
   nil
 end
 
@@ -27,7 +27,7 @@ unless Object.respond_to? :try
 end
 
 class String
-  def to_sql
+  def to_sql(options ={})
     self
   end
 end
@@ -55,9 +55,9 @@ module OracleSqlParser::Ast
       raise "do not call ast method"
     end
 
-    def to_sql
+    def to_sql(options ={})
       if @ast.respond_to? :to_sql
-        @ast.to_sql
+        @ast.to_sql(options)
       else
         @ast.to_s
       end

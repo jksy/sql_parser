@@ -22,14 +22,14 @@ module OracleSqlParser::Ast
       "}>\n"
     end
 
-    def to_sql
+    def to_sql(options = {:separator => ' '})
       @ast.map do |k,v|
         if v.respond_to? :to_sql
           v.to_sql
         else
           v.to_s
         end
-      end.compact.join(" ")
+      end.compact.join(options[:separator])
     end
 
     def self.[](value)
