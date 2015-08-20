@@ -2,8 +2,16 @@ require 'forwardable'
 
 module OracleSqlParser::Ast
   class Array < Base
-    extend Forwardable
-    def_delegator :@ast, :each, :[]
+    include Enumerable
+
+    def each(&block)
+      @ast.each(&block)
+    end
+
+    def [](index)
+      @ast[index]
+    end
+
     def self.[](*values)
       self.new(*values)
     end

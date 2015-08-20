@@ -166,7 +166,7 @@ module OracleSqlParser::Grammar
     rule sequence
       ident space? '.' space? n:(currval_keyword / nextval_keyword) {
         def ast
-          OracleSqlParser::Ast::Identifier[:value => text_value]
+          OracleSqlParser::Ast::Identifier[:name => text_value]
         end
       }
     end
