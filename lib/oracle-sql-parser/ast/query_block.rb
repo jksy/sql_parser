@@ -1,6 +1,6 @@
 module OracleSqlParser::Ast
   class QueryBlock < Hash
-    def to_sql
+    def to_sql(options = {})
       [
         "select",
         @ast[:hint],

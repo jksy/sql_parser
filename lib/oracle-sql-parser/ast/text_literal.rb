@@ -4,7 +4,7 @@ module OracleSqlParser::Ast
       "#<#{self.class.name} #{@ast.inspect}>"
     end
 
-    def to_sql
+    def to_sql(options = {})
       "'#{@ast[:value]}'"
     end
   end

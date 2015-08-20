@@ -1,6 +1,6 @@
 module OracleSqlParser::Ast
   class ForUpdateClause < Hash
-    def to_sql
+    def to_sql(options = {})
       sql = []
       sql << "for update"
       sql << "of #{@ast[:columns].to_sql(:separator => ',')}" if @ast[:columns]
