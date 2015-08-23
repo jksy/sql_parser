@@ -8,7 +8,7 @@ module OracleSqlParser::Grammar
         def ast
           OracleSqlParser::Ast::DeleteStatement[
             :target => delete_from_clause.ast,
-            :condition => delete_condition.ast
+            :where_clause => delete_condition.ast
           ]
         end
       }
@@ -29,18 +29,26 @@ module OracleSqlParser::Grammar
       ) space?
       t_alias:t_alias? {
         def ast
-          OracleSqlParser::Ast::DeleteTarget[
-            :name => t.ast,
-            :alias => t_alias.ast
-          ]
+          table_or_subquery = t.ast
+          if table_or_subquery.instance_of? OracleSqlParser::Ast::DeleteTarget
+            table_or_subquery
+          else
+            OracleSqlParser::Ast::DeleteTarget[
+              :name => t.ast,
+              :alias => t_alias.ast
+            ]
+          end
         end
       }
     end
 
     rule delete_target_subquery
-      (table_keyword space)? '(' space? subquery space? ')' {
+      t:(table_keyword space)? '(' space? subquery space? ')' {
         def ast
-          subquery.ast
+          OracleSqlParser::Ast::DeleteTarget[
+            :table => t.try(:table_keyword).ast,
+            :name => subquery.ast
+          ]
         end
       }
     end
@@ -52,7 +60,7 @@ module OracleSqlParser::Grammar
         current_of
       ) {
         def ast
-          where.ast
+          OracleSqlParser::Ast::WhereClause[:condition => where.ast]
         end
       }
     end
@@ -60,7 +68,7 @@ module OracleSqlParser::Grammar
     rule current_of
       current_of_keyword space? cursor_name {
         def ast
-          cursor_name.ast
+          OracleSqlParser::Ast::CurrentOf[:name => cursor_name.ast]
         end
       }
     end
