@@ -80,7 +80,7 @@ module Grammar
             ],
           ],
           :where_clause => Ast::WhereClause[
-            :condition => Ast::CurrentOf[:name => Ast::Identifier[:name => 'cursor_name']]
+            :condition => Ast::CurrentOf[:cursor => Ast::Identifier[:name => 'cursor_name']]
           ]
         ]
     end

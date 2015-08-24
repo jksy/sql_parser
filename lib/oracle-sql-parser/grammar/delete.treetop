@@ -57,7 +57,7 @@ module OracleSqlParser::Grammar
       where_keyword space?
       where:(
         search_condition /
-        current_of
+        delete_current_of
       ) {
         def ast
           OracleSqlParser::Ast::WhereClause[:condition => where.ast]
@@ -65,10 +65,10 @@ module OracleSqlParser::Grammar
       }
     end
 
-    rule current_of
-      current_of_keyword space? cursor_name {
+    rule delete_current_of
+      current_of {
         def ast
-          OracleSqlParser::Ast::CurrentOf[:name => cursor_name.ast]
+          super
         end
       }
     end

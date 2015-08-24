@@ -147,6 +147,16 @@ module OracleSqlParser::Grammar
       }
     end
 
+    rule current_of
+      current_of_keyword space? cursor_name {
+        def ast
+          OracleSqlParser::Ast::CurrentOf[
+            :cursor => cursor_name.ast
+          ]
+        end
+      }
+    end
+
     rule dblink
       ident {
         def ast

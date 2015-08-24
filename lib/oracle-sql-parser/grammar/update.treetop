@@ -42,17 +42,11 @@ module OracleSqlParser::Grammar
     end
 
     rule update_set_clause
-      set_keyword space update_target_columns space? {
+      set_keyword space update_target_column  more:(space? ',' space? c:update_target_column)* {
         def ast
-          update_target_columns.ast
-        end
-      }
-    end
-
-    rule update_target_columns
-      update_target_column more:(space? ',' space? c:update_target_column)* {
-        def ast
-          OracleSqlParser::Ast::Array[update_target_column.ast, *more_update_target_columns.map(&:ast)]
+          OracleSqlParser::Ast::UpdateSetClause[
+            update_target_column.ast, *more_update_target_columns.map(&:ast)
+          ]
         end
 
         def more_update_target_columns
@@ -60,6 +54,18 @@ module OracleSqlParser::Grammar
         end
       }
     end
+
+#    rule update_target_columns
+#      update_target_column more:(space? ',' space? c:update_target_column)* {
+#        def ast
+#          OracleSqlParser::Ast::Array[update_target_column.ast, *more_update_target_columns.map(&:ast)]
+#        end
+#
+#        def more_update_target_columns
+#          more.elements.map(&:c)
+#        end
+#      }
+#    end
 
     rule update_target_column
       column_name space? op:'=' space? sql_expression {
@@ -93,11 +99,9 @@ module OracleSqlParser::Grammar
     end
 
     rule update_current_of
-      current_of_keyword space? cursor_name {
+      current_of {
         def ast
-          OracleSqlParser::Ast::CurrentOf[
-            :cursor_name => cursor_name.ast
-          ]
+          super
         end
       }
     end
