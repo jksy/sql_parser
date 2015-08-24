@@ -37,17 +37,17 @@ ast = syntax_tree.ast
       :hint =&gt; nil,
       :modifier =&gt; nil,
       :select_list =&gt; #&lt;OracleSqlParser::Ast::Array [
-        #&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}>
-      ]>
+        #&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}&gt;
+      ]&gt;
       ,
-      :select_sources =&gt; #&lt;OracleSqlParser::Ast::Identifier {:name=&gt;"dual"}>,
+      :select_sources =&gt; #&lt;OracleSqlParser::Ast::TableReference {:schema_name=&gt;nil, :table_name=&gt;#&lt;OracleSqlParser::Ast::Identifier {:name=&gt;"dual"}&gt;, :dblink=&gt;nil}&gt;,
       :where_clause =&gt; nil,
       :group_by_clause =&gt; nil,
-      :model_clause =&gt; nil}>
+      :model_clause =&gt; nil}&gt;
     ,
-    :order_by_clause =&gt; nil}>
+    :order_by_clause =&gt; nil}&gt;
   ,
-  :for_update_clause =&gt; nil}>
+  :for_update_clause =&gt; nil}&gt;
 </pre>
 
 ```ruby
