@@ -136,12 +136,12 @@ module OracleSqlParser::Grammar
       t:(
         schema_name:schema_name '.' table_name:table_name /
         table_name:table_name
-      ) ('@' dblink)? {
+      ) l:('@' dblink)? {
         def ast
           OracleSqlParser::Ast::TableReference[
             :schema_name => t.try(:schema_name).ast,
             :table_name => t.try(:table_name).ast,
-            :dblink => try(:dblink).ast
+            :dblink => l.try(:dblink).ast
           ]
         end
       }

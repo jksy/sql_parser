@@ -24,6 +24,7 @@ module OracleSqlParser::Grammar
           insert_into_ast = insert_into_clause.ast
           OracleSqlParser::Ast::InsertStatement[
             :insert => insert_into_ast.table,
+            :alias => insert_into_ast.alias,
             :columns => insert_into_ast.column,
             :values => values.ast
           ]
@@ -38,11 +39,12 @@ module OracleSqlParser::Grammar
     rule insert_into_clause
       into_keyword space
       dml_table_expression_clause space
-      (t_alias space)?
+      table_alias:(t_alias space)?
       insert_column_names:insert_column_names? {
         def ast
           OracleSqlParser::Ast::Hash[
             :table => dml_table_expression_clause.ast,
+            :alias => try(:table_alias).try(:t_alias).ast,
             :column => insert_column_names.ast
           ]
         end
@@ -72,7 +74,10 @@ module OracleSqlParser::Grammar
     rule insert_values
       expr_or_default more:(space? ',' space? e:expr_or_default)* {
         def ast
-          OracleSqlParser::Ast::Array[expr_or_default.ast, *more_expr_or_defaults.map(&:ast)]
+          OracleSqlParser::Ast::InsertValuesClause[
+            expr_or_default.ast,
+            *more_expr_or_defaults.map(&:ast)
+          ]
         end
 
         def more_expr_or_defaults
@@ -90,13 +95,10 @@ module OracleSqlParser::Grammar
     end
 
     rule dml_table_expression_clause
-      (
-        schema_name '.' table_name '@' dblink /
-        schema_name '.' table_name /
-        table_name
-      ) {
+      table_reference
+      {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
+          super
         end
       }
     end
