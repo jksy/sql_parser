@@ -31,7 +31,7 @@ end
 ast = syntax_tree.ast
 ```
 <pre>
-=> #&lt;OracleSqlParser::Ast::SelectStatement
+=&gt; #&lt;OracleSqlParser::Ast::SelectStatement
   :subquery =&gt; #&lt;OracleSqlParser::Ast::Subquery
     :query_block =&gt; #&lt;OracleSqlParser::Ast::QueryBlock
       :hint =&gt; nil,
@@ -50,6 +50,13 @@ ast = syntax_tree.ast
   :for_update_clause =&gt; nil}>
 </pre>
 
+```ruby
+ast.to_sql
+```
+
+<pre>
+=&gt; "select 1 from dual"
+</pre>
 
 ## Contributing
 
