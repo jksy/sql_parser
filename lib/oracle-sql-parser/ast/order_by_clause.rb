@@ -3,7 +3,7 @@ module OracleSqlParser::Ast
     def to_sql
       sql = []
       sql << "order"
-      @ast[:siblings].until_nil {|v| sql << v.to_sql}
+      sql << @ast[:siblings].to_sql if @ast[:siblings]
       sql << "by"
       sql << @ast[:items].to_sql(:separator => ',')
       sql.join(" ")
