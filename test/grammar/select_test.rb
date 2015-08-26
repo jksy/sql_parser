@@ -18,6 +18,24 @@ module Grammar
       )
     end
 
+    def test_select_multiple_column_parseable
+      assert_ast_sql_equal(
+        "select col1,col2,col3 from table1",
+         Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1'],
+                Ast::Identifier[:name => 'col2'],
+                Ast::Identifier[:name => 'col3']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ],
+          ],
+        ]
+      )
+    end
+
     def test_identifier_is_wrapperd_double_quote
       assert_ast_sql_equal(
         'select col1 from "table1"',
