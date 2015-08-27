@@ -14,7 +14,7 @@ module OracleSqlParser::Util
       end
     end
 
-    def query
+    def to_sql
       ast.to_sql
     end
 
