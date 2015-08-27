@@ -58,6 +58,16 @@ ast.to_sql
 =&gt; "select 1 from dual"
 </pre>
 
+```ruby
+p = ast.to_parameternized
+p.to_sql
+p.params.inspect
+```
+<pre>
+=&gt; "select :a0 from dual"
+=&gt; {"a0"=&gt;#&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}&gt;}
+</pre>
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jksy/sql_parser.
