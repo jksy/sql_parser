@@ -6,6 +6,30 @@ def nil.to_sql(options = {})
   nil
 end
 
+def nil.duplicable?
+  false
+end
+
+def true.duplicable?
+  false
+end
+
+def false.duplicable?
+  false
+end
+
+class Symbol
+  def duplicable?
+    false
+  end
+end
+
+class Numeric
+  def duplicable?
+    false
+  end
+end
+
 unless Object.respond_to? :try
   class Object
     def try(name, *args)
@@ -14,6 +38,10 @@ unless Object.respond_to? :try
       else
         nil
       end
+    end
+
+    def duplicable?
+      true
     end
   end
 end
@@ -26,11 +54,55 @@ end
 
 module OracleSqlParser::Ast
   class Base
+    include OracleSqlParser::Util::Parameternizable
     def initialize(arg)
       if arg.instance_of?(Array) || arg.instance_of?(Hash)
         raise "cant assign #{arg.class} Base.new()"
       end
       @ast = arg
+    end
+
+    def initialize_copy(original)
+      if @ast.nil?
+        self.class.new
+      else
+        self.class.new(original.instance_variable_get(:@ast).dup)
+      end
+    end
+
+    def self.deep_dup(original)
+      if original.is_a? OracleSqlParser::Ast::Base
+        original.deep_dup
+      elsif original.is_a? ::Hash
+        ::Hash[ original.map {|k, v| [k, deep_dup(v)]} ]
+      elsif original.is_a? ::Array
+        original.map {|v| deep_dup(v)}
+      elsif original.duplicable?
+        original.dup
+      else
+        original
+      end
+    end
+
+    def deep_dup
+      copy = self.class.new
+      original_ast = self.instance_variable_get(:@ast)
+      copy_ast = self.class.deep_dup(original_ast)
+      copy.instance_variable_set(:@ast, copy_ast)
+      copy
+    end
+
+    def map_ast(&block)
+      duplicated = self.deep_dup
+      duplicated.map_ast!(&block)
+      duplicated
+    end
+
+    def map_ast!(&block)
+      if @ast.is_a? OracleSqlParser::Ast::Base
+        @ast.map_ast!(&block)
+      end
+      @ast = block.call(@ast)
     end
 
     def remove_nil_values!

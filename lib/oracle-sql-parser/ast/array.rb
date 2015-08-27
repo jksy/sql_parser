@@ -16,6 +16,15 @@ module OracleSqlParser::Ast
       self.new(*values)
     end
 
+    def map_ast!(&block)
+      @ast = @ast.map do |v|
+        if v.is_a? OracleSqlParser::Ast::Base
+          v.map_ast!(&block)
+        end
+        block.call(v)
+      end
+    end
+
     def initialize(*args)
       @ast = args
     end

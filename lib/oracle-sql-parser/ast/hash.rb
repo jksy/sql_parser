@@ -5,8 +5,8 @@ module OracleSqlParser::Ast
     extend Forwardable
     def_delegator :@ast, :keys, :[]
 
-    def initialize(value)
-      raise "only ::Hash instance" unless value.instance_of? ::Hash
+    def initialize(value = {})
+      raise "only ::Hash instance #{value.inspect}" unless value.instance_of? ::Hash
       @ast = value
     end
 
@@ -14,6 +14,17 @@ module OracleSqlParser::Ast
       @ast.delete_if{|k, v| v.nil?}
       @ast.each {|k, v| v.remove_nil_values! if v.respond_to? :remove_nil_values!}
       self
+    end
+
+    def map_ast!(&block)
+      mapped = @ast.class.new
+      @ast.each do |k, v|
+        if v.is_a? OracleSqlParser::Ast::Base
+          v.map_ast!(&block)
+        end
+        mapped[k] = block.call(v)
+      end
+      @ast = mapped
     end
 
     def inspect
