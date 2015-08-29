@@ -104,23 +104,96 @@ module Grammar
     end
   
     def test_select_union_parseable
-      # do not support union ast
-      parse_successful 'select col1 from table1 union select col1 from table2'
+      assert_ast_sql_equal 'select col1 from table1 union select col2 from table2',
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block1 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ],
+            :union => Ast::Array[
+              Ast::Keyword[:name => 'union']
+            ],
+            :query_block2 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col2']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+            ],
+          ]
+        ]
     end
   
     def test_select_union_all_parseable
-      # do not support union ast
-      parse_successful 'select col1 from table1 union all select col1 from table2'
+      assert_ast_sql_equal 'select col1 from table1 union all select col2 from table2',
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block1 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ],
+            :union => Ast::Array[
+              Ast::Keyword[:name => 'union'],
+              Ast::Keyword[:name => 'all']
+            ],
+            :query_block2 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col2']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+            ],
+          ]
+        ]
     end
   
     def test_select_intersect_parseable
-     # do not support intersect ast
-      parse_successful 'select col1 from table1 intersect select col1 from table2'
+      assert_ast_sql_equal 'select col1 from table1 intersect select col2 from table2',
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block1 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ],
+            :union => Ast::Array[
+              Ast::Keyword[:name => 'intersect']
+            ],
+            :query_block2 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col2']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+            ],
+          ]
+        ]
     end
   
     def test_select_minus_parseable
-     # do not support minus ast
-      parse_successful 'select col1 from table1 minus select col1 from table2'
+      assert_ast_sql_equal 'select col1 from table1 minus select col2 from table2',
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block1 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col1']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ],
+            :union => Ast::Array[
+              Ast::Keyword[:name => 'minus']
+            ],
+            :query_block2 => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'col2']
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+            ],
+          ]
+        ]
     end
   
     def test_select_literal_number_column_parseable

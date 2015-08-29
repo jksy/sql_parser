@@ -11,18 +11,68 @@ module OracleSqlParser::Grammar
     end
 
     rule subquery
-      query_block
-      (
-        more_queries:(
-          union_keyword (space all_keyword?) /
-          intersect_keyword /
-          minus_keyword
-        ) space? subquery )?
-      order_by_clause:order_by_clause? {
+      query:(
+        subquery_with_union /
+        subquery_only_query_block
+      )
+      space? order_by_clause:order_by_clause? {
+        def ast
+          result = query.ast
+          result.order_by_clause = order_by_clause.ast
+          result
+        end
+      }
+    end
+
+    rule subquery_only_query_block
+      '(' space? query_block:query_block space? ')' /
+      query_block:query_block {
         def ast
           OracleSqlParser::Ast::Subquery[
-            :query_block => query_block.ast,
-            :order_by_clause => order_by_clause.ast]
+            :query_block => query_block.ast
+          ]
+        end
+      }
+    end
+
+    rule subquery_with_union
+      '(' query_block1:query_block space? union_or_intersect_or_minus space? query_block2:query_block ')' /
+      query_block1:query_block space? union_or_intersect_or_minus space? query_block2:query_block {
+        def ast
+          OracleSqlParser::Ast::Subquery[
+            :query_block1 => query_block1.ast,
+            :union => union_or_intersect_or_minus.ast,
+            :query_block2 => query_block2.ast
+            ]
+        end
+      }
+    end
+
+    rule union_or_intersect_or_minus
+      (
+        union:union_all /
+        intersect:intersect_keyword /
+        minus:minus_keyword
+      ) {
+        def ast
+          if respond_to? :union
+            union.ast
+          elsif respond_to? :intersect
+            OracleSqlParser::Ast::Array[intersect.ast]
+          elsif respond_to? :minus
+            OracleSqlParser::Ast::Array[minus.ast]
+          end
+        end
+      }
+    end
+
+    rule union_all
+      union_keyword all:(space all_keyword)? {
+        def ast
+          OracleSqlParser::Ast::Array[
+            union_keyword.ast,
+            all.try(:all_keyword).ast
+          ]
         end
       }
     end
