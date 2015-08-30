@@ -241,18 +241,21 @@ module OracleSqlParser::Grammar
 
     rule outer_join_clause
       query_partition_clause?
-      (
-        outer_join_type space? join_keyword /
-        natural_keyword space? outer_join_type? space? join_keyword
+      join_type:(
+        natural_keyword:natural_keyword? space? outer_join_type:outer_join_type? space? join_keyword
       ) space
       table_reference space
       (query_partition_clause space)?
-      (
-        on_keyword space? condition /
-        using_keyword space '(' space? column_list space? ')'
-      ) {
+      on_or_using_clause {
         def ast
-          OracleSqlParser::Ast::OuterJoinClause[{}]
+          OracleSqlParser::Ast::OuterJoinClause[
+            :natural => join_type.try(:natural_keyword).ast,
+            :join_type => join_type.outer_join_type.try(:type).ast,
+            :outer => join_type.outer_join_type.try(:outer).ast,
+            :join => join_type.join_keyword.ast,
+            :table2 => table_reference.ast,
+            :on_or_using_clause => on_or_using_clause.ast
+          ]
         end
       }
     end
@@ -260,19 +263,19 @@ module OracleSqlParser::Grammar
     rule query_partition_clause
       'query_partition_clause' {
         def ast
-          'query_partition_clause'
+          'query_partition_clause' # do not supported
         end
       }
     end
 
     rule outer_join_type
-      (
+      type:(
         full_keyword /
         left_keyword /
         right_keyword
-      ) (space outer_keyword)? {
-        def ast
-          'outer_join_type'
+      ) o:(space outer_keyword)? {
+        def outer
+          o.try(:outer_keyword)
         end
       }
     end
