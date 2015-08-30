@@ -13,9 +13,6 @@ module Test::Unit::Assertions
     end
     full_message = build_message(<<EOS)
 found difference in ast
-#{difference.join("\n")}
-
-
 expect:#{expect.inspect}
 actual:#{actual.inspect}
 EOS

@@ -7,7 +7,7 @@ module ParseTestable
   def generate_ast(query)
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + " " * (parser.failure_column.to_i-1) + "*\n"
+      message = "\n#{query}\n" + " " * ([parser.failure_column.to_i-1, 0].max) + "*\n"
       raise parser.failure_reason + message
     end
     ast = result.ast

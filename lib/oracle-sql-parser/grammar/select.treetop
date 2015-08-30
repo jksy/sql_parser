@@ -107,7 +107,7 @@ module OracleSqlParser::Grammar
 
     rule select_sources
       join_clause /
-      '(' space? join_clause space? ')' /
+      '(' space? join_clause:join_clause space? ')' /
       table_reference  {
         def ast
           if respond_to? :join_clause
@@ -121,14 +121,16 @@ module OracleSqlParser::Grammar
 
     rule join_clause
       table_reference space
-      (
+      join:(
         outer_join_clause /
-        inner_cross_join_clause {
-          def ast
-            super
-          end
-        }
-      )
+        inner_cross_join_clause
+      ) {
+        def ast
+          result = join.ast
+          result.table1 = table_reference.ast
+          result
+        end
+      }
     end
 
     rule inner_cross_join_clause
@@ -141,32 +143,98 @@ module OracleSqlParser::Grammar
     end
 
     rule inner_join_clause
-      inner_keyword space? join_keyword space? table_reference space?
-      (
-        on_keyword space? condition /
-        using_keyword space? '(' space? column_list space? ')'
-      ) {
+      inner_join space? table_reference space? on_or_using_clause {
         def ast
-          'inner_join_clause'
+          OracleSqlParser::Ast::InnerJoinClause[
+            :inner => inner_join.inner_keyword.ast,
+            :join => inner_join.try(:join_keyword).ast,
+            :table2 => table_reference.ast,
+            :on_or_using_clause => on_or_using_clause.ast
+          ]
+        end
+      }
+    end
+
+    rule inner_join
+      inner_keyword space? join_keyword
+    end
+
+    rule on_or_using_clause
+      on_clause /
+      using_clause {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule on_clause
+      on_keyword space? condition {
+        def ast
+          OracleSqlParser::Ast::OnClause[
+            :on => on_keyword.ast,
+            :condition => condition.ast
+          ]
+        end
+      }
+    end
+
+    rule using_clause
+      using_keyword space? '(' space? column_list space? ')' {
+        def ast
+          OracleSqlParser::Ast::UsingClause[
+            :using => using_keyword.ast,
+            :column_list => column_list.ast
+          ]
         end
       }
     end
 
     rule cross_join_clause
-      (
-        cross_keyword /
-        natural_keyword (space inner_keyword)?
-      ) space join_keyword space table_reference {
+      cross_natural_join space table_reference {
         def ast
-          'cross_join_clause'
+          OracleSqlParser::Ast::CrossNaturalJoinClause[
+            :cross => cross_natural_join.cross_keyword.ast,
+            :natural => cross_natural_join.natural_keyword.ast,
+            :inner => cross_natural_join.inner_keyword.ast,
+            :join => cross_natural_join.try(:join_keyword).ast,
+            :table2 => table_reference.ast
+          ]
+        end
+      }
+    end
+
+    rule cross_natural_join
+      (
+        cross_keyword:cross_keyword /
+        natural_keyword:natural_keyword inner:(space inner_keyword)?
+      ) space join_keyword {
+
+        def cross_keyword
+          elements.first.try(:cross_keyword)
+        end
+
+        def natural_keyword
+          elements.first.try(:natural_keyword)
+        end
+
+        def inner_keyword
+          elements.first.try(:inner).try(:inner_keyword)
         end
       }
     end
 
     rule column_list
-      column_name (space? ',' space? column_name)* {
+      column_name more:(space? ',' space? column_name)* {
         def ast
-          'column_list'
+          OracleSqlParser::Ast::Array[
+            column_name.ast,
+            *more_column_names.map(&:ast)
+          ]
+        end
+
+        def more_column_names
+          more.elements.map(&:column_name)
         end
       }
     end
@@ -184,7 +252,7 @@ module OracleSqlParser::Grammar
         using_keyword space '(' space? column_list space? ')'
       ) {
         def ast
-          'outer_join_clause'
+          OracleSqlParser::Ast::OuterJoinClause[{}]
         end
       }
     end
@@ -214,7 +282,7 @@ module OracleSqlParser::Grammar
       update_keyword space?
       of:(of_keyword space for_update_clause_columns space?)?
       wait:(
-        w:wait_keyword space? time:integer / 
+        w:wait_keyword space? time:integer /
         w:nowait_keyword
       )? {
         def ast

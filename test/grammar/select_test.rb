@@ -309,37 +309,144 @@ module Grammar
     end
   
     def test_join_clause_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 inner join table2 on table1.col1 = table2.col1"
+      assert_ast_sql_equal "select * from table1 inner join table2 on table1.col1 = table2.col1",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::InnerJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :inner => Ast::Keyword[:name => "inner"],
+                :join => Ast::Keyword[:name => "join"],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                :on_or_using_clause => Ast::OnClause[
+                  :on => Ast::Keyword[:name => 'on'],
+                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                    :op => "=",
+                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
     end
   
     def test_inner_join_clause_with_on_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 inner join table2 on table1.col1 = table2.col1"
+      assert_ast_sql_equal "select * from table1 inner join table2 on table1.col1 = table2.col1",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::InnerJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :inner => Ast::Keyword[:name => "inner"],
+                :join => Ast::Keyword[:name => "join"],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                :on_or_using_clause => Ast::OnClause[
+                  :on => Ast::Keyword[:name => 'on'],
+                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                    :op => "=",
+                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
     end
   
     def test_inner_join_clause_with_using_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 inner join table2 using (col1, col2)"
+      assert_ast_sql_equal "select * from table1 inner join table2 using (col1,col2)",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::InnerJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :inner => Ast::Keyword[:name => "inner"],
+                :join => Ast::Keyword[:name => "join"],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                :on_or_using_clause => Ast::UsingClause[
+                  :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
+                  :column_list => OracleSqlParser::Ast::Array[
+                      OracleSqlParser::Ast::Identifier[:name => 'col1'],
+                      OracleSqlParser::Ast::Identifier[:name => 'col2'],
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
     end
   
     def test_cross_join_clause_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 cross join table2"
+      assert_ast_sql_equal "select * from table1 cross join table2",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::CrossNaturalJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :cross => Ast::Keyword[:name => 'cross'],
+                :join => Ast::Keyword[:name => 'join'],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              ]
+            ]
+          ]
+        ]
     end
   
     def test_cross_join_clause_with_natual_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 natural join table2"
+      assert_ast_sql_equal "select * from table1 natural join table2",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::CrossNaturalJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :natural => Ast::Keyword[:name => 'natural'],
+                :join => Ast::Keyword[:name => 'join'],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              ]
+            ]
+          ]
+        ]
     end
-  
+
     def test_cross_join_clause_with_natural_using_parseable
-      # do not support join clause ast
-      parse_successful "select * from table1 natural inner join table2"
+      assert_ast_sql_equal "select * from table1 natural inner join table2",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => '*']
+              ],
+              :select_sources => Ast::CrossNaturalJoinClause[
+                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                :natural => Ast::Keyword[:name => 'natural'],
+                :inner => Ast::Keyword[:name => 'inner'],
+                :join => Ast::Keyword[:name => 'join'],
+                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              ]
+            ]
+          ]
+        ]
     end
   
     def test_outer_join_clause_full_join_parseable
-      # do not support join clause ast
       parse_successful "select * from table1 full outer join table2 on table1.col1 = table2.col2"
     end
   
