@@ -85,7 +85,20 @@ module OracleSqlParser::Grammar
     end
 
     rule floating_point_condition
-      'floating_point_condition'
+      expr space? is_keyword space? not_keyword:not_keyword? space? 
+      value:(
+        nan_keyword / 
+        infinite_keyword 
+      ) {
+        def ast
+          OracleSqlParser::Ast::FloatingPointCondition[
+            :target => expr.ast,
+            :is => is_keyword.ast,
+            :not => not_keyword.ast,
+            :value => value.ast
+          ]
+        end
+      }
     end
 
     rule model_condition
