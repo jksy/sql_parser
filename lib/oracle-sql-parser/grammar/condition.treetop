@@ -85,10 +85,10 @@ module OracleSqlParser::Grammar
     end
 
     rule floating_point_condition
-      expr space? is_keyword space? not_keyword:not_keyword? space? 
+      expr space? is_keyword space? not_keyword:not_keyword? space?
       value:(
-        nan_keyword / 
-        infinite_keyword 
+        nan_keyword /
+        infinite_keyword
       ) {
         def ast
           OracleSqlParser::Ast::FloatingPointCondition[
@@ -106,7 +106,81 @@ module OracleSqlParser::Grammar
     end
 
     rule mutiset_condition
-      'mutiset_condition'
+      is_a_set_condition /
+      is_empty_condition /
+      member_condition /
+      submultiset_condition {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule nested_table
+      ident {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule is_a_set_condition
+      nested_table space? is_keyword space? not_keyword:not_keyword? space? a:[Aa] space? set_keyword {
+        def ast
+          OracleSqlParser::Ast::IsASetCondition[
+            :target => nested_table.ast,
+            :is => is_keyword.ast,
+            :not => not_keyword.ast,
+            :a => OracleSqlParser::Ast::Keyword[:name => a.text_value],
+            :set => set_keyword.ast
+          ]
+        end
+      }
+    end
+
+    rule is_empty_condition
+      nested_table space? is_keyword space? not_keyword:not_keyword? space? empty_keyword {
+        def ast
+          OracleSqlParser::Ast::IsEmptyCondition[
+            :target => nested_table.ast,
+            :is => is_keyword.ast,
+            :not => not_keyword.ast,
+            :empty => empty_keyword.ast
+          ]
+        end
+      }
+    end
+
+    rule member_condition
+      expr space? not_keyword:not_keyword? space? member_keyword space? of_keyword space? nested_table {
+        def ast
+          OracleSqlParser::Ast::MemberCondition[
+            :target => expr.ast,
+            :not => not_keyword.ast,
+            :member => member_keyword.ast,
+            :of => of_keyword.ast,
+            :table => nested_table.ast
+          ]
+        end
+      }
+    end
+
+    rule submultiset_condition
+      table1:nested_table space?
+      not_keyword:not_keyword? space?
+      submultiset_keyword space?
+      of_keyword:of_keyword? space?
+      table2:nested_table {
+        def ast
+          OracleSqlParser::Ast::SubmultisetCondition[
+            :target => table1.ast,
+            :not => not_keyword.ast,
+            :submultiset => submultiset_keyword.ast,
+            :of => of_keyword.ast,
+            :table => table2.ast
+          ]
+        end
+      }
     end
 
     rule pattern_maching_condition
