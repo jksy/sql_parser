@@ -15,7 +15,6 @@ module OracleSqlParser::Grammar
       model_condition /
       mutiset_condition /
       pattern_maching_condition /
-      range_condition /
       null_condition /
       xml_condition /
       compound_condition /
@@ -229,10 +228,6 @@ module OracleSqlParser::Grammar
             :regexp => regexp.ast]
         end
       }
-    end
-
-    rule range_condition
-      'range_condition'
     end
 
     rule null_condition
