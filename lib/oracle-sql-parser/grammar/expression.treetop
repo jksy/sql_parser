@@ -141,7 +141,7 @@ module OracleSqlParser::Grammar
         def ast
           OracleSqlParser::Ast::FunctionExpressoin[
             :name => function_name.ast,
-            :args => function_args ? function_args.ast : nil
+            :args => function_args.ast
           ]
         end
       }
