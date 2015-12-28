@@ -33,6 +33,8 @@ Rake::TestTask.new do |t|
                     'test/grammar/delete_test.rb',
                     'test/grammar/insert_test.rb',
                     'test/ast/replace_literal_test.rb',
+                    'test/ast/number_literal_test.rb',
+                    'test/ast/text_literal_test.rb',
                     ]
   t.verbose = true
 end
