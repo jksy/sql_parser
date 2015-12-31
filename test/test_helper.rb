@@ -11,7 +11,7 @@ module Test::Unit::Assertions
     OracleSqlParser::Ast::Base.find_different_value(expect, actual) do |left, right|
       difference << {:expect => left, :actual => right}
     end
-    full_message = build_message(<<EOS)
+    full_message = build_message(<<EOS, '')
 found difference in ast
 expect:#{expect.inspect}
 actual:#{actual.inspect}
