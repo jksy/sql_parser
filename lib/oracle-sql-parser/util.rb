@@ -1,2 +1,2 @@
-require 'oracle-sql-parser/util/parameternizable.rb'
-require 'oracle-sql-parser/util/parameternized_query.rb'
+require 'oracle-sql-parser/util/parameterizable.rb'
+require 'oracle-sql-parser/util/parameterized_query.rb'
