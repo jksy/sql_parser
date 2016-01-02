@@ -55,7 +55,7 @@ end
 
 module OracleSqlParser::Ast
   class Base
-    include OracleSqlParser::Util::Parameternizable
+    include OracleSqlParser::Util::Parameterizable
     def initialize(arg)
       if arg.instance_of?(Array) || arg.instance_of?(Hash)
         raise "cant assign #{arg.class} Base.new()"

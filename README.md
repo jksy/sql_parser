@@ -61,7 +61,7 @@ ast.to_sql
 </pre>
 
 ```ruby
-p = ast.to_parameternized
+p = ast.to_parameterized
 p.to_sql
 p.params.inspect
 ```
