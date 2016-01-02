@@ -1,3 +1,7 @@
+### 0.5.1
+* Bug fix
+  * fix spell. to_pameternized is deprecated and will be removed. use to_parameterized 
+
 ### 0.5.0
 * Enchancement
   * added NumberLiteral#to_cecimal, TextLiteral#to_s
