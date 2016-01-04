@@ -1,7 +1,7 @@
 module OracleSqlParser::Ast
-  class CompoundCondition < Base
+  class CompoundCondition < Hash
     def to_sql(options = {})
-      "(#{@ast.to_sql})"
+      "(#{@ast[:condition].to_sql})"
     end
   end
 end
