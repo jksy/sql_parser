@@ -4,8 +4,12 @@ module OracleEnhancedAdapter
   class SelectTest < BaseTest
 
     def self.startup
-      puts "startup"
-      puts BaseTest.connection_params.inspect
+      ActiveRecord::Base.establish_connection(BaseTest.connection_params)
+      BaseTest.create_test_table
+    end
+
+    def setup
+      # for ruby 1.9.3
       ActiveRecord::Base.establish_connection(BaseTest.connection_params)
       BaseTest.create_test_table
     end
