@@ -17,7 +17,10 @@ module OracleEnhancedAdapter
       if File.readable? path
         @connection_params = YAML::load_file(path)
       else
-        @connection_params = {}
+        @connection_params = {'username' => nil,
+                              'password' => nil,
+                              'host' => 'localhost',
+                              'database' => 'XE'}
       end
       @connection_params.merge!(:adapter => 'oracle_enhanced')
       @connection_params
