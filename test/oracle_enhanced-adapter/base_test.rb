@@ -19,8 +19,8 @@ module OracleEnhancedAdapter
       else
         @connection_params = {'username' => nil,
                               'password' => nil,
-                              'host' => 'localhost',
-                              'database' => 'XE'}
+                              'host' => nil,
+                              'database' => nil}
       end
       @connection_params.merge!(:adapter => 'oracle_enhanced')
       @connection_params
