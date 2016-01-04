@@ -16,5 +16,6 @@ lib/oracle-sql-parser/grammar/reserved_word.rb
 lib/oracle-sql-parser/grammar/reserved_word.treetop
 lib/oracle-sql-parser/grammar/select.rb
 lib/oracle-sql-parser/grammar/update.rb
+test/oracle_enhanced-adapter/connection_params.yml
 *.sw?
 *.gem
