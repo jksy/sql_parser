@@ -47,7 +47,23 @@ module OracleEnhancedAdapter
     def test_limit
       assert_parameterized_equal(TestEmployee.limit(10).to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where ROWNUM <= :a0',
-        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value=>"10"]}
+        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '10']}
+      )
+    end
+
+    def test_joins
+      assert_parameterized_equal(TestEmployee.joins(:company).where(:id => 1).to_sql,
+        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
+        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
+      )
+    end
+
+    def test_includes
+      omit("still do not support 'select column_name as alias_name from..'")
+      query = TestEmployee.includes(:company).where(:test_employee => {:id => 1}).to_sql
+      assert_parameterized_equal(query,
+        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
+        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
       )
     end
   end

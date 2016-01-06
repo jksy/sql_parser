@@ -3,6 +3,10 @@ require 'active_record'
 require 'active_record/connection_adapters/oracle_enhanced_adapter'
 
 class ::TestEmployee < ActiveRecord::Base
+  has_one :company, nil, :class_name => 'TestCompany'
+end
+
+class ::TestCompany < ActiveRecord::Base
 end
 
 module OracleEnhancedAdapter
@@ -45,6 +49,14 @@ module OracleEnhancedAdapter
           created_at    DATE
         )
       SQL
+      @conn.execute "DROP TABLE test_companies" rescue nil
+      @conn.execute <<-SQL
+        CREATE TABLE test_companies (
+          id      NUMBER PRIMARY KEY,
+          name    VARCHAR2(20)
+        )
+      SQL
+
       @conn.execute "DROP SEQUENCE test_employees_seq" rescue nil
       @conn.execute <<-SQL
         CREATE SEQUENCE test_employees_seq  MINVALUE 1
