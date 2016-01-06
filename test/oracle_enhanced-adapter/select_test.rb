@@ -59,12 +59,13 @@ module OracleEnhancedAdapter
     end
 
     def test_includes
-      omit("still do not support 'select column_name as alias_name from..'")
-      query = TestEmployee.includes(:company).where(:test_employee => {:id => 1}).to_sql
-      assert_parameterized_equal(query,
-        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
-        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
-      )
+# TODO: define omit alias method for ruby 1.9
+#      omit("still do not support 'select column_name as alias_name from..'")
+#      query = TestEmployee.includes(:company).where(:test_employee => {:id => 1}).to_sql
+#      assert_parameterized_equal(query,
+#        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
+#        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
+#      )
     end
   end
 end
