@@ -59,13 +59,11 @@ module OracleEnhancedAdapter
     end
 
     def test_includes
-# TODO: define omit alias method for ruby 1.9
-#      omit("still do not support 'select column_name as alias_name from..'")
-#      query = TestEmployee.includes(:company).where(:test_employee => {:id => 1}).to_sql
-#      assert_parameterized_equal(query,
-#        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
-#        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
-#      )
+      query = TestEmployee.includes(:company).where(:test_employee => {:id => 1}).to_sql
+      assert_parameterized_equal(query,
+        'select "TEST_EMPLOYEES"."ID" AS t0_r0,"TEST_EMPLOYEES"."FIRST_NAME" AS t0_r1,"TEST_EMPLOYEES"."LAST_NAME" AS t0_r2,"TEST_EMPLOYEES"."EMAIL" AS t0_r3,"TEST_EMPLOYEES"."PHONE_NUMBER" AS t0_r4,"TEST_EMPLOYEES"."HIRE_DATE" AS t0_r5,"TEST_EMPLOYEES"."JOB_ID" AS t0_r6,"TEST_EMPLOYEES"."SALARY" AS t0_r7,"TEST_EMPLOYEES"."COMMISSION_PCT" AS t0_r8,"TEST_EMPLOYEES"."MANAGER_ID" AS t0_r9,"TEST_EMPLOYEES"."DEPARTMENT_ID" AS t0_r10,"TEST_EMPLOYEES"."CREATED_AT" AS t0_r11,"TEST_COMPANIES"."ID" AS t1_r0,"TEST_COMPANIES"."NAME" AS t1_r1 from "TEST_EMPLOYEES" LEFT OUTER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEE"."ID" = :a0',
+        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
+      )
     end
   end
 end

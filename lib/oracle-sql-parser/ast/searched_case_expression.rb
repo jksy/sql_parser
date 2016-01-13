@@ -1,5 +1,5 @@
 module OracleSqlParser::Ast
-  class SearchedCaseExpression < Base
+  class SearchedCaseExpression < Hash
     def else_clause=(ast)
       @ast[:else_clause] = ast
     end
