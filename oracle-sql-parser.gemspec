@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/jksy/sql_parser"
   spec.licenses      = ["MIT"]
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test)/}) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test)/|.travis}) }
   spec.files         += `echo lib/oracle-sql-parser/grammar/*.rb`.split(" ")
   spec.require_paths = ["lib"]
 

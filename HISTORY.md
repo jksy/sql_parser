@@ -1,3 +1,9 @@
+### 0.6.0
+* Enchancement
+  * added travis-ci
+  * added oracle enhanced adapter query(select, includes, joins, where)
+  * added syntax for column_alias
+
 ### 0.5.1
 * Bug fix
   * fix spell. to_pameternized is deprecated and will be removed. use to_parameterized 
