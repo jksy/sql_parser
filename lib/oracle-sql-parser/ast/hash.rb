@@ -47,6 +47,10 @@ module OracleSqlParser::Ast
       self.new(value)
     end
 
+    def []=(name, value)
+      @ast[name] = value
+    end
+
     def method_missing(name, *args)
       return @ast.send(:[], name) if @ast.has_key? name
       raise "no method:#{name}, #{@ast.class} in #{self.class}"

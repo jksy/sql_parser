@@ -1,8 +1,15 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 2.2.2
-before_install: gem install bundler -v 1.10.5
+  - 2.0.0
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
+sudo: required
+before_install: 
+  - .travis/oracle/download.sh
+  - .travis/oracle/install.sh
+  - gem install bundler -v 1.10.5
 script:
   - rake gen_force
   - rake test

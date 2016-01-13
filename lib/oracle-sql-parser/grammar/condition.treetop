@@ -251,7 +251,7 @@ module OracleSqlParser::Grammar
     rule compound_condition
       '(' logical_condition ')' {
         def ast
-          OracleSqlParser::Ast::CompoundCondition[logical_condition.ast]
+          OracleSqlParser::Ast::CompoundCondition[:condition => logical_condition.ast]
         end
       }
     end

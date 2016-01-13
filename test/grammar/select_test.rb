@@ -291,6 +291,26 @@ module Grammar
         ]
       )
     end
+
+    def test_select_column_alias_parseable
+      assert_ast_sql_equal(
+        "select a as b from table1",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[
+                  :name => 'a',
+                  :as => Ast::Keyword[:name => "as"],
+                  :alias => Ast::Identifier[:name => "b"]
+                ]
+              ],
+              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+            ]
+          ]
+        ]
+      )
+    end
   
     def test_select_table_and_asterisk_parseable
       assert_ast_sql_equal(

@@ -466,10 +466,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::CompoundCondition[
-                  Ast::SimpleComparisionCondition[
-                    :left => Ast::Identifier[:name => 'col1'],
-                    :op => '=',
-                    :right => Ast::Identifier[:name => 'col2']
+                  :condition => Ast::SimpleComparisionCondition[
+                      :left => Ast::Identifier[:name => 'col1'],
+                      :op => '=',
+                      :right => Ast::Identifier[:name => 'col2']
                   ]
                 ]
               ]

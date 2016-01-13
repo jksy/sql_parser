@@ -9,11 +9,15 @@ module OracleSqlParser::Ast
     end
 
     def to_sql(options = {})
+      result = []
       if quoted?
-        "\"#{@ast[:name]}\""
+        result << "\"#{@ast[:name]}\""
       else
-        @ast[:name]
+        result << @ast[:name]
       end
+      result << @ast[:as] if @ast[:as]
+      result << @ast[:alias] if @ast[:alias]
+      result.map(&:to_sql).join(' ')
     end
   end
 end
