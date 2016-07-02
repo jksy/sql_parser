@@ -1,3 +1,7 @@
+### 0.7.0
+* Enchancement
+  * added syntax table alias, like "select a.* from table1 a". https://github.com/jksy/sql_parser/issues/8
+
 ### 0.6.0
 * Enchancement
   * added travis-ci
@@ -6,7 +10,7 @@
 
 ### 0.5.1
 * Bug fix
-  * fix spell. to_pameternized is deprecated and will be removed. use to_parameterized 
+  * fix spell. to_pameternized is deprecated and will be removed. use to_parameterized
 
 ### 0.5.0
 * Enchancement

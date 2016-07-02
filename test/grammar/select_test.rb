@@ -51,7 +51,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_all_parseable
       assert_ast_sql_equal(
         'select all col1 from table1',
@@ -68,7 +68,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_distinct_parseable
       assert_ast_sql_equal(
         'select distinct col2 from table1',
@@ -85,7 +85,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_unique_parseable
       assert_ast_sql_equal(
         'select unique col2 from table1',
@@ -102,7 +102,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_union_parseable
       assert_ast_sql_equal 'select col1 from table1 union select col2 from table2',
         Ast::SelectStatement[
@@ -125,7 +125,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_union_all_parseable
       assert_ast_sql_equal 'select col1 from table1 union all select col2 from table2',
         Ast::SelectStatement[
@@ -149,7 +149,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_intersect_parseable
       assert_ast_sql_equal 'select col1 from table1 intersect select col2 from table2',
         Ast::SelectStatement[
@@ -172,7 +172,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_minus_parseable
       assert_ast_sql_equal 'select col1 from table1 minus select col2 from table2',
         Ast::SelectStatement[
@@ -195,7 +195,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_literal_number_column_parseable
       assert_ast_sql_equal(
         'select 1 from table1',
@@ -211,7 +211,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_literal_nagative_number_column_parseable
       assert_ast_sql_equal(
         'select -1 from table1',
@@ -227,7 +227,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_literal_float_number_column_parseable
       assert_ast_sql_equal(
         'select 1.1 from table1',
@@ -243,7 +243,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_literal_float_nagavite_number_column_parseable
       assert_ast_sql_equal(
         'select -1.1 from table1',
@@ -259,7 +259,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_literal_string_parseable
       assert_ast_sql_equal(
         "select 'adslfael' from table1" ,
@@ -275,7 +275,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_asterisk_parseable
       assert_ast_sql_equal(
         "select * from table1",
@@ -311,7 +311,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_table_and_asterisk_parseable
       assert_ast_sql_equal(
         "select table1.* from table1",
@@ -327,7 +327,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_join_clause_parseable
       assert_ast_sql_equal "select * from table1 inner join table2 on table1.col1 = table2.col1",
         Ast::SelectStatement[
@@ -354,7 +354,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_inner_join_clause_with_on_parseable
       assert_ast_sql_equal "select * from table1 inner join table2 on table1.col1 = table2.col1",
         Ast::SelectStatement[
@@ -381,7 +381,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_inner_join_clause_with_using_parseable
       assert_ast_sql_equal "select * from table1 inner join table2 using (col1,col2)",
         Ast::SelectStatement[
@@ -407,7 +407,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_cross_join_clause_parseable
       assert_ast_sql_equal "select * from table1 cross join table2",
         Ast::SelectStatement[
@@ -426,7 +426,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_cross_join_clause_with_natual_parseable
       assert_ast_sql_equal "select * from table1 natural join table2",
         Ast::SelectStatement[
@@ -465,7 +465,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_full_join_parseable
       assert_ast_sql_equal "select * from table1 full outer join table2 on table1.col1 = table2.col2",
         Ast::SelectStatement[
@@ -493,7 +493,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_left_join_parseable
       assert_ast_sql_equal "select * from table1 left join table2 on table1.col1 = table2.col2",
         Ast::SelectStatement[
@@ -520,7 +520,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_right_join_parseable
       assert_ast_sql_equal "select * from table1 right join table2 on table1.col1 = table2.col2",
         Ast::SelectStatement[
@@ -547,7 +547,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_natural_join_parseable
       assert_ast_sql_equal "select * from table1 natural join table2 on table1.col1 = table2.col2",
         Ast::SelectStatement[
@@ -574,7 +574,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_natural_jointype_parseable
       assert_ast_sql_equal "select * from table1 natural left join table2 on table1.col1 = table2.col2",
         Ast::SelectStatement[
@@ -602,7 +602,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_outer_join_clause_using_parseable
       assert_ast_sql_equal "select * from table1 natural left join table2 using (col1,col2)",
         Ast::SelectStatement[
@@ -630,7 +630,7 @@ module Grammar
         ]
 
     end
-  
+
     def test_select_where_parseable
       assert_ast_sql_equal(
         "select * from table1 where col1 = col1",
@@ -653,7 +653,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_group_by_expr_parseable
       assert_ast_sql_equal(
         "select * from table1 group by col1,col2",
@@ -675,7 +675,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_group_by_having_condition_parseable
       assert_ast_sql_equal(
         "select * from table1 group by col1,col2 having col1 = col2",
@@ -702,7 +702,7 @@ module Grammar
         ]
       )
     end
-  
+
     def test_select_rollup_clause_parseable
       assert_ast_sql_equal "select * from table1 group by rollup(col1,col2)",
         Ast::SelectStatement[
@@ -727,7 +727,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_cube_clause_parseable
       assert_ast_sql_equal "select * from table1 group by cube(col1,col2)",
         Ast::SelectStatement[
@@ -752,7 +752,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_for_update_clause_parseable
       assert_ast_sql_equal "select * from table1 for update",
         Ast::SelectStatement[
@@ -760,7 +760,7 @@ module Grammar
           :for_update_clause => Ast::ForUpdateClause[{}]
         ]
     end
-  
+
     def test_select_for_update_clause_column_parseable
       assert_ast_sql_equal "select * from table1 for update of column1",
         Ast::SelectStatement[
@@ -772,7 +772,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_for_update_clause_table_and_column_parseable
       assert_ast_sql_equal "select * from table1 for update of table1.column1",
         Ast::SelectStatement[
@@ -784,7 +784,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_for_update_clause_schema_and_table_and_column_parseable
       assert_ast_sql_equal "select * from table1 for update of schema1.table1.column1",
         Ast::SelectStatement[
@@ -796,7 +796,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_for_update_clause_nowait_parseable
       assert_ast_sql_equal "select * from table1 for update nowait",
         Ast::SelectStatement[
@@ -806,7 +806,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_for_update_clause_wait_parseable
       assert_ast_sql_equal "select * from table1 for update wait 1",
         Ast::SelectStatement[
@@ -817,7 +817,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_expr_parseable
       assert_ast_sql_equal "select * from table1 order by col1",
         Ast::SelectStatement[
@@ -833,7 +833,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_position_parseable
       assert_ast_sql_equal "select * from table1 order by 1",
         Ast::SelectStatement[
@@ -849,7 +849,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_siblings_parseable
       assert_ast_sql_equal "select * from table1 order siblings by 1",
         Ast::SelectStatement[
@@ -866,7 +866,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_asc_parseable
       assert_ast_sql_equal "select * from table1 order by col1 asc",
         Ast::SelectStatement[
@@ -883,7 +883,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_desc_parseable
       assert_ast_sql_equal "select * from table1 order by col1 desc",
         Ast::SelectStatement[
@@ -900,7 +900,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_nulls_first_parseable
       assert_ast_sql_equal "select * from table1 order by col1 nulls first",
         Ast::SelectStatement[
@@ -917,7 +917,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_nulls_last_parseable
       assert_ast_sql_equal "select * from table1 order by col1 nulls last",
         Ast::SelectStatement[
@@ -934,7 +934,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_select_order_by_clause_plural_column_parseable
       assert_ast_sql_equal "select * from table1 order by col1 asc,col2 desc",
         Ast::SelectStatement[
@@ -955,5 +955,23 @@ module Grammar
           ]
         ]
     end
+
+    def test_select_table_alias
+      assert_ast_sql_equal "select a.* from table1 a",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::Identifier[:name => 'a.*']
+              ],
+              :select_sources => OracleSqlParser::Ast::TableReference[
+                :table_name => OracleSqlParser::Ast::Identifier[:name => 'table1'],
+                :table_alias => OracleSqlParser::Ast::Identifier[:name => 'a'],
+              ]
+            ]
+          ]
+        ]
+    end
+
   end
 end

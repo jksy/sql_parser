@@ -4,14 +4,17 @@ require 'rake/testtask'
 
 GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/*.treetop']
 
+desc "generate parser files"
 task :gen do
   generate_parser_files(false)
 end
 
+desc "generate parser files(force)"
 task :gen_force do
   generate_parser_files(true)
 end
 
+desc "clean files"
 task :clean do
   GRAMMAR_FILES.each do |f|
     file = "#{f.gsub(/\.treetop$/,'')}.rb"
@@ -19,6 +22,7 @@ task :clean do
   end
 end
 
+desc "build gem for current versioin"
 task :build_gem => [:gen_force] do
   sh 'gem build oracle-sql-parser.gemspec'
 end

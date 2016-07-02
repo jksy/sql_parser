@@ -13,7 +13,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_plural_values_parseable
       assert_ast_sql_equal "insert into table1 values('1',1)",
         Ast::InsertStatement[
@@ -26,27 +26,27 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_table_alias_parseable
       assert_ast_sql_equal "insert into table1 t_alias values('1')",
         Ast::InsertStatement[
           :insert => Ast::TableReference[
-            :table_name => Ast::Identifier[:name => 'table1']
+            :table_name => Ast::Identifier[:name => 'table1'],
+            :table_alias =>  Ast::Identifier[:name => 't_alias']
           ],
-          :alias => Ast::Identifier[:name => 't_alias'],
           :values => Ast::InsertValuesClause[
             Ast::TextLiteral[:value => '1']
           ]
         ]
     end
-  
+
     def test_insert_with_column_names_parseable
       assert_ast_sql_equal "insert into table1 t_alias (col1,col2) values('1',1)",
         Ast::InsertStatement[
           :insert => Ast::TableReference[
-            :table_name => Ast::Identifier[:name => 'table1']
+            :table_name => Ast::Identifier[:name => 'table1'],
+            :table_alias => Ast::Identifier[:name => 't_alias'],
           ],
-          :alias => Ast::Identifier[:name => 't_alias'],
           :columns => Ast::Array[
             Ast::Identifier[:name => 'col1'],
             Ast::Identifier[:name => 'col2']
@@ -57,14 +57,14 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_values_default_parseable
       assert_ast_sql_equal "insert into table1 t_alias (col1,col2) values('1',default)",
         Ast::InsertStatement[
           :insert => Ast::TableReference[
-            :table_name => Ast::Identifier[:name => 'table1']
+            :table_name => Ast::Identifier[:name => 'table1'],
+            :table_alias => Ast::Identifier[:name => 't_alias'],
           ],
-          :alias => Ast::Identifier[:name => 't_alias'],
           :columns => Ast::Array[
             Ast::Identifier[:name => 'col1'],
             Ast::Identifier[:name => 'col2']
@@ -75,14 +75,14 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_values_function_parseable
       assert_ast_sql_equal "insert into table1 t_alias (col1) values(to_char(sysdate,'Day'))",
         Ast::InsertStatement[
           :insert => Ast::TableReference[
-            :table_name => Ast::Identifier[:name => 'table1']
+            :table_name => Ast::Identifier[:name => 'table1'],
+            :table_alias => Ast::Identifier[:name => 't_alias'],
           ],
-          :alias => Ast::Identifier[:name => 't_alias'],
           :columns => Ast::Array[
             Ast::Identifier[:name => 'col1'],
           ],
@@ -97,7 +97,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_schema_table_parseable
       assert_ast_sql_equal "insert into schema1.table1 (col1) values(0)",
         Ast::InsertStatement[
@@ -113,7 +113,7 @@ module Grammar
           ]
         ]
     end
-  
+
     def test_insert_schema_table_dblink_parseable
       assert_ast_sql_equal "insert into schema1.table1@dblink (col1) values(0)",
         Ast::InsertStatement[
