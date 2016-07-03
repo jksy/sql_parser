@@ -47,18 +47,29 @@ end
 
 
 def generate_parser_files(force = false)
-  sh "ruby lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
+  word_generator = "lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
+  output = "lib/oracle-sql-parser/grammar/reserved_word.treetop"
+  do_if_changed(word_generator, output, force) do
+    sh "ruby #{word_generator}"
+  end
+
   GRAMMAR_FILES.each do |f|
     tt(f, force)
   end
 end
 
 def tt(f, force = false)
-  output_file_name = "#{f.gsub(/\.treetop$/,'')}.rb"
+  output = "#{f.gsub(/\.treetop$/,'')}.rb"
 
-  force = true unless File.exists?(output_file_name)
-  if force || File::Stat.new(f).mtime >= File::Stat.new(output_file_name).mtime
-    sh "tt #{f} -f -o #{output_file_name}"
+  do_if_changed(f, output, force) do
+    sh "tt #{f} -f -o #{output}"
+  end
+end
+
+def do_if_changed(src, output, force = false, &block)
+  force = true unless File.exists?(output)
+  if force || File::Stat.new(src).mtime >= File::Stat.new(output).mtime
+    yield
   end
 end
 
