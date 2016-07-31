@@ -2,10 +2,10 @@ module OracleSqlParser::Grammar
   grammar Expression
     rule sql_expression
       ex:(
+        compound_expression /
         function_expression /
         case_expression /
         cursor_expression /
-        compound_expression /
         datetime_expression /
         interval_expression /
         object_access_expression /
@@ -13,14 +13,15 @@ module OracleSqlParser::Grammar
         model_expression /
         type_constructor_expression /
         simple_expression /
-        variable_expression)
-        alias_name:(space as_keyword space ident)?
-      {
+        variable_expression
+        ) {
         def ast
-          tree = ex.ast
-          tree[:as] = alias_name.try(:as_keyword).try(:ast)
-          tree[:alias] = alias_name.try(:ident).try(:ast)
-          tree
+          ex.ast
+#          super
+#          tree = ex.ast
+##          tree[:as] = alias_name.try(:as_keyword).try(:ast)
+#          tree[:alias] = alias_name.try(:ident).try(:ast)
+#          tree
         end
       }
     end
@@ -51,13 +52,68 @@ module OracleSqlParser::Grammar
       }
     end
 
+    rule not_compound_expressions
+      ex:(
+        function_expression /
+        case_expression /
+        cursor_expression /
+        datetime_expression /
+        interval_expression /
+        object_access_expression /
+        scalar_subquery_expression /
+        model_expression /
+        type_constructor_expression /
+        simple_expression /
+        variable_expression)
+      {
+        def ast
+          ex.ast
+        end
+      }
+    end
+
     rule compound_expression
-      'compound_expression' # not implemented
-#      (
-#        ('+' / '-' / prior_keyword) space? expr /
-#        (expr space? ('||' / '*' / '/' / '+' / '-') space? expr) /
-#        '(' space? expr space? ')'
-#      )
+      ex:(
+        left_parenthesis:'(' space? left:expr space? right_parenthesis:')' /
+        left:not_compound_expressions space? op:('*' / '/' / '+' / '-' / '||') space? right:expr /
+        op:(prior_keyword) space? right:expr
+      )
+
+        {
+          def ast
+            OracleSqlParser::Ast::CompoundExpression[
+              :left_parenthesis => left_parenthesis.ast,
+              :left => left.ast,
+              :op => op.ast,
+              :right => right.ast,
+              :right_parenthesis => right_parenthesis.ast,
+            ]
+          end
+
+          def left_parenthesis
+            ex.left_parenthesis if ex.respond_to? :left_parenthesis
+          end
+
+          def left
+            ex.left if ex.respond_to? :left
+          end
+
+          def not_compound_expressions
+            ex.not_compound_expressions if ex.respond_to? :not_compound_expressions
+          end
+
+          def op
+            ex.op if ex.respond_to? :op
+          end
+
+          def right
+            ex.right if ex.respond_to? :right
+          end
+
+          def right_parenthesis
+            ex.right_parenthesis if ex.respond_to? :right_parenthesis
+          end
+        }
     end
 
     rule case_expression

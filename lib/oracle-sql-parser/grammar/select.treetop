@@ -411,22 +411,21 @@ module OracleSqlParser::Grammar
     end
 
     rule select_list
-      select_one_column more_list:( space? ',' space? select_one_column)* {
+      select_one more_list:( space? ',' space? select_one)* {
         def ast
-          OracleSqlParser::Ast::Array[select_one_column.ast, *more_columns.map(&:ast)]
+          OracleSqlParser::Ast::Array[select_one.ast, *more_columns.map(&:ast)]
         end
 
         def more_columns
-          more_list.elements.map(&:select_one_column)
+          more_list.elements.map(&:select_one)
         end
       }
     end
 
-    rule select_one_column
-      ( select_table /
-        expr /
+    rule select_one
+        select_table /
         select_column
-        ) {
+      {
         def ast
           super
         end
@@ -442,9 +441,25 @@ module OracleSqlParser::Grammar
     end
 
     rule select_column
-      sql_expression ( space ( as_keyword space )? c_alias )?  {
+      expr _alias:( space as:( as_keyword space )? c_alias )?  {
         def ast
-          sql_expression.ast
+          OracleSqlParser::Ast::SelectColumn[
+            :expr => expr.ast,
+            :as => as_keyword.ast,
+            :c_alias => c_alias.ast,
+          ]
+        end
+
+        def c_alias
+          if _alias.respond_to? :c_alias
+            _alias.c_alias
+          end
+        end
+
+        def as_keyword
+          if respond_to? :_alias and _alias.respond_to? :as
+            _alias.as.as_keyword
+          end
         end
       }
     end

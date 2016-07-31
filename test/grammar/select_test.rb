@@ -9,7 +9,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ],
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -27,9 +29,15 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1'],
-                Ast::Identifier[:name => 'col2'],
-                Ast::Identifier[:name => 'col3']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1'],
+                ],
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col2'],
+                ],
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col3']
+                ],
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -47,7 +55,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1'],
+                ],
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1', :quoted => true]]
@@ -66,7 +76,9 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :modifier => Ast::Keyword[:name => 'all'],
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -85,7 +97,9 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :modifier => Ast::Keyword[:name => 'distinct'],
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col2']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col2']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -104,7 +118,9 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :modifier => Ast::Keyword[:name => 'unique'],
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col2']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col2']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -122,7 +138,9 @@ module Grammar
             :subqueries => Ast::Array[
               Ast::QueryBlock[
                 :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
+                  Ast::SelectColumn[
+                    :expr => Ast::Identifier[:name => 'col1']
+                  ]
                 ],
                 :select_sources => Ast::Array[
                   Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -134,7 +152,9 @@ module Grammar
               Ast::Subquery[
                 :query_block => Ast::QueryBlock[
                   :select_list => Ast::Array[
-                    Ast::Identifier[:name => 'col2']
+                    Ast::SelectColumn[
+                      :expr => Ast::Identifier[:name => 'col2']
+                    ]
                   ],
                   :select_sources => Ast::Array[
                     Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
@@ -153,7 +173,9 @@ module Grammar
             :subqueries => Ast::Array[
               Ast::QueryBlock[
                 :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
+                  Ast::SelectColumn[
+                    :expr => Ast::Identifier[:name => 'col1']
+                  ]
                 ],
                 :select_sources => Ast::Array[
                   Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -167,7 +189,9 @@ module Grammar
                 :subquery => Ast::Subquery[
                   :query_block => Ast::QueryBlock[
                     :select_list => Ast::Array[
-                      Ast::Identifier[:name => 'col2']
+                      Ast::SelectColumn[
+                        :expr => Ast::Identifier[:name => 'col2']
+                      ]
                     ],
                     :select_sources => Ast::Array[
                       Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
@@ -248,7 +272,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::NumberLiteral[:value => '1']
+                Ast::SelectColumn[
+                  :expr => Ast::NumberLiteral[:value => '1'],
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -266,7 +292,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::NumberLiteral[:value => '-1']
+                Ast::SelectColumn[
+                  :expr => Ast::NumberLiteral[:value => '-1'],
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -284,7 +312,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::NumberLiteral[:value => '1.1']
+                Ast::SelectColumn[
+                  :expr => Ast::NumberLiteral[:value => '1.1'],
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -302,7 +332,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::NumberLiteral[:value => '-1.1']
+                Ast::SelectColumn[
+                  :expr => Ast::NumberLiteral[:value => '-1.1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -320,7 +352,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::TextLiteral[:value => 'adslfael']
+                Ast::SelectColumn[
+                  :expr => Ast::TextLiteral[:value => 'adslfael']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
@@ -356,10 +390,10 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[
-                  :name => 'a',
-                  :as => Ast::Keyword[:name => "as"],
-                  :alias => Ast::Identifier[:name => "b"]
+                Ast::SelectColumn[
+                    :expr => Ast::Identifier[:name => 'a'],
+                    :as => Ast::Keyword[:name => "as"],
+                    :c_alias => Ast::Identifier[:name => "b"],
                 ]
               ],
               :select_sources => Ast::Array[
@@ -1076,7 +1110,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::NumberLiteral[:value => '1']
+                Ast::SelectColumn[
+                  :expr => Ast::NumberLiteral[:value => '1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1087,6 +1123,37 @@ module Grammar
                   :subquery => generate_ast("(select 1 from books3 b)").subquery,
                   :table_alias => Ast::Identifier[:name => 'y'],
                 ],
+              ]
+            ]
+          ]
+        ]
+    end
+
+    def test_select_with_compound_expression
+      assert_ast_sql_equal %Q(select a.col-b.col as markup from RETAIL a,COST b),
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::SelectColumn[
+                  :expr => Ast::CompoundExpression[
+                    :left => Ast::Identifier[:name=>"a.col"],
+                    :op => Ast::Base["-"],
+                    :right => Ast::Identifier[:name=>"b.col"],
+                  ],
+                  :as => Ast::Keyword[:name=>"as"],
+                  :c_alias => Ast::Identifier[:name=>"markup"],
+                ],
+              ],
+              :select_sources => Ast::Array[
+                Ast::TableReference[
+                  :table_name => Ast::Identifier[:name => 'RETAIL'],
+                  :table_alias => Ast::Identifier[:name => 'a'],
+                ],
+                Ast::TableReference[
+                  :table_name => Ast::Identifier[:name => 'COST'],
+                  :table_alias => Ast::Identifier[:name => 'b'],
+                ]
               ]
             ]
           ]
