@@ -5,7 +5,7 @@ require 'colorize'
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'oracle-sql-parser'
-require 'pry-byebug'
+require 'pry-byebug' if RUBY_VERSION >= '2.0.0'
 require "#{File.expand_path('./', File.dirname(__FILE__))}/parse_testable.rb"
 
 module Test::Unit::Assertions
