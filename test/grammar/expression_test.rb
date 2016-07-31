@@ -302,7 +302,7 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::FunctionExpressoin[
+                  :expr => Ast::FunctionExpression[
                     :name => Ast::Identifier[:name =>'func'],
                   ]
                 ]
@@ -324,7 +324,7 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::FunctionExpressoin[
+                  :expr => Ast::FunctionExpression[
                     :name => Ast::Identifier[:name => 'one_arg_function'],
                     :args => Ast::Array[
                       Ast::Identifier[:name => 'col1']
@@ -349,7 +349,7 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::FunctionExpressoin[
+                  :expr => Ast::FunctionExpression[
                     :name => Ast::Identifier[:name => 'two_args_function'],
                     :args => Ast::Array[
                       Ast::NumberLiteral[:value => '1'],
@@ -375,7 +375,7 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::FunctionExpressoin[
+                  :expr => Ast::FunctionExpression[
                     :name => Ast::Identifier[:name => 'package_name.procedure_name'],
                     :args => Ast::Array[
                       Ast::Identifier[:name => 'col1'],
@@ -400,10 +400,10 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::FunctionExpressoin[
+                  :expr => Ast::FunctionExpression[
                     :name => Ast::Identifier[:name => 'to_date'],
                     :args => Ast::Array[
-                      Ast::FunctionExpressoin[
+                      Ast::FunctionExpression[
                         :name => Ast::Identifier[:name => 'to_char'],
                         :args => Ast::Array[
                           Ast::Keyword[:name => 'sysdate'],

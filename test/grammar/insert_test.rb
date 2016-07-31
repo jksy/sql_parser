@@ -87,7 +87,7 @@ module Grammar
             Ast::Identifier[:name => 'col1'],
           ],
           :values => Ast::InsertValuesClause[
-            Ast::FunctionExpressoin[
+            Ast::FunctionExpression[
               :name => Ast::Identifier[:name => 'to_char'],
               :args => Ast::Array[
                 Ast::Keyword[:name => 'sysdate'],

@@ -201,7 +201,7 @@ module OracleSqlParser::Grammar
     rule function_expression
       function_name space? '(' space? function_args:function_args? space? ')' {
         def ast
-          OracleSqlParser::Ast::FunctionExpressoin[
+          OracleSqlParser::Ast::FunctionExpression[
             :name => function_name.ast,
             :args => function_args.ast
           ]

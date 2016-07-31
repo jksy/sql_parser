@@ -1145,9 +1145,9 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
                       OracleSqlParser::Ast::Identifier[:name => 'col1']
                     ]
                   ],
@@ -1183,10 +1183,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
@@ -1222,10 +1222,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
@@ -1260,10 +1260,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
