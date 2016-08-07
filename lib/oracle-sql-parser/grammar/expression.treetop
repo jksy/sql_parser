@@ -76,22 +76,17 @@ module OracleSqlParser::Grammar
       ex:(
         left_parenthesis:'(' space? left:expr space? right_parenthesis:')' /
         left:not_compound_expressions space? op:('*' / '/' / '+' / '-' / '||') space? right:expr /
-        op:(prior_keyword) space? right:expr
+        !number_literal op:(prior_keyword / '-' / '+') space? right:expr
       )
 
         {
           def ast
             OracleSqlParser::Ast::CompoundExpression[
-              :left_parenthesis => left_parenthesis.ast,
+              :has_parenthesis => ex.respond_to?(:left_parenthesis) ? true : nil,
               :left => left.ast,
               :op => op.ast,
               :right => right.ast,
-              :right_parenthesis => right_parenthesis.ast,
             ]
-          end
-
-          def left_parenthesis
-            ex.left_parenthesis if ex.respond_to? :left_parenthesis
           end
 
           def left

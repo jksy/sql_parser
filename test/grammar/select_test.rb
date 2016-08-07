@@ -1130,7 +1130,7 @@ module Grammar
     end
 
     def test_select_with_compound_expression
-      assert_ast_sql_equal %Q(select a.col-b.col as markup from RETAIL a,COST b),
+      assert_ast_sql_equal %Q(select a.col - b.col as markup from RETAIL a,COST b),
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
