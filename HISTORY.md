@@ -1,17 +1,24 @@
-### x.x.x
-* Enchancement
-  * added syntax subquery
+<<<<<<< HEAD
+### next version
+* Syntax
+  * subquery https://github.com/jksy/sql_parser/issues/8
     * "select col1 from table1 union select col2 from table2 union select col3 from table3"
     * "select col1 from table1 union (select col2 from table2)"
+  * compound expression https://github.com/jksy/sql_parser/issues/8
+    * "select 1-1 from table1"
+* Broken changes
+  * select_list.
+    Ast::Array[ Ast::Ident[..], Ast::Ident[..]] Ast::Array[ Ast::SelectColumn[:expr => Ast::Ident[..]],...]
 
 ### 0.7.0
-* Enchancement
-  * added syntax table alias, like "select a.* from table1 a". https://github.com/jksy/sql_parser/issues/8
+* Syntax
+  * table alias, like "select a.* from table1 a". https://github.com/jksy/sql_parser/issues/8
 
 ### 0.6.0
 * Enchancement
   * added travis-ci
   * added oracle enhanced adapter query(select, includes, joins, where)
+* Syntax
   * added syntax for column_alias
 
 ### 0.5.1
@@ -23,17 +30,17 @@
   * added NumberLiteral#to_cecimal, TextLiteral#to_s
 
 ### 0.4.0
-* Enchancement
+* Bugfix
   * rename ParameternizedQuery#query -> ParameternizedQuery#to_sql
-  * added grammer
-    * union [all]
-    * intersect
-    * minus
-    * [inner|outer] join
-    * conditions
-      * floating point condition
-      * multiset condition
-      * is_of_type condition
+* Syntax
+  * union [all]
+  * intersect
+  * minus
+  * [inner|outer] join
+  * conditions
+    * floating point condition
+    * multiset condition
+    * is_of_type condition
 
 ### 0.3.0
 * Enchancement
@@ -48,7 +55,7 @@
   * refactor test cases
 
 ### 0.1.1
-* Enchancement
+* Syntax
   * support double-quoted identifer
 
 ### 0.1.0
