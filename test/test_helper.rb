@@ -1,5 +1,7 @@
 require 'test/unit'
 require 'test/unit/assertions'
+require 'pry-byebug'
+require 'colorize'
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'oracle-sql-parser'
