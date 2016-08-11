@@ -1,9 +1,7 @@
 module OracleSqlParser::Ast
   class SelectStatement < Hash
     def to_sql(options = {})
-      sql = @ast[:subquery].to_sql
-      sql += " #{@ast[:for_update_clause].to_sql}" if @ast[:for_update_clause]
-      sql
+      @ast.values_at(:subquery, :for_update_clause).compact.map(&:to_sql).join(' ')
     end
   end
 end

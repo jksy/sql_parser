@@ -12,38 +12,51 @@ module OracleSqlParser::Grammar
 
     rule subquery
       query:(
-        subquery_with_union /
-        subquery_only_query_block
+        left_parenthesis:'(' space? subquery space? right_parenthesis:')' /
+        query_block space? !union_or_intersect_or_minus /
+        subqueries:subqueries_with_union
       )
       space? order_by_clause:order_by_clause? {
         def ast
-          result = query.ast
-          result.order_by_clause = order_by_clause.ast
-          result
-        end
-      }
-    end
-
-    rule subquery_only_query_block
-      '(' space? query_block:query_block space? ')' /
-      query_block:query_block {
-        def ast
           OracleSqlParser::Ast::Subquery[
-            :query_block => query_block.ast
+            :has_parenthesis => has_parenthesis,
+            :query_block => query_block.ast,
+            :subqueries => subqueries.ast,
+            :subquery => subquery.ast,
+            :order_by_clause => order_by_clause.ast,
           ]
         end
+
+        def has_parenthesis
+          true if query.respond_to? :left_parenthesis
+        end
+
+        def query_block
+          query.query_block if query.respond_to? :query_block
+        end
+
+        def subqueries
+          query.subqueries if query.respond_to? :subqueries
+        end
+
+        def subquery
+          query.subquery if query.respond_to? :subquery
+        end
       }
     end
 
-    rule subquery_with_union
-      '(' query_block1:query_block space? union_or_intersect_or_minus space? query_block2:query_block ')' /
-      query_block1:query_block space? union_or_intersect_or_minus space? query_block2:query_block {
+    rule subqueries_with_union
+      query_block space? more:(union_or_intersect_or_minus space? subquery)+
+      {
         def ast
-          OracleSqlParser::Ast::Subquery[
-            :query_block1 => query_block1.ast,
-            :union => union_or_intersect_or_minus.ast,
-            :query_block2 => query_block2.ast
-            ]
+          OracleSqlParser::Ast::Array[
+            query_block.ast,
+            *more_queries.map(&:ast),
+          ]
+        end
+
+        def more_queries
+          more.elements.map{|e| [e.union_or_intersect_or_minus, e.subquery]}.flatten
         end
       }
     end

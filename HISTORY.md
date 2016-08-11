@@ -1,3 +1,9 @@
+### x.x.x
+* Enchancement
+  * added syntax subquery
+    * "select col1 from table1 union select col2 from table2 union select col3 from table3"
+    * "select col1 from table1 union (select col2 from table2)"
+
 ### 0.7.0
 * Enchancement
   * added syntax table alias, like "select a.* from table1 a". https://github.com/jksy/sql_parser/issues/8
