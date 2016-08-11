@@ -6,15 +6,13 @@ require 'oracle-sql-parser'
 require "#{File.expand_path('./', File.dirname(__FILE__))}/parse_testable.rb"
 
 module Test::Unit::Assertions
-  def assert_ast_equal(expect, actual)
-    difference = []
-    OracleSqlParser::Ast::Base.find_different_value(expect, actual) do |left, right|
-      difference << {:expect => left, :actual => right}
-    end
-    full_message = build_message(<<EOS, '')
-found difference in ast
-expect:#{expect.inspect}
-actual:#{actual.inspect}
+  AssertionMessage.max_diff_target_string_size = 10000
+
+  def assert_ast_equal(expect, actual, message = nil)
+    difference = AssertionMessage.delayed_diff(expect.to_s, actual.to_s)
+    full_message = build_message(message, <<EOS, expect, actual, difference)
+<?> expected but was
+<?>.?
 EOS
 
     assert_block(full_message) do
