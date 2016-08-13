@@ -1,7 +1,7 @@
 module OracleSqlParser::Grammar
   grammar Select
     rule select_statement
-      subquery for_update:(space for_update_clause)? {
+      space? subquery for_update:(space for_update_clause)? space? {
         def ast
           OracleSqlParser::Ast::SelectStatement[
             :subquery => subquery.ast,
