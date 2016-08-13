@@ -7,7 +7,7 @@ module OracleSqlParser::Ast
         @ast[:modifier],
         @ast[:select_list].map(&:to_sql).join(','),
         "from",
-        @ast[:select_sources],
+        @ast[:select_sources].map(&:to_sql).join(','),
         @ast[:where_clause],
         @ast[:group_by_clause],
         @ast[:model_clause]

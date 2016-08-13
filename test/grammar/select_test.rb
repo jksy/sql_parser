@@ -11,7 +11,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ],
           ],
         ]
@@ -29,7 +31,9 @@ module Grammar
                 Ast::Identifier[:name => 'col2'],
                 Ast::Identifier[:name => 'col3']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ],
           ],
         ]
@@ -45,7 +49,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1', :quoted => true]]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1', :quoted => true]]
+              ]
             ],
           ],
         ]
@@ -62,7 +68,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -79,7 +87,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col2']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -96,7 +106,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'col2']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -112,7 +124,9 @@ module Grammar
                 :select_list => Ast::Array[
                   Ast::Identifier[:name => 'col1']
                 ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+                :select_sources => Ast::Array[
+                  Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+                ]
               ],
               Ast::Array[
                 Ast::Keyword[:name => 'union']
@@ -122,7 +136,9 @@ module Grammar
                   :select_list => Ast::Array[
                     Ast::Identifier[:name => 'col2']
                   ],
-                  :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+                  :select_sources => Ast::Array[
+                    Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+                  ]
                 ],
               ],
             ]
@@ -139,7 +155,9 @@ module Grammar
                 :select_list => Ast::Array[
                   Ast::Identifier[:name => 'col1']
                 ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+                :select_sources => Ast::Array[
+                  Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+                ]
               ],
               Ast::Array[
                 Ast::Keyword[:name => 'union']
@@ -151,7 +169,9 @@ module Grammar
                     :select_list => Ast::Array[
                       Ast::Identifier[:name => 'col2']
                     ],
-                    :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+                    :select_sources => Ast::Array[
+                      Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
+                    ]
                   ],
                 ]
               ],
@@ -165,36 +185,11 @@ module Grammar
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :subqueries => Ast::Array[
-              Ast::QueryBlock[
-                :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
-                ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ],
+              generate_ast("select col1 from table1").subquery.query_block,
               Ast::Array[
                 Ast::Keyword[:name => 'union']
               ],
-              Ast::Subquery[
-                :subqueries => Ast::Array[
-                  Ast::QueryBlock[
-                    :select_list => Ast::Array[
-                      Ast::Identifier[:name => 'col2']
-                    ],
-                    :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
-                  ],
-                  Ast::Array[
-                    Ast::Keyword[:name => 'union']
-                  ],
-                  Ast::Subquery[
-                    :query_block => Ast::QueryBlock[
-                      :select_list => Ast::Array[
-                        Ast::Identifier[:name => 'col3']
-                      ],
-                      :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table3']]
-                    ],
-                  ]
-                ]
-              ],
+              generate_ast("select col2 from table2 union select col3 from table3").subquery,
             ]
           ]
         ]
@@ -205,24 +200,12 @@ module Grammar
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :subqueries => Ast::Array[
-              Ast::QueryBlock[
-                :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
-                ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ],
+              generate_ast("select col1 from table1").subquery.query_block,
               Ast::Array[
                 Ast::Keyword[:name => 'union'],
                 Ast::Keyword[:name => 'all']
               ],
-              Ast::Subquery[
-                :query_block => Ast::QueryBlock[
-                  :select_list => Ast::Array[
-                    Ast::Identifier[:name => 'col2']
-                  ],
-                  :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
-                ],
-              ]
+              generate_ast("select col2 from table2").subquery,
             ]
           ]
         ]
@@ -233,23 +216,11 @@ module Grammar
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :subqueries => Ast::Array[
-              Ast::QueryBlock[
-                :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
-                ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ],
+              generate_ast('select col1 from table1').subquery.query_block,
               Ast::Array[
                 Ast::Keyword[:name => 'intersect']
               ],
-              Ast::Subquery[
-                :query_block => Ast::QueryBlock[
-                  :select_list => Ast::Array[
-                    Ast::Identifier[:name => 'col2']
-                  ],
-                  :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
-                ],
-              ]
+              generate_ast('select col2 from table2').subquery,
             ]
           ]
         ]
@@ -260,23 +231,11 @@ module Grammar
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :subqueries => Ast::Array[
-              Ast::QueryBlock[
-                :select_list => Ast::Array[
-                  Ast::Identifier[:name => 'col1']
-                ],
-                :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ],
+              generate_ast('select col1 from table1').subquery.query_block,
               Ast::Array[
                 Ast::Keyword[:name => 'minus']
               ],
-              Ast::Subquery[
-                :query_block => Ast::QueryBlock[
-                  :select_list => Ast::Array[
-                    Ast::Identifier[:name => 'col2']
-                  ],
-                  :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']]
-                ],
-              ]
+              generate_ast('select col2 from table2').subquery
             ]
           ]
         ]
@@ -291,7 +250,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -307,7 +268,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '-1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -323,7 +286,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '1.1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -339,7 +304,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::NumberLiteral[:value => '-1.1']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -355,7 +322,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::TextLiteral[:value => 'adslfael']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -371,7 +340,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -391,7 +362,9 @@ module Grammar
                   :alias => Ast::Identifier[:name => "b"]
                 ]
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -407,7 +380,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'table1.*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              ]
             ]
           ]
         ]
@@ -422,17 +397,19 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::InnerJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :inner => Ast::Keyword[:name => "inner"],
-                :join => Ast::Keyword[:name => "join"],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
-                :on_or_using_clause => Ast::OnClause[
-                  :on => Ast::Keyword[:name => 'on'],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+              :select_sources => Ast::Array[
+                Ast::InnerJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :inner => Ast::Keyword[:name => "inner"],
+                  :join => Ast::Keyword[:name => "join"],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                  :on_or_using_clause => Ast::OnClause[
+                    :on => Ast::Keyword[:name => 'on'],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+                    ]
                   ]
                 ]
               ]
@@ -449,17 +426,19 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::InnerJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :inner => Ast::Keyword[:name => "inner"],
-                :join => Ast::Keyword[:name => "join"],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
-                :on_or_using_clause => Ast::OnClause[
-                  :on => Ast::Keyword[:name => 'on'],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+              :select_sources => Ast::Array[
+                Ast::InnerJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :inner => Ast::Keyword[:name => "inner"],
+                  :join => Ast::Keyword[:name => "join"],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                  :on_or_using_clause => Ast::OnClause[
+                    :on => Ast::Keyword[:name => 'on'],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
+                    ]
                   ]
                 ]
               ]
@@ -476,16 +455,18 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::InnerJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :inner => Ast::Keyword[:name => "inner"],
-                :join => Ast::Keyword[:name => "join"],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
-                :on_or_using_clause => Ast::UsingClause[
-                  :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
-                  :column_list => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1'],
-                      OracleSqlParser::Ast::Identifier[:name => 'col2'],
+              :select_sources => Ast::Array[
+                  Ast::InnerJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :inner => Ast::Keyword[:name => "inner"],
+                  :join => Ast::Keyword[:name => "join"],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                  :on_or_using_clause => Ast::UsingClause[
+                    :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
+                    :column_list => OracleSqlParser::Ast::Array[
+                        OracleSqlParser::Ast::Identifier[:name => 'col1'],
+                        OracleSqlParser::Ast::Identifier[:name => 'col2'],
+                    ]
                   ]
                 ]
               ]
@@ -502,11 +483,13 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::CrossNaturalJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :cross => Ast::Keyword[:name => 'cross'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              :select_sources => Ast::Array[
+                Ast::CrossNaturalJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :cross => Ast::Keyword[:name => 'cross'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+                ]
               ]
             ]
           ]
@@ -521,11 +504,13 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::CrossNaturalJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :natural => Ast::Keyword[:name => 'natural'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              :select_sources => Ast::Array[
+                Ast::CrossNaturalJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :natural => Ast::Keyword[:name => 'natural'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+                ]
               ]
             ]
           ]
@@ -540,12 +525,14 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::CrossNaturalJoinClause[
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :natural => Ast::Keyword[:name => 'natural'],
-                :inner => Ast::Keyword[:name => 'inner'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+              :select_sources => Ast::Array[
+                Ast::CrossNaturalJoinClause[
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :natural => Ast::Keyword[:name => 'natural'],
+                  :inner => Ast::Keyword[:name => 'inner'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]]
+                ]
               ]
             ]
           ]
@@ -560,20 +547,22 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :join_type => Ast::Keyword[:name => 'full'],
-                :outer => OracleSqlParser::Ast::Keyword[:name => "outer"],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => OracleSqlParser::Ast::OnClause[
-                  :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :join_type => Ast::Keyword[:name => 'full'],
+                  :outer => OracleSqlParser::Ast::Keyword[:name => "outer"],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => OracleSqlParser::Ast::OnClause[
+                    :on => OracleSqlParser::Ast::Keyword[:name => "on"],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -588,19 +577,21 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :join_type => Ast::Keyword[:name => 'left'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => OracleSqlParser::Ast::OnClause[
-                  :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :join_type => Ast::Keyword[:name => 'left'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => OracleSqlParser::Ast::OnClause[
+                    :on => OracleSqlParser::Ast::Keyword[:name => "on"],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -615,19 +606,21 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :join_type => Ast::Keyword[:name => 'right'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => OracleSqlParser::Ast::OnClause[
-                  :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :join_type => Ast::Keyword[:name => 'right'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => OracleSqlParser::Ast::OnClause[
+                    :on => OracleSqlParser::Ast::Keyword[:name => "on"],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -642,19 +635,21 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :natural => Ast::Keyword[:name => 'natural'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => OracleSqlParser::Ast::OnClause[
-                  :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :natural => Ast::Keyword[:name => 'natural'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => OracleSqlParser::Ast::OnClause[
+                    :on => OracleSqlParser::Ast::Keyword[:name => "on"],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -669,20 +664,22 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :natural => Ast::Keyword[:name => 'natural'],
-                :join_type => Ast::Keyword[:name => 'left'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => OracleSqlParser::Ast::OnClause[
-                  :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                  :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
-                    :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
-                    :op => "=",
-                    :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :natural => Ast::Keyword[:name => 'natural'],
+                  :join_type => Ast::Keyword[:name => 'left'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => OracleSqlParser::Ast::OnClause[
+                    :on => OracleSqlParser::Ast::Keyword[:name => "on"],
+                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                      :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
+                      :op => "=",
+                      :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -697,19 +694,21 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::OuterJoinClause[
-                :natural => Ast::Keyword[:name => 'natural'],
-                :join_type => Ast::Keyword[:name => 'left'],
-                :join => Ast::Keyword[:name => 'join'],
-                :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                :on_or_using_clause => Ast::UsingClause[
-                  :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
-                  :column_list => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1'],
-                      OracleSqlParser::Ast::Identifier[:name => 'col2'],
-                  ]
-                ],
-                :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+              :select_sources => Ast::Array[
+                Ast::OuterJoinClause[
+                  :natural => Ast::Keyword[:name => 'natural'],
+                  :join_type => Ast::Keyword[:name => 'left'],
+                  :join => Ast::Keyword[:name => 'join'],
+                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                  :on_or_using_clause => Ast::UsingClause[
+                    :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
+                    :column_list => OracleSqlParser::Ast::Array[
+                        OracleSqlParser::Ast::Identifier[:name => 'col1'],
+                        OracleSqlParser::Ast::Identifier[:name => 'col2'],
+                    ]
+                  ],
+                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],
+                ]
               ]
             ]
           ]
@@ -726,7 +725,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::SimpleComparisionCondition[
                   :left => Ast::Identifier[:name => 'col1'],
@@ -749,7 +750,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              ],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::Identifier[:name => 'col1'],
@@ -771,7 +774,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              ],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::Identifier[:name => 'col1'],
@@ -797,7 +802,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              ],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::RollupCubeClause[
@@ -822,7 +829,9 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              :select_sources => Ast::Array[
+                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              ],
               :group_by_clause => Ast::GroupByClause[
                 :targets => Ast::Array[
                   Ast::RollupCubeClause[
@@ -1050,14 +1059,38 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => 'a.*']
               ],
-              :select_sources => OracleSqlParser::Ast::TableReference[
-                :table_name => OracleSqlParser::Ast::Identifier[:name => 'table1'],
-                :table_alias => OracleSqlParser::Ast::Identifier[:name => 'a'],
+              :select_sources => Ast::Array[
+                OracleSqlParser::Ast::TableReference[
+                  :table_name => OracleSqlParser::Ast::Identifier[:name => 'table1'],
+                  :table_alias => OracleSqlParser::Ast::Identifier[:name => 'a'],
+                ]
               ]
             ]
           ]
         ]
     end
 
+    def test_select_multiple_table_alias
+      assert_ast_sql_equal "select 1 from ( select 1 from books2 a ) x,( select 1 from books3 b ) y",
+        Ast::SelectStatement[
+          :subquery => Ast::Subquery[
+            :query_block => Ast::QueryBlock[
+              :select_list => Ast::Array[
+                Ast::NumberLiteral[:value => '1']
+              ],
+              :select_sources => Ast::Array[
+                Ast::TableReference[
+                  :subquery => generate_ast("(select 1 from books2 a)").subquery,
+                  :table_alias => Ast::Identifier[:name => 'x'],
+                ],
+                Ast::TableReference[
+                  :subquery => generate_ast("(select 1 from books3 b)").subquery,
+                  :table_alias => Ast::Identifier[:name => 'y'],
+                ],
+              ]
+            ]
+          ]
+        ]
+    end
   end
 end

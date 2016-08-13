@@ -1,11 +1,12 @@
 module OracleSqlParser::Grammar
   grammar Select
     rule select_statement
-      subquery for_update_clause:for_update_clause? {
+      subquery for_update:(space for_update_clause)? {
         def ast
           OracleSqlParser::Ast::SelectStatement[
             :subquery => subquery.ast,
-            :for_update_clause => for_update_clause.ast]
+            :for_update_clause => for_update.try(:for_update_clause).ast
+          ]
         end
       }
     end
@@ -13,17 +14,17 @@ module OracleSqlParser::Grammar
     rule subquery
       query:(
         left_parenthesis:'(' space? subquery space? right_parenthesis:')' /
-        query_block space? !union_or_intersect_or_minus /
+        query_block !(space union_or_intersect_or_minus) /
         subqueries:subqueries_with_union
       )
-      space? order_by_clause:order_by_clause? {
+      order:(space order_by_clause)? {
         def ast
           OracleSqlParser::Ast::Subquery[
             :has_parenthesis => has_parenthesis,
             :query_block => query_block.ast,
             :subqueries => subqueries.ast,
             :subquery => subquery.ast,
-            :order_by_clause => order_by_clause.ast,
+            :order_by_clause => order.try(:order_by_clause).ast,
           ]
         end
 
@@ -95,21 +96,21 @@ module OracleSqlParser::Grammar
       select_keyword space
       hint:hint?
       mod:(modifier:(all_keyword / distinct_keyword / unique_keyword) space)?
-      select_list space?
-      from_keyword space?
-      select_sources space?
-      where_clause:where_clause? space?
-      group_by_clause:group_by_clause? space?
-      model_clause:model_clause? space? {
+      select_list space
+      from_keyword
+      select:(space select_sources)?
+      where:(space where_clause)?
+      group:(space group_by_clause)?
+      model:(space model_clause)? {
         def ast
           OracleSqlParser::Ast::QueryBlock[
             :hint => hint.ast,
             :modifier => modifier.ast,
             :select_list => select_list.ast,
-            :select_sources => select_sources.ast,
-            :where_clause => where_clause.ast,
-            :group_by_clause => group_by_clause.ast,
-            :model_clause => model_clause.ast]
+            :select_sources => select.try(:select_sources).ast,
+            :where_clause => where.try(:where_clause).ast,
+            :group_by_clause => group.try(:group_by_clause).ast,
+            :model_clause => model.try(:model_clause).ast]
         end
 
         def modifier
@@ -119,9 +120,26 @@ module OracleSqlParser::Grammar
     end
 
     rule select_sources
+      select_source more:(space? ',' space? select_source)* {
+        def ast
+          OracleSqlParser::Ast::Array[
+            select_source.ast,
+            *more_select_sources.map(&:ast),
+          ]
+        end
+
+        def more_select_sources
+          more.elements.map(&:select_source)
+        end
+      }
+    end
+
+    rule select_source
       join_clause /
       '(' space? join_clause:join_clause space? ')' /
-      table_reference  {
+      table_reference /
+      subquery
+      {
         def ast
           if respond_to? :join_clause
             join_clause.ast
@@ -294,12 +312,11 @@ module OracleSqlParser::Grammar
     end
 
     rule for_update_clause
-      for_keyword space?
-      update_keyword space?
-      of:(of_keyword space for_update_clause_columns space?)?
+      for_keyword space update_keyword
+      of:(space of_keyword space for_update_clause_columns)?
       wait:(
-        w:wait_keyword space? time:integer /
-        w:nowait_keyword
+        space w:wait_keyword space time:integer /
+        space w:nowait_keyword
       )? {
         def ast
           OracleSqlParser::Ast::ForUpdateClause[
@@ -312,7 +329,7 @@ module OracleSqlParser::Grammar
     end
 
     rule for_update_clause_columns
-      for_update_clause_column more:(space? ',' space? more_for_update_clause_columns:for_update_clause_column)* {
+      for_update_clause_column more:(space? ',' space? for_update_clause_column)* {
         def ast
           OracleSqlParser::Ast::Array[
             for_update_clause_column.ast, *more_for_update_clause_columns.map(&:ast)
@@ -320,7 +337,7 @@ module OracleSqlParser::Grammar
         end
 
         def more_for_update_clause_columns
-          more.elements.map(&:more_for_update_clause_columns)
+          more.elements.map(&:for_update_clause_column)
         end
       }
     end
@@ -394,13 +411,13 @@ module OracleSqlParser::Grammar
     end
 
     rule select_list
-      select_one_column more_list:( space? ',' space? c:select_one_column space? )* {
+      select_one_column more_list:( space? ',' space? select_one_column)* {
         def ast
           OracleSqlParser::Ast::Array[select_one_column.ast, *more_columns.map(&:ast)]
         end
 
         def more_columns
-          more_list.elements.map{|element| element.c}
+          more_list.elements.map(&:select_one_column)
         end
       }
     end

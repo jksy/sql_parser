@@ -25,11 +25,12 @@ module Grammar
     end
 
     def test_delete_target_table_subquery_parseable
-      subquery_ast = generate_ast("select 1 from dual")
-      assert_ast_sql_equal "delete from (select 1 from dual)",
+      assert_ast_sql_equal "delete from ( select 1 from dual )",
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
-            :name => subquery_ast.subquery
+            :name => Ast::TableReference[
+              :subquery => generate_ast("(select 1 from dual)").subquery,
+            ]
           ]
         ]
     end
