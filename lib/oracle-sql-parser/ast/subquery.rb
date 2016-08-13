@@ -1,23 +1,15 @@
 module OracleSqlParser::Ast
   class Subquery < Hash
     def to_sql(options = {})
-      if @ast[:union]
-        [
-          @ast[:query_block1],
-          @ast[:union].map(&:to_sql).join(' '),
-          @ast[:query_block2],
-          @ast[:order_by_clause],
-        ].compact.map(&:to_sql).join(' ')
-      else
-        [
-          @ast[:query_block],
-          @ast[:order_by_clause]
-        ].compact.map(&:to_sql).join(' ')
+      result = @ast.values_at(:query_block,
+                              :subqueries,
+                              :subquery,
+                              :order_by_clause).map(&:to_sql)
+      if @ast[:has_parenthesis]
+        result.unshift('(')
+        result.push(')')
       end
-    end
-
-    def order_by_clause=(value)
-      @ast[:order_by_clause] = value
+      result.compact.map(&:to_sql).join(' ')
     end
   end
 end

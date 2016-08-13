@@ -134,6 +134,7 @@ module OracleSqlParser::Grammar
 
     rule table_reference
       t:(
+        &'(' space? subquery /
         schema_name:schema_name '.' table_name:table_name /
         table_name:table_name
       ) l:('@' dblink)? a:(space t_alias)? {
@@ -142,6 +143,7 @@ module OracleSqlParser::Grammar
             :schema_name => t.try(:schema_name).ast,
             :table_name => t.try(:table_name).ast,
             :dblink => l.try(:dblink).ast,
+            :subquery => t.try(:subquery).ast,
             :table_alias => a.try(:t_alias).ast,
           ]
         end

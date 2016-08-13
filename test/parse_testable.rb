@@ -36,7 +36,7 @@ module ParseTestable
       OracleSqlParser::Grammar::GrammarParser.send(:define_method, "#{name}_new") do
         indent = indent + 1
         if index != 0
-          parsing_text = "#{input[0..index-1]}*#{input[index..-1]}"
+          parsing_text = "#{input[0..index-1]}#{'*'.green}#{input[index..-1]}"
         else
           parsing_text = "*#{input}"
         end

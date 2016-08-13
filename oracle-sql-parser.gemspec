@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "activerecord", "~> 4.2"
   spec.add_development_dependency "activerecord-oracle_enhanced-adapter", "~> 1.6.0"
   spec.add_development_dependency "ruby-oci8", "~> 2.0"
+  spec.add_development_dependency "pry-byebug", "3.4.0" if RUBY_VERSION >= '2.0.0'
+  spec.add_development_dependency "colorize", "~> 0.8"
 end
