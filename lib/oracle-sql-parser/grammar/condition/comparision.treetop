@@ -1,5 +1,5 @@
 module OracleSqlParser::Grammar::Condition
-  grammar Comparision
+  grammar Comparision # TODO:fix name to Comparison
     rule comparision_condition
       (
         simple_comparision_condition /
