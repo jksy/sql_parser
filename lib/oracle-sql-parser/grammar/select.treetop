@@ -5,6 +5,8 @@ module OracleSqlParser::Grammar
     include OracleSqlParser::Grammar::Select::Join
     include OracleSqlParser::Grammar::Select::ForUpdate
     include OracleSqlParser::Grammar::Select::Union
+    include OracleSqlParser::Grammar::Select::QueryBlock
+
     rule select_statement
       space? subquery for_update:(space for_update_clause)? space? {
         def ast
@@ -51,134 +53,5 @@ module OracleSqlParser::Grammar
       }
     end
 
-
-    rule query_block
-      (subquery_factoring_clause:subquery_factoring_clause space)?
-      select_keyword space
-      hint:hint?
-      mod:(modifier:(all_keyword / distinct_keyword / unique_keyword) space)?
-      select_list space
-      from_keyword
-      select:(space select_sources)?
-      where:(space where_clause)?
-      group:(space group_by_clause)?
-      model:(space model_clause)? {
-        def ast
-          OracleSqlParser::Ast::QueryBlock[
-            :hint => hint.ast,
-            :modifier => modifier.ast,
-            :select_list => select_list.ast,
-            :select_sources => select.try(:select_sources).ast,
-            :where_clause => where.try(:where_clause).ast,
-            :group_by_clause => group.try(:group_by_clause).ast,
-            :model_clause => model.try(:model_clause).ast]
-        end
-
-        def modifier
-          mod.modifier if mod.respond_to? :modifier
-        end
-      }
-    end
-
-    rule select_sources
-      select_source more:(space? ',' space? select_source)* {
-        def ast
-          OracleSqlParser::Ast::Array[
-            select_source.ast,
-            *more_select_sources.map(&:ast),
-          ]
-        end
-
-        def more_select_sources
-          more.elements.map(&:select_source)
-        end
-      }
-    end
-
-    rule select_source
-      join_clause /
-      '(' space? join_clause:join_clause space? ')' /
-      table_reference /
-      subquery
-      {
-        def ast
-          if respond_to? :join_clause
-            join_clause.ast
-          else
-            super
-          end
-        end
-      }
-    end
-
-    rule subquery_factoring_clause
-      'subquery_factoring_clause' { # not implemented
-        def ast
-          'subquery_factoring_clause'
-        end
-      }
-    end
-
-    rule select_list
-      select_one more_list:( space? ',' space? select_one)* {
-        def ast
-          OracleSqlParser::Ast::Array[select_one.ast, *more_columns.map(&:ast)]
-        end
-
-        def more_columns
-          more_list.elements.map(&:select_one)
-        end
-      }
-    end
-
-    rule select_one
-        select_table /
-        select_column
-      {
-        def ast
-          super
-        end
-      }
-    end
-
-    rule select_table
-      (table_name '.')? '*' {
-        def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
-        end
-      }
-    end
-
-    rule select_column
-      expr _alias:( space as:( as_keyword space )? c_alias )?  {
-        def ast
-          OracleSqlParser::Ast::SelectColumn[
-            :expr => expr.ast,
-            :as => as_keyword.ast,
-            :c_alias => c_alias.ast,
-          ]
-        end
-
-        def c_alias
-          if _alias.respond_to? :c_alias
-            _alias.c_alias
-          end
-        end
-
-        def as_keyword
-          if respond_to? :_alias and _alias.respond_to? :as
-            _alias.as.as_keyword
-          end
-        end
-      }
-    end
-
-    rule model_clause
-      'model_clause' {
-        def ast
-          'model_clause'
-        end
-      }
-    end
   end
 end
