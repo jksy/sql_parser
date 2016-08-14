@@ -1,6 +1,11 @@
 module OracleSqlParser::Grammar
 end
 require "oracle-sql-parser/grammar/reserved_word.rb"
+require "oracle-sql-parser/grammar/expression/simple.rb"
+require "oracle-sql-parser/grammar/expression/compound.rb"
+require "oracle-sql-parser/grammar/expression/function.rb"
+require "oracle-sql-parser/grammar/expression/case.rb"
+require "oracle-sql-parser/grammar/expression/simple.rb"
 require "oracle-sql-parser/grammar/expression.rb"
 require "oracle-sql-parser/grammar/condition/comparision.rb"
 require "oracle-sql-parser/grammar/condition/floating_point.rb"

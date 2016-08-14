@@ -1,0 +1,47 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Function
+    rule function_expression
+      function_name space? '(' space? function_args:function_args? space? ')' {
+        def ast
+          OracleSqlParser::Ast::FunctionExpression[
+            :name => function_name.ast,
+            :args => function_args.ast
+          ]
+        end
+      }
+    end
+
+    rule function_name
+      (
+        package_name '.' procedure_name /
+        procedure_name
+      ) {
+        def ast
+          OracleSqlParser::Ast::Identifier[:name => text_value]
+        end
+      }
+    end
+
+    rule function_args
+      function_arg more:(space? ',' space? function_arg)* {
+        def ast
+          OracleSqlParser::Ast::Array[function_arg.ast, *more_function_args.map(&:ast)]
+        end
+
+        def more_function_args
+          more.elements.map(&:function_arg)
+        end
+      }
+    end
+
+    rule function_arg
+      expr {
+        def ast
+          super
+        end
+      }
+    end
+  end
+end
+
+

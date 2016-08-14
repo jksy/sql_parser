@@ -40,7 +40,7 @@ Rake::TestTask.new do |t|
                     'test/ast/number_literal_test.rb',
                     'test/ast/text_literal_test.rb',
                     'test/ast/text_literal_test.rb',
-                    'test/oracle_enhanced-adapter/select_test.rb'
+#                    'test/oracle_enhanced-adapter/select_test.rb'
                     ]
   t.verbose = true
 end

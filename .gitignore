@@ -11,6 +11,7 @@ lib/oracle-sql-parser/grammar/condition.rb
 lib/oracle-sql-parser/grammar/condition/*.rb
 lib/oracle-sql-parser/grammar/delete.rb
 lib/oracle-sql-parser/grammar/expression.rb
+lib/oracle-sql-parser/grammar/expression/*.rb
 lib/oracle-sql-parser/grammar/grammar.rb
 lib/oracle-sql-parser/grammar/insert.rb
 lib/oracle-sql-parser/grammar/reserved_word.rb

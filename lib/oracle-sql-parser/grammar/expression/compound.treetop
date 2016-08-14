@@ -1,0 +1,62 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Compound
+    rule compound_expression
+      ex:(
+        left_parenthesis:'(' space? left:expr space? right_parenthesis:')' /
+        left:not_compound_expressions space? op:('*' / '/' / '+' / '-' / '||') space? right:expr /
+        !number_literal op:(prior_keyword / '-' / '+') space? right:expr
+      )
+
+        {
+          def ast
+            OracleSqlParser::Ast::CompoundExpression[
+              :has_parenthesis => ex.respond_to?(:left_parenthesis) ? true : nil,
+              :left => left.ast,
+              :op => op.ast,
+              :right => right.ast,
+            ]
+          end
+
+          def left
+            ex.left if ex.respond_to? :left
+          end
+
+          def not_compound_expressions
+            ex.not_compound_expressions if ex.respond_to? :not_compound_expressions
+          end
+
+          def op
+            ex.op if ex.respond_to? :op
+          end
+
+          def right
+            ex.right if ex.respond_to? :right
+          end
+
+          def right_parenthesis
+            ex.right_parenthesis if ex.respond_to? :right_parenthesis
+          end
+        }
+    end
+
+    rule not_compound_expressions
+      ex:(
+        function_expression /
+        case_expression /
+        cursor_expression /
+        datetime_expression /
+        interval_expression /
+        object_access_expression /
+        scalar_subquery_expression /
+        model_expression /
+        type_constructor_expression /
+        simple_expression /
+        variable_expression)
+      {
+        def ast
+          ex.ast
+        end
+      }
+    end
+  end
+end
