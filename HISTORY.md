@@ -1,5 +1,7 @@
-<<<<<<< HEAD
-### next version
+### 0.8.1
+* Fix README.md
+
+### 0.8.0
 * Syntax
   * subquery https://github.com/jksy/sql_parser/issues/8
     * "select col1 from table1 union select col2 from table2 union select col3 from table3"
