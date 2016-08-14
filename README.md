@@ -33,23 +33,31 @@ end
 ast = syntax_tree.ast
 ```
 <pre>
-=&gt; #&lt;OracleSqlParser::Ast::SelectStatement
-  :subquery =&gt; #&lt;OracleSqlParser::Ast::Subquery
-    :query_block =&gt; #&lt;OracleSqlParser::Ast::QueryBlock
-      :hint =&gt; nil,
-      :modifier =&gt; nil,
-      :select_list =&gt; #&lt;OracleSqlParser::Ast::Array [
-        #&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}&gt;
-      ]&gt;
-      ,
-      :select_sources =&gt; #&lt;OracleSqlParser::Ast::TableReference {:schema_name=&gt;nil, :table_name=&gt;#&lt;OracleSqlParser::Ast::Identifier {:name=&gt;"dual"}&gt;, :dblink=&gt;nil}&gt;,
-      :where_clause =&gt; nil,
-      :group_by_clause =&gt; nil,
-      :model_clause =&gt; nil}&gt;
+=&gt; #&lt;OracleSqlParser::Ast::SelectStatement {:subquery=&gt;#&lt;OracleSqlParser::Ast::Subquery
+  :has_parenthesis =&gt; nil,
+  :query_block =&gt; #&lt;OracleSqlParser::Ast::QueryBlock
+    :hint =&gt; nil,
+    :modifier =&gt; nil,
+    :select_list =&gt; #&lt;OracleSqlParser::Ast::Array [
+      #&lt;OracleSqlParser::Ast::SelectColumn
+        :expr =&gt; #&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}&gt;,
+        :as =&gt; nil,
+        :c_alias =&gt; nil}&gt;
+
+    ]&gt;
     ,
-    :order_by_clause =&gt; nil}&gt;
+    :select_sources =&gt; #&lt;OracleSqlParser::Ast::Array [
+      #&lt;OracleSqlParser::Ast::TableReference {:schema_name=&gt;nil, :table_name=&gt;#&lt;OracleSqlParser::Ast::Identifier {:name=&gt;"dual"}&gt;, :dblink=&gt;nil, :subquery=&gt;nil, :table_alias=&gt;nil}&gt;
+    ]&gt;
+    ,
+    :where_clause =&gt; nil,
+    :group_by_clause =&gt; nil,
+    :model_clause =&gt; nil}&gt;
   ,
-  :for_update_clause =&gt; nil}&gt;
+  :subqueries =&gt; nil,
+  :subquery =&gt; nil,
+  :order_by_clause =&gt; nil}&gt;
+, :for_update_clause=&gt;nil}&gt;=> nil
 </pre>
 
 ```ruby
