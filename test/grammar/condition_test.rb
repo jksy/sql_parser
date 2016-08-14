@@ -882,7 +882,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -908,7 +910,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -935,7 +939,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -960,7 +966,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -986,7 +994,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1012,7 +1022,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1039,7 +1051,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1064,7 +1078,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1090,7 +1106,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1116,7 +1134,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1125,9 +1145,9 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
                       OracleSqlParser::Ast::Identifier[:name => 'col1']
                     ]
                   ],
@@ -1152,7 +1172,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1161,10 +1183,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
@@ -1189,7 +1211,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1198,10 +1222,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
@@ -1225,7 +1249,9 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
-                Ast::Identifier[:name => 'col1']
+                Ast::SelectColumn[
+                  :expr => Ast::Identifier[:name => 'col1']
+                ]
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
@@ -1234,10 +1260,10 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::IsOfTypeCondition[
-                  :target => OracleSqlParser::Ast::FunctionExpressoin[
-                    :name => OracleSqlParser::Ast::Identifier[:name => 'value'],
-                    :args => OracleSqlParser::Ast::Array[
-                      OracleSqlParser::Ast::Identifier[:name => 'col1']
+                  :target => Ast::FunctionExpression[
+                    :name => Ast::Identifier[:name => 'value'],
+                    :args => Ast::Array[
+                      Ast::Identifier[:name => 'col1']
                     ]
                   ],
                   :is => Ast::Keyword[:name => 'is'],
