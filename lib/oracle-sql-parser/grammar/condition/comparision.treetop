@@ -1,0 +1,32 @@
+module OracleSqlParser::Grammar::Condition
+  grammar Comparision
+    rule comparision_condition
+      (
+        simple_comparision_condition /
+        group_comparision_condition
+      ) {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule group_comparision_condition
+      'group_comparision_condition'
+    end
+
+    rule simple_comparision_condition
+      (
+        left:expr space? op:('!=' / '^=' / '<>' / '>=' / '<=' / '=' / '>' / '<') space? right:expr /
+        '(' space? left:exprs space? ')' op:space? ('!=' / '^=' / '<>' / '=') space? '(' space? right:subquery space? ')'
+      ) {
+        def ast
+          OracleSqlParser::Ast::SimpleComparisionCondition[
+            :left => left.ast,
+            :op => op.text_value,
+            :right => right.ast]
+        end
+      }
+    end
+  end
+end

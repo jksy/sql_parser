@@ -1,0 +1,11 @@
+module OracleSqlParser::Grammar::Condition
+  grammar Compound
+    rule compound_condition
+      '(' logical_condition ')' {
+        def ast
+          OracleSqlParser::Ast::CompoundCondition[:condition => logical_condition.ast]
+        end
+      }
+    end
+  end
+end

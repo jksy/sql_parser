@@ -2,7 +2,7 @@ require "bundler/gem_tasks"
 require 'rake'
 require 'rake/testtask'
 
-GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/*.treetop']
+GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/**/*.treetop']
 
 desc "generate parser files"
 task :gen do
