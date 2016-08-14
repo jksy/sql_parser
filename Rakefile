@@ -30,16 +30,8 @@ end
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList[
-                    'test/grammar/select_test.rb',
-                    'test/grammar/update_test.rb',
-                    'test/grammar/expression_test.rb',
-                    'test/grammar/condition_test.rb',
-                    'test/grammar/delete_test.rb',
-                    'test/grammar/insert_test.rb',
-                    'test/ast/replace_literal_test.rb',
-                    'test/ast/number_literal_test.rb',
-                    'test/ast/text_literal_test.rb',
-                    'test/ast/text_literal_test.rb',
+                    'test/grammar/*_test.rb',
+                    'test/ast/*_test.rb',
                     'test/oracle_enhanced-adapter/select_test.rb'
                     ]
   t.verbose = true
