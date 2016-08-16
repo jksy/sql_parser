@@ -42,7 +42,7 @@ module Grammar
                   Ast::Identifier[:name => 'col1'],
                   Ast::Identifier[:name => 'col2']
                 ],
-                :having => Ast::SimpleComparisionCondition[
+                :having => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '=',
                   :right => Ast::Identifier[:name => 'col2']

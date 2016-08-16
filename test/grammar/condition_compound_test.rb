@@ -17,7 +17,7 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::CompoundCondition[
-                  :condition => Ast::SimpleComparisionCondition[
+                  :condition => Ast::SimpleComparisonCondition[
                       :left => Ast::Identifier[:name => 'col1'],
                       :op => '=',
                       :right => Ast::Identifier[:name => 'col2']
@@ -45,7 +45,7 @@ module Grammar
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
                   :op => Ast::Keyword[:name => 'not'],
-                  :right => Ast::SimpleComparisionCondition[
+                  :right => Ast::SimpleComparisonCondition[
                     :left => Ast::Identifier[:name => 'col1'],
                     :op => '=',
                     :right => Ast::Identifier[:name => 'col2']

@@ -17,7 +17,7 @@ module Grammar
                 ]
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '!=',
                   :right => Ast::NumberLiteral[:value => '1']
@@ -42,7 +42,7 @@ module Grammar
                 ]
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '^=',
                   :right => Ast::NumberLiteral[:value => '1']
@@ -67,7 +67,7 @@ module Grammar
                 ]
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '<>',
                   :right => Ast::NumberLiteral[:value => '1']
@@ -92,7 +92,7 @@ module Grammar
                 ]
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '<=',
                   :right => Ast::NumberLiteral[:value => '1']
@@ -117,7 +117,7 @@ module Grammar
                 ]
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '>=',
                   :right => Ast::NumberLiteral[:value => '1']

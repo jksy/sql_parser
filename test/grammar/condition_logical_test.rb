@@ -17,13 +17,13 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
-                  :left => Ast::SimpleComparisionCondition[
+                  :left => Ast::SimpleComparisonCondition[
                     :left => Ast::Identifier[:name => 'col1'],
                     :op => '=',
                     :right => Ast::Identifier[:name => 'col2']
                   ],
                   :op => Ast::Keyword[:name => 'and'],
-                  :right => Ast::SimpleComparisionCondition[
+                  :right => Ast::SimpleComparisonCondition[
                     :left => Ast::Identifier[:name => 'col3'],
                     :op => '=',
                     :right => Ast::Identifier[:name => 'col4']
@@ -50,13 +50,13 @@ module Grammar
               ],
               :where_clause => Ast::WhereClause[
                 :condition => Ast::LogicalCondition[
-                  :left => Ast::SimpleComparisionCondition[
+                  :left => Ast::SimpleComparisonCondition[
                     :left => Ast::Identifier[:name => 'col1'],
                     :op => '=',
                     :right => Ast::Identifier[:name => 'col2']
                   ],
                   :op => Ast::Keyword[:name => 'or'],
-                  :right => Ast::SimpleComparisionCondition[
+                  :right => Ast::SimpleComparisonCondition[
                     :left => Ast::Identifier[:name => 'col3'],
                     :op => '=',
                     :right => Ast::Identifier[:name => 'col4']

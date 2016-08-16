@@ -75,7 +75,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::SelectColumn[
                   :expr => Ast::SearchedCaseExpression[
-                    :when_condition => Ast::SimpleComparisionCondition[
+                    :when_condition => Ast::SimpleComparisonCondition[
                       :left => Ast::Identifier[:name => 'salary'],
                       :op => '>',
                       :right => Ast::NumberLiteral[:value => '2000']

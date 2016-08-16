@@ -1,6 +1,6 @@
 module OracleSqlParser::Grammar
   grammar Condition
-    include OracleSqlParser::Grammar::Condition::Comparision
+    include OracleSqlParser::Grammar::Condition::Comparison
     include OracleSqlParser::Grammar::Condition::FloatingPoint
     include OracleSqlParser::Grammar::Condition::Multiset
     include OracleSqlParser::Grammar::Condition::PatternMatching
@@ -21,7 +21,7 @@ module OracleSqlParser::Grammar
     end
 
     rule condition
-      comparision_condition /
+      comparison_condition /
       floating_point_condition /
       model_condition /
       mutiset_condition /

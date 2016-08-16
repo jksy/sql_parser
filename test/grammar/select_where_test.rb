@@ -14,7 +14,7 @@ module Grammar
                 Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
               ],
               :where_clause => Ast::WhereClause[
-                :condition => Ast::SimpleComparisionCondition[
+                :condition => Ast::SimpleComparisonCondition[
                   :left => Ast::Identifier[:name => 'col1'],
                   :op => '=',
                   :right => Ast::Identifier[:name => 'col1']

@@ -17,7 +17,7 @@ module Grammar
                   :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
                   :on_or_using_clause => Ast::OnClause[
                     :on => Ast::Keyword[:name => 'on'],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
@@ -46,7 +46,7 @@ module Grammar
                   :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
                   :on_or_using_clause => Ast::OnClause[
                     :on => Ast::Keyword[:name => 'on'],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col1"]
@@ -167,7 +167,7 @@ module Grammar
                   :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
                   :on_or_using_clause => OracleSqlParser::Ast::OnClause[
                     :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
@@ -196,7 +196,7 @@ module Grammar
                   :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
                   :on_or_using_clause => OracleSqlParser::Ast::OnClause[
                     :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
@@ -225,7 +225,7 @@ module Grammar
                   :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
                   :on_or_using_clause => OracleSqlParser::Ast::OnClause[
                     :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
@@ -254,7 +254,7 @@ module Grammar
                   :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
                   :on_or_using_clause => OracleSqlParser::Ast::OnClause[
                     :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
@@ -284,7 +284,7 @@ module Grammar
                   :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
                   :on_or_using_clause => OracleSqlParser::Ast::OnClause[
                     :on => OracleSqlParser::Ast::Keyword[:name => "on"],
-                    :condition => OracleSqlParser::Ast::SimpleComparisionCondition[
+                    :condition => OracleSqlParser::Ast::SimpleComparisonCondition[
                       :left => OracleSqlParser::Ast::Identifier[:name => "table1.col1"],
                       :op => "=",
                       :right => OracleSqlParser::Ast::Identifier[:name => "table2.col2"]
