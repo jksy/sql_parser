@@ -1,0 +1,19 @@
+module OracleSqlParser::Grammar::Condition
+  grammar In
+    rule in_condition
+      target:expr space n:(not_keyword space)? in_keyword space? '(' space? values:( exprs / subquery ) space? ')' {
+        def ast
+          OracleSqlParser::Ast::InCondition[
+            :target => target.ast,
+            :not => not_keyword.ast,
+            :values =>  values.ast
+          ]
+        end
+
+        def not_keyword
+          n.elements && n.elements.first
+        end
+      }
+    end
+  end
+end

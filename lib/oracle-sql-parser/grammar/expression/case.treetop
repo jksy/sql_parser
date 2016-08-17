@@ -1,0 +1,77 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Case
+    rule case_expression
+      case_keyword space? case_expression:(simple_case_expression / searched_case_expression) space?
+      else_clause:else_clause? space? end_keyword {
+        def ast
+          ast = case_expression.ast
+          ast.else_clause = else_clause.ast
+          ast
+        end
+      }
+    end
+
+    rule simple_case_expression
+      expr space w:(when_keyword space comparison_expr space then_keyword space? return_expr space?)+ {
+        def ast
+          OracleSqlParser::Ast::SimpleCaseExpression[
+            :condition => expr.ast,
+            :when_clauses => OracleSqlParser::Ast::Array[*when_clauses]
+          ]
+        end
+
+        def when_clauses
+          w.elements.map do |elem|
+            OracleSqlParser::Ast::Hash[
+              :when_expr => elem.comparison_expr.ast,
+              :return_expr => elem.return_expr.ast
+            ]
+          end
+        end
+      }
+    end
+
+    rule comparison_expr
+      expr {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule return_expr
+      expr {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule else_expr
+      expr {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule searched_case_expression
+      when_keyword space? condition space? then_keyword space? return_expr {
+        def ast
+          OracleSqlParser::Ast::SearchedCaseExpression[
+            :when_condition => condition.ast,
+            :return_expr => return_expr.ast
+          ]
+        end
+      }
+    end
+
+    rule else_clause
+      else_keyword space? else_expr {
+        def ast
+          else_expr.ast
+        end
+      }
+    end
+  end
+end

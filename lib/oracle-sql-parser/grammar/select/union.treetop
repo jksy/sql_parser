@@ -1,0 +1,48 @@
+module OracleSqlParser::Grammar::Select
+  grammar Union
+    rule subqueries_with_union
+      query_block space? more:(union_or_intersect_or_minus space? subquery)+
+      {
+        def ast
+          OracleSqlParser::Ast::Array[
+            query_block.ast,
+            *more_queries.map(&:ast),
+          ]
+        end
+
+        def more_queries
+          more.elements.map{|e| [e.union_or_intersect_or_minus, e.subquery]}.flatten
+        end
+      }
+    end
+
+    rule union_or_intersect_or_minus
+      (
+        union:union_all /
+        intersect:intersect_keyword /
+        minus:minus_keyword
+      ) {
+        def ast
+          if respond_to? :union
+            union.ast
+          elsif respond_to? :intersect
+            OracleSqlParser::Ast::Array[intersect.ast]
+          elsif respond_to? :minus
+            OracleSqlParser::Ast::Array[minus.ast]
+          end
+        end
+      }
+    end
+
+    rule union_all
+      union_keyword all:(space all_keyword)? {
+        def ast
+          OracleSqlParser::Ast::Array[
+            union_keyword.ast,
+            all.try(:all_keyword).ast
+          ]
+        end
+      }
+    end
+  end
+end

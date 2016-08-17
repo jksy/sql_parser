@@ -1,0 +1,13 @@
+module OracleSqlParser::Grammar::Condition
+  grammar Exists
+    rule exists_condition
+      exists_keyword space? '(' space? subquery space? ')' {
+        def ast
+          OracleSqlParser::Ast::ExistsCondition[
+            :target => subquery.ast
+          ]
+        end
+      }
+    end
+  end
+end

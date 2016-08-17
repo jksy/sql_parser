@@ -1,0 +1,17 @@
+module OracleSqlParser::Grammar::Condition
+  grammar Null
+    rule null_condition
+      expr space is_keyword space n:(not_keyword space)? null_keyword {
+        def ast
+          OracleSqlParser::Ast::NullCondition[
+            :target => expr.ast,
+            :not => not_keyword.ast]
+        end
+
+        def not_keyword
+          n.elements && n.elements.first
+        end
+      }
+    end
+  end
+end
