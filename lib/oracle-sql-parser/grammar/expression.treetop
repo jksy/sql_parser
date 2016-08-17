@@ -18,14 +18,17 @@ module OracleSqlParser::Grammar
         model_expression /
         type_constructor_expression /
         simple_expression /
-        variable_expression
+        variable_expression /
+        column_expression /
+        json_object_access_expression /
+        object_access_expression /
+        placeholder_expression
         ) {
         def ast
           ex.ast
         end
       }
     end
-
 
     rule cursor_expression
       'cursor_expression' # not implemented
@@ -57,6 +60,22 @@ module OracleSqlParser::Grammar
 
     rule variable_expression
       'variable_expression' # not implemented
+    end
+
+    rule column_expression
+      'column_expression' # not implemented
+    end
+
+    rule json_object_access_expression
+      'json_object_access_expression' # not implemented
+    end
+
+    rule object_access_expression
+      'object_access_expression' # not implemented
+    end
+
+    rule placeholder_expression
+      'placeholder_expression' # not implemented
     end
 
     rule expression_list  # from grouping_expression_list
