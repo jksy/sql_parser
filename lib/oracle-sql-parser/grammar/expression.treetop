@@ -22,11 +22,6 @@ module OracleSqlParser::Grammar
         ) {
         def ast
           ex.ast
-#          super
-#          tree = ex.ast
-##          tree[:as] = alias_name.try(:as_keyword).try(:ast)
-#          tree[:alias] = alias_name.try(:ident).try(:ast)
-#          tree
         end
       }
     end
