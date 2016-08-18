@@ -4,6 +4,7 @@ module OracleSqlParser::Grammar
     include OracleSqlParser::Grammar::Expression::Function
     include OracleSqlParser::Grammar::Expression::Case
     include OracleSqlParser::Grammar::Expression::Simple
+    include OracleSqlParser::Grammar::Expression::Cursor
 
     rule sql_expression
       ex:(
@@ -28,10 +29,6 @@ module OracleSqlParser::Grammar
           ex.ast
         end
       }
-    end
-
-    rule cursor_expression
-      'cursor_expression' # not implemented
     end
 
     rule datetime_expression

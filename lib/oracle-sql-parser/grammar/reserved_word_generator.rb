@@ -112,6 +112,7 @@ EOS
           'CUBE',
           'CURRENT',
           'CURRVAL',
+          'CURSOR',
           'DATE',
           'DECIMAL',
           'DEFAULT',
