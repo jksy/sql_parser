@@ -5,6 +5,7 @@ module OracleSqlParser::Grammar
     include OracleSqlParser::Grammar::Expression::Case
     include OracleSqlParser::Grammar::Expression::Simple
     include OracleSqlParser::Grammar::Expression::Cursor
+    include OracleSqlParser::Grammar::Expression::Datetime
 
     rule sql_expression
       ex:(
@@ -31,8 +32,23 @@ module OracleSqlParser::Grammar
       }
     end
 
-    rule datetime_expression
-      'datetime_expression' # not implemented
+    rule not_loop_sql_expression
+      ex:(
+        function_expression /
+        case_expression /
+        cursor_expression /
+        interval_expression /
+        object_access_expression /
+        scalar_subquery_expression /
+        model_expression /
+        type_constructor_expression /
+        simple_expression /
+        variable_expression)
+      {
+        def ast
+          ex.ast
+        end
+      }
     end
 
     rule interval_expression

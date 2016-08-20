@@ -114,7 +114,7 @@ module OracleSqlParser::Grammar::Select
         end
 
         def as_keyword
-          if respond_to? :_alias and _alias.respond_to? :as
+          if respond_to? :_alias and _alias.respond_to? :as and  _alias.as.respond_to? :as_keyword
             _alias.as.as_keyword
           end
         end

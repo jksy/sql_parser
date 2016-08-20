@@ -3,7 +3,7 @@ module OracleSqlParser::Grammar::Expression
     rule compound_expression
       ex:(
         left_parenthesis:'(' space? left:expr space? right_parenthesis:')' /
-        left:not_compound_expressions space? op:('*' / '/' / '+' / '-' / '||') space? right:expr /
+        left:not_loop_sql_expression space? op:('*' / '/' / '+' / '-' / '||') space? right:expr /
         !number_literal op:(prior_keyword / '-' / '+') space? right:expr
       )
 
@@ -21,8 +21,8 @@ module OracleSqlParser::Grammar::Expression
             ex.left if ex.respond_to? :left
           end
 
-          def not_compound_expressions
-            ex.not_compound_expressions if ex.respond_to? :not_compound_expressions
+          def not_loop_sql_expression
+            ex.not_loop_sql_expression if ex.respond_to? :not_loop_sql_expression
           end
 
           def op
@@ -39,24 +39,5 @@ module OracleSqlParser::Grammar::Expression
         }
     end
 
-    rule not_compound_expressions
-      ex:(
-        function_expression /
-        case_expression /
-        cursor_expression /
-        datetime_expression /
-        interval_expression /
-        object_access_expression /
-        scalar_subquery_expression /
-        model_expression /
-        type_constructor_expression /
-        simple_expression /
-        variable_expression)
-      {
-        def ast
-          ex.ast
-        end
-      }
-    end
   end
 end

@@ -88,6 +88,7 @@ EOS
         [
           'ACCESS',
           'ADD',
+          'AT',
           'ALL',
           'ALTER',
           'AND',
@@ -98,6 +99,7 @@ EOS
           'BETWEEN',
           'BY',
           'CASE',
+          'CAST',
           'CHAR',
           'CHECK',
           'CLUSTER',
@@ -114,6 +116,7 @@ EOS
           'CURRVAL',
           'CURSOR',
           'DATE',
+          'DBTIMEZONE',
           'DECIMAL',
           'DEFAULT',
           'DELETE',
@@ -156,6 +159,7 @@ EOS
           'LIKE2',
           'LIKE4',
           'LIKEC',
+          'LOCAL',
           'LOCK',
           'LONG',
           'MAXEXTENTS',
@@ -201,6 +205,7 @@ EOS
           'ROWS',
           'SELECT',
           'SESSION',
+          'SESSIONTIMEZONE',
           'SET',
           'SHARE',
           'SIZE',
@@ -214,6 +219,7 @@ EOS
           'SYSTIMESTAMP',
           'TABLE',
           'THEN',
+          'TIME',
           'TO',
           'TRIGGER',
           'TYPE',
@@ -232,6 +238,7 @@ EOS
           'WHEN',
           'WHENEVER',
           'WHERE',
+          'ZONE',
         ]
       end
     end
