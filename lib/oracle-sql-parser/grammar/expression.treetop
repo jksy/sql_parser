@@ -6,15 +6,16 @@ module OracleSqlParser::Grammar
     include OracleSqlParser::Grammar::Expression::Simple
     include OracleSqlParser::Grammar::Expression::Cursor
     include OracleSqlParser::Grammar::Expression::Datetime
+    include OracleSqlParser::Grammar::Expression::Interval
 
     rule sql_expression
       ex:(
+        interval_expression /
         compound_expression /
         function_expression /
         case_expression /
         cursor_expression /
         datetime_expression /
-        interval_expression /
         object_access_expression /
         scalar_subquery_expression /
         model_expression /
@@ -37,7 +38,6 @@ module OracleSqlParser::Grammar
         function_expression /
         case_expression /
         cursor_expression /
-        interval_expression /
         object_access_expression /
         scalar_subquery_expression /
         model_expression /
@@ -49,10 +49,6 @@ module OracleSqlParser::Grammar
           ex.ast
         end
       }
-    end
-
-    rule interval_expression
-      'interval_expression' # not implemented
     end
 
     rule object_access_expression

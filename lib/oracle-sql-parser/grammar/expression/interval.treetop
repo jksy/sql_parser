@@ -1,0 +1,75 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Interval
+    rule interval_expression
+      '(' space? left:not_loop_sql_expression space? '-' space? right:expr space? ')'
+      e:(
+        space? day_keyword
+        l:(space? '(' space? leading_field_precision space? ')')?
+        space? to_keyword space? second_keyword
+        f:(space? '(' space? fractional_second_precision space? ')')?
+        /
+        space? year_keyword
+        l:(space? '(' space? leading_field_precision space? ')')?
+        space? to_keyword space? month_keyword
+      ) {
+        def ast
+          OracleSqlParser::Ast::IntervalExpression[
+            :left => left.ast,
+            :right => right.ast,
+            :day => day_keyword.ast,
+            :year => year_keyword.ast,
+            :leading_field_precision => leading_field_precision.ast,
+            :to => to_keyword.ast,
+            :second => second_keyword.ast,
+            :month => month_keyword.ast,
+            :fractional_second_precision => fractional_second_precision.ast,
+          ]
+        end
+
+        def day_keyword
+          e.day_keyword if e.respond_to? :day_keyword
+        end
+
+        def year_keyword
+          e.year_keyword if e.respond_to? :year_keyword
+        end
+
+        def leading_field_precision
+          e.l.leading_field_precision if e.respond_to? :l and e.l.respond_to? :leading_field_precision
+        end
+
+        def to_keyword
+          e.to_keyword
+        end
+
+        def second_keyword
+          e.second_keyword if e.respond_to? :second_keyword
+        end
+
+        def month_keyword
+          e.month_keyword if e.respond_to? :month_keyword
+        end
+
+        def fractional_second_precision
+          e.f.fractional_second_precision if e.respond_to? :f and e.f.respond_to? :fractional_second_precision
+        end
+      }
+    end
+
+    rule leading_field_precision
+      [0-9] {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        end
+      }
+    end
+
+    rule fractional_second_precision
+      [0-9] {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        end
+      }
+    end
+  end
+end
