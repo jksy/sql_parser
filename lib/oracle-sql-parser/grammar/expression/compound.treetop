@@ -11,33 +11,12 @@ module OracleSqlParser::Grammar::Expression
           def ast
             OracleSqlParser::Ast::CompoundExpression[
               :has_parenthesis => ex.respond_to?(:left_parenthesis) ? true : nil,
-              :left => left.ast,
-              :op => op.ast,
-              :right => right.ast,
+              :left => ex.try(:left).ast,
+              :op => ex.try(:op).ast,
+              :right => ex.try(:right).ast,
             ]
-          end
-
-          def left
-            ex.left if ex.respond_to? :left
-          end
-
-          def not_loop_sql_expression
-            ex.not_loop_sql_expression if ex.respond_to? :not_loop_sql_expression
-          end
-
-          def op
-            ex.op if ex.respond_to? :op
-          end
-
-          def right
-            ex.right if ex.respond_to? :right
-          end
-
-          def right_parenthesis
-            ex.right_parenthesis if ex.respond_to? :right_parenthesis
           end
         }
     end
-
   end
 end

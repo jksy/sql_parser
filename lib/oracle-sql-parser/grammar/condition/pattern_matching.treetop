@@ -23,17 +23,12 @@ module OracleSqlParser::Grammar::Condition
             :not => not_keyword.ast,
             :like => like.ast,
             :text => text.ast,
-            :escape => escape_text.ast]
+            :escape => e.try(:escape_text).ast
+          ]
         end
 
         def not_keyword
           n.elements && n.elements.first
-        end
-
-        def escape_text
-          if e.respond_to? :escape_text
-            e.escape_text
-          end
         end
       }
     end
@@ -43,7 +38,8 @@ module OracleSqlParser::Grammar::Condition
         def ast
           OracleSqlParser::Ast::RegexpCondition[
             :target => target.ast,
-            :regexp => regexp.ast]
+            :regexp => regexp.ast
+          ]
         end
       }
     end

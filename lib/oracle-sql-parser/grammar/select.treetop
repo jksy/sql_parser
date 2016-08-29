@@ -27,31 +27,14 @@ module OracleSqlParser::Grammar
       order:(space order_by_clause)? {
         def ast
           OracleSqlParser::Ast::Subquery[
-            :has_parenthesis => has_parenthesis,
-            :query_block => query_block.ast,
-            :subqueries => subqueries.ast,
-            :subquery => subquery.ast,
+            :has_parenthesis => query.try(:left_parenthesis) ? true : nil,
+            :query_block => query.try(:query_block).ast,
+            :subqueries => query.try(:subqueries).ast,
+            :subquery => query.try(:subquery).ast,
             :order_by_clause => order.try(:order_by_clause).ast,
           ]
         end
-
-        def has_parenthesis
-          true if query.respond_to? :left_parenthesis
-        end
-
-        def query_block
-          query.query_block if query.respond_to? :query_block
-        end
-
-        def subqueries
-          query.subqueries if query.respond_to? :subqueries
-        end
-
-        def subquery
-          query.subquery if query.respond_to? :subquery
-        end
       }
     end
-
   end
 end

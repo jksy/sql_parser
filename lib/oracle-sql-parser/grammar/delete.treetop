@@ -7,12 +7,8 @@ module OracleSqlParser::Grammar
         def ast
           OracleSqlParser::Ast::DeleteStatement[
             :target => delete_from_clause.ast,
-            :where_clause => delete_condition.ast
+            :where_clause => condition.try(:delete_condition).ast
           ]
-        end
-
-        def delete_condition
-          condition.delete_condition if condition.respond_to? :delete_condition
         end
       }
     end
@@ -38,13 +34,9 @@ module OracleSqlParser::Grammar
           else
             OracleSqlParser::Ast::DeleteTarget[
               :name => t.ast,
-              :alias => t_alias.ast
+              :alias => a.try(:t_alias).ast,
             ]
           end
-        end
-
-        def t_alias
-          a.t_alias if a.respond_to? :t_alias
         end
       }
     end

@@ -29,21 +29,13 @@ module OracleSqlParser::Grammar::Select
     rule order_by_clause_item
       target:(expr / position / c_alias) space?
       asc:(asc_keyword / desc_keyword)? space?
-      null:(nulls_keyword space first_or_last:(first_keyword / last_keyword))? {
+      nulls:(nulls_keyword space first_or_last:(first_keyword / last_keyword))? {
         def ast
           OracleSqlParser::Ast::OrderByClauseItem[
             :target => target.ast,
             :asc => asc.ast,
-            :nulls => nulls.ast
+            :nulls => nulls.try(:first_or_last).ast,
           ]
-        end
-
-        def nulls
-          if null.respond_to? :first_or_last
-            null.first_or_last
-          else
-            nil
-          end
         end
       }
     end

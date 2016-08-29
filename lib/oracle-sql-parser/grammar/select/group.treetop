@@ -10,20 +10,12 @@ module OracleSqlParser::Grammar::Select
             :targets => OracleSqlParser::Ast::Array[
               target.ast, *more_targets.map(&:ast)
             ],
-            :having => condition.ast
+            :having => h.try(:condition).ast
           ]
         end
 
         def more_targets
           t.elements.map{|e| e.more_target}
-        end
-
-        def condition
-          if h.respond_to? :condition
-            h.condition
-          else
-            nil
-          end
         end
       }
     end
@@ -66,6 +58,5 @@ module OracleSqlParser::Grammar::Select
         end
       }
     end
-
   end
 end

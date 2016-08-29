@@ -16,42 +16,14 @@ module OracleSqlParser::Grammar::Expression
           OracleSqlParser::Ast::IntervalExpression[
             :left => left.ast,
             :right => right.ast,
-            :day => day_keyword.ast,
-            :year => year_keyword.ast,
-            :leading_field_precision => leading_field_precision.ast,
-            :to => to_keyword.ast,
-            :second => second_keyword.ast,
-            :month => month_keyword.ast,
-            :fractional_second_precision => fractional_second_precision.ast,
+            :day => e.try(:day_keyword).ast,
+            :year => e.try(:year_keyword).ast,
+            :leading_field_precision => e.try(:l).try(:leading_field_precision).ast,
+            :to => e.try(:to_keyword).ast,
+            :second => e.try(:second_keyword).ast,
+            :month => e.try(:month_keyword).ast,
+            :fractional_second_precision => e.try(:f).try(:fractional_second_precision).ast,
           ]
-        end
-
-        def day_keyword
-          e.day_keyword if e.respond_to? :day_keyword
-        end
-
-        def year_keyword
-          e.year_keyword if e.respond_to? :year_keyword
-        end
-
-        def leading_field_precision
-          e.l.leading_field_precision if e.respond_to? :l and e.l.respond_to? :leading_field_precision
-        end
-
-        def to_keyword
-          e.to_keyword
-        end
-
-        def second_keyword
-          e.second_keyword if e.respond_to? :second_keyword
-        end
-
-        def month_keyword
-          e.month_keyword if e.respond_to? :month_keyword
-        end
-
-        def fractional_second_precision
-          e.f.fractional_second_precision if e.respond_to? :f and e.f.respond_to? :fractional_second_precision
         end
       }
     end

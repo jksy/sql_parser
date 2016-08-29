@@ -14,16 +14,12 @@ module OracleSqlParser::Grammar::Select
         def ast
           OracleSqlParser::Ast::QueryBlock[
             :hint => hint.ast,
-            :modifier => modifier.ast,
+            :modifier => mod.try(:modifier).ast,
             :select_list => select_list.ast,
             :select_sources => select.try(:select_sources).ast,
             :where_clause => where.try(:where_clause).ast,
             :group_by_clause => group.try(:group_by_clause).ast,
             :model_clause => model.try(:model_clause).ast]
-        end
-
-        def modifier
-          mod.modifier if mod.respond_to? :modifier
         end
       }
     end
@@ -102,21 +98,9 @@ module OracleSqlParser::Grammar::Select
         def ast
           OracleSqlParser::Ast::SelectColumn[
             :expr => expr.ast,
-            :as => as_keyword.ast,
-            :c_alias => c_alias.ast,
+            :as => self.try(:_alias).try(:as).try(:as_keyword).ast,
+            :c_alias => _alias.try(:c_alias).ast,
           ]
-        end
-
-        def c_alias
-          if _alias.respond_to? :c_alias
-            _alias.c_alias
-          end
-        end
-
-        def as_keyword
-          if respond_to? :_alias and _alias.respond_to? :as and  _alias.as.respond_to? :as_keyword
-            _alias.as.as_keyword
-          end
         end
       }
     end

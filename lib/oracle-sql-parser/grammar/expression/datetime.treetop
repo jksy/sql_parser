@@ -8,22 +8,10 @@ module OracleSqlParser::Grammar::Expression
         def ast
           OracleSqlParser::Ast::DatetimeExpression[
             :expr => not_loop_sql_expression.ast,
-            :at => at_keyword.ast,
-            :local => local_keyword.ast,
-            :timezone => datetime_timezone_clause.ast,
+            :at => d.try(:at_keyword).ast,
+            :local => d.try(:local_keyword).ast,
+            :timezone => d.try(:datetime_timezone_clause).ast,
           ]
-        end
-
-        def at_keyword
-          d.at_keyword
-        end
-
-        def local_keyword
-          d.local_keyword if d.respond_to? :local_keyword
-        end
-
-        def datetime_timezone_clause
-          d.datetime_timezone_clause if d.respond_to? :datetime_timezone_clause
         end
       }
     end
