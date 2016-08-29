@@ -24,8 +24,7 @@ module OracleSqlParser::Grammar
         variable_expression /
         column_expression /
         json_object_access_expression /
-        object_access_expression /
-        placeholder_expression
+        object_access_expression
         ) {
         def ast
           ex.ast
@@ -81,10 +80,6 @@ module OracleSqlParser::Grammar
 
     rule object_access_expression
       'object_access_expression' # not implemented
-    end
-
-    rule placeholder_expression
-      'placeholder_expression' # not implemented
     end
 
     rule expression_list  # from grouping_expression_list
