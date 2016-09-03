@@ -33,7 +33,7 @@ module OracleSqlParser::Grammar
         def ast
           if respond_to? :t_alias
             OracleSqlParser::Ast::Hash[:name => query_name.t.ast,
-                                 :alias => t_alias.ast]
+                                       :alias => t_alias.ast]
           else
             query_name.t.ast
           end

@@ -1,0 +1,62 @@
+module OracleSqlParser::Grammar::Select
+  grammar Group
+    # group
+    rule group_by_clause
+      group_keyword space by_keyword space target:group_column space?
+        t:(',' space? more_target:group_column space?)*
+        h:(having_keyword space condition:condition)? {
+        def ast
+          OracleSqlParser::Ast::GroupByClause[
+            :targets => OracleSqlParser::Ast::Array[
+              target.ast, *more_targets.map(&:ast)
+            ],
+            :having => h.try(:condition).ast
+          ]
+        end
+
+        def more_targets
+          t.elements.map{|e| e.more_target}
+        end
+      }
+    end
+
+    rule group_column
+      (
+        expr /
+        rollup_cube_clause /
+        grouping_sets_clause
+      ) {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule rollup_cube_clause
+      func_name:(rollup_keyword / cube_keyword) space? grouping_expression_list {
+        def ast
+          OracleSqlParser::Ast::RollupCubeClause[
+            :func_name => func_name.ast,
+            :args => grouping_expression_list.ast
+          ]
+        end
+      }
+    end
+
+    rule grouping_sets_clause
+      'grouping_sets_clause' { # not implemented
+        def ast
+          'grouping_sets_clause'
+        end
+      }
+    end
+
+    rule grouping_expression_list
+      expression_list {
+        def ast
+          super
+        end
+      }
+    end
+  end
+end

@@ -1,0 +1,47 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Interval
+    rule interval_expression
+      '(' space? left:not_loop_sql_expression space? '-' space? right:expr space? ')'
+      e:(
+        space? day_keyword
+        l:(space? '(' space? leading_field_precision space? ')')?
+        space? to_keyword space? second_keyword
+        f:(space? '(' space? fractional_second_precision space? ')')?
+        /
+        space? year_keyword
+        l:(space? '(' space? leading_field_precision space? ')')?
+        space? to_keyword space? month_keyword
+      ) {
+        def ast
+          OracleSqlParser::Ast::IntervalExpression[
+            :left => left.ast,
+            :right => right.ast,
+            :day => e.try(:day_keyword).ast,
+            :year => e.try(:year_keyword).ast,
+            :leading_field_precision => e.try(:l).try(:leading_field_precision).ast,
+            :to => e.try(:to_keyword).ast,
+            :second => e.try(:second_keyword).ast,
+            :month => e.try(:month_keyword).ast,
+            :fractional_second_precision => e.try(:f).try(:fractional_second_precision).ast,
+          ]
+        end
+      }
+    end
+
+    rule leading_field_precision
+      [0-9] {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        end
+      }
+    end
+
+    rule fractional_second_precision
+      [0-9] {
+        def ast
+          OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        end
+      }
+    end
+  end
+end

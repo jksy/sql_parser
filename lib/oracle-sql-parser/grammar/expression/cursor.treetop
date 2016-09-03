@@ -1,0 +1,15 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Cursor
+    rule cursor_expression
+      cursor_keyword space? '(' space? subquery space? ')' {
+        def ast
+          OracleSqlParser::Ast::CursorExpression[
+            :cursor => cursor_keyword.ast,
+            :subquery => subquery.ast,
+          ]
+        end
+      }
+    end
+  end
+end
+

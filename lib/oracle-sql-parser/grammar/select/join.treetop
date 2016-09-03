@@ -1,0 +1,165 @@
+module OracleSqlParser::Grammar::Select
+  grammar Join
+    rule join_clause
+      table_reference space
+      join:(
+        outer_join_clause /
+        inner_cross_join_clause
+      ) {
+        def ast
+          result = join.ast
+          result.table1 = table_reference.ast
+          result
+        end
+      }
+    end
+
+    rule inner_cross_join_clause
+      inner_join_clause /
+      cross_join_clause {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule inner_join_clause
+      inner_join space? table_reference space? on_or_using_clause {
+        def ast
+          OracleSqlParser::Ast::InnerJoinClause[
+            :inner => inner_join.inner_keyword.ast,
+            :join => inner_join.try(:join_keyword).ast,
+            :table2 => table_reference.ast,
+            :on_or_using_clause => on_or_using_clause.ast
+          ]
+        end
+      }
+    end
+
+    rule inner_join
+      inner_keyword space? join_keyword
+    end
+
+    rule on_or_using_clause
+      on_clause /
+      using_clause {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule on_clause
+      on_keyword space? condition {
+        def ast
+          OracleSqlParser::Ast::OnClause[
+            :on => on_keyword.ast,
+            :condition => condition.ast
+          ]
+        end
+      }
+    end
+
+    rule using_clause
+      using_keyword space? '(' space? column_list space? ')' {
+        def ast
+          OracleSqlParser::Ast::UsingClause[
+            :using => using_keyword.ast,
+            :column_list => column_list.ast
+          ]
+        end
+      }
+    end
+
+    rule cross_join_clause
+      cross_natural_join space table_reference {
+        def ast
+          OracleSqlParser::Ast::CrossNaturalJoinClause[
+            :cross => cross_natural_join.cross_keyword.ast,
+            :natural => cross_natural_join.natural_keyword.ast,
+            :inner => cross_natural_join.inner_keyword.ast,
+            :join => cross_natural_join.try(:join_keyword).ast,
+            :table2 => table_reference.ast
+          ]
+        end
+      }
+    end
+
+    rule cross_natural_join
+      (
+        cross_keyword:cross_keyword /
+        natural_keyword:natural_keyword inner:(space inner_keyword)?
+      ) space join_keyword {
+
+        def cross_keyword
+          elements.first.try(:cross_keyword)
+        end
+
+        def natural_keyword
+          elements.first.try(:natural_keyword)
+        end
+
+        def inner_keyword
+          elements.first.try(:inner).try(:inner_keyword)
+        end
+      }
+    end
+
+    rule column_list
+      column_name more:(space? ',' space? column_name)* {
+        def ast
+          OracleSqlParser::Ast::Array[
+            column_name.ast,
+            *more_column_names.map(&:ast)
+          ]
+        end
+
+        def more_column_names
+          more.elements.map(&:column_name)
+        end
+      }
+    end
+
+    rule outer_join_clause
+      query_partition_clause?
+      join_type:(
+        natural_keyword:natural_keyword? space? outer_join_type:outer_join_type? space? join_keyword
+      ) space
+      table_reference space
+      (query_partition_clause space)?
+      on_or_using_clause {
+        def ast
+          OracleSqlParser::Ast::OuterJoinClause[
+            :natural => join_type.try(:natural_keyword).ast,
+            :join_type => join_type.outer_join_type.try(:type).ast,
+            :outer => join_type.outer_join_type.try(:outer).ast,
+            :join => join_type.join_keyword.ast,
+            :table2 => table_reference.ast,
+            :on_or_using_clause => on_or_using_clause.ast
+          ]
+        end
+      }
+    end
+
+    rule query_partition_clause
+      'query_partition_clause' {
+        def ast
+          'query_partition_clause' # do not supported
+        end
+      }
+    end
+
+    rule outer_join_type
+      type:(
+        full_keyword /
+        left_keyword /
+        right_keyword
+      ) o:(space outer_keyword)? {
+        def outer
+          o.try(:outer_keyword)
+        end
+      }
+    end
+
+  end
+end

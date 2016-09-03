@@ -1,3 +1,9 @@
+### 0.x.x
+* Syntax
+  * added cursor expression
+  * added datetime expression
+  * added interval expression
+
 ### 0.8.1
 * Fix README.md
 

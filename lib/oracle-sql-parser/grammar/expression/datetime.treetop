@@ -1,0 +1,36 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Datetime
+    rule datetime_expression
+      not_loop_sql_expression space? d:(
+        at_keyword space? local_keyword /
+        at_keyword space? datetime_timezone_clause
+      ) {
+        def ast
+          OracleSqlParser::Ast::DatetimeExpression[
+            :expr => not_loop_sql_expression.ast,
+            :at => d.try(:at_keyword).ast,
+            :local => d.try(:local_keyword).ast,
+            :timezone => d.try(:datetime_timezone_clause).ast,
+          ]
+        end
+      }
+    end
+
+    rule datetime_timezone_clause
+      time_keyword space? zone_keyword space? expr:(
+        text_literal /
+        dbtimezone_keyword /
+        sessiontimezone_keyword /
+        expr
+      ) {
+        def ast
+          OracleSqlParser::Ast::TimezoneClause[
+            :time => time_keyword.ast,
+            :zone => zone_keyword.ast,
+            :expr => expr.ast,
+          ]
+        end
+      }
+    end
+  end
+end

@@ -40,7 +40,7 @@ module Grammar
           :target => ast.target,
           :set => ast.set,
           :where_clause => Ast::WhereClause[
-            :condition => Ast::SimpleComparisionCondition[
+            :condition => Ast::SimpleComparisonCondition[
               :left => Ast::Identifier[:name => 'col2'],
               :op => '=',
               :right => Ast::NumberLiteral[:value => '1']

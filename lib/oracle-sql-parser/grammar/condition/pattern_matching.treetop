@@ -1,0 +1,47 @@
+module OracleSqlParser::Grammar::Condition
+  grammar PatternMatching
+    rule pattern_maching_condition
+      (
+        like_condition /
+        regexp_like_condition
+      ) {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule like_condition
+      target:ident space
+      n:(not_keyword:not_keyword space)?
+      like:(like_keyword / like2_keyword / like4_keyword / likec_keyword) space
+      text:text_literal
+      e:(space escape_keyword space escape_text:text_literal)? {
+        def ast
+          OracleSqlParser::Ast::LikeCondition[
+            :target => target.ast,
+            :not => not_keyword.ast,
+            :like => like.ast,
+            :text => text.ast,
+            :escape => e.try(:escape_text).ast
+          ]
+        end
+
+        def not_keyword
+          n.elements && n.elements.first
+        end
+      }
+    end
+
+    rule regexp_like_condition
+      regexp_like_keyword '(' space? target:ident space? ',' space? regexp:text_literal space? ')' {
+        def ast
+          OracleSqlParser::Ast::RegexpCondition[
+            :target => target.ast,
+            :regexp => regexp.ast
+          ]
+        end
+      }
+    end
+  end
+end

@@ -1,0 +1,48 @@
+module OracleSqlParser::Grammar::Select
+  grammar ForUpdate
+    rule for_update_clause
+      for_keyword space update_keyword
+      of:(space of_keyword space for_update_clause_columns)?
+      wait:(
+        space w:wait_keyword space time:integer /
+        space w:nowait_keyword
+      )? {
+        def ast
+          OracleSqlParser::Ast::ForUpdateClause[
+            :columns => of.try(:for_update_clause_columns).ast,
+            :wait => wait.try(:w).ast,
+            :time => wait.try(:time).ast
+          ].remove_nil_values!
+        end
+      }
+    end
+
+    rule for_update_clause_columns
+      for_update_clause_column more:(space? ',' space? for_update_clause_column)* {
+        def ast
+          OracleSqlParser::Ast::Array[
+            for_update_clause_column.ast, *more_for_update_clause_columns.map(&:ast)
+          ]
+        end
+
+        def more_for_update_clause_columns
+          more.elements.map(&:for_update_clause_column)
+        end
+      }
+    end
+
+    rule for_update_clause_column
+      (
+        schema_name space? '.' space? table_name space? '.' space? column_name /
+        table_name space? '.' space? column_name /
+        space? column_name
+      ) {
+        def ast
+          OracleSqlParser::Ast::Identifier[:name => text_value]
+        end
+      }
+    end
+
+
+  end
+end

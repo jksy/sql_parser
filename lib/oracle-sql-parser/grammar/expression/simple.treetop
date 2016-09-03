@@ -1,0 +1,29 @@
+module OracleSqlParser::Grammar::Expression
+  grammar Simple
+    rule simple_expression
+        rownum_keyword /
+        sysdate_keyword /
+        systimestamp_keyword /
+        null_keyword /
+        text_literal /
+        number_literal /
+        sequence /
+        simple_expression_column {
+        def ast
+          super
+        end
+      }
+    end
+
+    rule simple_expression_column
+      name:(
+        ( schema_name space? '.' space? table_name '.' / table_name space? '.' space? )?
+        ( rowid_keyword / column_name )
+      ) {
+        def ast
+          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+        end
+      }
+    end
+  end
+end

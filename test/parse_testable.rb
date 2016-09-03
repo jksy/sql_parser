@@ -34,12 +34,21 @@ module ParseTestable
     method_names = OracleSqlParser::Grammar::GrammarParser.instance_methods.grep(/_nt_.*/)
     method_names.each do |name|
       OracleSqlParser::Grammar::GrammarParser.send(:define_method, "#{name}_new") do
+        truncate_length = 40
         indent = indent + 1
-        if index != 0
-          parsing_text = "#{input[0..index-1]}#{'*'.green}#{input[index..-1]}"
-        else
-          parsing_text = "*#{input}"
+        head = if index != 0
+                 input[0..index-1]
+               else
+                 ''
+               end
+        tail = input.gsub(head, '')
+        if head.length >= truncate_length
+          head = '...' + head[truncate_length-3..-1]
         end
+        if tail.length >= truncate_length
+          tail = tail[0..truncate_length-1] + '...'
+        end
+        parsing_text = "#{head}#{'*'.green}#{tail}"
         puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
         result = send("#{name}_old")
         indent = indent - 1
