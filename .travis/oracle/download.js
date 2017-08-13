@@ -3,7 +3,15 @@
 var env = process.env;
 var Promise = require('bluebird');
 var Phantom = Promise.promisifyAll(require('node-phantom-simple'));
-var PhantomError = require('node-phantom-simple/headless_error');
+
+var credentials = Object.keys(env)
+  .filter(function (key) { return key.indexOf('ORACLE_LOGIN_') == 0 })
+  .map(function (key) { return [key.substr(13), env[key]] });
+
+if (credentials.length <= 0) {
+  console.error("Missing ORACLE_LOGIN environment variables!");
+  process.exit(1);
+}
 
 Phantom.createAsync({ parameters: { 'ssl-protocol': 'tlsv1' } }).then(function (browser) {
   browser = Promise.promisifyAll(browser, { suffix: 'Promise' });
@@ -26,12 +34,26 @@ Phantom.createAsync({ parameters: { 'ssl-protocol': 'tlsv1' } }).then(function (
     .then(function () {
       return page.openPromise("https://edelivery.oracle.com/akam/otn/linux/" + env['ORACLE_FILE']).then(function (status) {
         if (status != 'success') throw "Unable to connect to oracle.com";
-        return page.waitForSelectorPromise('input[type=password]', 5000);
+        return new Promise(function (resolve, reject) {
+          var deadline = Date.now() + 5000;
+          var interval = 100;
+
+          var check = function () {
+            if (deadline < Date.now()) return reject("Timeout waiting for form");
+
+            page.evaluate(function () {
+              return window['jQuery'] && document.querySelectorAll('input[type=password]').length;
+            }, function (err, result) {
+              if (result) { resolve(); } else { setTimeout(check, interval); }
+            });
+          };
+
+          check();
+        });
       })
-      .catch(PhantomError, function (err) {
+      .tapCatch(function (err) {
         return page.getPromise('plainText').then(function (text) {
           console.error("Unable to load login page. Last response was:\n" + text);
-          throw err;
         });
       });
     })
@@ -46,7 +68,7 @@ Phantom.createAsync({ parameters: { 'ssl-protocol': 'tlsv1' } }).then(function (
             + (cookie.secure ? "TRUE" : "FALSE") + "\t0\t"
             + cookie.name + "\t" + cookie.value + "\n";
         }
-        return Promise.promisifyAll(require('fs')).writeFileAsync(env['COOKIES'], data);
+        return Promise.promisify(require('fs').writeFile)(env['COOKIES'], data);
       });
     })
 
@@ -61,11 +83,18 @@ Phantom.createAsync({ parameters: { 'ssl-protocol': 'tlsv1' } }).then(function (
       })
       .then(function (form) {
         return browser.exitPromise().then(function () {
-          for (var key in env) {
-            if (key.indexOf('ORACLE_LOGIN_') == 0 && env.hasOwnProperty(key)) {
-              var name = key.substr(13) + '=';
-              form.data = form.data.replace(name, name + env[key]);
-            }
+          var unapplied = credentials.filter(function (tuple) {
+            var applied = false;
+            form.data = form.data.replace(tuple[0] + '=', function (name) {
+              applied = true;
+              return name + encodeURIComponent(tuple[1]);
+            });
+            return !applied;
+          })
+          .map(function (tuple) { return tuple[0] });
+
+          if (unapplied.length > 0) {
+            console.warn("Unable to use all ORACLE_LOGIN environment variables: %j", unapplied);
           }
 
           var cmd = ['curl', [
