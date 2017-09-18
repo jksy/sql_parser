@@ -42,8 +42,8 @@ module OracleSqlParser::Grammar
     rule logical_condition
       (
         op:not_keyword space? right:condition /
-        left:condition space? op:and_keyword space? right:condition /
-        left:condition space? op:or_keyword space? right:condition  /
+        left:condition space? op:and_keyword space? right:(logical_condition / condition ) /
+        left:condition space? op:or_keyword space? right:(logical_condition / condition) /
         cond:condition
       ) {
         def ast
