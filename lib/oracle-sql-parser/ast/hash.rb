@@ -3,7 +3,7 @@ require 'forwardable'
 module OracleSqlParser::Ast
   class Hash < Base
     extend Forwardable
-    def_delegator :@ast, :keys, :[]
+    def_delegators :@ast, :keys, :[]
 
     def initialize(value = {})
       raise "only ::Hash instance #{value.inspect}" unless value.instance_of? ::Hash
@@ -28,7 +28,7 @@ module OracleSqlParser::Ast
     end
 
     def inspect
-      "#<#{self.class.name}\n" + 
+      "#<#{self.class.name}\n" +
       @ast.map{|k,v| "#{k.inspect} => #{v.inspect}"}.join(",\n").gsub(/^/, '  ') +
       "}>\n"
     end
