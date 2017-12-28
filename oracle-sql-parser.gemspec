@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.files         += `echo lib/oracle-sql-parser/grammar/*.rb`.split(" ")
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 1.9.0'
+  spec.required_ruby_version = '>= 1.9.3'
   spec.add_runtime_dependency "treetop", "~> 1.6"
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"

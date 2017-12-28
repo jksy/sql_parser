@@ -22,11 +22,6 @@ task :clean do
   end
 end
 
-desc "build gem for current versioin"
-task :build_gem => [:gen_force] do
-  sh 'gem build oracle-sql-parser.gemspec'
-end
-
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList[
