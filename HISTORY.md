@@ -1,3 +1,10 @@
+### 0.9.2
+* bug fix method not found "keys" on hash
+
+### 0.9.1
+* Syntax
+  * Three or more ANDs in WHERE clause fails parsing https://github.com/jksy/sql_parser/issues/16
+
 ### 0.9.0
 * Syntax
   * added cursor expression
