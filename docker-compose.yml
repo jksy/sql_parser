@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  test:
+    image: jksy/ruby-with-oracle-instant-client:2.6.5
+    build: ./docker
+    volumes:
+      - ".:/opt/work"
+    command: /bin/bash --login -c 'cd /opt/work && rbenv exec bundle update --bundler && rbenv exec bundle update && rbenv exec rake test'
+
+
