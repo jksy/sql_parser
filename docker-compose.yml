@@ -1,11 +1,23 @@
 version: '3'
 
 services:
+  oracle:
+    image: jksy/oracle-database:18.4.0-xe
+    build: ./docker/oracle
+    shm_size: 1g
+    environment:
+      ORACLE_SID: XE
+      ORACLE_PWD: secret
+      ORACLE_CHARACTERSET: AL32UTF8
+    ports:
+      - 11521:1521
+
   test:
     image: jksy/ruby-with-oracle-instant-client:2.6.5
-    build: ./docker
+    build: ./docker/test
     volumes:
       - ".:/opt/work"
-    command: /bin/bash --login -c 'cd /opt/work && rbenv exec bundle update --bundler && rbenv exec bundle update && rbenv exec rake test'
+    # command: /bin/bash --login -c 'sleep 600'
+    command: /bin/bash --login -c 'cd /opt/work && rbenv exec bundle update --bundler && rbenv exec bundle update && rbenv exec rake test && /bin/bash'
 
 

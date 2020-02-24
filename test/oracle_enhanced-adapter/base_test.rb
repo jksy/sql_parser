@@ -15,8 +15,8 @@ module OracleEnhancedAdapter
     include ParseTestable
 
     def self.connection_params
-      return @connection_params if @connection_params
-  
+      return @connection_params if defined? @connection_params
+
       path = File.expand_path('connection_params.yml', File.dirname(__FILE__))
       if File.readable? path
         @connection_params = YAML::load_file(path)
@@ -26,7 +26,7 @@ module OracleEnhancedAdapter
                               'host' => nil,
                               'database' => nil}
       end
-      @connection_params.merge!(:adapter => 'oracle_enhanced')
+      @connection_params.merge!('adapter' => 'oracle_enhanced')
       @connection_params
     end
 

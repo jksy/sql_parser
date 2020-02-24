@@ -8,7 +8,15 @@ module ParseTestable
     result = parser.parse query
     if result.nil?
       message = "\n#{query}\n" + " " * ([parser.failure_column.to_i-1, 0].max) + "*\n"
-      raise parser.failure_reason + message
+      begin
+        message = parser.failure_reason + message
+      rescue NoMethodError => _
+        # ignore NoMethodError: undefined method `empty?
+        #  on gems/treetop-1.6.10/lib/treetop/runtime/compiled_parser.rb:55:in `terminal_failures'
+        nil
+      end
+
+      raise message
     end
     ast = result.ast
     ast.remove_nil_values!
