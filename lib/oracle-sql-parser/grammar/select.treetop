@@ -26,7 +26,7 @@ module OracleSqlParser::Grammar
         subqueries:subqueries_with_union
       )
       order:(space order_by_clause)?
-      row_limit:(space row_limiting_clause)? {
+      row_limit:(space row_limiting_clause:row_limiting_clause)? {
         def ast
           OracleSqlParser::Ast::Subquery[
             :has_parenthesis => query.try(:left_parenthesis) ? true : nil,

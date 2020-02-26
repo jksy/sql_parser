@@ -7,12 +7,12 @@ module Grammar
           :subquery => Ast::Subquery[
             :query_block => generate_ast("select * from table1").subquery.query_block,
             :row_limiting_clause => Ast::RowLimitingClause[
-              :fetch => OracleSqlParser::Ast::Hash[
-                :fetch_keyword => 'fetch',
-                :first_keyword => 'first',
-                :rowcount => OracleSqlParser::Ast::NumberLiteral[:value => 4],
-                :rows_keyword => 'rows',
-                :only_keyword => 'only',
+              :fetch => OracleSqlParser::Ast::Fetch[
+                :fetch => Ast::Keyword[:name => 'fetch'],
+                :first => Ast::Keyword[:name => 'first'],
+                :rowcount => OracleSqlParser::Ast::NumberLiteral[:value => '4'],
+                :rows => Ast::Keyword[:name => 'rows'],
+                :only => Ast::Keyword[:name => 'only'],
               ]
             ]
           ]

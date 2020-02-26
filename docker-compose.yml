@@ -18,6 +18,6 @@ services:
     volumes:
       - ".:/opt/work"
     # command: /bin/bash --login -c 'sleep 600'
-    command: /bin/bash --login -c 'cd /opt/work && rbenv exec bundle update --bundler && rbenv exec bundle update && rbenv exec rake gen_force; rbenv exec rake test ; /bin/bash'
+    command: /bin/bash --login -c 'cd /opt/work && rbenv exec bundle update --bundler && rbenv exec bundle install --path ./vendor && bundle exec rake gen; bundle exec rake test ; /bin/bash'
 
 

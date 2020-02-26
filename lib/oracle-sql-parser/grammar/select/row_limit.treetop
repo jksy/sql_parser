@@ -4,8 +4,6 @@ module OracleSqlParser::Grammar::Select
       fetch:fetch {
         def ast
           OracleSqlParser::Ast::RowLimitingClause[
-            # :offset_keyword => offset.offset_keyword,
-            # :offset => offset.offset,
             :fetch => fetch.ast
           ]
         end
@@ -13,14 +11,14 @@ module OracleSqlParser::Grammar::Select
     end
 
     rule offset
-      offset_keyword space offset:number_literal space? (row_keyword / rows_keyword) {
+      offset_keyword space offset:number_literal space row:(row_keyword / rows_keyword) {
         def ast
-          # do not support offset
-          raise NotImplemented
-          # OracleSqlParser::Ast::Hash[
-          #   offset_keyword: offset_keyword,
-          #   offset: OracleSqlParser::Ast::NumberLiteral[value: offset],
-          # ]
+          OracleSqlParser::Ast::Offset[
+            :offset_keyword => offset_keyword,
+            :offset => offset,
+            :row_keyword => row.try(:row_keyword),
+            :rows_keyword => row.try(:rows_keyword),
+          ]
         end
       }
     end
@@ -28,23 +26,21 @@ module OracleSqlParser::Grammar::Select
     rule fetch
       fetch_keyword space
         first:(first_keyword / next_keyword) space
-        rowcount:(rowcount:integer / percentage:integer percentage_keyword)? space
+        rowcount:(rowcount:integer / percentage:integer percentage_keyword) space
         rows:(row_keyword / rows_keyword) space
-        only:(only_keyword / with_keyword space ties_keyword)
+        only:(only_keyword:only_keyword / with_keyword:with_keyword space ties_keyword:ties_keyword)
       {
         def ast
-          OracleSqlParser::Ast::Hash[
-            fetch_keyword: fetch_keyword,
-            first_keyword: first.try(:first_keyword),
-            next_keyword: first.try(:next_keyword),
-            rowcount: rowcount.try(:rowcount),
-            percentage: rowcount.try(:percentage),
-            percentage_keyword: rowcount.try(:percentage_keyword),
-            row_keyword: rows.try(:row_keyword),
-            rows_keyword: rows.try(:rows_keyword),
-            only_keyword: only.try(:only_keyword),
-            with_keyword: only.try(:with_keyword),
-            ties_keyword: only.try(:ties_keyword),
+          OracleSqlParser::Ast::Fetch[
+            fetch: fetch_keyword.ast,
+            first: first.ast,
+            rowcount: rowcount.try(:rowcount).ast,
+            percentage: rowcount.try(:percentage).ast,
+            percentage_keyword: rowcount.try(:percentage_keyword).ast,
+            rows: rows.ast,
+            only: only.try(:only_keyword).ast,
+            with: only.try(:with_keyword).ast,
+            ties: only.try(:ties_keyword).ast,
           ]
         end
       }
