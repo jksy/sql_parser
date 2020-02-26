@@ -1,64 +1,50 @@
 module OracleSqlParser::Grammar::Select
   grammar RowLimit
     rule row_limiting_clause
-      offcet? /
-      fetch? {
+      fetch:fetch {
         def ast
-          OracleSqlParser::Ast::RowLimitClause[
-            :offset => offset.ast,
+          OracleSqlParser::Ast::RowLimitingClause[
+            # :offset_keyword => offset.offset_keyword,
+            # :offset => offset.offset,
             :fetch => fetch.ast
           ]
         end
       }
     end
 
-    rule offcet
-      (offiset_keyword space offset:space? (row / rows)) {
+    rule offset
+      offset_keyword space offset:number_literal space? (row_keyword / rows_keyword) {
+        def ast
+          # do not support offset
+          raise NotImplemented
+          # OracleSqlParser::Ast::Hash[
+          #   offset_keyword: offset_keyword,
+          #   offset: OracleSqlParser::Ast::NumberLiteral[value: offset],
+          # ]
+        end
       }
     end
 
     rule fetch
-      (fetch_keyword space
-        (first_keyword / next_keyword) space
-        (rowcount:intege / percentage) space
-        (row_keyword / rows_keyword) space
-        (only_keyword / with_keyword space ties_keyword)
-      ) {
-
-      }
-    end
-
-    rule percentage
-      percent:integer space percent_keyword {
+      fetch_keyword space
+        first:(first_keyword / next_keyword) space
+        rowcount:(rowcount:integer / percentage:integer percentage_keyword)? space
+        rows:(row_keyword / rows_keyword) space
+        only:(only_keyword / with_keyword space ties_keyword)
+      {
         def ast
-        end
-      }
-    end
-
-    rule order_by_clause_items
-      order_by_clause_item
-      more:(space? ',' space? order_by_clause_item space?)* {
-        def ast
-          OracleSqlParser::Ast::Array[
-            order_by_clause_item.ast, *more_order_by_clause_items.map(&:ast)
-          ]
-        end
-
-        def more_order_by_clause_items
-          more.elements.map(&:order_by_clause_item)
-        end
-      }
-    end
-
-    rule order_by_clause_item
-      target:(expr / position / c_alias) space?
-      asc:(asc_keyword / desc_keyword)? space?
-      nulls:(nulls_keyword space first_or_last:(first_keyword / last_keyword))? {
-        def ast
-          OracleSqlParser::Ast::OrderByClauseItem[
-            :target => target.ast,
-            :asc => asc.ast,
-            :nulls => nulls.try(:first_or_last).ast,
+          OracleSqlParser::Ast::Hash[
+            fetch_keyword: fetch_keyword,
+            first_keyword: first.try(:first_keyword),
+            next_keyword: first.try(:next_keyword),
+            rowcount: rowcount.try(:rowcount),
+            percentage: rowcount.try(:percentage),
+            percentage_keyword: rowcount.try(:percentage_keyword),
+            row_keyword: rows.try(:row_keyword),
+            rows_keyword: rows.try(:rows_keyword),
+            only_keyword: only.try(:only_keyword),
+            with_keyword: only.try(:with_keyword),
+            ties_keyword: only.try(:ties_keyword),
           ]
         end
       }

@@ -150,14 +150,6 @@ module OracleSqlParser::Grammar
       }
     end
 
-    rule t_alias
-      ident {
-        def ast
-          super
-        end
-      }
-    end
-
     rule current_of
       current_of_keyword space? cursor_name {
         def ast

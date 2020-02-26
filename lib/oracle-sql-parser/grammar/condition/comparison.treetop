@@ -12,6 +12,7 @@ module OracleSqlParser::Grammar::Condition
     end
 
     rule group_comparison_condition
+      # not implemented
       'group_comparison_condition'
     end
 
