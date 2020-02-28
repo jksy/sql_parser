@@ -6,6 +6,7 @@ module OracleSqlParser::Grammar
     include OracleSqlParser::Grammar::Select::ForUpdate
     include OracleSqlParser::Grammar::Select::Union
     include OracleSqlParser::Grammar::Select::QueryBlock
+    include OracleSqlParser::Grammar::Select::RowLimit
 
     rule select_statement
       space? subquery for_update:(space for_update_clause)? space? {
@@ -24,7 +25,8 @@ module OracleSqlParser::Grammar
         query_block !(space union_or_intersect_or_minus) /
         subqueries:subqueries_with_union
       )
-      order:(space order_by_clause)? {
+      order:(space order_by_clause)?
+      row_limit:(space row_limiting_clause:row_limiting_clause)? {
         def ast
           OracleSqlParser::Ast::Subquery[
             :has_parenthesis => query.try(:left_parenthesis) ? true : nil,
@@ -32,6 +34,7 @@ module OracleSqlParser::Grammar
             :subqueries => query.try(:subqueries).ast,
             :subquery => query.try(:subquery).ast,
             :order_by_clause => order.try(:order_by_clause).ast,
+            :row_limiting_clause => row_limit.try(:row_limiting_clause).ast,
           ]
         end
       }

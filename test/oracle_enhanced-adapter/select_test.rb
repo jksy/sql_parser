@@ -46,7 +46,6 @@ module OracleEnhancedAdapter
 
     def test_limit
       query = TestEmployee.limit(10).to_sql
-      puts query
       assert_parameterized_equal(query,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where ROWNUM <= :a0',
         {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '10']}

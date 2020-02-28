@@ -5,7 +5,7 @@ module OracleSqlParser::Ast
     end
 
     def to_decimal
-      BigDecimal.new(@ast[:value])
+      BigDecimal(@ast[:value])
     end
   end
 end

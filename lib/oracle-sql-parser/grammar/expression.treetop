@@ -78,10 +78,6 @@ module OracleSqlParser::Grammar
       'json_object_access_expression' # not implemented
     end
 
-    rule object_access_expression
-      'object_access_expression' # not implemented
-    end
-
     rule expression_list  # from grouping_expression_list
       (
         '(' e:exprs ')' /

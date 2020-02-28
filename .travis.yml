@@ -1,17 +1,21 @@
 language: ruby
 rvm:
-  - 1.9.3
-  - 2.0.0-p648
-  - 2.1.10
-  - 2.2.9
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
+  - 2.3.8
+  - 2.4.9
+  - 2.5.7
+  - 2.6.5
+  - 2.7.0
 sudo: required
+env:
+  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE ORACLE_USERNAME=travis ORACLE_PASSWORD=travis ORACLE_HOST=localhost  ORACLE_PORT=1521
+
 before_install:
-  - .travis/oracle/download.sh
-  - .travis/oracle/install.sh
-  - gem install bundler -v 1.12.5
+  # https://github.com/Vincit/travis-oracledb-xe
+  - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+  - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+  - gem update --system
+  - gem install bundler -v 2.0.0
+
 script:
-  - rake gen_force
-  - rake test
+  - bundle exec rake gen_force
+  - bundle exec rake test
