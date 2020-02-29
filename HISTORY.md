@@ -1,3 +1,10 @@
+### 1.0.0
+* Pass test on Rails 5.1.7
+* Drop support version before 2.3.8
+* Added grammer for "SELECT * FROM {table_name} FETCH FIRST {number} ROWS ONLY".
+* The grammer is used by Model.limit(10) with Oracle 18g through ActiveRecord
+* Remove code for Ruby version 1.9.x
+
 ### 0.9.2
 * bug fix method not found "keys" on hash
 
