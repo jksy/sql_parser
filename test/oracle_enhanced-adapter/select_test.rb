@@ -38,7 +38,7 @@ module OracleEnhancedAdapter
 
     def test_where_between
       assert_parameterized_equal(TestEmployee.where(:age => 1..10).to_sql,
-        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where ("TEST_EMPLOYEES"."AGE" between :a0 and :a1)',
+        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."AGE" between :a0 and :a1',
         {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => '1'],
          'a1' => OracleSqlParser::Ast::NumberLiteral[:value => '10']}
       )
