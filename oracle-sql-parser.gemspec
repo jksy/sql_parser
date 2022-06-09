@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.files         += `echo lib/oracle-sql-parser/grammar/*.rb`.split(" ")
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 2.3.0'
+  spec.required_ruby_version = '>= 2.7.0'
   spec.add_runtime_dependency "treetop", "~> 1.6"
   spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "rake", "~> 10.0"
@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "ruby-oci8", "~> 2.0"
   spec.add_development_dependency "pry-byebug", "3.7.0" if RUBY_VERSION >= '2.0.0'
   spec.add_development_dependency "colorize", "~> 0.8"
+  spec.add_development_dependency "appraisal"
 end
