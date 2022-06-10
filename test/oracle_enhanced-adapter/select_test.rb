@@ -6,10 +6,6 @@ module OracleEnhancedAdapter
     def self.startup
       ActiveRecord::Base.establish_connection(BaseTest.connection_params)
       BaseTest.create_test_table
-
-      # Ref. https://github.com/rsim/oracle-enhanced/issues/2276
-      TestEmployee.first
-      TestCompany.first
     end
 
     def setup
