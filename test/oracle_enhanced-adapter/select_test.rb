@@ -22,6 +22,7 @@ module OracleEnhancedAdapter
     end
 
     def test_where
+      puts TestEmployee.where(:id => 1).to_sql
       assert_parameterized_equal(TestEmployee.where(:id => 1).to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."ID" = :a0',
         {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => "1"]}
@@ -29,6 +30,7 @@ module OracleEnhancedAdapter
     end
 
     def test_where_and
+      puts TestEmployee.where(:id => 1, :name => 'asdf').to_sql
       assert_parameterized_equal(TestEmployee.where(:id => 1, :name => 'asdf').to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."ID" = :a0 AND "TEST_EMPLOYEES"."NAME" = :a1',
         {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => "1"],
@@ -37,6 +39,7 @@ module OracleEnhancedAdapter
     end
 
     def test_where_between
+      puts TestEmployee.where(:age => 1..10).to_sql
       assert_parameterized_equal(TestEmployee.where(:age => 1..10).to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."AGE" between :a0 and :a1',
         {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => '1'],
