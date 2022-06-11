@@ -12,7 +12,7 @@ env:
 gemfile:
   - gemfiles/adapter_5.gemfile
   - gemfiles/adapter_6.gemfile
-  - gemfiles/adapter_7.gemfile
+# - gemfiles/adapter_7.gemfile
 
 before_install:
   # https://github.com/Vincit/travis-oracledb-xe
@@ -24,3 +24,6 @@ before_install:
 script:
   - bundle exec rake gen_force
   - bundle exec rake test
+
+notifications:
+    email: false
