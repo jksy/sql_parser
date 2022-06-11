@@ -1,14 +1,25 @@
 language: ruby
 rvm:
-  - 2.3.8
-  - 2.4.10
-  - 2.5.8
-  - 2.6.6
-  - 2.7.2
-# - 3.0.0
+  - 2.7.6
+  - 3.0.4
+  - 3.1.2
+
 sudo: required
 env:
-  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE ORACLE_USERNAME=travis ORACLE_PASSWORD=travis ORACLE_HOST=localhost  ORACLE_PORT=1521
+  global:
+    - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE ORACLE_USERNAME=travis ORACLE_PASSWORD=travis ORACLE_HOST=localhost  ORACLE_PORT=1521
+
+gemfile:
+  - gemfiles/adapter_5.gemfile
+  - gemfiles/adapter_6.gemfile
+# - gemfiles/adapter_7.gemfile
+
+jobs:
+  exclude:
+    - gemfile: gemfiles/adapter_5.gemfile
+      rvm: 3.0.4
+    - gemfile: gemfiles/adapter_5.gemfile
+      rvm: 3.1.2
 
 before_install:
   # https://github.com/Vincit/travis-oracledb-xe
@@ -20,3 +31,6 @@ before_install:
 script:
   - bundle exec rake gen_force
   - bundle exec rake test
+
+notifications:
+    email: false

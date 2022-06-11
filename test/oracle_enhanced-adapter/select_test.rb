@@ -9,9 +9,11 @@ module OracleEnhancedAdapter
     end
 
     def setup
-      # for ruby 1.9.3
-      ActiveRecord::Base.establish_connection(BaseTest.connection_params)
-      BaseTest.create_test_table
+      @exptected_number_riteral = if Gem::Version.new(ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter::VERSION) < '6.0'
+                                    '1'
+                                  else
+                                    '1.0'
+                                  end
     end
 
     def assert_parameterized_equal(query, parameterized_query, params)
@@ -24,14 +26,14 @@ module OracleEnhancedAdapter
     def test_where
       assert_parameterized_equal(TestEmployee.where(:id => 1).to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."ID" = :a0',
-        {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => "1"]}
+        {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => @exptected_number_riteral]}
       )
     end
 
     def test_where_and
       assert_parameterized_equal(TestEmployee.where(:id => 1, :name => 'asdf').to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where "TEST_EMPLOYEES"."ID" = :a0 AND "TEST_EMPLOYEES"."NAME" = :a1',
-        {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => "1"],
+        {'a0' => OracleSqlParser::Ast::NumberLiteral[:value => @exptected_number_riteral],
          'a1' => OracleSqlParser::Ast::TextLiteral[:value => 'asdf']}
       )
     end
@@ -55,7 +57,7 @@ module OracleEnhancedAdapter
     def test_joins
       assert_parameterized_equal(TestEmployee.joins(:company).where(:id => 1).to_sql,
         'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" INNER JOIN "TEST_COMPANIES" ON "TEST_COMPANIES"."TEST_EMPLOYEE_ID" = "TEST_EMPLOYEES"."ID" where "TEST_EMPLOYEES"."ID" = :a0',
-        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '1']}
+        {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => @exptected_number_riteral]}
       )
     end
 
