@@ -1,11 +1,13 @@
 appraise "adapter-5" do
-  gem 'activerecord-oracle_enhanced-adapter', "~> 5.2.0"
-  gem 'simplecov-cobertura', require: false
+  group :test do
+    gem 'activerecord-oracle_enhanced-adapter', "~> 5.2.0"
+  end
 end
 
 appraise "adapter-6" do
-  gem 'activerecord-oracle_enhanced-adapter', "~> 6.1.6"
-  gem 'simplecov-cobertura', require: false
+  group :test do
+    gem 'activerecord-oracle_enhanced-adapter', "~> 6.1.6"
+  end
 end
 
 # because raise ORA-01008

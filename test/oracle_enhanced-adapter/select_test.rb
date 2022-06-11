@@ -9,7 +9,8 @@ module OracleEnhancedAdapter
     end
 
     def setup
-      @exptected_number_riteral = if Gem::Version.new(ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter::VERSION) < '6.0'
+      version = Gem::Version.new(ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter::VERSION)
+      @exptected_number_riteral = if version < Gem::Version.new('6.0')
                                     '1'
                                   else
                                     '1.0'
