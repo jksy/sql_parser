@@ -27,10 +27,13 @@ before_install:
   - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
   - gem update --system
   - gem install bundler -v 2.0.0
+  - curl -Os https://uploader.codecov.io/latest/linux/codecov
+  - chmod +x codecov
 
 script:
   - bundle exec rake gen_force
   - bundle exec rake test
+  -  ./codecov -t ${CODECOV_TOKEN} -f ./coverage/coverage*.xml
 
 notifications:
     email: false
