@@ -1,6 +1,7 @@
 # OracleSqlParser
 
 [![Build Status](https://travis-ci.org/jksy/sql_parser.svg?branch=master)](https://travis-ci.org/jksy/sql_parser)
+[![codecov](https://codecov.io/gh/jksy/sql_parser/branch/master/graph/badge.svg?token=0HSMBU0CD8)](https://codecov.io/gh/jksy/sql_parser)
 
 SQL Parser for Oracle
 
