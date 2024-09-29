@@ -46,7 +46,7 @@ jobs:
           app-user-password: ${{ secrets.ORACLE_PASSWORD }}
           oracle-database: ${{ secrets.ORACLE_DATABASE }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Ref. https://github.com/rsim/oracle-enhanced/blob/master/.github/workflows/test.yml
       - name: Download Oracle instant client
@@ -61,7 +61,7 @@ jobs:
           sudo unzip instantclient-basic-linux.x64-23.5.0.24.07.zip -d /opt/oracle/
           sudo unzip -o instantclient-sdk-linux.x64-23.5.0.24.07.zip -d /opt/oracle/
           sudo unzip -o instantclient-sqlplus-linux.x64-23.5.0.24.07.zip -d /opt/oracle/
-          echo "/opt/oracle/instantclient_23_5" >> $GITHUB_PATH
+          echo "/opt/oracle/instantclient_23_5" >> "${GITHUB_PATH}"
 
       - name: Install JDBC Driver
         run: |
