@@ -18,7 +18,7 @@ desc "clean files"
 task :clean do
   GRAMMAR_FILES.each do |f|
     file = "#{f.gsub(/\.treetop$/,'')}.rb"
-    File.unlink file if File.exists? file
+    File.unlink file if File.exist? file
   end
 end
 
@@ -54,7 +54,7 @@ def tt(f, force = false)
 end
 
 def do_if_changed(src, output, force = false, &block)
-  force = true unless File.exists?(output)
+  force = true unless File.exist?(output)
   if force || File::Stat.new(src).mtime >= File::Stat.new(output).mtime
     yield
   end
