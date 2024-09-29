@@ -34,9 +34,9 @@ jobs:
 
       ORACLE_USERNAME: ${{ secrets.ORACLE_USERNAME }}
       ORACLE_PASSWORD: ${{ secrets.ORACLE_USERNAME }}
-      ORACLE_HOST: localhost
+      ORACLE_HOST: oracle
       ORACLE_PORT: 1521
-      ORACLE_DATABASE: ${{ secrets.ORACLE_DATABASE }}
+      ORACLE_SID: ${{ secrets.ORACLE_DATABASE }}
 
     name: Ruby ${{ matrix.ruby }}
     steps:
