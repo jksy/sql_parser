@@ -53,6 +53,7 @@ jobs:
           app-user-password: ${{ secrets.ORACLE_PASSWORD }}
           oracle-database: ${{ env.ORACLE_SID }}
           container-name: oracle
+          health-max-retries: 60
 
       - uses: actions/checkout@v4
 
