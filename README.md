@@ -5,6 +5,12 @@
 
 SQL Parser for Oracle
 
+## Requirements
+
+Ruby 3.2 or later (CI runs on 3.2, 3.3, 3.4 and 4.0). The gem itself does not
+need an Oracle client; only the connection tests described under
+[Development](#development) do.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -106,8 +112,9 @@ container (VS Code "Reopen in Container", or the
 The Oracle gems are managed with [Appraisal](https://github.com/thoughtbot/appraisal)
 so that a plain `bundle install` works without Oracle; `rake test:adapter`
 switches to `gemfiles/adapter_6.gemfile` by itself when the current bundle does
-not have them. There is one appraisal per supported ActiveRecord version (see
-`Appraisals`); to run the tests with all of them:
+not have them. There is one appraisal per ActiveRecord version the tests are
+run against (6.1, 7.2 and 8.1, see `Appraisals`); to run the tests with all of
+them:
 
     $ bundle exec appraisal rake test:adapter:run
 
