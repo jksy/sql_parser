@@ -41,6 +41,16 @@ namespace :test do
   end
 end
 
+# Name each SimpleCov run so results from test:unit and test:adapter merge.
+task 'test:unit:coverage_name' do
+  ENV['SIMPLECOV_COMMAND_NAME'] = 'unit'
+end
+task 'test:adapter:coverage_name' do
+  ENV['SIMPLECOV_COMMAND_NAME'] = 'adapter'
+end
+task 'test:unit' => 'test:unit:coverage_name'
+task 'test:adapter' => 'test:adapter:coverage_name'
+
 desc "run all tests (test:unit and test:adapter)"
 task :test => ['test:unit', 'test:adapter']
 

@@ -1,6 +1,12 @@
 require 'simplecov'
 require 'simplecov-cobertura'
 SimpleCov.start do
+  # test:unit and test:adapter run in separate processes; give each a name so
+  # SimpleCov merges their results instead of overwriting them. The Rakefile
+  # sets SIMPLECOV_COMMAND_NAME per task.
+  command_name ENV.fetch('SIMPLECOV_COMMAND_NAME', 'unit')
+  enable_coverage :branch
+
   if ENV['CI']
     formatter SimpleCov::Formatter::CoberturaFormatter
   else
@@ -12,6 +18,17 @@ SimpleCov.start do
 
   skip "/test/"
   skip "/vendor/"
+
+  # Parsers generated from .treetop files dominate the line count, so keep
+  # them apart from the hand-written code in the report (see codecov.yml).
+  add_group "Generated parsers" do |src|
+    src.filename.include?("/lib/oracle-sql-parser/grammar/") &&
+      File.exist?(src.filename.sub(/\.rb\z/, ".treetop"))
+  end
+  add_group "Hand-written" do |src|
+    !(src.filename.include?("/lib/oracle-sql-parser/grammar/") &&
+      File.exist?(src.filename.sub(/\.rb\z/, ".treetop")))
+  end
 end
 
 require 'test/unit'

@@ -17,6 +17,9 @@ jobs:
   test:
     name: Ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Codecov OIDC upload
     strategy:
       fail-fast: false
       matrix:
@@ -39,15 +42,15 @@ jobs:
           CI: "1"
 
       # Coverage is uploaded from one Ruby version only to avoid duplicate reports.
-      # CODECOV_TOKEN is not set yet, so a failed upload must not fail the build (see #41).
+      # Authenticates with GitHub OIDC (public repository), so no upload token is needed.
       - name: Upload coverage to Codecov
         if: matrix.ruby == '3.4'
         uses: codecov/codecov-action@v7
         with:
           files: coverage/coverage.xml
-          fail_ci_if_error: false
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit
+          use_oidc: true
+          fail_ci_if_error: true
 
   # Single job to require in the branch ruleset, so the matrix can change
   # without touching the ruleset.
