@@ -1,6 +1,6 @@
 # OracleSqlParser
 
-[![test](https://github.com/jksy/sql_parser/actions/workflows/test.yml/badge.svg)](https://github.com/jksy/sql_parser/actions/workflows/test.yml)
+[![ci](https://github.com/jksy/sql_parser/actions/workflows/ci.yml/badge.svg)](https://github.com/jksy/sql_parser/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/jksy/sql_parser/branch/master/graph/badge.svg?token=0HSMBU0CD8)](https://codecov.io/gh/jksy/sql_parser)
 
 SQL Parser for Oracle

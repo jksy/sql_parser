@@ -1,0 +1,23 @@
+# Offenses in existing code are listed in .rubocop_todo.yml; remove entries
+# from there as they get fixed.
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'vendor/**/*'
+    - 'gemfiles/**/*'
+    - 'coverage/**/*'
+    - 'pkg/**/*'
+    # Parsers generated from the .treetop grammars (see Rakefile gen task).
+    - 'lib/oracle-sql-parser/grammar/{condition,delete,expression,grammar,insert,reserved_word,select,update}.rb'
+    - 'lib/oracle-sql-parser/grammar/{condition,expression,select}/*.rb'
+
+# Test files and grammar builders are long by nature.
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+    - 'Rakefile'
+    - '*.gemspec'

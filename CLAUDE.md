@@ -11,6 +11,7 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 ## テスト
 
 ```bash
+bundle exec rake ci                                                              # RuboCop + パーサのテスト（CI と同じ）
 bundle exec rake test:unit                                                       # パーサのテスト（Oracle 不要）
 BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile bundle exec rake test:adapter          # Oracle 接続テスト
 bundle exec rake test                                                            # 両方

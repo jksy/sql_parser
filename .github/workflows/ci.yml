@@ -1,0 +1,128 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    # Weekly run that also covers ruby-head (see test-head below).
+    - cron: '0 3 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Codecov OIDC upload
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.2', '3.3', '3.4', '4.0']
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Regenerate parsers from treetop grammars
+        run: bundle exec rake gen_force
+
+      # The generated parsers are committed; fail if a .treetop (or the
+      # reserved word generator) changed without regenerating them.
+      - name: Check that the committed parsers are up to date
+        run: git diff --exit-code -- lib/oracle-sql-parser/grammar
+
+      - name: Run parser tests
+        run: bundle exec rake test:unit
+        env:
+          CI: "1"
+
+      # Coverage is uploaded from one Ruby version only to avoid duplicate reports.
+      # Authenticates with GitHub OIDC (public repository), so no upload token is needed.
+      - name: Upload coverage to Codecov
+        if: matrix.ruby == '3.4'
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage/coverage.xml
+          flags: unit
+          use_oidc: true
+          fail_ci_if_error: true
+
+  # Early warning for the next Ruby; only on the weekly run and never required.
+  test-head:
+    name: Ruby head (weekly, allowed to fail)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: head
+          bundler-cache: true
+      - run: bundle exec rake gen_force
+      - run: bundle exec rake test:unit
+
+  lint:
+    name: RuboCop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - run: bundle exec rubocop
+
+  build:
+    name: Build gem
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: Build the gem
+        run: gem build oracle-sql-parser.gemspec --output oracle-sql-parser.gem
+      - name: Check that the gem contains the generated parsers and the license
+        run: |
+          files=$(tar -xOf oracle-sql-parser.gem data.tar.gz | tar -tz)
+          echo "$files" | grep -q '^LICENSE.txt$'
+          echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/grammar.rb$'
+          echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/select/query_block.rb$'
+          if echo "$files" | grep -E '^(test|\.github)/'; then
+            echo "test or CI files must not be packaged" >&2
+            exit 1
+          fi
+          echo "$files" | grep -c '^lib/oracle-sql-parser/grammar/.*\.rb$'
+      - name: Install the gem and load it
+        run: |
+          gem install --local oracle-sql-parser.gem
+          ruby -e 'require "oracle-sql-parser"; p OracleSqlParser::Grammar::GrammarParser.new.parse("select 1 from dual").ast.to_sql'
+
+  # Single job to require in the branch ruleset, so the matrix can change
+  # without touching the ruleset.
+  ci-passed:
+    name: ci-passed
+    needs: [test, lint, build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that every required job succeeded
+        run: |
+          test "${{ needs.test.result }}" = "success"
+          test "${{ needs.lint.result }}" = "success"
+          test "${{ needs.build.result }}" = "success"

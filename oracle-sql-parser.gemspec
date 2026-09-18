@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "colorize"
   spec.add_development_dependency "appraisal"
+  spec.add_development_dependency "rubocop", "~> 1.91"
 end
