@@ -48,8 +48,13 @@ module OracleEnhancedAdapter
 
     def test_limit
       query = TestEmployee.limit(10).to_sql
-      assert_parameterized_equal(query,
-        'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where ROWNUM <= :a0',
+      # The adapter uses FETCH FIRST on Oracle 12c and later, ROWNUM before that.
+      expected = if ActiveRecord::Base.connection.supports_fetch_first_n_rows_and_offset?
+                   'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" FETCH FIRST :a0 ROWS ONLY'
+                 else
+                   'select "TEST_EMPLOYEES".* from "TEST_EMPLOYEES" where ROWNUM <= :a0'
+                 end
+      assert_parameterized_equal(query, expected,
         {'a0' =>  OracleSqlParser::Ast::NumberLiteral[:value => '10']}
       )
     end

@@ -6,20 +6,21 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 
 - `lib/oracle-sql-parser/grammar/**/*.rb` は `.treetop` から生成されたファイルで、**生成物もコミットする**。`.treetop` を編集したら `bundle exec rake gen_force` で再生成し、`.rb` も一緒にコミットする（CI が `git diff --exit-code` で生成漏れを検出する）。`.treetop` を Edit / Write すると PostToolUse フック（`.claude/hooks/regenerate-treetop.sh`）が該当ファイルだけ `tt` を実行する
 - `grammar/reserved_word.treetop` は `grammar/reserved_word_generator.rb` の `keywords` から生成される。手で編集せず generator を直して `rake gen_force` する（`reserved_word.treetop` と `reserved_word.rb` の両方が更新される）
-- Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。adapter テストを動かすときは `bundle exec appraisal install` のあと `BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile` を付けて実行する
+- Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。`rake test:adapter` は現在の bundle に adapter が無ければ `gemfiles/adapter_6.gemfile` で自分を起動し直す
+- Oracle 込みの動作確認は `.devcontainer/` の dev container で行う（Ruby + Instant Client の `app` と `gvenzl/oracle-free` の `oracle` の 2 サービス）。`devcontainer up --workspace-folder .` のあと `devcontainer exec --workspace-folder . bundle exec rake test` で unit / adapter の両方が走る。`postCreateCommand` で `appraisal install` まで済む
 
 ## テスト
 
 ```bash
 bundle exec rake ci                                                              # RuboCop + パーサのテスト（CI と同じ）
 bundle exec rake test:unit                                                       # パーサのテスト（Oracle 不要）
-BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile bundle exec rake test:adapter          # Oracle 接続テスト
+bundle exec rake test:adapter                                                    # Oracle 接続テスト（dev container 内、または ORACLE_* を設定して）
 bundle exec rake test                                                            # 両方
 bundle exec ruby -Ilib -Itest test/grammar/select_test.rb                        # 単一ファイル
 bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where   # 単一テスト
 ```
 
-- `test:unit` は `test/grammar` と `test/ast`、`test:adapter` は `test/oracle_enhanced-adapter`（接続先は `connection_params.yml` か `ORACLE_USERNAME` / `ORACLE_PASSWORD` / `ORACLE_HOST` / `ORACLE_PORT` / `ORACLE_SID`）。ローカルに Oracle が無ければ adapter テストは CI に任せてよい
+- `test:unit` は `test/grammar` と `test/ast`、`test:adapter` は `test/oracle_enhanced-adapter`（接続先は `connection_params.yml` か `ORACLE_USERNAME` / `ORACLE_PASSWORD` / `ORACLE_HOST` / `ORACLE_PORT` / `ORACLE_SID`）。ローカルに Oracle が無ければ dev container を使うか、adapter テストは CI に任せてよい
 - 文法テストは `test/parse_testable.rb` の `assert_ast_sql_equal(query, expect_ast)` を使う。パース結果の AST が期待値と一致すること、かつ `to_sql` で入力 SQL に戻ることを同時に検証する
 - パース失敗の原因を追うときはテスト内で `enable_debug` を呼ぶと、ルールの呼び出しと入力位置が標準出力に出る
 

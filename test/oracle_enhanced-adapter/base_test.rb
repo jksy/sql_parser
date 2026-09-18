@@ -1,4 +1,7 @@
 require File.expand_path('../test_helper.rb', File.dirname(__FILE__))
+# ActiveSupport 6.1 references Logger without requiring it, which fails with
+# concurrent-ruby >= 1.3.5 (it no longer loads logger itself).
+require 'logger'
 require 'active_record'
 require 'active_record/connection_adapters/oracle_enhanced_adapter'
 

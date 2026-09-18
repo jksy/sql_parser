@@ -16,8 +16,8 @@ Gem::Specification.new do |spec|
 
   # Everything tracked by git except tests and repository tooling.
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|\.github|\.claude|docker|gemfiles)/}) ||
-      f.match(/^(AGENTS\.md|CLAUDE\.md|Appraisals|codecov\.yml|docker-compose\.yml|Gemfile|\.gitignore|\.rubocop.*\.yml|\.ruby-version)$/)
+    f.match(%r{^(test|\.github|\.claude|\.devcontainer|gemfiles)/}) ||
+      f.match(/^(AGENTS\.md|CLAUDE\.md|Appraisals|codecov\.yml|Gemfile|\.gitignore|\.rubocop.*\.yml|\.ruby-version)$/)
   end
   spec.require_paths = ["lib"]
 

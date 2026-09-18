@@ -85,7 +85,7 @@ jobs:
           echo "$files" | grep -q '^LICENSE.txt$'
           echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/grammar.rb$'
           echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/select/query_block.rb$'
-          if echo "$files" | grep -E '^(test|\.github|\.claude)/|^(AGENTS|CLAUDE)\.md$'; then
+          if echo "$files" | grep -E '^(test|\.github|\.claude|\.devcontainer)/|^(AGENTS|CLAUDE)\.md$'; then
             echo "tests and repository tooling must not be packaged" >&2
             exit 1
           fi
