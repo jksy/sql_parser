@@ -10,8 +10,8 @@ SimpleCov.start do
               ])
   end
 
-  add_filter "/test/"
-  add_filter "/vendor/"
+  skip "/test/"
+  skip "/vendor/"
 end
 
 require 'test/unit'
