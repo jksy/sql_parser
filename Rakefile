@@ -3,6 +3,9 @@ require 'rake'
 require 'rake/testtask'
 
 GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/**/*.treetop']
+# The Oracle gems live in the appraisal gemfiles (see Appraisals); test:adapter
+# re-runs itself under this one when the current bundle does not have them.
+ADAPTER_GEMFILE = 'gemfiles/adapter_6.gemfile'.freeze
 
 desc "generate parser files"
 task :gen do
@@ -33,11 +36,22 @@ namespace :test do
     t.verbose = true
   end
 
-  Rake::TestTask.new(:adapter) do |t|
-    t.description = "run Oracle connection tests (needs an appraisal gemfile and an Oracle DB)"
-    t.libs << "test"
-    t.test_files = FileList['test/oracle_enhanced-adapter/select_test.rb']
-    t.verbose = true
+  namespace :adapter do
+    Rake::TestTask.new(:run) do |t|
+      t.description = "run Oracle connection tests in the current bundle"
+      t.libs << "test"
+      t.test_files = FileList['test/oracle_enhanced-adapter/select_test.rb']
+      t.verbose = true
+    end
+  end
+
+  desc "run Oracle connection tests (needs an Oracle DB; uses #{ADAPTER_GEMFILE} unless the current bundle has the adapter)"
+  task :adapter do
+    if adapter_gems_available?
+      Rake::Task['test:adapter:run'].invoke
+    else
+      sh({ 'BUNDLE_GEMFILE' => ADAPTER_GEMFILE }, 'bundle', 'exec', 'rake', 'test:adapter:run')
+    end
   end
 end
 
@@ -49,7 +63,7 @@ task 'test:adapter:coverage_name' do
   ENV['SIMPLECOV_COMMAND_NAME'] = 'adapter'
 end
 task 'test:unit' => 'test:unit:coverage_name'
-task 'test:adapter' => 'test:adapter:coverage_name'
+task 'test:adapter:run' => 'test:adapter:coverage_name'
 
 desc "run all tests (test:unit and test:adapter)"
 task :test => ['test:unit', 'test:adapter']
@@ -64,6 +78,12 @@ task :ci => [:rubocop, 'test:unit']
 
 task :default => 'test:unit'
 
+
+def adapter_gems_available?
+  Bundler.load.specs.any? { |spec| spec.name == 'activerecord-oracle_enhanced-adapter' }
+rescue Bundler::BundlerError
+  false
+end
 
 def generate_parser_files(force = false)
   word_generator = "lib/oracle-sql-parser/grammar/reserved_word_generator.rb"

@@ -93,16 +93,28 @@ commit the result; CI fails if the committed parsers are out of date:
 
 The tests under `test/oracle_enhanced-adapter` run real queries through
 [activerecord-oracle_enhanced-adapter](https://github.com/rsim/oracle-enhanced)
-and need Oracle Instant Client plus a reachable Oracle database. Their gems are
-managed with [Appraisal](https://github.com/thoughtbot/appraisal) so that a
-plain `bundle install` works without Oracle:
+and need Oracle Instant Client plus a reachable Oracle database. The easiest
+way to get both is the dev container in `.devcontainer/`, which starts
+[Oracle Database Free](https://github.com/gvenzl/oci-oracle-free) next to a
+Ruby container that has Instant Client installed. Open the repository in the
+container (VS Code "Reopen in Container", or the
+[devcontainer CLI](https://github.com/devcontainers/cli)) and run the tests:
+
+    $ devcontainer up --workspace-folder .
+    $ devcontainer exec --workspace-folder . bundle exec rake test  # test:unit and test:adapter
+
+The Oracle gems are managed with [Appraisal](https://github.com/thoughtbot/appraisal)
+so that a plain `bundle install` works without Oracle; `rake test:adapter`
+switches to `gemfiles/adapter_6.gemfile` by itself when the current bundle does
+not have them. To run against another Oracle database instead, install the
+appraisal gems and point the tests at it:
 
     $ bundle exec appraisal install
-    $ export ORACLE_USERNAME=... ORACLE_PASSWORD=... ORACLE_HOST=localhost ORACLE_PORT=1521 ORACLE_SID=XE
-    $ BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile bundle exec rake test:adapter
+    $ export ORACLE_USERNAME=... ORACLE_PASSWORD=... ORACLE_HOST=localhost ORACLE_PORT=1521 ORACLE_SID=FREEPDB1
+    $ bundle exec rake test:adapter
 
 Connection settings can also be put in `test/oracle_enhanced-adapter/connection_params.yml`
-(ignored by git). `rake test` runs both `test:unit` and `test:adapter`.
+(ignored by git).
 
 ## Release
 

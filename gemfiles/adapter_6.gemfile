@@ -7,6 +7,10 @@ group :test do
   gem "simplecov-cobertura", require: false
   gem "activerecord-oracle_enhanced-adapter", "~> 6.1.6"
   gem "ruby-oci8", "~> 2.0"
+  gem "mutex_m"
+  gem "base64"
+  gem "drb"
+  gem "logger"
 end
 
 gemspec path: "../"

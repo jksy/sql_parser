@@ -1,0 +1,49 @@
+# Development environment for the Oracle connection tests.
+#
+#   app:    Ruby + Oracle Instant Client, the workspace is bind-mounted
+#   oracle: Oracle Database Free (https://github.com/gvenzl/oci-oracle-free)
+#
+# Used by devcontainer.json, but also works on its own. The gems are installed
+# by devcontainer.json's postCreateCommand, so install them first here:
+#
+#   docker compose -f .devcontainer/docker-compose.yml run --rm app \
+#     bash -c 'bundle install && bundle exec appraisal install && bundle exec rake test'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/sql_parser:cached
+    working_dir: /workspaces/sql_parser
+    # Connection settings read by test/oracle_enhanced-adapter/base_test.rb.
+    # ORACLE_SID is the service name of the default pluggable database.
+    environment:
+      ORACLE_HOST: oracle
+      ORACLE_PORT: "1521"
+      ORACLE_SID: FREEPDB1
+      ORACLE_USERNAME: parser_test
+      ORACLE_PASSWORD: parser_test
+    depends_on:
+      oracle:
+        condition: service_healthy
+    command: sleep infinity
+
+  oracle:
+    # "faststart" ships an already created database, so the container is ready
+    # in about a minute. Nothing is persisted between restarts; the tests create
+    # the tables they need.
+    image: gvenzl/oracle-free:23-slim-faststart
+    environment:
+      # SYS / SYSTEM password (not used by the tests)
+      ORACLE_PASSWORD: oracle
+      # schema user created in FREEPDB1 for the tests; must match app above
+      APP_USER: parser_test
+      APP_USER_PASSWORD: parser_test
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
