@@ -103,14 +103,14 @@ jobs:
           echo "$files" | grep -q '^LICENSE.txt$'
           echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/grammar.rb$'
           echo "$files" | grep -q '^lib/oracle-sql-parser/grammar/select/query_block.rb$'
-          if echo "$files" | grep -E '^(test|\.github)/'; then
-            echo "test or CI files must not be packaged" >&2
+          if echo "$files" | grep -E '^(test|\.github|\.claude)/|^(AGENTS|CLAUDE)\.md$'; then
+            echo "tests and repository tooling must not be packaged" >&2
             exit 1
           fi
           echo "$files" | grep -c '^lib/oracle-sql-parser/grammar/.*\.rb$'
       - name: Install the gem and load it
         run: |
-          gem install --local oracle-sql-parser.gem
+          gem install ./oracle-sql-parser.gem
           ruby -e 'require "oracle-sql-parser"; p OracleSqlParser::Grammar::GrammarParser.new.parse("select 1 from dual").ast.to_sql'
 
   # Single job to require in the branch ruleset, so the matrix can change
