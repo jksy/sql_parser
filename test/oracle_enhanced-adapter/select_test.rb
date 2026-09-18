@@ -6,6 +6,13 @@ module OracleEnhancedAdapter
     def self.startup
       ActiveRecord::Base.establish_connection(BaseTest.connection_params)
       BaseTest.create_test_table
+      # Load the schema up front. Relation#to_sql runs with prepared statements
+      # disabled, and oracle_enhanced 7.x then drops the binds of its own schema
+      # queries (ORA-01008), so a schema loaded lazily inside to_sql fails.
+      [TestEmployee, TestCompany].each do |model|
+        model.reset_column_information
+        model.columns
+      end
     end
 
     def setup

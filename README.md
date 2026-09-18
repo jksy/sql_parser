@@ -106,8 +106,13 @@ container (VS Code "Reopen in Container", or the
 The Oracle gems are managed with [Appraisal](https://github.com/thoughtbot/appraisal)
 so that a plain `bundle install` works without Oracle; `rake test:adapter`
 switches to `gemfiles/adapter_6.gemfile` by itself when the current bundle does
-not have them. To run against another Oracle database instead, install the
-appraisal gems and point the tests at it:
+not have them. There is one appraisal per supported ActiveRecord version (see
+`Appraisals`); to run the tests with all of them:
+
+    $ bundle exec appraisal rake test:adapter:run
+
+To run against another Oracle database instead, install the appraisal gems and
+point the tests at it:
 
     $ bundle exec appraisal install
     $ export ORACLE_USERNAME=... ORACLE_PASSWORD=... ORACLE_HOST=localhost ORACLE_PORT=1521 ORACLE_SID=FREEPDB1
