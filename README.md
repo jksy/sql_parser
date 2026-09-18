@@ -113,8 +113,8 @@ appraisal gems and point the tests at it:
     $ export ORACLE_USERNAME=... ORACLE_PASSWORD=... ORACLE_HOST=localhost ORACLE_PORT=1521 ORACLE_SID=FREEPDB1
     $ bundle exec rake test:adapter
 
-Connection settings can also be put in `test/oracle_enhanced-adapter/connection_params.yml`
-(ignored by git).
+When `ORACLE_HOST` is not set, the connection settings are read from
+`test/oracle_enhanced-adapter/connection_params.yml` (ignored by git) instead.
 
 ## Release
 

@@ -20,7 +20,7 @@ bundle exec ruby -Ilib -Itest test/grammar/select_test.rb                       
 bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where   # 単一テスト
 ```
 
-- `test:unit` は `test/grammar` と `test/ast`、`test:adapter` は `test/oracle_enhanced-adapter`（接続先は `connection_params.yml` か `ORACLE_USERNAME` / `ORACLE_PASSWORD` / `ORACLE_HOST` / `ORACLE_PORT` / `ORACLE_SID`）。ローカルに Oracle が無ければ dev container を使うか、adapter テストは CI に任せてよい
+- `test:unit` は `test/grammar` と `test/ast`、`test:adapter` は `test/oracle_enhanced-adapter`（接続先は `ORACLE_HOST` があれば `ORACLE_USERNAME` / `ORACLE_PASSWORD` / `ORACLE_HOST` / `ORACLE_PORT` / `ORACLE_SID`、無ければ `connection_params.yml`。dev container は環境変数を設定するので、手元に古い yml が残っていても影響しない）。ローカルに Oracle が無ければ dev container を使うか、adapter テストは CI に任せてよい
 - 文法テストは `test/parse_testable.rb` の `assert_ast_sql_equal(query, expect_ast)` を使う。パース結果の AST が期待値と一致すること、かつ `to_sql` で入力 SQL に戻ることを同時に検証する
 - パース失敗の原因を追うときはテスト内で `enable_debug` を呼ぶと、ルールの呼び出しと入力位置が標準出力に出る
 
