@@ -45,6 +45,7 @@ jobs:
         with:
           files: coverage/coverage.xml
           flags: unit
+          slug: jksy/sql_parser
           fail_ci_if_error: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
