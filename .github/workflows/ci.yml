@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - master
-  schedule:
-    # Weekly run that also covers ruby-head (see test-head below).
-    - cron: '0 3 * * 1'
 
 permissions:
   contents: read
@@ -59,21 +56,6 @@ jobs:
           flags: unit
           use_oidc: true
           fail_ci_if_error: true
-
-  # Early warning for the next Ruby; only on the weekly run and never required.
-  test-head:
-    name: Ruby head (weekly, allowed to fail)
-    if: github.event_name == 'schedule'
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: head
-          bundler-cache: true
-      - run: bundle exec rake gen_force
-      - run: bundle exec rake test:unit
 
   lint:
     name: RuboCop
