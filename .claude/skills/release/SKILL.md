@@ -17,6 +17,6 @@ disable-model-invocation: true
    ```
 
    `spec.files` は `git ls-files` に加えて `lib/oracle-sql-parser/grammar/**/*.rb` をシェル展開で拾うため、`gen_force` を飛ばすとパーサが入っていない gem ができる。`gem contents oracle-sql-parser` で `grammar/*.rb` が含まれることを確認する
-4. GitHub の Releases で `v<version>` タグを選び、"Generate release notes" で本文を生成して公開する。Ruby / adapter の対応範囲が変わった場合はその旨を本文の先頭に追記する
+4. GitHub の Releases で `v<version>` タグを選び、"Generate release notes" で本文を生成して公開する。本文は `.github/release.yml` により PR のラベルでカテゴリ分けされるので、種別ラベルの無い PR が「Other Changes」に落ちていないか確認する。Ruby / adapter の対応範囲が変わった場合はその旨を本文の先頭に追記する
 
-`CHANGELOG.md` / `HISTORY.md` は更新しない。人間の確認なしにタグ push や publish を実行しない。
+`CHANGELOG.md` は v1.0.0 で凍結しており更新しない。人間の確認なしにタグ push や publish を実行しない。

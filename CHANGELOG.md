@@ -1,12 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/jksy/sql_parser/tree/HEAD)
-
-[Full Changelog](https://github.com/jksy/sql_parser/compare/v1.0.0...HEAD)
-
-**Merged pull requests:**
-
-- update history [\#23](https://github.com/jksy/sql_parser/pull/23) ([jksy](https://github.com/jksy))
+> This file covers releases up to v1.0.0 and is no longer updated. Release
+> notes for later versions live on
+> [GitHub Releases](https://github.com/jksy/sql_parser/releases).
 
 ## [v1.0.0](https://github.com/jksy/sql_parser/tree/v1.0.0) (2020-02-28)
 
@@ -125,6 +121,8 @@
 **Merged pull requests:**
 
 - racc -\> treetop [\#1](https://github.com/jksy/sql_parser/pull/1) ([jksy](https://github.com/jksy))
+
+## Release notes (formerly HISTORY.md)
 
 ### 1.0.0
 * Pass test on Rails 5.1.7
