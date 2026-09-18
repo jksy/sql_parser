@@ -104,10 +104,17 @@ plain `bundle install` works without Oracle:
 Connection settings can also be put in `test/oracle_enhanced-adapter/connection_params.yml`
 (ignored by git). `rake test` runs both `test:unit` and `test:adapter`.
 
+## Release
+
+1. Update the version in `lib/oracle-sql-parser/version.rb` and merge it.
+2. On `master`, run `bundle exec rake release`, which creates the `v<version>`
+   tag, pushes it and publishes the gem to [rubygems.org](https://rubygems.org).
+3. Create a GitHub Release for the tag and generate the release notes from it.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jksy/sql_parser.
 
-## Test Page
+## License
 
-http://dev.jksy.org/
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
