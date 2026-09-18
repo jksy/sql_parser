@@ -6,7 +6,8 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 
 - `lib/oracle-sql-parser/grammar/**/*.rb` は `.treetop` から生成されたファイルで、**生成物もコミットする**。`.treetop` を編集したら `bundle exec rake gen_force` で再生成し、`.rb` も一緒にコミットする（CI が `git diff --exit-code` で生成漏れを検出する）。`.treetop` を Edit / Write すると PostToolUse フック（`.claude/hooks/regenerate-treetop.sh`）が該当ファイルだけ `tt` を実行する
 - `grammar/reserved_word.treetop` は `grammar/reserved_word_generator.rb` の `keywords` から生成される。手で編集せず generator を直して `rake gen_force` する（`reserved_word.treetop` と `reserved_word.rb` の両方が更新される）
-- Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。`rake test:adapter` は現在の bundle に adapter が無ければ `gemfiles/adapter_6.gemfile` で自分を起動し直す
+- Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。`rake test:adapter` は現在の bundle に adapter が無ければ `gemfiles/adapter_6.gemfile` で自分を起動し直す。appraisal は ActiveRecord のメジャーバージョンごとに 1 つ（6.1 / 7.2 / 8.1）
+- oracle_enhanced 7.x は `prepared_statements` が無効だと自身のスキーマ問い合わせのバインド値を渡さない（ORA-01008）。`Relation#to_sql` はその状態で走るので、adapter テストは `startup` でスキーマを先に読み込んでいる
 - Oracle 込みの動作確認は `.devcontainer/` の dev container で行う（Ruby + Instant Client の `app` と `gvenzl/oracle-free` の `oracle` の 2 サービス）。`devcontainer up --workspace-folder .` のあと `devcontainer exec --workspace-folder . bundle exec rake test` で unit / adapter の両方が走る。`postCreateCommand` で `appraisal install` まで済む
 
 ## テスト
@@ -15,6 +16,7 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 bundle exec rake ci                                                              # RuboCop + パーサのテスト（CI と同じ）
 bundle exec rake test:unit                                                       # パーサのテスト（Oracle 不要）
 bundle exec rake test:adapter                                                    # Oracle 接続テスト（dev container 内、または ORACLE_* を設定して）
+bundle exec appraisal rake test:adapter:run                                      # Oracle 接続テストを Appraisals の全 ActiveRecord バージョンで
 bundle exec rake test                                                            # 両方
 bundle exec ruby -Ilib -Itest test/grammar/select_test.rb                        # 単一ファイル
 bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where   # 単一テスト

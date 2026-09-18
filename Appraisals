@@ -3,7 +3,8 @@
 # the devcontainer (.devcontainer/) provides both.
 #
 #   bundle exec appraisal install
-#   bundle exec rake test:adapter   # switches to gemfiles/adapter_6.gemfile by itself
+#   bundle exec rake test:adapter                 # switches to gemfiles/adapter_6.gemfile by itself
+#   bundle exec appraisal rake test:adapter:run   # every ActiveRecord version below
 
 appraise "adapter-6" do
   group :test do
@@ -18,11 +19,16 @@ appraise "adapter-6" do
   end
 end
 
-# because raise ORA-01008
-# https://app.travis-ci.com/github/jksy/sql_parser/jobs/573226765
-# appraise "adapter-7" do
-#   group :test do
-#     gem 'activerecord-oracle_enhanced-adapter', "~> 7.0.2"
-#     gem 'ruby-oci8', "~> 2.0"
-#   end
-# end
+appraise "adapter-7" do
+  group :test do
+    gem 'activerecord-oracle_enhanced-adapter', "~> 7.2.0"
+    gem 'ruby-oci8', "~> 2.0"
+  end
+end
+
+appraise "adapter-8" do
+  group :test do
+    gem 'activerecord-oracle_enhanced-adapter', "~> 8.1.0"
+    gem 'ruby-oci8', "~> 2.0"
+  end
+end
