@@ -40,6 +40,7 @@ bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where  
 |------|------|
 | コミットメッセージ | 英語（Issue 番号は含めない） |
 | ソースコード内コメント | 英語 |
-| PR タイトル・説明 | 日本語 |
+| PR タイトル | 英語（squash マージ後のコミットタイトルになるため） |
+| PR の説明 | 日本語 |
 | コードレビューコメント | 日本語 |
 | 人間とのやり取り全般 | 日本語 |
