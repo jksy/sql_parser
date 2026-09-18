@@ -1,0 +1,31 @@
+ruby:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'lib/**/*.rb'
+      - 'lib/**/*.treetop'
+      - 'Rakefile'
+      - 'oracle-sql-parser.gemspec'
+      - '.rubocop.yml'
+
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'test/**'
+
+github_actions:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**'
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.md'
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      - 'Appraisals'
+      - 'gemfiles/**'

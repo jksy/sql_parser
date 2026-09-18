@@ -106,10 +106,16 @@ Connection settings can also be put in `test/oracle_enhanced-adapter/connection_
 
 ## Release
 
-1. Update the version in `lib/oracle-sql-parser/version.rb` and merge it.
+Release notes live on [GitHub Releases](https://github.com/jksy/sql_parser/releases)
+and are generated from the merged pull requests, grouped by label
+(`.github/release.yml`). `CHANGELOG.md` is kept for history only.
+
+1. Open a pull request that updates `lib/oracle-sql-parser/version.rb`, label
+   it `release` (so it is left out of the notes) and merge it.
 2. On `master`, run `bundle exec rake release`, which creates the `v<version>`
    tag, pushes it and publishes the gem to [rubygems.org](https://rubygems.org).
-3. Create a GitHub Release for the tag and generate the release notes from it.
+3. On GitHub, draft a release for the tag, click "Generate release notes" and
+   publish it.
 
 ## Contributing
 

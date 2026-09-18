@@ -31,8 +31,9 @@ bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where  
 
 ## PR 運用 / リリース
 
-- `master` に直接 push しない。feature ブランチから PR を出し、Issue 番号は PR 説明に `Closes #N` と書く
-- リリース手順は `/release` スキル。リリースノートは GitHub Releases に一本化する方針なので `CHANGELOG.md` / `HISTORY.md` には追記しない
+- `master` に直接 push しない。feature ブランチから PR を出し、Issue 番号は PR 説明に `Closes #N` と書く。マージは squash のみ
+- **PR には種別ラベルを 1 つ付ける**（`enhancement` / `improvement` / `bug` / `security` / `documentation` / `housekeeping` / `breaking change`）。リリースノートのカテゴリ分け（`.github/release.yml`）に使われる。`improvement` は gem の機能改善、CI や開発環境の整備など利用者に見えない変更は `housekeeping`。バージョンバンプだけの PR は `release`（ノートから除外）。`ruby` / `tests` / `github_actions` / `documentation` / `dependencies` は `.github/labeler.yml` で自動付与される
+- リリース手順は `/release` スキル。リリースノートは GitHub Releases に一本化しており、`CHANGELOG.md` は v1.0.0 で凍結している（追記しない）
 
 ## 言語ルール
 
