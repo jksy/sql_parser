@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 group :test do
+  gem "simplecov", ">= 1.0", require: false
   gem "simplecov-cobertura", require: false
   gem "activerecord-oracle_enhanced-adapter", "~> 5.2.0"
   gem "ruby-oci8", "~> 2.0"

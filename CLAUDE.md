@@ -7,7 +7,6 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 - `.treetop` から生成される `lib/oracle-sql-parser/grammar/**/*.rb` は gitignore されている。**clone 直後と `.treetop` 編集後は `bundle exec rake gen` が必要**（`gen_force` で全再生成）。`.treetop` を Edit / Write すると PostToolUse フック（`.claude/hooks/regenerate-treetop.sh`）が該当ファイルだけ `tt` を実行する
 - `grammar/reserved_word.treetop` は `grammar/reserved_word_generator.rb` の `keywords` から生成される。手で編集せず generator を直して `rake gen_force` する
 - Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。adapter テストを動かすときは `bundle exec appraisal install` のあと `BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile` を付けて実行する
-- Ruby 3.4 以降は `bigdecimal` が bundled gem なので Gemfile に明示しないと `require 'bigdecimal'` が LoadError になる
 
 ## テスト
 

@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
+  gem 'simplecov', '>= 1.0', require: false # SimpleCov.skip needs 1.0+
   gem 'simplecov-cobertura', require: false
 end
 
