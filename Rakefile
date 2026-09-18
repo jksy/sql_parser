@@ -54,6 +54,14 @@ task 'test:adapter' => 'test:adapter:coverage_name'
 desc "run all tests (test:unit and test:adapter)"
 task :test => ['test:unit', 'test:adapter']
 
+desc "run RuboCop"
+task :rubocop do
+  sh "rubocop"
+end
+
+desc "run what CI runs: RuboCop and the parser tests"
+task :ci => [:rubocop, 'test:unit']
+
 task :default => 'test:unit'
 
 

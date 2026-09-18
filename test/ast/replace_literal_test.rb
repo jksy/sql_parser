@@ -13,7 +13,7 @@ module Ast
         'a1' => OracleSqlParser::Ast::NumberLiteral[:value => "4"],
         'a2' => OracleSqlParser::Ast::NumberLiteral[:value => "3"],
         'a3' => OracleSqlParser::Ast::NumberLiteral[:value => "2"],
-        })
+      })
     end
   end
 end
