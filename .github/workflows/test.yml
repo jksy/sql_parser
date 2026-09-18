@@ -33,8 +33,13 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
 
-      - name: Generate parsers from treetop grammars
+      - name: Regenerate parsers from treetop grammars
         run: bundle exec rake gen_force
+
+      # The generated parsers are committed; fail if a .treetop (or the
+      # reserved word generator) changed without regenerating them.
+      - name: Check that the committed parsers are up to date
+        run: git diff --exit-code -- lib/oracle-sql-parser/grammar
 
       - name: Run parser tests
         run: bundle exec rake test:unit

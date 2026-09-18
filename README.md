@@ -81,13 +81,15 @@ p.params.inspect
 
 ## Development
 
-The treetop grammars under `lib/oracle-sql-parser/grammar/` are compiled to Ruby
-on demand and the generated `.rb` files are not committed, so generate them
-before running anything:
-
     $ bundle install
-    $ bundle exec rake gen        # compile **/*.treetop (gen_force to rebuild everything)
     $ bundle exec rake test:unit  # parser tests, no Oracle required
+
+The parsers under `lib/oracle-sql-parser/grammar/` are generated from the
+`.treetop` grammars next to them and the generated `.rb` files are committed.
+After editing a grammar (or `reserved_word_generator.rb`), regenerate and
+commit the result; CI fails if the committed parsers are out of date:
+
+    $ bundle exec rake gen_force  # compile **/*.treetop
 
 The tests under `test/oracle_enhanced-adapter` run real queries through
 [activerecord-oracle_enhanced-adapter](https://github.com/rsim/oracle-enhanced)

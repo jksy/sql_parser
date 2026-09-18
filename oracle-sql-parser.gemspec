@@ -15,8 +15,6 @@ Gem::Specification.new do |spec|
   spec.licenses      = ["MIT"]
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|\.github)/}) }
-  spec.files         += `echo lib/oracle-sql-parser/grammar/**/*.rb`.split(" ")
-  spec.files         += `echo lib/oracle-sql-parser/grammar/*.rb`.split(" ")
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = '>= 3.2.0'

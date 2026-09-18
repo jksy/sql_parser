@@ -13,7 +13,7 @@ coverage:
         informational: true
 
 comment:
-  layout: "condensed_header, diff, flags"
+  layout: "condensed_header, diff, flags, components"
   behavior: default
   require_changes: false
 
@@ -27,11 +27,21 @@ flag_management:
     - name: unit
     - name: adapter
 
-# Note: the parsers generated from .treetop files are not committed, and
-# Codecov drops files that do not exist in the repository, so the numbers on
-# Codecov cover the hand-written code only. The local SimpleCov HTML report
-# (rake test:unit without CI=1) includes the generated parsers as a separate
-# group.
+# The parsers generated from .treetop files make up most of the line count,
+# so show them separately from the hand-written code.
+component_management:
+  individual_components:
+    - component_id: hand_written
+      name: hand-written
+      paths:
+        - lib/oracle-sql-parser.rb
+        - lib/oracle-sql-parser/*.rb
+        - lib/oracle-sql-parser/ast/**
+        - lib/oracle-sql-parser/util/**
+    - component_id: generated_parsers
+      name: generated parsers
+      paths:
+        - lib/oracle-sql-parser/grammar/**
 
 ignore:
   - test/**

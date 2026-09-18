@@ -4,8 +4,8 @@ Oracle の SQL を treetop でパースして AST にし、SQL への復元（`t
 
 ## 開発環境
 
-- `.treetop` から生成される `lib/oracle-sql-parser/grammar/**/*.rb` は gitignore されている。**clone 直後と `.treetop` 編集後は `bundle exec rake gen` が必要**（`gen_force` で全再生成）。`.treetop` を Edit / Write すると PostToolUse フック（`.claude/hooks/regenerate-treetop.sh`）が該当ファイルだけ `tt` を実行する
-- `grammar/reserved_word.treetop` は `grammar/reserved_word_generator.rb` の `keywords` から生成される。手で編集せず generator を直して `rake gen_force` する
+- `lib/oracle-sql-parser/grammar/**/*.rb` は `.treetop` から生成されたファイルで、**生成物もコミットする**。`.treetop` を編集したら `bundle exec rake gen_force` で再生成し、`.rb` も一緒にコミットする（CI が `git diff --exit-code` で生成漏れを検出する）。`.treetop` を Edit / Write すると PostToolUse フック（`.claude/hooks/regenerate-treetop.sh`）が該当ファイルだけ `tt` を実行する
+- `grammar/reserved_word.treetop` は `grammar/reserved_word_generator.rb` の `keywords` から生成される。手で編集せず generator を直して `rake gen_force` する（`reserved_word.treetop` と `reserved_word.rb` の両方が更新される）
 - Oracle 接続テスト用の gem（oracle_enhanced adapter, ruby-oci8）は gemspec ではなく `Appraisals` にある。素の `bundle install` は Oracle Instant Client 無しで通る。adapter テストを動かすときは `bundle exec appraisal install` のあと `BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile` を付けて実行する
 
 ## テスト
