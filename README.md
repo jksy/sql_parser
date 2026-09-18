@@ -79,6 +79,29 @@ p.params.inspect
 =&gt; {"a0"=&gt;#&lt;OracleSqlParser::Ast::NumberLiteral {:value=&gt;"1"}&gt;}
 </pre>
 
+## Development
+
+The treetop grammars under `lib/oracle-sql-parser/grammar/` are compiled to Ruby
+on demand and the generated `.rb` files are not committed, so generate them
+before running anything:
+
+    $ bundle install
+    $ bundle exec rake gen        # compile **/*.treetop (gen_force to rebuild everything)
+    $ bundle exec rake test:unit  # parser tests, no Oracle required
+
+The tests under `test/oracle_enhanced-adapter` run real queries through
+[activerecord-oracle_enhanced-adapter](https://github.com/rsim/oracle-enhanced)
+and need Oracle Instant Client plus a reachable Oracle database. Their gems are
+managed with [Appraisal](https://github.com/thoughtbot/appraisal) so that a
+plain `bundle install` works without Oracle:
+
+    $ bundle exec appraisal install
+    $ export ORACLE_USERNAME=... ORACLE_PASSWORD=... ORACLE_HOST=localhost ORACLE_PORT=1521 ORACLE_SID=XE
+    $ BUNDLE_GEMFILE=gemfiles/adapter_6.gemfile bundle exec rake test:adapter
+
+Connection settings can also be put in `test/oracle_enhanced-adapter/connection_params.yml`
+(ignored by git). `rake test` runs both `test:unit` and `test:adapter`.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jksy/sql_parser.
