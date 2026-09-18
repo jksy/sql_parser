@@ -1,0 +1,61 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.2', '3.3', '3.4', '4.0']
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Generate parsers from treetop grammars
+        run: bundle exec rake gen_force
+
+      - name: Run parser tests
+        run: bundle exec rake test:unit
+        env:
+          CI: "1"
+
+      # Coverage is uploaded from one Ruby version only to avoid duplicate reports.
+      # CODECOV_TOKEN is not set yet, so a failed upload must not fail the build (see #41).
+      - name: Upload coverage to Codecov
+        if: matrix.ruby == '3.4'
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage/coverage.xml
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  # Single job to require in the branch ruleset, so the matrix can change
+  # without touching the ruleset.
+  ci-passed:
+    name: ci-passed
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that every test job succeeded
+        run: test "${{ needs.test.result }}" = "success"
