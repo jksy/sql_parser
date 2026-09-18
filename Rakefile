@@ -22,15 +22,29 @@ task :clean do
   end
 end
 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList[
-                    'test/grammar/*_test.rb',
-                    'test/ast/*_test.rb',
-                    'test/oracle_enhanced-adapter/select_test.rb'
-                    ]
-  t.verbose = true
+namespace :test do
+  Rake::TestTask.new(:unit) do |t|
+    t.description = "run parser tests (no Oracle required)"
+    t.libs << "test"
+    t.test_files = FileList[
+                      'test/grammar/*_test.rb',
+                      'test/ast/*_test.rb'
+                      ]
+    t.verbose = true
+  end
+
+  Rake::TestTask.new(:adapter) do |t|
+    t.description = "run Oracle connection tests (needs an appraisal gemfile and an Oracle DB)"
+    t.libs << "test"
+    t.test_files = FileList['test/oracle_enhanced-adapter/select_test.rb']
+    t.verbose = true
+  end
 end
+
+desc "run all tests (test:unit and test:adapter)"
+task :test => ['test:unit', 'test:adapter']
+
+task :default => 'test:unit'
 
 
 def generate_parser_files(force = false)
