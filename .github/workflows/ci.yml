@@ -57,6 +57,82 @@ jobs:
           use_oidc: true
           fail_ci_if_error: true
 
+  # Oracle connection tests (test/oracle_enhanced-adapter) against Oracle
+  # Database Free, once per supported ActiveRecord version (see Appraisals).
+  adapter:
+    name: Oracle adapter (${{ matrix.gemfile }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Codecov OIDC upload
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile: [adapter_6, adapter_7, adapter_8]
+    services:
+      oracle:
+        image: gvenzl/oracle-free:23-slim-faststart
+        env:
+          ORACLE_PASSWORD: oracle
+          APP_USER: parser_test
+          APP_USER_PASSWORD: parser_test
+        ports:
+          - 1521:1521
+        # The job's steps start once the container is healthy.
+        options: >-
+          --health-cmd healthcheck.sh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 30
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+      LD_LIBRARY_PATH: /opt/oracle/instantclient
+      ORACLE_HOST: localhost
+      ORACLE_PORT: "1521"
+      ORACLE_SID: FREEPDB1
+      ORACLE_USERNAME: parser_test
+      ORACLE_PASSWORD: parser_test
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # Same packages as .devcontainer/Dockerfile: Basic Light for the client
+      # libraries and the SDK for building ruby-oci8. The unversioned zips are
+      # the latest release and download in a few seconds, so they are not cached.
+      - name: Install Oracle Instant Client
+        run: |
+          sudo apt-get install -y --no-install-recommends libaio1t64
+          # libclntsh looks for libaio.so.1; Ubuntu 24.04 ships it as libaio.so.1t64
+          libaio=$(ls /usr/lib/x86_64-linux-gnu/libaio.so.1t64)
+          sudo ln -sf "$libaio" /usr/lib/x86_64-linux-gnu/libaio.so.1
+          sudo mkdir -p /opt/oracle
+          cd /opt/oracle
+          for pkg in basiclite sdk; do
+            curl -fsSLO "https://download.oracle.com/otn_software/linux/instantclient/instantclient-$pkg-linuxx64.zip"
+            sudo unzip -qo "instantclient-$pkg-linuxx64.zip"
+          done
+          sudo ln -s /opt/oracle/instantclient_* /opt/oracle/instantclient
+          ls /opt/oracle/instantclient/libclntsh.so*
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - name: Run Oracle connection tests
+        run: bundle exec rake test:adapter
+        env:
+          CI: "1"
+
+      - name: Upload coverage to Codecov
+        if: matrix.gemfile == 'adapter_8'
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage/coverage.xml
+          flags: adapter
+          use_oidc: true
+          fail_ci_if_error: true
+
   lint:
     name: RuboCop
     runs-on: ubuntu-latest
@@ -99,12 +175,13 @@ jobs:
   # without touching the ruleset.
   ci-passed:
     name: ci-passed
-    needs: [test, lint, build]
+    needs: [test, adapter, lint, build]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Check that every required job succeeded
         run: |
           test "${{ needs.test.result }}" = "success"
+          test "${{ needs.adapter.result }}" = "success"
           test "${{ needs.lint.result }}" = "success"
           test "${{ needs.build.result }}" = "success"
