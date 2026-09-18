@@ -39,13 +39,13 @@ jobs:
           CI: "1"
 
       # Coverage is uploaded from one Ruby version only to avoid duplicate reports.
-      # CODECOV_TOKEN is not set yet, so a failed upload must not fail the build (see #41).
       - name: Upload coverage to Codecov
         if: matrix.ruby == '3.4'
         uses: codecov/codecov-action@v7
         with:
           files: coverage/coverage.xml
-          fail_ci_if_error: false
+          flags: unit
+          fail_ci_if_error: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 

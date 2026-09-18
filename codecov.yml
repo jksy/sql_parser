@@ -1,0 +1,47 @@
+# https://docs.codecov.com/docs/codecov-yaml
+codecov:
+  require_ci_to_pass: true
+
+coverage:
+  # Report only; the branch ruleset requires the ci-passed job, not codecov.
+  status:
+    project:
+      default:
+        informational: true
+    patch:
+      default:
+        informational: true
+
+comment:
+  layout: "condensed_header, diff, flags, components"
+  behavior: default
+  require_changes: false
+
+# unit: test:unit (grammar + AST, every PR)
+# adapter: test:adapter (Oracle connection tests; carried forward when the
+#          Oracle job does not run)
+flag_management:
+  default_rules:
+    carryforward: true
+  individual_flags:
+    - name: unit
+    - name: adapter
+
+# Parsers generated from .treetop files make up most of the line count, so
+# show them separately from the hand-written code.
+component_management:
+  individual_components:
+    - component_id: hand_written
+      name: hand-written
+      paths:
+        - lib/oracle-sql-parser.rb
+        - lib/oracle-sql-parser/*.rb
+        - lib/oracle-sql-parser/ast/**
+        - lib/oracle-sql-parser/util/**
+    - component_id: generated_parsers
+      name: generated parsers
+      paths:
+        - lib/oracle-sql-parser/grammar/**
+
+ignore:
+  - test/**
