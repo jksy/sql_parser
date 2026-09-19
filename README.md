@@ -1,7 +1,8 @@
 # OracleSqlParser
 
 [![ci](https://github.com/jksy/sql_parser/actions/workflows/ci.yml/badge.svg)](https://github.com/jksy/sql_parser/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/jksy/sql_parser/branch/master/graph/badge.svg?token=0HSMBU0CD8)](https://codecov.io/gh/jksy/sql_parser)
+[![coverage (hand-written)](https://img.shields.io/codecov/c/github/jksy/sql_parser?component=hand_written&label=coverage%20(hand-written))](https://app.codecov.io/gh/jksy/sql_parser/components)
+[![coverage (generated parsers)](https://img.shields.io/codecov/c/github/jksy/sql_parser?component=generated_parsers&label=coverage%20(generated%20parsers))](https://app.codecov.io/gh/jksy/sql_parser/components)
 
 SQL Parser for Oracle
 
