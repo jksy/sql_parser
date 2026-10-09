@@ -45,10 +45,10 @@ module Test::Unit::Assertions
 
   def assert_ast_equal(expect, actual, message = nil)
     difference = AssertionMessage.delayed_diff(expect.to_s, actual.to_s)
-    full_message = build_message(message, <<~EOS, expect, actual, difference)
+    full_message = build_message(message, <<~MESSAGE, expect, actual, difference)
       <?> expected but was
       <?>.?
-    EOS
+    MESSAGE
 
     assert_block(full_message) do
       expect == actual

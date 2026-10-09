@@ -98,11 +98,11 @@ def generate_parser_files(force: false)
   end
 end
 
-def tt(f, force: false)
-  output = "#{f.gsub(/\.treetop$/, '')}.rb"
+def tt(grammar, force: false)
+  output = "#{grammar.gsub(/\.treetop$/, '')}.rb"
 
-  do_if_changed(f, output, force:) do
-    sh "tt #{f} -f -o #{output}"
+  do_if_changed(grammar, output, force:) do
+    sh "tt #{grammar} -f -o #{output}"
   end
 end
 

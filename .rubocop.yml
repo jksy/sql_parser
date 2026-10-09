@@ -15,6 +15,12 @@ AllCops:
     - 'lib/oracle-sql-parser/grammar/{condition,delete,expression,grammar,insert,reserved_word,select,update}.rb'
     - 'lib/oracle-sql-parser/grammar/{condition,expression,select}/*.rb'
 
+# The gem is named oracle-sql-parser, so `require 'oracle-sql-parser'` needs
+# this file name.
+Naming/FileName:
+  Exclude:
+    - 'lib/oracle-sql-parser.rb'
+
 # Test files and grammar builders are long by nature.
 Metrics/BlockLength:
   Exclude:

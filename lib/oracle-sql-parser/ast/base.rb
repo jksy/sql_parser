@@ -165,8 +165,8 @@ module OracleSqlParser::Ast
       result
     end
 
-    def ==(value)
-      self.class.find_different_value(self, value) != true
+    def ==(other)
+      self.class.find_different_value(self, other) != true
     end
   end
 end
