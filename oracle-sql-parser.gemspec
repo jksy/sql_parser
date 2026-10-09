@@ -23,13 +23,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 3.2.0'
-  spec.add_runtime_dependency 'treetop', '~> 1.6'
+  spec.metadata['rubygems_mfa_required'] = 'true'
+
   # bigdecimal is a bundled gem since Ruby 3.4 and must be declared explicitly
-  spec.add_runtime_dependency 'bigdecimal'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'test-unit', '~> 3.5'
-  spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'colorize'
-  spec.add_development_dependency 'appraisal'
-  spec.add_development_dependency 'rubocop', '~> 1.91'
+  spec.add_dependency 'bigdecimal'
+  spec.add_dependency 'treetop', '~> 1.6'
 end
