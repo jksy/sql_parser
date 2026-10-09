@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class LikeCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       sql = [
         @ast[:target],
         @ast[:not],

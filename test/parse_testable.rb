@@ -3,13 +3,13 @@
 module ParseTestable
   Ast = OracleSqlParser::Ast
   def parser
-    parser ||= OracleSqlParser::Grammar::GrammarParser.new
+    @parser ||= OracleSqlParser::Grammar::GrammarParser.new
   end
 
   def generate_ast(query)
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + ' ' * [parser.failure_column.to_i - 1, 0].max + "*\n"
+      message = "\n#{query}\n" + (' ' * [parser.failure_column.to_i - 1, 0].max) + "*\n"
       begin
         message = parser.failure_reason + message
       rescue NoMethodError => e
@@ -50,13 +50,13 @@ module ParseTestable
         head = if index.zero?
                  ''
                else
-                 input[0..index - 1]
+                 input[0..(index - 1)]
                end
         tail = input.gsub(head, '')
-        head = '...' + head[truncate_length - 3..-1] if head.length >= truncate_length
-        tail = tail[0..truncate_length - 1] + '...' if tail.length >= truncate_length
+        head = '...' + head[(truncate_length - 3)..-1] if head.length >= truncate_length
+        tail = tail[0..(truncate_length - 1)] + '...' if tail.length >= truncate_length
         parsing_text = "#{head}#{'*'.green}#{tail}"
-        puts(' ' * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
+        puts((' ' * indent) + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
         result = send("#{name}_old")
         indent -= 1
         result

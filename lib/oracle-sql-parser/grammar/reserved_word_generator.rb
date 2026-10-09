@@ -49,13 +49,14 @@ module OracleSqlParser
         attr_reader :rule_name
 
         def initialize(rule_name)
+          super()
           @rule_name = rule_name
         end
 
         def to_s
           content = []
           content << "    rule #{rule_name}"
-          content << "      [a-zA-Z0-9_]+ ![a-zA-Z0-9] &{|w| #{to_a.to_s}.include? w.first.text_value.upcase}"
+          content << "      [a-zA-Z0-9_]+ ![a-zA-Z0-9] &{|w| #{to_a}.include? w.first.text_value.upcase}"
           content << '    end'
           content.join("\n")
         end

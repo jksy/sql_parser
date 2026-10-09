@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class IntervalExpression < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       result = []
       result << '('
       result << @ast[:left]

@@ -8,15 +8,16 @@ module OracleSqlParser::Ast
 
     def_delegators :@ast, :keys, :[]
 
-    def initialize(value = {})
+    # Base#initialize only accepts scalar values, so it is not called here.
+    def initialize(value = {}) # rubocop:disable Lint/MissingSuper
       raise "only ::Hash instance #{value.inspect}" unless value.instance_of? ::Hash
 
       @ast = value
     end
 
     def remove_nil_values!
-      @ast.delete_if { |k, v| v.nil? }
-      @ast.each { |k, v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
+      @ast.delete_if { |_k, v| v.nil? }
+      @ast.each { |_k, v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
       self
     end
 
@@ -36,7 +37,7 @@ module OracleSqlParser::Ast
     end
 
     def to_sql(options = { separator: ' ' })
-      @ast.map do |k, v|
+      @ast.map do |_k, v|
         if v.respond_to? :to_sql
           v.to_sql
         else
@@ -53,7 +54,7 @@ module OracleSqlParser::Ast
       @ast[name] = value
     end
 
-    def method_missing(name, *args)
+    def method_missing(name, *_args)
       return @ast.send(:[], name) if @ast.has_key? name
 
       raise "no method:#{name}, #{@ast.class} in #{self.class}"

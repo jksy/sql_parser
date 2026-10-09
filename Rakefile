@@ -23,7 +23,7 @@ desc 'clean files'
 task :clean do
   GRAMMAR_FILES.each do |f|
     file = "#{f.gsub(/\.treetop$/, '')}.rb"
-    File.unlink file if File.exist? file
+    FileUtils.rm_f file
   end
 end
 

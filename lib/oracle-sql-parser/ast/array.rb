@@ -25,7 +25,8 @@ module OracleSqlParser::Ast
       end
     end
 
-    def initialize(*args)
+    # Base#initialize only accepts scalar values, so it is not called here.
+    def initialize(*args) # rubocop:disable Lint/MissingSuper
       @ast = args
     end
 

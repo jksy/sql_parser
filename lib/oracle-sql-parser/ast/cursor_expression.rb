@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class CursorExpression < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:cursor],
         '(',

@@ -73,7 +73,7 @@ module OracleEnhancedAdapter
         CREATE SEQUENCE test_employees_seq  MINVALUE 1
           INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE
       SQL
-      ActiveRecord::Base.clear_cache! if ActiveRecord::Base.respond_to? 'clear_cache!'.to_sym
+      ActiveRecord::Base.clear_cache! if ActiveRecord::Base.respond_to? :clear_cache!
     end
   end
 end

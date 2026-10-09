@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class FunctionExpression < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       sql = []
       sql << @ast[:name].to_sql
       sql << '('

@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class InCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:target],
         @ast[:not],

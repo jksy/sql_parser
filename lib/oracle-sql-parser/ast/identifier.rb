@@ -10,7 +10,7 @@ module OracleSqlParser::Ast
       @ast[:quoted] == true
     end
 
-    def to_sql(options = {})
+    def to_sql(_options = {})
       result = []
       result << if quoted?
                   "\"#{@ast[:name]}\""

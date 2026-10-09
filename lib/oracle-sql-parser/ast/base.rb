@@ -4,7 +4,7 @@ def nil.ast
   nil
 end
 
-def nil.to_sql(options = {})
+def nil.to_sql(_options = {})
   nil
 end
 
@@ -47,7 +47,7 @@ unless Object.respond_to? :try
 end
 
 class String
-  def to_sql(options = {})
+  def to_sql(_options = {})
     self
   end
 end

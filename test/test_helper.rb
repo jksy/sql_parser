@@ -44,8 +44,6 @@ module Test::Unit::Assertions
   AssertionMessage.max_diff_target_string_size = 10_000
 
   def assert_ast_equal(expect, actual, message = nil)
-    difference = nil
-    full_message = nil
     difference = AssertionMessage.delayed_diff(expect.to_s, actual.to_s)
     full_message = build_message(message, <<~EOS, expect, actual, difference)
       <?> expected but was

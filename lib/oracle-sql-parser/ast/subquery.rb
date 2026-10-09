@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class Subquery < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       result = @ast.values_at(
         :query_block,
         :subqueries,

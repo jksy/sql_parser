@@ -6,7 +6,7 @@ module OracleSqlParser::Ast
       @ast[:else_clause] = ast
     end
 
-    def to_sql(options = {})
+    def to_sql(_options = {})
       sql = []
       sql << 'case'
       sql << 'when'

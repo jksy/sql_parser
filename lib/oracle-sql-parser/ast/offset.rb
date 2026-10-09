@@ -2,7 +2,7 @@
 
 module OracleSqlParser::Ast
   class Offset < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       @ast.values_at(
         :offset_keyword, :offset,
         :row_keyword, :rows_keyword
