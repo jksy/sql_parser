@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Util
   module Parameterizable
     def to_parameternized

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('base_test.rb', File.dirname(__FILE__))
 
 module Grammar

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Treetop::Runtime
   class SyntaxNode
     def ast

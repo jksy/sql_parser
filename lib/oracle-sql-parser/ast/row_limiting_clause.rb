@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class RowLimitingClause < Hash
     def to_sql(options = {})

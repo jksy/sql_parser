@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class InnerJoinClause < InnerCrossJoinClause
     def to_sql(options = {})

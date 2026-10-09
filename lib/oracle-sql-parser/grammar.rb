@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Grammar
 end
 require 'oracle-sql-parser/grammar/reserved_word'

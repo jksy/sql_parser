@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Util
   class ParameternizedQuery
     attr_reader :ast, :params

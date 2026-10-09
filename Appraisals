@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Gemfiles for the Oracle connection tests (test/oracle_enhanced-adapter).
 # These need Oracle Instant Client (for ruby-oci8) and a reachable Oracle DB;
 # the devcontainer (.devcontainer/) provides both.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class SimpleCaseExpression < Hash
     def else_clause=(ast)

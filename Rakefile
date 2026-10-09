@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'rake'
 require 'rake/testtask'
@@ -5,7 +7,7 @@ require 'rake/testtask'
 GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/**/*.treetop']
 # The Oracle gems live in the appraisal gemfiles (see Appraisals); test:adapter
 # re-runs itself under this one when the current bundle does not have them.
-ADAPTER_GEMFILE = 'gemfiles/adapter_6.gemfile'.freeze
+ADAPTER_GEMFILE = 'gemfiles/adapter_6.gemfile'
 
 desc 'generate parser files'
 task :gen do

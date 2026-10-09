@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class SubmultisetCondition < Hash
     def to_sql(options = {})
