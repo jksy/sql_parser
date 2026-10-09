@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionComparisonTest < BaseTest
     def test_select_where_with_neq1_parseable
-      assert_ast_sql_equal "select * from table1 where col1 != 1",
+      assert_ast_sql_equal 'select * from table1 where col1 != 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -28,7 +28,7 @@ module Grammar
     end
 
     def test_select_where_with_neq2_parseable
-      assert_ast_sql_equal "select * from table1 where col1 ^= 1",
+      assert_ast_sql_equal 'select * from table1 where col1 ^= 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -53,7 +53,7 @@ module Grammar
     end
 
     def test_select_where_with_neq3_parseable
-      assert_ast_sql_equal "select * from table1 where col1 <> 1",
+      assert_ast_sql_equal 'select * from table1 where col1 <> 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -78,7 +78,7 @@ module Grammar
     end
 
     def test_select_where_with_less_equal_parseable
-      assert_ast_sql_equal "select * from table1 where col1 <= 1",
+      assert_ast_sql_equal 'select * from table1 where col1 <= 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -103,7 +103,7 @@ module Grammar
     end
 
     def test_select_where_with_grater_equal_parseable
-      assert_ast_sql_equal "select * from table1 where col1 >= 1",
+      assert_ast_sql_equal 'select * from table1 where col1 >= 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

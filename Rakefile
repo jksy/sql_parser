@@ -1,4 +1,4 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 require 'rake'
 require 'rake/testtask'
 
@@ -7,17 +7,17 @@ GRAMMAR_FILES = FileList['lib/oracle-sql-parser/grammar/**/*.treetop']
 # re-runs itself under this one when the current bundle does not have them.
 ADAPTER_GEMFILE = 'gemfiles/adapter_6.gemfile'.freeze
 
-desc "generate parser files"
+desc 'generate parser files'
 task :gen do
   generate_parser_files(false)
 end
 
-desc "generate parser files(force)"
+desc 'generate parser files(force)'
 task :gen_force do
   generate_parser_files(true)
 end
 
-desc "clean files"
+desc 'clean files'
 task :clean do
   GRAMMAR_FILES.each do |f|
     file = "#{f.gsub(/\.treetop$/, '')}.rb"
@@ -27,8 +27,8 @@ end
 
 namespace :test do
   Rake::TestTask.new(:unit) do |t|
-    t.description = "run parser tests (no Oracle required)"
-    t.libs << "test"
+    t.description = 'run parser tests (no Oracle required)'
+    t.libs << 'test'
     t.test_files = FileList[
       'test/grammar/*_test.rb',
       'test/ast/*_test.rb'
@@ -38,8 +38,8 @@ namespace :test do
 
   namespace :adapter do
     Rake::TestTask.new(:run) do |t|
-      t.description = "run Oracle connection tests in the current bundle"
-      t.libs << "test"
+      t.description = 'run Oracle connection tests in the current bundle'
+      t.libs << 'test'
       t.test_files = FileList['test/oracle_enhanced-adapter/select_test.rb']
       t.verbose = true
     end
@@ -65,15 +65,15 @@ end
 task 'test:unit' => 'test:unit:coverage_name'
 task 'test:adapter:run' => 'test:adapter:coverage_name'
 
-desc "run all tests (test:unit and test:adapter)"
+desc 'run all tests (test:unit and test:adapter)'
 task test: ['test:unit', 'test:adapter']
 
-desc "run RuboCop"
+desc 'run RuboCop'
 task :rubocop do
-  sh "rubocop"
+  sh 'rubocop'
 end
 
-desc "run what CI runs: RuboCop and the parser tests"
+desc 'run what CI runs: RuboCop and the parser tests'
 task ci: [:rubocop, 'test:unit']
 
 task default: 'test:unit'
@@ -85,8 +85,8 @@ rescue Bundler::BundlerError
 end
 
 def generate_parser_files(force = false)
-  word_generator = "lib/oracle-sql-parser/grammar/reserved_word_generator.rb"
-  output = "lib/oracle-sql-parser/grammar/reserved_word.treetop"
+  word_generator = 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
+  output = 'lib/oracle-sql-parser/grammar/reserved_word.treetop'
   do_if_changed(word_generator, output, force) do
     sh "ruby #{word_generator}"
   end
@@ -106,7 +106,7 @@ end
 
 def do_if_changed(src, output, force = false, &block)
   force = true unless File.exist?(output)
-  if force || File::Stat.new(src).mtime >= File::Stat.new(output).mtime
-    yield
-  end
+  return unless force || File::Stat.new(src).mtime >= File::Stat.new(output).mtime
+
+  yield
 end

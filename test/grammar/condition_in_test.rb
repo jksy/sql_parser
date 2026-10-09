@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionInTest < BaseTest
     def test_select_where_in_expr_condition_parseable
-      assert_ast_sql_equal "select * from table1 where col1 in (1)",
+      assert_ast_sql_equal 'select * from table1 where col1 in (1)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -29,7 +29,7 @@ module Grammar
     end
 
     def test_select_where_not_in_expr_condition_parseable
-      assert_ast_sql_equal "select * from table1 where col1 not in (1)",
+      assert_ast_sql_equal 'select * from table1 where col1 not in (1)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -56,7 +56,7 @@ module Grammar
     end
 
     def test_select_where_in_subquery_condition_parseable
-      assert_ast_sql_equal "select * from table1 where col1 in (select * from table2)",
+      assert_ast_sql_equal 'select * from table1 where col1 in (select * from table2)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -71,7 +71,7 @@ module Grammar
               where_clause: Ast::WhereClause[
                 condition: Ast::InCondition[
                   target: Ast::Identifier[name: 'col1'],
-                  values: generate_ast("select * from table2").subquery
+                  values: generate_ast('select * from table2').subquery
                 ]
               ]
             ]
@@ -80,7 +80,7 @@ module Grammar
     end
 
     def test_select_where_not_in_subquery_condition_parseable
-      assert_ast_sql_equal "select * from table1 where col1 not in (select * from table2)",
+      assert_ast_sql_equal 'select * from table1 where col1 not in (select * from table2)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -96,7 +96,7 @@ module Grammar
                 condition: Ast::InCondition[
                   target: Ast::Identifier[name: 'col1'],
                   not: Ast::Keyword[name: 'not'],
-                  values: generate_ast("select * from table2").subquery
+                  values: generate_ast('select * from table2').subquery
                 ]
               ]
             ]

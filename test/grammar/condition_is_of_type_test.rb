@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionTest < BaseTest
     def test_select_where_is_of_type_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where value(col1) is of type (type_t)",
+      assert_ast_sql_equal 'select col1 from table1 where value(col1) is of type (type_t)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -41,7 +41,7 @@ module Grammar
     end
 
     def test_select_where_is_not_of_type_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where value(col1) is not of type (type_t)",
+      assert_ast_sql_equal 'select col1 from table1 where value(col1) is not of type (type_t)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -80,7 +80,7 @@ module Grammar
     end
 
     def test_select_where_is_of_type_condition_no_type_parseable
-      assert_ast_sql_equal "select col1 from table1 where value(col1) is not of (type_1)",
+      assert_ast_sql_equal 'select col1 from table1 where value(col1) is not of (type_1)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -118,7 +118,7 @@ module Grammar
     end
 
     def test_select_where_is_of_type_with_multiple_type_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where value(col1) is not of type (type_1,only type_2)",
+      assert_ast_sql_equal 'select col1 from table1 where value(col1) is not of type (type_1,only type_2)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

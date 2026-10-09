@@ -4,8 +4,8 @@ module OracleSqlParser::Ast
   class Array < Base
     include Enumerable
 
-    def each(&block)
-      @ast.each(&block)
+    def each(&)
+      @ast.each(&)
     end
 
     def [](index)
@@ -13,14 +13,12 @@ module OracleSqlParser::Ast
     end
 
     def self.[](*values)
-      self.new(*values)
+      new(*values)
     end
 
     def map_ast!(&block)
       @ast = @ast.map do |v|
-        if v.is_a? OracleSqlParser::Ast::Base
-          v.map_ast!(&block)
-        end
+        v.map_ast!(&block) if v.is_a? OracleSqlParser::Ast::Base
         block.call(v)
       end
     end

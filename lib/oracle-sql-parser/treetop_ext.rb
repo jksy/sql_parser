@@ -1,9 +1,7 @@
 module Treetop::Runtime
   class SyntaxNode
     def ast
-      if (elements == nil || elements.empty?) && text_value == ""
-        return nil
-      end
+      return nil if (elements.nil? || elements.empty?) && text_value == ''
 
       OracleSqlParser::Ast::Base.new(text_value)
     end

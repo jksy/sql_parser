@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class UpdateTest < BaseTest
     def test_update_parseable
-      assert_ast_sql_equal "update table1 set col1 = 1",
+      assert_ast_sql_equal 'update table1 set col1 = 1',
         Ast::UpdateStatement[
           target: Ast::TableReference[
             table_name: Ast::Identifier[name: 'table1']
@@ -17,7 +17,7 @@ module Grammar
     end
 
     def test_update_plural_column_parseable
-      assert_ast_sql_equal "update table1 set col1 = 1,col2 = 2",
+      assert_ast_sql_equal 'update table1 set col1 = 1,col2 = 2',
         Ast::UpdateStatement[
           target: Ast::TableReference[
             table_name: Ast::Identifier[name: 'table1']
@@ -34,8 +34,8 @@ module Grammar
     end
 
     def test_update_condition_parseable
-      ast = generate_ast("update table1 set col1 = 1")
-      assert_ast_sql_equal "update table1 set col1 = 1 where col2 = 1",
+      ast = generate_ast('update table1 set col1 = 1')
+      assert_ast_sql_equal 'update table1 set col1 = 1 where col2 = 1',
         Ast::UpdateStatement[
           target: ast.target,
           set: ast.set,
@@ -50,8 +50,8 @@ module Grammar
     end
 
     def test_update_current_of_condition_parseable
-      ast = generate_ast("update table1 set col1 = 1")
-      assert_ast_sql_equal "update table1 set col1 = 1 where current_of cursor_name",
+      ast = generate_ast('update table1 set col1 = 1')
+      assert_ast_sql_equal 'update table1 set col1 = 1 where current_of cursor_name',
         Ast::UpdateStatement[
           target: ast.target,
           set: ast.set,

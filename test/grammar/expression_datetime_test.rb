@@ -12,8 +12,8 @@ module Grammar
                   expr: Ast::DatetimeExpression[
                     expr: Ast::Identifier[name: 'column1'],
                     at: Ast::Keyword[name: 'at'],
-                    local: Ast::Keyword[name: 'local'],
-                  ],
+                    local: Ast::Keyword[name: 'local']
+                  ]
                 ]
               ],
               select_sources: Ast::Array[
@@ -40,8 +40,8 @@ module Grammar
                       time: Ast::Keyword[name: 'time'],
                       zone: Ast::Keyword[name: 'zone'],
                       expr: Ast::Keyword[name: 'dbtimezone']
-                    ],
-                  ],
+                    ]
+                  ]
                 ]
               ],
               select_sources: Ast::Array[
@@ -68,8 +68,8 @@ module Grammar
                       time: Ast::Keyword[name: 'time'],
                       zone: Ast::Keyword[name: 'zone'],
                       expr: Ast::Keyword[name: 'sessiontimezone']
-                    ],
-                  ],
+                    ]
+                  ]
                 ]
               ],
               select_sources: Ast::Array[
@@ -96,8 +96,8 @@ module Grammar
                       time: Ast::Keyword[name: 'time'],
                       zone: Ast::Keyword[name: 'zone'],
                       expr: Ast::TextLiteral[value: '+09:00']
-                    ],
-                  ],
+                    ]
+                  ]
                 ]
               ],
               select_sources: Ast::Array[
@@ -124,8 +124,8 @@ module Grammar
                       time: Ast::Keyword[name: 'time'],
                       zone: Ast::Keyword[name: 'zone'],
                       expr: Ast::TextLiteral[value: 'America/Los_Angeles']
-                    ],
-                  ],
+                    ]
+                  ]
                 ]
               ],
               select_sources: Ast::Array[
@@ -139,7 +139,7 @@ module Grammar
     end
 
     def test_datetime_expression_with_time_zone_expr_parseable
-      assert_ast_sql_equal "select column1 at time zone column2 from dual",
+      assert_ast_sql_equal 'select column1 at time zone column2 from dual',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -151,9 +151,9 @@ module Grammar
                     timezone: Ast::TimezoneClause[
                       time: Ast::Keyword[name: 'time'],
                       zone: Ast::Keyword[name: 'zone'],
-                      expr: Ast::Identifier[name: 'column2'],
-                    ],
-                  ],
+                      expr: Ast::Identifier[name: 'column2']
+                    ]
+                  ]
                 ]
               ],
               select_sources: Ast::Array[

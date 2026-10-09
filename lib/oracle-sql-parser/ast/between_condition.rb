@@ -4,9 +4,9 @@ module OracleSqlParser::Ast
       [
         @ast[:target],
         @ast[:not],
-        "between",
+        'between',
         @ast[:from],
-        "and",
+        'and',
         @ast[:to]
       ].map(&:to_sql).compact.join(' ')
     end

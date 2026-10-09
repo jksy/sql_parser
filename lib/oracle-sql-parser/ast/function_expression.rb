@@ -4,11 +4,9 @@ module OracleSqlParser::Ast
       sql = []
       sql << @ast[:name].to_sql
       sql << '('
-      if @ast[:args]
-        sql << @ast[:args].map(&:to_sql).join(',')
-      end
+      sql << @ast[:args].map(&:to_sql).join(',') if @ast[:args]
       sql << ')'
-      sql.join()
+      sql.join
     end
   end
 end

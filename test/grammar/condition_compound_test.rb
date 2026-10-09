@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionCompoundTest < BaseTest
     def test_select_where_with_compound_conditions_parseable
-      assert_ast_sql_equal "select * from table1 where (col1 = col2)",
+      assert_ast_sql_equal 'select * from table1 where (col1 = col2)',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -30,7 +30,7 @@ module Grammar
     end
 
     def test_select_where_with_compound_not_conditions_parseable
-      assert_ast_sql_equal "select * from table1 where not col1 = col2",
+      assert_ast_sql_equal 'select * from table1 where not col1 = col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

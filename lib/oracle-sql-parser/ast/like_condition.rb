@@ -5,10 +5,10 @@ module OracleSqlParser::Ast
         @ast[:target],
         @ast[:not],
         @ast[:like],
-        @ast[:text],
+        @ast[:text]
       ]
       if @ast[:escape]
-        sql << "escape"
+        sql << 'escape'
         sql << @ast[:escape]
       end
       sql.map(&:to_sql).compact.join(' ')

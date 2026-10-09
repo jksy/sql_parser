@@ -2,10 +2,10 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class SelectOrderTest < BaseTest
     def test_select_order_by_clause_expr_parseable
-      assert_ast_sql_equal "select * from table1 order by col1",
+      assert_ast_sql_equal 'select * from table1 order by col1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -18,10 +18,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_position_parseable
-      assert_ast_sql_equal "select * from table1 order by 1",
+      assert_ast_sql_equal 'select * from table1 order by 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -34,10 +34,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_siblings_parseable
-      assert_ast_sql_equal "select * from table1 order siblings by 1",
+      assert_ast_sql_equal 'select * from table1 order siblings by 1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               siblings: Ast::Keyword[name: 'siblings'],
               items: Ast::Array[
@@ -51,10 +51,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_asc_parseable
-      assert_ast_sql_equal "select * from table1 order by col1 asc",
+      assert_ast_sql_equal 'select * from table1 order by col1 asc',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -68,10 +68,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_desc_parseable
-      assert_ast_sql_equal "select * from table1 order by col1 desc",
+      assert_ast_sql_equal 'select * from table1 order by col1 desc',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -85,10 +85,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_nulls_first_parseable
-      assert_ast_sql_equal "select * from table1 order by col1 nulls first",
+      assert_ast_sql_equal 'select * from table1 order by col1 nulls first',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -102,10 +102,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_nulls_last_parseable
-      assert_ast_sql_equal "select * from table1 order by col1 nulls last",
+      assert_ast_sql_equal 'select * from table1 order by col1 nulls last',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[
@@ -119,10 +119,10 @@ module Grammar
     end
 
     def test_select_order_by_clause_plural_column_parseable
-      assert_ast_sql_equal "select * from table1 order by col1 asc,col2 desc",
+      assert_ast_sql_equal 'select * from table1 order by col1 asc,col2 desc',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
-            query_block: generate_ast("select * from table1").subquery.query_block,
+            query_block: generate_ast('select * from table1').subquery.query_block,
             order_by_clause: Ast::OrderByClause[
               items: Ast::Array[
                 Ast::OrderByClauseItem[

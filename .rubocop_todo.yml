@@ -165,33 +165,6 @@ Naming/MethodParameterName:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/base.rb'
-
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowOnlyRestArgument, UseAnonymousForwarding, RedundantRestArgumentNames, RedundantKeywordRestArgumentNames, RedundantBlockArgumentNames.
-# RedundantRestArgumentNames: args, arguments
-# RedundantKeywordRestArgumentNames: kwargs, options, opts
-# RedundantBlockArgumentNames: blk, block, proc
-Style/ArgumentsForwarding:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/array.rb'
-    - 'lib/oracle-sql-parser/ast/base.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: percent_q, bare_percent
-Style/BarePercentLiterals:
-  Exclude:
-    - 'test/grammar/select_test.rb'
-
 # Offense count: 65
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle, EnforcedStyleForClasses, EnforcedStyleForModules.
@@ -201,61 +174,10 @@ Style/BarePercentLiterals:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/ColonMethodCall:
-  Exclude:
-    - 'test/oracle_enhanced-adapter/base_test.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/delete_target.rb'
-    - 'lib/oracle-sql-parser/ast/identifier.rb'
-    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
-    - 'test/oracle_enhanced-adapter/base_test.rb'
-
 # Offense count: 72
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, AllowComments.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/base.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/Encoding:
-  Exclude:
-    - 'oracle-sql-parser.gemspec'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/ExpandPathArguments:
-  Exclude:
-    - 'oracle-sql-parser.gemspec'
-    - 'test/test_helper.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedVariables, DefaultToNil.
-Style/FetchEnvVar:
-  Exclude:
-    - 'test/oracle_enhanced-adapter/base_test.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/FileWrite:
-  Exclude:
-    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
 
 # Offense count: 112
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -263,13 +185,6 @@ Style/FileWrite:
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
-Style/GuardClause:
-  Exclude:
-    - 'Rakefile'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -286,26 +201,6 @@ Style/HashEachMethods:
   Exclude:
     - 'lib/oracle-sql-parser/ast/hash.rb'
 
-# Offense count: 10
-# This cop supports safe autocorrection (--autocorrect).
-Style/IfUnlessModifier:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/oracle-sql-parser/ast/array.rb'
-    - 'lib/oracle-sql-parser/ast/base.rb'
-    - 'lib/oracle-sql-parser/ast/function_expression.rb'
-    - 'lib/oracle-sql-parser/ast/group_by_clause.rb'
-    - 'lib/oracle-sql-parser/ast/hash.rb'
-    - 'lib/oracle-sql-parser/treetop_ext.rb'
-    - 'test/parse_testable.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/function_expression.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
@@ -318,26 +213,6 @@ Style/MissingRespondToMissing:
 Style/MutableConstant:
   Exclude:
     - 'lib/oracle-sql-parser/version.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/NegatedIfElseCondition:
-  Exclude:
-    - 'test/parse_testable.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: predicate, comparison
-Style/NilComparison:
-  Exclude:
-    - 'lib/oracle-sql-parser/treetop_ext.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Strict, AllowedNumbers, AllowedPatterns.
-Style/NumericLiterals:
-  MinDigits: 6
 
 # Offense count: 3
 # Configuration parameters: AllowedClasses.
@@ -354,21 +229,6 @@ Style/OptionalBooleanParameter:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'oracle-sql-parser.gemspec'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: lower_case_q, upper_case_q
-Style/PercentQLiterals:
-  Exclude:
-    - 'test/grammar/select_test.rb'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
@@ -377,54 +237,11 @@ Style/PreferredHashMethods:
   Exclude:
     - 'lib/oracle-sql-parser/ast/hash.rb'
 
-# Offense count: 100
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantFileExtensionInRequire:
-  Exclude:
-    - 'lib/oracle-sql-parser.rb'
-    - 'lib/oracle-sql-parser/ast.rb'
-    - 'lib/oracle-sql-parser/grammar.rb'
-    - 'lib/oracle-sql-parser/util.rb'
-
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/RedundantInterpolation:
   Exclude:
     - 'lib/oracle-sql-parser/ast/array.rb'
-    - 'test/parse_testable.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantParentheses:
-  Exclude:
-    - 'test/parse_testable.rb'
-
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantPercentQ:
-  Exclude:
-    - 'oracle-sql-parser.gemspec'
-    - 'test/grammar/select_test.rb'
-
-# Offense count: 11
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/array.rb'
-    - 'lib/oracle-sql-parser/ast/base.rb'
-    - 'lib/oracle-sql-parser/ast/hash.rb'
-    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
-
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/RescueModifier:
-  Exclude:
-    - 'test/oracle_enhanced-adapter/base_test.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/SelfAssignment:
-  Exclude:
     - 'test/parse_testable.rb'
 
 # Offense count: 1
@@ -442,21 +259,6 @@ Style/StringConcatenation:
     - 'lib/oracle-sql-parser/ast/hash.rb'
     - 'test/parse_testable.rb'
 
-# Offense count: 360
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/in_condition.rb'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowMethodsWithArguments, AllowedMethods, AllowedPatterns, AllowComments.
@@ -464,39 +266,6 @@ Style/StringLiteralsInInterpolation:
 Style/SymbolProc:
   Exclude:
     - 'lib/oracle-sql-parser/ast/array.rb'
-
-# Offense count: 158
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, diff_comma, no_comma
-Style/TrailingCommaInArguments:
-  Enabled: false
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, diff_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'lib/oracle-sql-parser/ast/cursor_expression.rb'
-    - 'lib/oracle-sql-parser/ast/is_of_type_condition.rb'
-    - 'lib/oracle-sql-parser/ast/like_condition.rb'
-    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, diff_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'test/ast/replace_literal_test.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: MinSize, WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: brackets
 
 # Offense count: 7
 # This cop supports safe autocorrection (--autocorrect).

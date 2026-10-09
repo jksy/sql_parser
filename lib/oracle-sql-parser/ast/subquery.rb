@@ -6,7 +6,7 @@ module OracleSqlParser::Ast
         :subqueries,
         :subquery,
         :order_by_clause,
-        :row_limiting_clause,
+        :row_limiting_clause
       ).map(&:to_sql)
 
       if @ast[:has_parenthesis]

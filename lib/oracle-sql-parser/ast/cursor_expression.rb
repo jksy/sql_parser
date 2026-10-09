@@ -5,7 +5,7 @@ module OracleSqlParser::Ast
         @ast[:cursor],
         '(',
         @ast[:subquery],
-        ')',
+        ')'
       ].map(&:to_sql).join
     end
   end

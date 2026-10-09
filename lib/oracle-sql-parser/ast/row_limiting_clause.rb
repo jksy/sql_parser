@@ -3,7 +3,7 @@ module OracleSqlParser::Ast
     def to_sql(options = {})
       @ast.values_at(
         :offset,
-        :fetch,
+        :fetch
       ).compact.map(&:to_sql).join(' ')
     end
   end

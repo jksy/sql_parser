@@ -3,13 +3,13 @@ module OracleSqlParser::Ast
     def to_sql
       result = []
       result << @ast[:table] if @ast[:table]
-      if @ast[:name].instance_of? Subquery
-        result << "(#{@ast[:name].to_sql})"
-      else
-        result << @ast[:name]
-      end
+      result << if @ast[:name].instance_of? Subquery
+                  "(#{@ast[:name].to_sql})"
+                else
+                  @ast[:name]
+                end
       result << @ast[:alias] if @ast[:alias]
-      result.map(&:to_sql).join(" ")
+      result.map(&:to_sql).join(' ')
     end
   end
 end

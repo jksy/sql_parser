@@ -15,31 +15,31 @@ SimpleCov.start do
     )
   end
 
-  skip "/test/"
-  skip "/vendor/"
+  skip '/test/'
+  skip '/vendor/'
 
   # Parsers generated from .treetop files dominate the line count, so keep
   # them apart from the hand-written code in the report (see codecov.yml).
-  add_group "Generated parsers" do |src|
-    src.filename.include?("/lib/oracle-sql-parser/grammar/") &&
-      File.exist?(src.filename.sub(/\.rb\z/, ".treetop"))
+  add_group 'Generated parsers' do |src|
+    src.filename.include?('/lib/oracle-sql-parser/grammar/') &&
+      File.exist?(src.filename.sub(/\.rb\z/, '.treetop'))
   end
-  add_group "Hand-written" do |src|
-    !(src.filename.include?("/lib/oracle-sql-parser/grammar/") &&
-      File.exist?(src.filename.sub(/\.rb\z/, ".treetop")))
+  add_group 'Hand-written' do |src|
+    !(src.filename.include?('/lib/oracle-sql-parser/grammar/') &&
+      File.exist?(src.filename.sub(/\.rb\z/, '.treetop')))
   end
 end
 
 require 'test/unit'
 require 'test/unit/assertions'
 require 'colorize'
-lib = File.expand_path('../../lib', __FILE__)
+lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'oracle-sql-parser'
 require "#{File.expand_path('./', File.dirname(__FILE__))}/parse_testable.rb"
 
 module Test::Unit::Assertions
-  AssertionMessage.max_diff_target_string_size = 10000
+  AssertionMessage.max_diff_target_string_size = 10_000
 
   def assert_ast_equal(expect, actual, message = nil)
     difference = nil

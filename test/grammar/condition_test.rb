@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionTest < BaseTest
     def test_select_where_parseable
-      assert_ast_sql_equal "select * from table1 where col1 = col1",
+      assert_ast_sql_equal 'select * from table1 where col1 = col1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -53,7 +53,7 @@ module Grammar
     end
 
     def test_select_where_with_literal_number_parseable
-      assert_ast_sql_equal "select * from table1 where col1 = -1",
+      assert_ast_sql_equal 'select * from table1 where col1 = -1',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

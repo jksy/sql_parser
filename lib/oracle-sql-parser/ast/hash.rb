@@ -21,9 +21,7 @@ module OracleSqlParser::Ast
     def map_ast!(&block)
       mapped = @ast.class.new
       @ast.each do |k, v|
-        if v.is_a? OracleSqlParser::Ast::Base
-          v.map_ast!(&block)
-        end
+        v.map_ast!(&block) if v.is_a? OracleSqlParser::Ast::Base
         mapped[k] = block.call(v)
       end
       @ast = mapped
@@ -46,7 +44,7 @@ module OracleSqlParser::Ast
     end
 
     def self.[](value)
-      self.new(value)
+      new(value)
     end
 
     def []=(name, value)

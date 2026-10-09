@@ -3,9 +3,9 @@ module OracleSqlParser::Ast
     def to_sql(options = {})
       [
         @ast[:target],
-        "is",
+        'is',
         @ast[:not],
-        "null"
+        'null'
       ].compact.map(&:to_sql).join(' ')
     end
   end

@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionNullTest < BaseTest
     def test_select_where_with_null_conditions_parseable
-      assert_ast_sql_equal "select * from table1 where col1 is null",
+      assert_ast_sql_equal 'select * from table1 where col1 is null',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -26,7 +26,7 @@ module Grammar
     end
 
     def test_select_where_with_not_null_conditions_parseable
-      assert_ast_sql_equal "select * from table1 where col1 is not null",
+      assert_ast_sql_equal 'select * from table1 where col1 is not null',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

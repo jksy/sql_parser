@@ -29,8 +29,8 @@ module Grammar
                   select_sources: Ast::Array[
                     Ast::TableReference[table_name: Ast::Identifier[name: 'table2']]
                   ]
-                ],
-              ],
+                ]
+              ]
             ]
           ]
         ]
@@ -66,9 +66,9 @@ module Grammar
                     select_sources: Ast::Array[
                       Ast::TableReference[table_name: Ast::Identifier[name: 'table2']]
                     ]
-                  ],
+                  ]
                 ]
-              ],
+              ]
             ]
           ]
         ]
@@ -79,11 +79,11 @@ module Grammar
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             subqueries: Ast::Array[
-              generate_ast("select col1 from table1").subquery.query_block,
+              generate_ast('select col1 from table1').subquery.query_block,
               Ast::Array[
                 Ast::Keyword[name: 'union']
               ],
-              generate_ast("select col2 from table2 union select col3 from table3").subquery,
+              generate_ast('select col2 from table2 union select col3 from table3').subquery
             ]
           ]
         ]
@@ -94,12 +94,12 @@ module Grammar
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             subqueries: Ast::Array[
-              generate_ast("select col1 from table1").subquery.query_block,
+              generate_ast('select col1 from table1').subquery.query_block,
               Ast::Array[
                 Ast::Keyword[name: 'union'],
                 Ast::Keyword[name: 'all']
               ],
-              generate_ast("select col2 from table2").subquery,
+              generate_ast('select col2 from table2').subquery
             ]
           ]
         ]
@@ -114,7 +114,7 @@ module Grammar
               Ast::Array[
                 Ast::Keyword[name: 'intersect']
               ],
-              generate_ast('select col2 from table2').subquery,
+              generate_ast('select col2 from table2').subquery
             ]
           ]
         ]

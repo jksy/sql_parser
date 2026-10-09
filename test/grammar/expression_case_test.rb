@@ -68,7 +68,7 @@ module Grammar
     end
 
     def test_searched_case_expression_else_parseable
-      assert_ast_sql_equal "select case when salary > 2000 then salary else 2001 end from customers",
+      assert_ast_sql_equal 'select case when salary > 2000 then salary else 2001 end from customers',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

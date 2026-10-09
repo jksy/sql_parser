@@ -3,7 +3,7 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ConditionMultisetTest < BaseTest
     def test_select_where_is_a_set_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 is a set",
+      assert_ast_sql_equal 'select col1 from table1 where col1 is a set',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -22,7 +22,7 @@ module Grammar
                   target: Ast::Identifier[name: 'col1'],
                   is: Ast::Keyword[name: 'is'],
                   a: Ast::Keyword[name: 'a'],
-                  set: Ast::Keyword[name: 'set'],
+                  set: Ast::Keyword[name: 'set']
                 ]
               ]
             ]
@@ -31,7 +31,7 @@ module Grammar
     end
 
     def test_select_where_is_not_a_set_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 is not a set",
+      assert_ast_sql_equal 'select col1 from table1 where col1 is not a set',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -51,7 +51,7 @@ module Grammar
                   is: Ast::Keyword[name: 'is'],
                   not: Ast::Keyword[name: 'not'],
                   a: Ast::Keyword[name: 'a'],
-                  set: Ast::Keyword[name: 'set'],
+                  set: Ast::Keyword[name: 'set']
                 ]
               ]
             ]
@@ -60,7 +60,7 @@ module Grammar
     end
 
     def test_select_where_is_empty_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 is empty",
+      assert_ast_sql_equal 'select col1 from table1 where col1 is empty',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -78,7 +78,7 @@ module Grammar
                 condition: Ast::IsEmptyCondition[
                   target: Ast::Identifier[name: 'col1'],
                   is: Ast::Keyword[name: 'is'],
-                  empty: Ast::Keyword[name: 'empty'],
+                  empty: Ast::Keyword[name: 'empty']
                 ]
               ]
             ]
@@ -87,7 +87,7 @@ module Grammar
     end
 
     def test_select_where_is_not_empty_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 is not empty",
+      assert_ast_sql_equal 'select col1 from table1 where col1 is not empty',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -106,7 +106,7 @@ module Grammar
                   target: Ast::Identifier[name: 'col1'],
                   is: Ast::Keyword[name: 'is'],
                   not: Ast::Keyword[name: 'not'],
-                  empty: Ast::Keyword[name: 'empty'],
+                  empty: Ast::Keyword[name: 'empty']
                 ]
               ]
             ]
@@ -115,7 +115,7 @@ module Grammar
     end
 
     def test_select_where_member_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 member of col2",
+      assert_ast_sql_equal 'select col1 from table1 where col1 member of col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -143,7 +143,7 @@ module Grammar
     end
 
     def test_select_where_not_member_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 not member of col2",
+      assert_ast_sql_equal 'select col1 from table1 where col1 not member of col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -172,7 +172,7 @@ module Grammar
     end
 
     def test_select_where_submultiset_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 submultiset col2",
+      assert_ast_sql_equal 'select col1 from table1 where col1 submultiset col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -199,7 +199,7 @@ module Grammar
     end
 
     def test_select_where_submultiset_of_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 submultiset of col2",
+      assert_ast_sql_equal 'select col1 from table1 where col1 submultiset of col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -227,7 +227,7 @@ module Grammar
     end
 
     def test_select_where_not_submultiset_condition_parseable
-      assert_ast_sql_equal "select col1 from table1 where col1 not submultiset col2",
+      assert_ast_sql_equal 'select col1 from table1 where col1 not submultiset col2',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

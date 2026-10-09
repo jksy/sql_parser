@@ -32,12 +32,10 @@ end
 
 unless Object.respond_to? :try
   class Object
-    def try(name, *args)
-      if respond_to? name
-        send(name, *args)
-      else
-        nil
-      end
+    def try(name, *)
+      return unless respond_to? name
+
+      send(name, *)
     end
 
     def duplicable?
@@ -57,9 +55,7 @@ module OracleSqlParser::Ast
     include OracleSqlParser::Util::Parameterizable
 
     def initialize(arg)
-      if arg.instance_of?(Array) || arg.instance_of?(Hash)
-        raise "cant assign #{arg.class} Base.new()"
-      end
+      raise "cant assign #{arg.class} Base.new()" if arg.instance_of?(Array) || arg.instance_of?(Hash)
 
       @ast = arg
     end
@@ -88,22 +84,20 @@ module OracleSqlParser::Ast
 
     def deep_dup
       copy = self.class.new
-      original_ast = self.instance_variable_get(:@ast)
+      original_ast = instance_variable_get(:@ast)
       copy_ast = self.class.deep_dup(original_ast)
       copy.instance_variable_set(:@ast, copy_ast)
       copy
     end
 
-    def map_ast(&block)
-      duplicated = self.deep_dup
-      duplicated.map_ast!(&block)
+    def map_ast(&)
+      duplicated = deep_dup
+      duplicated.map_ast!(&)
       duplicated
     end
 
     def map_ast!(&block)
-      if @ast.is_a? OracleSqlParser::Ast::Base
-        @ast.map_ast!(&block)
-      end
+      @ast.map_ast!(&block) if @ast.is_a? OracleSqlParser::Ast::Base
       @ast = block.call(@ast)
     end
 
@@ -115,10 +109,10 @@ module OracleSqlParser::Ast
     def inspect
       "#<#{self.class.name} #{@ast.inspect}>"
     end
-    alias :to_s :inspect
+    alias to_s inspect
 
     def ast
-      raise "do not call ast method"
+      raise 'do not call ast method'
     end
 
     def to_sql(options = {})
@@ -130,7 +124,7 @@ module OracleSqlParser::Ast
     end
 
     def self.[](value)
-      self.new(value)
+      new(value)
     end
 
     def self.find_different_value(left, right, &block)
@@ -142,19 +136,19 @@ module OracleSqlParser::Ast
       result = false
       case left
       when Base
-        result ||= self.find_different_value(
+        result ||= find_different_value(
           left.instance_variable_get(:@ast),
           right.instance_variable_get(:@ast),
           &block
         )
       when Hash
         (left.keys + right.keys).uniq.each do |key|
-          result ||= self.find_different_value(left[key], right[key], &block)
+          result ||= find_different_value(left[key], right[key], &block)
         end
       when OracleSqlParser::Ast::Array
         if left.size == right.size
           left.each_with_index do |value, index|
-            result ||= self.find_different_value(value, right[index], &block)
+            result ||= find_different_value(value, right[index], &block)
           end
         else
           block.call(left, right) if block_given?

@@ -45,7 +45,7 @@ module Grammar
         Ast::InsertStatement[
           insert: Ast::TableReference[
             table_name: Ast::Identifier[name: 'table1'],
-            table_alias: Ast::Identifier[name: 't_alias'],
+            table_alias: Ast::Identifier[name: 't_alias']
           ],
           columns: Ast::Array[
             Ast::Identifier[name: 'col1'],
@@ -63,7 +63,7 @@ module Grammar
         Ast::InsertStatement[
           insert: Ast::TableReference[
             table_name: Ast::Identifier[name: 'table1'],
-            table_alias: Ast::Identifier[name: 't_alias'],
+            table_alias: Ast::Identifier[name: 't_alias']
           ],
           columns: Ast::Array[
             Ast::Identifier[name: 'col1'],
@@ -81,10 +81,10 @@ module Grammar
         Ast::InsertStatement[
           insert: Ast::TableReference[
             table_name: Ast::Identifier[name: 'table1'],
-            table_alias: Ast::Identifier[name: 't_alias'],
+            table_alias: Ast::Identifier[name: 't_alias']
           ],
           columns: Ast::Array[
-            Ast::Identifier[name: 'col1'],
+            Ast::Identifier[name: 'col1']
           ],
           values: Ast::InsertValuesClause[
             Ast::FunctionExpression[
@@ -99,14 +99,14 @@ module Grammar
     end
 
     def test_insert_schema_table_parseable
-      assert_ast_sql_equal "insert into schema1.table1 (col1) values(0)",
+      assert_ast_sql_equal 'insert into schema1.table1 (col1) values(0)',
         Ast::InsertStatement[
           insert: Ast::TableReference[
             schema_name: Ast::Identifier[name: 'schema1'],
-            table_name: Ast::Identifier[name: 'table1'],
+            table_name: Ast::Identifier[name: 'table1']
           ],
           columns: Ast::Array[
-            Ast::Identifier[name: 'col1'],
+            Ast::Identifier[name: 'col1']
           ],
           values: Ast::InsertValuesClause[
             Ast::NumberLiteral[value: '0']
@@ -115,15 +115,15 @@ module Grammar
     end
 
     def test_insert_schema_table_dblink_parseable
-      assert_ast_sql_equal "insert into schema1.table1@dblink (col1) values(0)",
+      assert_ast_sql_equal 'insert into schema1.table1@dblink (col1) values(0)',
         Ast::InsertStatement[
           insert: Ast::TableReference[
             schema_name: Ast::Identifier[name: 'schema1'],
             table_name: Ast::Identifier[name: 'table1'],
-            dblink: Ast::Identifier[name: 'dblink'],
+            dblink: Ast::Identifier[name: 'dblink']
           ],
           columns: Ast::Array[
-            Ast::Identifier[name: 'col1'],
+            Ast::Identifier[name: 'col1']
           ],
           values: Ast::InsertValuesClause[
             Ast::NumberLiteral[value: '0']

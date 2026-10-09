@@ -7,7 +7,7 @@ module OracleSqlParser::Ast
         @ast[:not],
         @ast[:of],
         @ast[:type],
-        "(#{@ast[:types].map(&:to_sql).join(',')})",
+        "(#{@ast[:types].map(&:to_sql).join(',')})"
       ].compact.map(&:to_sql).join(' ')
     end
   end
