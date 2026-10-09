@@ -28,6 +28,26 @@ Metrics/BlockLength:
     - 'Rakefile'
     - '*.gemspec'
 
+# to_sql methods list the parts of a clause one by one, which reads better
+# than splitting them up. Tests (expected ASTs, debug helpers) and the
+# reserved word list in the generator are long by nature.
+Metrics/MethodLength:
+  Max: 20
+  CountAsOne: ['array', 'hash', 'heredoc', 'method_call']
+  Exclude:
+    - 'test/**/*'
+    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - 'test/**/*'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
+
 # Continuation lines are indented one level rather than aligned with the
 # first argument (e.g. `assert_ast_sql_equal "sql",` followed by the AST).
 Layout/ArgumentAlignment:

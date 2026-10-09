@@ -129,7 +129,8 @@ module OracleSqlParser::Ast
       new(value)
     end
 
-    def self.find_different_value(left, right, &block)
+    # Recursive structural comparison; one branch per kind of AST value.
+    def self.find_different_value(left, right, &block) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
       if left.class != right.class
         block.call(left, right) if block_given?
         return true
