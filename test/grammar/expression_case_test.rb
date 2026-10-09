@@ -37,7 +37,8 @@ module Grammar
     end
 
     def test_simple_case_expression_else_parseable
-      assert_ast_sql_equal "select case credit_limit when 100 then 'low' when 5000 then 'high' else 'medium' end from customers",
+      assert_ast_sql_equal "select case credit_limit when 100 then 'low' when 5000 then 'high' " \
+                           "else 'medium' end from customers",
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[

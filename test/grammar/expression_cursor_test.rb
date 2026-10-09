@@ -5,7 +5,8 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 module Grammar
   class ExpressionCaseTest < BaseTest
     def test_cursor_expression
-      assert_ast_sql_equal 'select cursor(select salary from employees e where e.department_id = d.department_id) from departments d',
+      assert_ast_sql_equal 'select cursor(select salary from employees e ' \
+                           'where e.department_id = d.department_id) from departments d',
         Ast::SelectStatement[
           subquery: Ast::Subquery[
             query_block: Ast::QueryBlock[
@@ -13,7 +14,9 @@ module Grammar
                 Ast::SelectColumn[
                   expr: Ast::CursorExpression[
                     cursor: Ast::Keyword[name: 'cursor'],
-                    subquery: generate_ast('select salary from employees e where e.department_id = d.department_id').subquery
+                    subquery: generate_ast(
+                      'select salary from employees e where e.department_id = d.department_id'
+                    ).subquery
                   ]
                 ]
               ],

@@ -47,7 +47,8 @@ namespace :test do
     end
   end
 
-  desc "run Oracle connection tests (needs an Oracle DB; uses #{ADAPTER_GEMFILE} unless the current bundle has the adapter)"
+  desc 'run Oracle connection tests ' \
+       "(needs an Oracle DB; uses #{ADAPTER_GEMFILE} unless the current bundle has the adapter)"
   task :adapter do
     if adapter_gems_available?
       Rake::Task['test:adapter:run'].invoke
