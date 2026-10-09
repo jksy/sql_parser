@@ -5,4 +5,3 @@ module OracleSqlParser::Ast
     end
   end
 end
-

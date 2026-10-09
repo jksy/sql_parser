@@ -17,7 +17,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -41,7 +41,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -65,7 +65,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -89,7 +89,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -113,7 +113,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -137,7 +137,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -161,7 +161,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -184,7 +184,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -207,7 +207,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],
@@ -230,7 +230,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],

@@ -18,7 +18,7 @@ module Grammar
               :select_sources => Ast::Array[
                 Ast::TableReference[
                   :table_name => Ast::Identifier[:name => 'departments'],
-                  :table_alias=> Ast::Identifier[:name => 'd'],
+                  :table_alias => Ast::Identifier[:name => 'd'],
                 ]
               ]
             ]

@@ -20,7 +20,7 @@ end
 desc "clean files"
 task :clean do
   GRAMMAR_FILES.each do |f|
-    file = "#{f.gsub(/\.treetop$/,'')}.rb"
+    file = "#{f.gsub(/\.treetop$/, '')}.rb"
     File.unlink file if File.exist? file
   end
 end
@@ -30,9 +30,9 @@ namespace :test do
     t.description = "run parser tests (no Oracle required)"
     t.libs << "test"
     t.test_files = FileList[
-                      'test/grammar/*_test.rb',
-                      'test/ast/*_test.rb'
-                      ]
+      'test/grammar/*_test.rb',
+      'test/ast/*_test.rb'
+    ]
     t.verbose = true
   end
 
@@ -78,7 +78,6 @@ task :ci => [:rubocop, 'test:unit']
 
 task :default => 'test:unit'
 
-
 def adapter_gems_available?
   Bundler.load.specs.any? { |spec| spec.name == 'activerecord-oracle_enhanced-adapter' }
 rescue Bundler::BundlerError
@@ -98,7 +97,7 @@ def generate_parser_files(force = false)
 end
 
 def tt(f, force = false)
-  output = "#{f.gsub(/\.treetop$/,'')}.rb"
+  output = "#{f.gsub(/\.treetop$/, '')}.rb"
 
   do_if_changed(f, output, force) do
     sh "tt #{f} -f -o #{output}"
@@ -111,4 +110,3 @@ def do_if_changed(src, output, force = false, &block)
     yield
   end
 end
-

@@ -2,7 +2,6 @@ require File.expand_path('base_test.rb', File.dirname(__FILE__))
 
 module Grammar
   class ConditionComparisonTest < BaseTest
-
     def test_select_where_with_neq1_parseable
       assert_ast_sql_equal "select * from table1 where col1 != 1",
         Ast::SelectStatement[
@@ -88,7 +87,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'table1']
+                  :table_name => Ast::Identifier[:name => 'table1']
                 ]
               ],
               :where_clause => Ast::WhereClause[
@@ -127,6 +126,5 @@ module Grammar
           ]
         ]
     end
-
   end
 end

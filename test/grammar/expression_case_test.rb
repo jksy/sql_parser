@@ -13,12 +13,12 @@ module Grammar
                     :condition => Ast::Identifier[:name => 'credit_limit'],
                     :when_clauses => Ast::Array[
                       Ast::Hash[
-                        :when_expr => Ast::NumberLiteral[:value=>'100'],
-                        :return_expr => Ast::TextLiteral[:value=>'low']
+                        :when_expr => Ast::NumberLiteral[:value => '100'],
+                        :return_expr => Ast::TextLiteral[:value => 'low']
                       ],
                       Ast::Hash[
-                        :when_expr => Ast::NumberLiteral[:value=>'5000'],
-                        :return_expr => Ast::TextLiteral[:value=>'high']
+                        :when_expr => Ast::NumberLiteral[:value => '5000'],
+                        :return_expr => Ast::TextLiteral[:value => 'high']
                       ]
                     ]
                   ]
@@ -45,12 +45,12 @@ module Grammar
                     :condition => Ast::Identifier[:name => 'credit_limit'],
                     :when_clauses => Ast::Array[
                       Ast::Hash[
-                        :when_expr => Ast::NumberLiteral[:value=>'100'],
-                        :return_expr => Ast::TextLiteral[:value=>'low']
+                        :when_expr => Ast::NumberLiteral[:value => '100'],
+                        :return_expr => Ast::TextLiteral[:value => 'low']
                       ],
                       Ast::Hash[
-                        :when_expr => Ast::NumberLiteral[:value=>'5000'],
-                        :return_expr => Ast::TextLiteral[:value=>'high']
+                        :when_expr => Ast::NumberLiteral[:value => '5000'],
+                        :return_expr => Ast::TextLiteral[:value => 'high']
                       ]
                     ],
                     :else_clause => Ast::TextLiteral[:value => 'medium']
@@ -80,7 +80,7 @@ module Grammar
                       :op => '>',
                       :right => Ast::NumberLiteral[:value => '2000']
                     ],
-                    :return_expr => Ast::Identifier[:name=>'salary'],
+                    :return_expr => Ast::Identifier[:name => 'salary'],
                     :else_clause => Ast::NumberLiteral[:value => '2001']
                   ]
                 ]
@@ -94,6 +94,5 @@ module Grammar
           ]
         ]
     end
-
   end
 end

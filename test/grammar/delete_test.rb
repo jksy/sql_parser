@@ -65,7 +65,7 @@ module Grammar
         Ast::DeleteStatement[
           :target => Ast::DeleteTarget[
             :name => Ast::TableReference[
-              :table_name =>Ast::Identifier[:name => 'table1']
+              :table_name => Ast::Identifier[:name => 'table1']
             ],
           ],
           :where_clause => where_clause_ast
@@ -87,4 +87,3 @@ module Grammar
     end
   end
 end
-

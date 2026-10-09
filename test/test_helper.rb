@@ -10,10 +10,9 @@ SimpleCov.start do
   if ENV['CI']
     formatter SimpleCov::Formatter::CoberturaFormatter
   else
-    formatter SimpleCov::Formatter::MultiFormatter.new([
-                SimpleCov::Formatter::SimpleFormatter,
-                SimpleCov::Formatter::HTMLFormatter
-              ])
+    formatter SimpleCov::Formatter::MultiFormatter.new(
+      [SimpleCov::Formatter::SimpleFormatter, SimpleCov::Formatter::HTMLFormatter]
+    )
   end
 
   skip "/test/"
@@ -46,14 +45,13 @@ module Test::Unit::Assertions
     difference = nil
     full_message = nil
     difference = AssertionMessage.delayed_diff(expect.to_s, actual.to_s)
-    full_message = build_message(message, <<EOS, expect, actual, difference)
-<?> expected but was
-<?>.?
-EOS
+    full_message = build_message(message, <<~EOS, expect, actual, difference)
+      <?> expected but was
+      <?>.?
+    EOS
 
     assert_block(full_message) do
       expect == actual
     end
   end
 end
-

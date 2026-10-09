@@ -7,7 +7,7 @@ module ParseTestable
   def generate_ast(query)
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + " " * ([parser.failure_column.to_i-1, 0].max) + "*\n"
+      message = "\n#{query}\n" + " " * ([parser.failure_column.to_i - 1, 0].max) + "*\n"
       begin
         message = parser.failure_reason + message
       rescue NoMethodError => e
@@ -46,16 +46,16 @@ module ParseTestable
         truncate_length = 40
         indent = indent + 1
         head = if index != 0
-                 input[0..index-1]
+                 input[0..index - 1]
                else
                  ''
                end
         tail = input.gsub(head, '')
         if head.length >= truncate_length
-          head = '...' + head[truncate_length-3..-1]
+          head = '...' + head[truncate_length - 3..-1]
         end
         if tail.length >= truncate_length
-          tail = tail[0..truncate_length-1] + '...'
+          tail = tail[0..truncate_length - 1] + '...'
         end
         parsing_text = "#{head}#{'*'.green}#{tail}"
         puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")

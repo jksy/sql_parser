@@ -10,7 +10,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::SelectColumn[
                   :expr => Ast::FunctionExpression[
-                    :name => Ast::Identifier[:name =>'func'],
+                    :name => Ast::Identifier[:name => 'func'],
                   ]
                 ]
               ],
@@ -123,7 +123,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'dual']
+                  :table_name => Ast::Identifier[:name => 'dual']
                 ]
               ]
             ],

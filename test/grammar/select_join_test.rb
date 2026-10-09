@@ -69,17 +69,17 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                   Ast::InnerJoinClause[
-                  :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
-                  :inner => Ast::Keyword[:name => "inner"],
-                  :join => Ast::Keyword[:name => "join"],
-                  :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
-                  :on_or_using_clause => Ast::UsingClause[
-                    :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
-                    :column_list => OracleSqlParser::Ast::Array[
+                    :table1 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table1"]],
+                    :inner => Ast::Keyword[:name => "inner"],
+                    :join => Ast::Keyword[:name => "join"],
+                    :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => "table2"]],
+                    :on_or_using_clause => Ast::UsingClause[
+                      :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
+                      :column_list => OracleSqlParser::Ast::Array[
                         OracleSqlParser::Ast::Identifier[:name => 'col1'],
                         OracleSqlParser::Ast::Identifier[:name => 'col2'],
+                      ]
                     ]
-                  ]
                 ]
               ]
             ]
@@ -315,8 +315,8 @@ module Grammar
                   :on_or_using_clause => Ast::UsingClause[
                     :using => OracleSqlParser::Ast::Keyword[:name => 'using'],
                     :column_list => OracleSqlParser::Ast::Array[
-                        OracleSqlParser::Ast::Identifier[:name => 'col1'],
-                        OracleSqlParser::Ast::Identifier[:name => 'col2'],
+                      OracleSqlParser::Ast::Identifier[:name => 'col1'],
+                      OracleSqlParser::Ast::Identifier[:name => 'col2'],
                     ]
                   ],
                   :table2 => Ast::TableReference[:table_name => Ast::Identifier[:name => 'table2']],

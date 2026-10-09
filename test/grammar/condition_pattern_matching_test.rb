@@ -179,4 +179,3 @@ module Grammar
     end
   end
 end
-

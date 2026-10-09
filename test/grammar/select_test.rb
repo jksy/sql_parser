@@ -5,46 +5,46 @@ module Grammar
     def test_select_parseable
       assert_ast_sql_equal(
         "select col1 from table1",
-         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col1']
-                ],
-              ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ]
-            ],
-          ],
-        ]
+        Ast::SelectStatement[
+         :subquery => Ast::Subquery[
+           :query_block => Ast::QueryBlock[
+             :select_list => Ast::Array[
+               Ast::SelectColumn[
+                 :expr => Ast::Identifier[:name => 'col1']
+               ],
+             ],
+             :select_sources => Ast::Array[
+               Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+             ]
+           ],
+         ],
+       ]
       )
     end
 
     def test_select_multiple_column_parseable
       assert_ast_sql_equal(
         "select col1,col2,col3 from table1",
-         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col1'],
-                ],
-                Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col2'],
-                ],
-                Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col3']
-                ],
-              ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
-              ]
-            ],
-          ],
-        ]
+        Ast::SelectStatement[
+         :subquery => Ast::Subquery[
+           :query_block => Ast::QueryBlock[
+             :select_list => Ast::Array[
+               Ast::SelectColumn[
+                 :expr => Ast::Identifier[:name => 'col1'],
+               ],
+               Ast::SelectColumn[
+                 :expr => Ast::Identifier[:name => 'col2'],
+               ],
+               Ast::SelectColumn[
+                 :expr => Ast::Identifier[:name => 'col3']
+               ],
+             ],
+             :select_sources => Ast::Array[
+               Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+             ]
+           ],
+         ],
+       ]
       )
     end
 
@@ -213,7 +213,7 @@ module Grammar
 
     def test_select_literal_string_parseable
       assert_ast_sql_equal(
-        "select 'adslfael' from table1" ,
+        "select 'adslfael' from table1",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -257,9 +257,9 @@ module Grammar
             :query_block => Ast::QueryBlock[
               :select_list => Ast::Array[
                 Ast::SelectColumn[
-                    :expr => Ast::Identifier[:name => 'a'],
-                    :as => Ast::Keyword[:name => "as"],
-                    :c_alias => Ast::Identifier[:name => "b"],
+                  :expr => Ast::Identifier[:name => 'a'],
+                  :as => Ast::Keyword[:name => "as"],
+                  :c_alias => Ast::Identifier[:name => "b"],
                 ]
               ],
               :select_sources => Ast::Array[
@@ -395,12 +395,12 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::SelectColumn[
                   :expr => Ast::CompoundExpression[
-                    :left => Ast::Identifier[:name=>"a.col"],
+                    :left => Ast::Identifier[:name => "a.col"],
                     :op => Ast::Base["-"],
-                    :right => Ast::Identifier[:name=>"b.col"],
+                    :right => Ast::Identifier[:name => "b.col"],
                   ],
-                  :as => Ast::Keyword[:name=>"as"],
-                  :c_alias => Ast::Identifier[:name=>"markup"],
+                  :as => Ast::Keyword[:name => "as"],
+                  :c_alias => Ast::Identifier[:name => "markup"],
                 ],
               ],
               :select_sources => Ast::Array[

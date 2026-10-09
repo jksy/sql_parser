@@ -10,7 +10,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources =>  Ast::Array[
+              :select_sources => Ast::Array[
                 Ast::TableReference[
                   :table_name => Ast::Identifier[:name => 'table1']
                 ]
@@ -33,7 +33,7 @@ module Grammar
               :select_list => Ast::Array[
                 Ast::Identifier[:name => '*']
               ],
-              :select_sources =>  Ast::Array[
+              :select_sources => Ast::Array[
                 Ast::TableReference[
                   :table_name => Ast::Identifier[:name => 'table1']
                 ]
@@ -50,4 +50,3 @@ module Grammar
     end
   end
 end
-

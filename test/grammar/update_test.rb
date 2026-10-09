@@ -10,8 +10,8 @@ module Grammar
           ],
           :set => Ast::UpdateSetClause[
               Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
-                                   :op => '=',
-                                   :value => Ast::NumberLiteral[:value => '1']]
+                :op => '=',
+                :value => Ast::NumberLiteral[:value => '1']]
           ]
         ]
     end
@@ -23,12 +23,12 @@ module Grammar
             :table_name => Ast::Identifier[:name => 'table1']
           ],
           :set => Ast::UpdateSetClause[
-              Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
-                                   :op => '=',
-                                   :value => Ast::NumberLiteral[:value => '1']],
-              Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col2'],
-                                   :op => '=',
-                                   :value => Ast::NumberLiteral[:value => '2']]
+            Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col1'],
+              :op => '=',
+              :value => Ast::NumberLiteral[:value => '1']],
+            Ast::UpdateSetColumn[:column_name => Ast::Identifier[:name => 'col2'],
+              :op => '=',
+              :value => Ast::NumberLiteral[:value => '2']]
           ]
         ]
     end

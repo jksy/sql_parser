@@ -1,6 +1,5 @@
 module OracleSqlParser::Ast
   class TableReference < Hash
-
     def inspect
       "#<#{self.class.name} #{@ast.inspect}>"
     end

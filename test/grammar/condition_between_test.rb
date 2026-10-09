@@ -51,7 +51,6 @@ module Grammar
             ]
           ]
         ]
-
     end
 
     def test_select_where_with_between_number_conditions_parseable

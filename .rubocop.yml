@@ -21,3 +21,8 @@ Metrics/BlockLength:
     - 'test/**/*'
     - 'Rakefile'
     - '*.gemspec'
+
+# Continuation lines are indented one level rather than aligned with the
+# first argument (e.g. `assert_ast_sql_equal "sql",` followed by the AST).
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation

@@ -32,7 +32,7 @@ module Grammar
         Ast::InsertStatement[
           :insert => Ast::TableReference[
             :table_name => Ast::Identifier[:name => 'table1'],
-            :table_alias =>  Ast::Identifier[:name => 't_alias']
+            :table_alias => Ast::Identifier[:name => 't_alias']
           ],
           :values => Ast::InsertValuesClause[
             Ast::TextLiteral[:value => '1']

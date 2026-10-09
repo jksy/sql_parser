@@ -1,4 +1,3 @@
-
 def nil.ast
   nil
 end
@@ -48,7 +47,7 @@ unless Object.respond_to? :try
 end
 
 class String
-  def to_sql(options ={})
+  def to_sql(options = {})
     self
   end
 end
@@ -56,10 +55,12 @@ end
 module OracleSqlParser::Ast
   class Base
     include OracleSqlParser::Util::Parameterizable
+
     def initialize(arg)
       if arg.instance_of?(Array) || arg.instance_of?(Hash)
         raise "cant assign #{arg.class} Base.new()"
       end
+
       @ast = arg
     end
 
@@ -75,9 +76,9 @@ module OracleSqlParser::Ast
       if original.is_a? OracleSqlParser::Ast::Base
         original.deep_dup
       elsif original.is_a? ::Hash
-        ::Hash[ original.map {|k, v| [k, deep_dup(v)]} ]
+        ::Hash[original.map { |k, v| [k, deep_dup(v)] }]
       elsif original.is_a? ::Array
-        original.map {|v| deep_dup(v)}
+        original.map { |v| deep_dup(v) }
       elsif original.duplicable?
         original.dup
       else
@@ -120,7 +121,7 @@ module OracleSqlParser::Ast
       raise "do not call ast method"
     end
 
-    def to_sql(options ={})
+    def to_sql(options = {})
       if @ast.respond_to? :to_sql
         @ast.to_sql(options)
       else
@@ -142,9 +143,10 @@ module OracleSqlParser::Ast
       case left
       when Base
         result ||= self.find_different_value(
-                      left.instance_variable_get(:@ast),
-                      right.instance_variable_get(:@ast),
-                      &block)
+          left.instance_variable_get(:@ast),
+          right.instance_variable_get(:@ast),
+          &block
+        )
       when Hash
         (left.keys + right.keys).uniq.each do |key|
           result ||= self.find_different_value(left[key], right[key], &block)

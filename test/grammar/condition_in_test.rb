@@ -29,7 +29,7 @@ module Grammar
     end
 
     def test_select_where_not_in_expr_condition_parseable
-      assert_ast_sql_equal "select * from table1 where col1 not in (1)" ,
+      assert_ast_sql_equal "select * from table1 where col1 not in (1)",
         Ast::SelectStatement[
           :subquery => Ast::Subquery[
             :query_block => Ast::QueryBlock[
@@ -65,7 +65,7 @@ module Grammar
               ],
               :select_sources => Ast::Array[
                 Ast::TableReference[
-                  :table_name =>Ast::Identifier[:name => 'table1']
+                  :table_name => Ast::Identifier[:name => 'table1']
                 ]
               ],
               :where_clause => Ast::WhereClause[
