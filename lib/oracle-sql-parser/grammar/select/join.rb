@@ -138,10 +138,10 @@ module OracleSqlParser::Grammar::Select
     module InnerJoinClause1
       def ast
         OracleSqlParser::Ast::InnerJoinClause[
-          :inner => inner_join.inner_keyword.ast,
-          :join => inner_join.try(:join_keyword).ast,
-          :table2 => table_reference.ast,
-          :on_or_using_clause => on_or_using_clause.ast
+          inner: inner_join.inner_keyword.ast,
+          join: inner_join.try(:join_keyword).ast,
+          table2: table_reference.ast,
+          on_or_using_clause: on_or_using_clause.ast
         ]
       end
     end
@@ -303,8 +303,8 @@ module OracleSqlParser::Grammar::Select
     module OnClause1
       def ast
         OracleSqlParser::Ast::OnClause[
-          :on => on_keyword.ast,
-          :condition => condition.ast
+          on: on_keyword.ast,
+          condition: condition.ast
         ]
       end
     end
@@ -364,8 +364,8 @@ module OracleSqlParser::Grammar::Select
     module UsingClause1
       def ast
         OracleSqlParser::Ast::UsingClause[
-          :using => using_keyword.ast,
-          :column_list => column_list.ast
+          using: using_keyword.ast,
+          column_list: column_list.ast
         ]
       end
     end
@@ -466,11 +466,11 @@ module OracleSqlParser::Grammar::Select
     module CrossJoinClause1
       def ast
         OracleSqlParser::Ast::CrossNaturalJoinClause[
-          :cross => cross_natural_join.cross_keyword.ast,
-          :natural => cross_natural_join.natural_keyword.ast,
-          :inner => cross_natural_join.inner_keyword.ast,
-          :join => cross_natural_join.try(:join_keyword).ast,
-          :table2 => table_reference.ast
+          cross: cross_natural_join.cross_keyword.ast,
+          natural: cross_natural_join.natural_keyword.ast,
+          inner: cross_natural_join.inner_keyword.ast,
+          join: cross_natural_join.try(:join_keyword).ast,
+          table2: table_reference.ast
         ]
       end
     end
@@ -808,12 +808,12 @@ module OracleSqlParser::Grammar::Select
     module OuterJoinClause3
       def ast
         OracleSqlParser::Ast::OuterJoinClause[
-          :natural => join_type.try(:natural_keyword).ast,
-          :join_type => join_type.outer_join_type.try(:type).ast,
-          :outer => join_type.outer_join_type.try(:outer).ast,
-          :join => join_type.join_keyword.ast,
-          :table2 => table_reference.ast,
-          :on_or_using_clause => on_or_using_clause.ast
+          natural: join_type.try(:natural_keyword).ast,
+          join_type: join_type.outer_join_type.try(:type).ast,
+          outer: join_type.outer_join_type.try(:outer).ast,
+          join: join_type.join_keyword.ast,
+          table2: table_reference.ast,
+          on_or_using_clause: on_or_using_clause.ast
         ]
       end
     end

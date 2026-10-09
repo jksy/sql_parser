@@ -64,10 +64,10 @@ module OracleSqlParser::Grammar::Condition
     module BetweenCondition2
       def ast
         OracleSqlParser::Ast::BetweenCondition[
-          :target => target.ast,
-          :not => not_keyword.ast,
-          :from => from.ast,
-          :to => to.ast
+          target: target.ast,
+          not: not_keyword.ast,
+          from: from.ast,
+          to: to.ast
         ]
       end
 

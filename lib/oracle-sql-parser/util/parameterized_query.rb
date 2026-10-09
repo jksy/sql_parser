@@ -23,7 +23,7 @@ module OracleSqlParser::Util
       name = "a#{@index}"
       @index += 1
       @params[name] = value
-      OracleSqlParser::Ast::Variable[:name => name]
+      OracleSqlParser::Ast::Variable[name: name]
     end
   end
 end

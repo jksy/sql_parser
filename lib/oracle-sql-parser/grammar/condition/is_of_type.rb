@@ -39,12 +39,12 @@ module OracleSqlParser::Grammar::Condition
     module IsOfTypeCondition1
       def ast
         OracleSqlParser::Ast::IsOfTypeCondition[
-          :target => expr.ast,
-          :is => is_keyword.ast,
-          :not => not_keyword.ast,
-          :of => of_keyword.ast,
-          :type => type_keyword.ast,
-          :types => types.ast
+          target: expr.ast,
+          is: is_keyword.ast,
+          not: not_keyword.ast,
+          of: of_keyword.ast,
+          type: type_keyword.ast,
+          types: types.ast
         ]
       end
     end
@@ -317,8 +317,8 @@ module OracleSqlParser::Grammar::Condition
     module OnlyAndType1
       def ast
         OracleSqlParser::Ast::OnlyAndType[
-          :only => only_keyword.ast,
-          :type => type.ast
+          only: only_keyword.ast,
+          type: type.ast
         ]
       end
     end
@@ -381,7 +381,7 @@ module OracleSqlParser::Grammar::Condition
 
     module Type1
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 

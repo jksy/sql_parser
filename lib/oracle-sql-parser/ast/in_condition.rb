@@ -5,7 +5,7 @@ module OracleSqlParser::Ast
         @ast[:target],
         @ast[:not],
         "in",
-        "(#{@ast[:values].to_sql(:separator => ",")})"
+        "(#{@ast[:values].to_sql(separator: ",")})"
       ].map(&:to_sql).compact.join(' ')
     end
   end

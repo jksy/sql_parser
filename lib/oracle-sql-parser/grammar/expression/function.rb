@@ -23,8 +23,8 @@ module OracleSqlParser::Grammar::Expression
     module FunctionExpression1
       def ast
         OracleSqlParser::Ast::FunctionExpression[
-          :name => function_name.ast,
-          :args => function_args.ast
+          name: function_name.ast,
+          args: function_args.ast
         ]
       end
     end
@@ -125,7 +125,7 @@ module OracleSqlParser::Grammar::Expression
 
     module FunctionName1
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 

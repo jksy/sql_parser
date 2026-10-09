@@ -165,16 +165,16 @@ module OracleSqlParser::Grammar::Expression
     module SimpleCaseExpression2
       def ast
         OracleSqlParser::Ast::SimpleCaseExpression[
-          :condition => expr.ast,
-          :when_clauses => OracleSqlParser::Ast::Array[*when_clauses]
+          condition: expr.ast,
+          when_clauses: OracleSqlParser::Ast::Array[*when_clauses]
         ]
       end
 
       def when_clauses
         w.elements.map do |elem|
           OracleSqlParser::Ast::Hash[
-            :when_expr => elem.comparison_expr.ast,
-            :return_expr => elem.return_expr.ast
+            when_expr: elem.comparison_expr.ast,
+            return_expr: elem.return_expr.ast
           ]
         end
       end
@@ -376,8 +376,8 @@ module OracleSqlParser::Grammar::Expression
     module SearchedCaseExpression1
       def ast
         OracleSqlParser::Ast::SearchedCaseExpression[
-          :when_condition => condition.ast,
-          :return_expr => return_expr.ast
+          when_condition: condition.ast,
+          return_expr: return_expr.ast
         ]
       end
     end

@@ -86,11 +86,11 @@ module OracleSqlParser::Grammar::Condition
     module IsASetCondition1
       def ast
         OracleSqlParser::Ast::IsASetCondition[
-          :target => nested_table.ast,
-          :is => is_keyword.ast,
-          :not => not_keyword.ast,
-          :a => OracleSqlParser::Ast::Keyword[:name => a.text_value],
-          :set => set_keyword.ast
+          target: nested_table.ast,
+          is: is_keyword.ast,
+          not: not_keyword.ast,
+          a: OracleSqlParser::Ast::Keyword[name: a.text_value],
+          set: set_keyword.ast
         ]
       end
     end
@@ -207,10 +207,10 @@ module OracleSqlParser::Grammar::Condition
     module IsEmptyCondition1
       def ast
         OracleSqlParser::Ast::IsEmptyCondition[
-          :target => nested_table.ast,
-          :is => is_keyword.ast,
-          :not => not_keyword.ast,
-          :empty => empty_keyword.ast
+          target: nested_table.ast,
+          is: is_keyword.ast,
+          not: not_keyword.ast,
+          empty: empty_keyword.ast
         ]
       end
     end
@@ -312,11 +312,11 @@ module OracleSqlParser::Grammar::Condition
     module MemberCondition1
       def ast
         OracleSqlParser::Ast::MemberCondition[
-          :target => expr.ast,
-          :not => not_keyword.ast,
-          :member => member_keyword.ast,
-          :of => of_keyword.ast,
-          :table => nested_table.ast
+          target: expr.ast,
+          not: not_keyword.ast,
+          member: member_keyword.ast,
+          of: of_keyword.ast,
+          table: nested_table.ast
         ]
       end
     end
@@ -431,11 +431,11 @@ module OracleSqlParser::Grammar::Condition
     module SubmultisetCondition1
       def ast
         OracleSqlParser::Ast::SubmultisetCondition[
-          :target => table1.ast,
-          :not => not_keyword.ast,
-          :submultiset => submultiset_keyword.ast,
-          :of => of_keyword.ast,
-          :table => table2.ast
+          target: table1.ast,
+          not: not_keyword.ast,
+          submultiset: submultiset_keyword.ast,
+          of: of_keyword.ast,
+          table: table2.ast
         ]
       end
     end

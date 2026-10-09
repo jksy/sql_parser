@@ -9,12 +9,12 @@ module OracleSqlParser::Grammar::Condition
       '(' space? types space? ')' {
         def ast
           OracleSqlParser::Ast::IsOfTypeCondition[
-            :target => expr.ast,
-            :is => is_keyword.ast,
-            :not => not_keyword.ast,
-            :of => of_keyword.ast,
-            :type => type_keyword.ast,
-            :types => types.ast
+            target: expr.ast,
+            is: is_keyword.ast,
+            not: not_keyword.ast,
+            of: of_keyword.ast,
+            type: type_keyword.ast,
+            types: types.ast
           ]
         end
       }
@@ -36,8 +36,8 @@ module OracleSqlParser::Grammar::Condition
       only_keyword:only_keyword? space? type {
         def ast
           OracleSqlParser::Ast::OnlyAndType[
-            :only => only_keyword.ast,
-            :type => type.ast
+            only: only_keyword.ast,
+            type: type.ast
           ]
         end
       }
@@ -47,7 +47,7 @@ module OracleSqlParser::Grammar::Condition
       schema_name '.' ident /
       ident {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
+          OracleSqlParser::Ast::Identifier[name: text_value]
         end
       }
     end

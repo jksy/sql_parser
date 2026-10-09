@@ -35,7 +35,7 @@ module OracleSqlParser::Ast
         "}>\n"
     end
 
-    def to_sql(options = { :separator => ' ' })
+    def to_sql(options = { separator: ' ' })
       @ast.map do |k, v|
         if v.respond_to? :to_sql
           v.to_sql

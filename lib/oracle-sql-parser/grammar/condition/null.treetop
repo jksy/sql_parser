@@ -4,8 +4,8 @@ module OracleSqlParser::Grammar::Condition
       expr space is_keyword space n:(not_keyword space)? null_keyword {
         def ast
           OracleSqlParser::Ast::NullCondition[
-            :target => expr.ast,
-            :not => not_keyword.ast]
+            target: expr.ast,
+            not: not_keyword.ast]
         end
 
         def not_keyword

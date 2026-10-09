@@ -4,7 +4,7 @@ module OracleSqlParser::Grammar::Condition
       exists_keyword space? '(' space? subquery space? ')' {
         def ast
           OracleSqlParser::Ast::ExistsCondition[
-            :target => subquery.ast
+            target: subquery.ast
           ]
         end
       }

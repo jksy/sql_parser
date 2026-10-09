@@ -4,7 +4,7 @@ module OracleSqlParser::Grammar::Select
       fetch:fetch {
         def ast
           OracleSqlParser::Ast::RowLimitingClause[
-            :fetch => fetch.ast
+            fetch: fetch.ast
           ]
         end
       }
@@ -14,10 +14,10 @@ module OracleSqlParser::Grammar::Select
       offset_keyword space offset:number_literal space row:(row_keyword / rows_keyword) {
         def ast
           OracleSqlParser::Ast::Offset[
-            :offset_keyword => offset_keyword,
-            :offset => offset,
-            :row_keyword => row.try(:row_keyword),
-            :rows_keyword => row.try(:rows_keyword),
+            offset_keyword: offset_keyword,
+            offset: offset,
+            row_keyword: row.try(:row_keyword),
+            rows_keyword: row.try(:rows_keyword),
           ]
         end
       }

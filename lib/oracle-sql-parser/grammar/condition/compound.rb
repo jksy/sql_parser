@@ -18,7 +18,7 @@ module OracleSqlParser::Grammar::Condition
 
     module CompoundCondition1
       def ast
-        OracleSqlParser::Ast::CompoundCondition[:condition => logical_condition.ast]
+        OracleSqlParser::Ast::CompoundCondition[condition: logical_condition.ast]
       end
     end
 

@@ -66,7 +66,7 @@ task 'test:unit' => 'test:unit:coverage_name'
 task 'test:adapter:run' => 'test:adapter:coverage_name'
 
 desc "run all tests (test:unit and test:adapter)"
-task :test => ['test:unit', 'test:adapter']
+task test: ['test:unit', 'test:adapter']
 
 desc "run RuboCop"
 task :rubocop do
@@ -74,9 +74,9 @@ task :rubocop do
 end
 
 desc "run what CI runs: RuboCop and the parser tests"
-task :ci => [:rubocop, 'test:unit']
+task ci: [:rubocop, 'test:unit']
 
-task :default => 'test:unit'
+task default: 'test:unit'
 
 def adapter_gems_available?
   Bundler.load.specs.any? { |spec| spec.name == 'activerecord-oracle_enhanced-adapter' }

@@ -3,7 +3,7 @@ module OracleSqlParser::Ast
     def to_sql(options = {})
       sql = []
       sql << "for update"
-      sql << "of #{@ast[:columns].to_sql(:separator => ',')}" if @ast[:columns]
+      sql << "of #{@ast[:columns].to_sql(separator: ',')}" if @ast[:columns]
       sql << @ast.values_at(:wait, :time).map(&:to_sql).compact.join(" ") if @ast[:wait]
       sql.join(" ")
     end

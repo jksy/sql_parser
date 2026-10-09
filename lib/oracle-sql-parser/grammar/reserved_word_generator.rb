@@ -20,7 +20,7 @@ module OracleSqlParser
           content << "    rule #{rule_name}"
           content << "      #{matcher} {"
           content << "        def ast"
-          content << "          OracleSqlParser::Ast::Keyword.new(:name => text_value)"
+          content << "          OracleSqlParser::Ast::Keyword.new(name: text_value)"
           content << "        end"
           content << "      }"
           content << "    end"

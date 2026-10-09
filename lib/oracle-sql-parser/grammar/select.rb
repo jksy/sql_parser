@@ -47,8 +47,8 @@ module OracleSqlParser::Grammar
     module SelectStatement2
       def ast
         OracleSqlParser::Ast::SelectStatement[
-          :subquery => subquery.ast,
-          :for_update_clause => for_update.try(:for_update_clause).ast
+          subquery: subquery.ast,
+          for_update_clause: for_update.try(:for_update_clause).ast
         ]
       end
     end
@@ -195,12 +195,12 @@ module OracleSqlParser::Grammar
     module Subquery7
       def ast
         OracleSqlParser::Ast::Subquery[
-          :has_parenthesis => query.try(:left_parenthesis) ? true : nil,
-          :query_block => query.try(:query_block).ast,
-          :subqueries => query.try(:subqueries).ast,
-          :subquery => query.try(:subquery).ast,
-          :order_by_clause => order.try(:order_by_clause).ast,
-          :row_limiting_clause => row_limit.try(:row_limiting_clause).ast,
+          has_parenthesis: query.try(:left_parenthesis) ? true : nil,
+          query_block: query.try(:query_block).ast,
+          subqueries: query.try(:subqueries).ast,
+          subquery: query.try(:subquery).ast,
+          order_by_clause: order.try(:order_by_clause).ast,
+          row_limiting_clause: row_limit.try(:row_limiting_clause).ast,
         ]
       end
     end

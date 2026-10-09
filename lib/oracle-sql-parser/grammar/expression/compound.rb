@@ -56,10 +56,10 @@ module OracleSqlParser::Grammar::Expression
     module CompoundExpression4
       def ast
         OracleSqlParser::Ast::CompoundExpression[
-          :has_parenthesis => ex.respond_to?(:left_parenthesis) ? true : nil,
-          :left => ex.try(:left).ast,
-          :op => ex.try(:op).ast,
-          :right => ex.try(:right).ast,
+          has_parenthesis: ex.respond_to?(:left_parenthesis) ? true : nil,
+          left: ex.try(:left).ast,
+          op: ex.try(:op).ast,
+          right: ex.try(:right).ast,
         ]
       end
     end

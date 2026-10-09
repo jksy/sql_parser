@@ -107,9 +107,9 @@ module OracleSqlParser::Grammar::Condition
     module SimpleComparisonCondition2
       def ast
         OracleSqlParser::Ast::SimpleComparisonCondition[
-          :left => left.ast,
-          :op => op.text_value,
-          :right => right.ast]
+          left: left.ast,
+          op: op.text_value,
+          right: right.ast]
       end
     end
 

@@ -6,7 +6,7 @@ require 'active_record'
 require 'active_record/connection_adapters/oracle_enhanced_adapter'
 
 class ::TestEmployee < ActiveRecord::Base
-  has_one :company, nil, :class_name => 'TestCompany'
+  has_one :company, nil, class_name: 'TestCompany'
 end
 
 class ::TestCompany < ActiveRecord::Base

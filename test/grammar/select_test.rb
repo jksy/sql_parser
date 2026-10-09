@@ -6,15 +6,15 @@ module Grammar
       assert_ast_sql_equal(
         "select col1 from table1",
         Ast::SelectStatement[
-         :subquery => Ast::Subquery[
-           :query_block => Ast::QueryBlock[
-             :select_list => Ast::Array[
+         subquery: Ast::Subquery[
+           query_block: Ast::QueryBlock[
+             select_list: Ast::Array[
                Ast::SelectColumn[
-                 :expr => Ast::Identifier[:name => 'col1']
+                 expr: Ast::Identifier[name: 'col1']
                ],
              ],
-             :select_sources => Ast::Array[
-               Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+             select_sources: Ast::Array[
+               Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
              ]
            ],
          ],
@@ -26,21 +26,21 @@ module Grammar
       assert_ast_sql_equal(
         "select col1,col2,col3 from table1",
         Ast::SelectStatement[
-         :subquery => Ast::Subquery[
-           :query_block => Ast::QueryBlock[
-             :select_list => Ast::Array[
+         subquery: Ast::Subquery[
+           query_block: Ast::QueryBlock[
+             select_list: Ast::Array[
                Ast::SelectColumn[
-                 :expr => Ast::Identifier[:name => 'col1'],
+                 expr: Ast::Identifier[name: 'col1'],
                ],
                Ast::SelectColumn[
-                 :expr => Ast::Identifier[:name => 'col2'],
+                 expr: Ast::Identifier[name: 'col2'],
                ],
                Ast::SelectColumn[
-                 :expr => Ast::Identifier[:name => 'col3']
+                 expr: Ast::Identifier[name: 'col3']
                ],
              ],
-             :select_sources => Ast::Array[
-               Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+             select_sources: Ast::Array[
+               Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
              ]
            ],
          ],
@@ -52,15 +52,15 @@ module Grammar
       assert_ast_sql_equal(
         'select col1 from "table1"',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col1'],
+                  expr: Ast::Identifier[name: 'col1'],
                 ],
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1', :quoted => true]]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1', quoted: true]]
               ]
             ],
           ],
@@ -72,16 +72,16 @@ module Grammar
       assert_ast_sql_equal(
         'select all col1 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :modifier => Ast::Keyword[:name => 'all'],
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              modifier: Ast::Keyword[name: 'all'],
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col1']
+                  expr: Ast::Identifier[name: 'col1']
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -93,16 +93,16 @@ module Grammar
       assert_ast_sql_equal(
         'select distinct col2 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :modifier => Ast::Keyword[:name => 'distinct'],
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              modifier: Ast::Keyword[name: 'distinct'],
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col2']
+                  expr: Ast::Identifier[name: 'col2']
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -114,16 +114,16 @@ module Grammar
       assert_ast_sql_equal(
         'select unique col2 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :modifier => Ast::Keyword[:name => 'unique'],
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              modifier: Ast::Keyword[name: 'unique'],
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'col2']
+                  expr: Ast::Identifier[name: 'col2']
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -135,15 +135,15 @@ module Grammar
       assert_ast_sql_equal(
         'select 1 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::NumberLiteral[:value => '1'],
+                  expr: Ast::NumberLiteral[value: '1'],
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -155,15 +155,15 @@ module Grammar
       assert_ast_sql_equal(
         'select -1 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::NumberLiteral[:value => '-1'],
+                  expr: Ast::NumberLiteral[value: '-1'],
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -175,15 +175,15 @@ module Grammar
       assert_ast_sql_equal(
         'select 1.1 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::NumberLiteral[:value => '1.1'],
+                  expr: Ast::NumberLiteral[value: '1.1'],
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -195,15 +195,15 @@ module Grammar
       assert_ast_sql_equal(
         'select -1.1 from table1',
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::NumberLiteral[:value => '-1.1']
+                  expr: Ast::NumberLiteral[value: '-1.1']
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -215,15 +215,15 @@ module Grammar
       assert_ast_sql_equal(
         "select 'adslfael' from table1",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::TextLiteral[:value => 'adslfael']
+                  expr: Ast::TextLiteral[value: 'adslfael']
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -235,13 +235,13 @@ module Grammar
       assert_ast_sql_equal(
         "select * from table1",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::Identifier[:name => '*']
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
+                Ast::Identifier[name: '*']
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -253,17 +253,17 @@ module Grammar
       assert_ast_sql_equal(
         "select a as b from table1",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::Identifier[:name => 'a'],
-                  :as => Ast::Keyword[:name => "as"],
-                  :c_alias => Ast::Identifier[:name => "b"],
+                  expr: Ast::Identifier[name: 'a'],
+                  as: Ast::Keyword[name: "as"],
+                  c_alias: Ast::Identifier[name: "b"],
                 ]
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -275,13 +275,13 @@ module Grammar
       assert_ast_sql_equal(
         "select table1.* from table1",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::Identifier[:name => 'table1.*']
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
+                Ast::Identifier[name: 'table1.*']
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']]
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']]
               ]
             ]
           ]
@@ -292,21 +292,21 @@ module Grammar
     def test_select_rollup_clause_parseable
       assert_ast_sql_equal "select * from table1 group by rollup(col1,col2)",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::Identifier[:name => '*']
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
+                Ast::Identifier[name: '*']
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']],
               ],
-              :group_by_clause => Ast::GroupByClause[
-                :targets => Ast::Array[
+              group_by_clause: Ast::GroupByClause[
+                targets: Ast::Array[
                   Ast::RollupCubeClause[
-                    :func_name => Ast::Keyword[:name => 'rollup'],
-                    :args => Ast::Array[
-                      Ast::Identifier[:name => 'col1'],
-                      Ast::Identifier[:name => 'col2']
+                    func_name: Ast::Keyword[name: 'rollup'],
+                    args: Ast::Array[
+                      Ast::Identifier[name: 'col1'],
+                      Ast::Identifier[name: 'col2']
                     ]
                   ],
                 ]
@@ -319,21 +319,21 @@ module Grammar
     def test_select_cube_clause_parseable
       assert_ast_sql_equal "select * from table1 group by cube(col1,col2)",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::Identifier[:name => '*']
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
+                Ast::Identifier[name: '*']
               ],
-              :select_sources => Ast::Array[
-                Ast::TableReference[:table_name => Ast::Identifier[:name => 'table1']],
+              select_sources: Ast::Array[
+                Ast::TableReference[table_name: Ast::Identifier[name: 'table1']],
               ],
-              :group_by_clause => Ast::GroupByClause[
-                :targets => Ast::Array[
+              group_by_clause: Ast::GroupByClause[
+                targets: Ast::Array[
                   Ast::RollupCubeClause[
-                    :func_name => Ast::Keyword[:name => 'cube'],
-                    :args => Ast::Array[
-                      Ast::Identifier[:name => 'col1'],
-                      Ast::Identifier[:name => 'col2']
+                    func_name: Ast::Keyword[name: 'cube'],
+                    args: Ast::Array[
+                      Ast::Identifier[name: 'col1'],
+                      Ast::Identifier[name: 'col2']
                     ]
                   ],
                 ]
@@ -346,15 +346,15 @@ module Grammar
     def test_select_table_alias
       assert_ast_sql_equal "select a.* from table1 a",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
-                Ast::Identifier[:name => 'a.*']
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
+                Ast::Identifier[name: 'a.*']
               ],
-              :select_sources => Ast::Array[
+              select_sources: Ast::Array[
                 OracleSqlParser::Ast::TableReference[
-                  :table_name => OracleSqlParser::Ast::Identifier[:name => 'table1'],
-                  :table_alias => OracleSqlParser::Ast::Identifier[:name => 'a'],
+                  table_name: OracleSqlParser::Ast::Identifier[name: 'table1'],
+                  table_alias: OracleSqlParser::Ast::Identifier[name: 'a'],
                 ]
               ]
             ]
@@ -365,21 +365,21 @@ module Grammar
     def test_select_multiple_table_alias
       assert_ast_sql_equal "select 1 from ( select 1 from books2 a ) x,( select 1 from books3 b ) y",
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::NumberLiteral[:value => '1']
+                  expr: Ast::NumberLiteral[value: '1']
                 ]
               ],
-              :select_sources => Ast::Array[
+              select_sources: Ast::Array[
                 Ast::TableReference[
-                  :subquery => generate_ast("(select 1 from books2 a)").subquery,
-                  :table_alias => Ast::Identifier[:name => 'x'],
+                  subquery: generate_ast("(select 1 from books2 a)").subquery,
+                  table_alias: Ast::Identifier[name: 'x'],
                 ],
                 Ast::TableReference[
-                  :subquery => generate_ast("(select 1 from books3 b)").subquery,
-                  :table_alias => Ast::Identifier[:name => 'y'],
+                  subquery: generate_ast("(select 1 from books3 b)").subquery,
+                  table_alias: Ast::Identifier[name: 'y'],
                 ],
               ]
             ]
@@ -390,27 +390,27 @@ module Grammar
     def test_select_with_compound_expression
       assert_ast_sql_equal %Q(select a.col - b.col as markup from RETAIL a,COST b),
         Ast::SelectStatement[
-          :subquery => Ast::Subquery[
-            :query_block => Ast::QueryBlock[
-              :select_list => Ast::Array[
+          subquery: Ast::Subquery[
+            query_block: Ast::QueryBlock[
+              select_list: Ast::Array[
                 Ast::SelectColumn[
-                  :expr => Ast::CompoundExpression[
-                    :left => Ast::Identifier[:name => "a.col"],
-                    :op => Ast::Base["-"],
-                    :right => Ast::Identifier[:name => "b.col"],
+                  expr: Ast::CompoundExpression[
+                    left: Ast::Identifier[name: "a.col"],
+                    op: Ast::Base["-"],
+                    right: Ast::Identifier[name: "b.col"],
                   ],
-                  :as => Ast::Keyword[:name => "as"],
-                  :c_alias => Ast::Identifier[:name => "markup"],
+                  as: Ast::Keyword[name: "as"],
+                  c_alias: Ast::Identifier[name: "markup"],
                 ],
               ],
-              :select_sources => Ast::Array[
+              select_sources: Ast::Array[
                 Ast::TableReference[
-                  :table_name => Ast::Identifier[:name => 'RETAIL'],
-                  :table_alias => Ast::Identifier[:name => 'a'],
+                  table_name: Ast::Identifier[name: 'RETAIL'],
+                  table_alias: Ast::Identifier[name: 'a'],
                 ],
                 Ast::TableReference[
-                  :table_name => Ast::Identifier[:name => 'COST'],
-                  :table_alias => Ast::Identifier[:name => 'b'],
+                  table_name: Ast::Identifier[name: 'COST'],
+                  table_alias: Ast::Identifier[name: 'b'],
                 ]
               ]
             ]

@@ -23,8 +23,8 @@ module OracleSqlParser::Grammar::Expression
     module CursorExpression1
       def ast
         OracleSqlParser::Ast::CursorExpression[
-          :cursor => cursor_keyword.ast,
-          :subquery => subquery.ast,
+          cursor: cursor_keyword.ast,
+          subquery: subquery.ast,
         ]
       end
     end

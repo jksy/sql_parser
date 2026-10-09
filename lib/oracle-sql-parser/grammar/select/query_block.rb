@@ -118,13 +118,13 @@ module OracleSqlParser::Grammar::Select
     module QueryBlock7
       def ast
         OracleSqlParser::Ast::QueryBlock[
-          :hint => hint.ast,
-          :modifier => mod.try(:modifier).ast,
-          :select_list => select_list.ast,
-          :select_sources => select.try(:select_sources).ast,
-          :where_clause => where.try(:where_clause).ast,
-          :group_by_clause => group.try(:group_by_clause).ast,
-          :model_clause => model.try(:model_clause).ast]
+          hint: hint.ast,
+          modifier: mod.try(:modifier).ast,
+          select_list: select_list.ast,
+          select_sources: select.try(:select_sources).ast,
+          where_clause: where.try(:where_clause).ast,
+          group_by_clause: group.try(:group_by_clause).ast,
+          model_clause: model.try(:model_clause).ast]
       end
     end
 
@@ -738,7 +738,7 @@ module OracleSqlParser::Grammar::Select
 
     module SelectTable2
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 
@@ -841,9 +841,9 @@ module OracleSqlParser::Grammar::Select
     module SelectColumn3
       def ast
         OracleSqlParser::Ast::SelectColumn[
-          :expr => expr.ast,
-          :as => self.try(:_alias).try(:as).try(:as_keyword).ast,
-          :c_alias => _alias.try(:c_alias).ast,
+          expr: expr.ast,
+          as: self.try(:_alias).try(:as).try(:as_keyword).ast,
+          c_alias: _alias.try(:c_alias).ast,
         ]
       end
     end

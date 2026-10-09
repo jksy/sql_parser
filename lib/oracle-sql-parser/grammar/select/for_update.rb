@@ -80,9 +80,9 @@ module OracleSqlParser::Grammar::Select
     module ForUpdateClause4
       def ast
         OracleSqlParser::Ast::ForUpdateClause[
-          :columns => of.try(:for_update_clause_columns).ast,
-          :wait => wait.try(:w).ast,
-          :time => wait.try(:time).ast
+          columns: of.try(:for_update_clause_columns).ast,
+          wait: wait.try(:w).ast,
+          time: wait.try(:time).ast
         ].remove_nil_values!
       end
     end
@@ -348,7 +348,7 @@ module OracleSqlParser::Grammar::Select
 
     module ForUpdateClauseColumn3
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 

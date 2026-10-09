@@ -114,7 +114,7 @@ module OracleSqlParser::Grammar::Expression
 
     module SimpleExpressionColumn4
       def ast
-        OracleSqlParser::Ast::Identifier.new(:name => text_value)
+        OracleSqlParser::Ast::Identifier.new(name: text_value)
       end
     end
 

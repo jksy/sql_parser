@@ -112,11 +112,11 @@ module OracleSqlParser::Grammar::Condition
     module LikeCondition3
       def ast
         OracleSqlParser::Ast::LikeCondition[
-          :target => target.ast,
-          :not => not_keyword.ast,
-          :like => like.ast,
-          :text => text.ast,
-          :escape => e.try(:escape_text).ast
+          target: target.ast,
+          not: not_keyword.ast,
+          like: like.ast,
+          text: text.ast,
+          escape: e.try(:escape_text).ast
         ]
       end
 
@@ -265,8 +265,8 @@ module OracleSqlParser::Grammar::Condition
     module RegexpLikeCondition1
       def ast
         OracleSqlParser::Ast::RegexpCondition[
-          :target => target.ast,
-          :regexp => regexp.ast
+          target: target.ast,
+          regexp: regexp.ast
         ]
       end
     end

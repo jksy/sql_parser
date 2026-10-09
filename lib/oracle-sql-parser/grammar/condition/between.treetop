@@ -4,10 +4,10 @@ module OracleSqlParser::Grammar::Condition
       target:expr space n:(not_keyword space)? between_keyword space from:expr space and_keyword space to:expr {
         def ast
           OracleSqlParser::Ast::BetweenCondition[
-            :target => target.ast,
-            :not => not_keyword.ast,
-            :from => from.ast,
-            :to => to.ast
+            target: target.ast,
+            not: not_keyword.ast,
+            from: from.ast,
+            to: to.ast
           ]
         end
 

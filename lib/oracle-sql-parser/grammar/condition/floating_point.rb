@@ -30,10 +30,10 @@ module OracleSqlParser::Grammar::Condition
     module FloatingPointCondition1
       def ast
         OracleSqlParser::Ast::FloatingPointCondition[
-          :target => expr.ast,
-          :is => is_keyword.ast,
-          :not => not_keyword.ast,
-          :value => value.ast
+          target: expr.ast,
+          is: is_keyword.ast,
+          not: not_keyword.ast,
+          value: value.ast
         ]
       end
     end
