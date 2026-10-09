@@ -23,7 +23,7 @@ module OracleSqlParser::Grammar::Condition
     module ExistsCondition1
       def ast
         OracleSqlParser::Ast::ExistsCondition[
-          :target => subquery.ast
+          target: subquery.ast
         ]
       end
     end

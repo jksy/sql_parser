@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class BetweenCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:target],
         @ast[:not],
-        "between",
+        'between',
         @ast[:from],
-        "and",
+        'and',
         @ast[:to]
       ].map(&:to_sql).compact.join(' ')
     end

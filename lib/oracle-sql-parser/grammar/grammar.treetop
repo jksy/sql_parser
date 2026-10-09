@@ -35,7 +35,7 @@ module OracleSqlParser::Grammar
     rule ident_content
       [a-zA-Z] [a-zA-Z0-9_]* {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
+          OracleSqlParser::Ast::Identifier[name: text_value]
         end
       }
     end
@@ -43,7 +43,7 @@ module OracleSqlParser::Grammar
     rule ident_content_with_double_quote
       '"' name:[^"]* '"' {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => name.text_value, :quoted => true]
+          OracleSqlParser::Ast::Identifier[name: name.text_value, quoted: true]
         end
       }
     end
@@ -103,7 +103,7 @@ module OracleSqlParser::Grammar
     rule number_literal
       '-'? [0-9]+ ([.] [0-9]+)? {
         def ast
-          OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+          OracleSqlParser::Ast::NumberLiteral.new(value: text_value)
         end
       }
     end
@@ -119,7 +119,7 @@ module OracleSqlParser::Grammar
     rule integer
       '-'? [0-9]+ {
         def ast
-          OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+          OracleSqlParser::Ast::NumberLiteral.new(value: text_value)
         end
       }
     end
@@ -127,7 +127,7 @@ module OracleSqlParser::Grammar
     rule text_literal
       "'" ("\\'" / !"'" .)* "'" {
         def ast
-          OracleSqlParser::Ast::TextLiteral.new(:value => text_value[1..-2])
+          OracleSqlParser::Ast::TextLiteral.new(value: text_value[1..-2])
         end
       }
     end
@@ -140,11 +140,11 @@ module OracleSqlParser::Grammar
       ) l:('@' dblink)? a:(space t_alias)? {
         def ast
           OracleSqlParser::Ast::TableReference[
-            :schema_name => t.try(:schema_name).ast,
-            :table_name => t.try(:table_name).ast,
-            :dblink => l.try(:dblink).ast,
-            :subquery => t.try(:subquery).ast,
-            :table_alias => a.try(:t_alias).ast,
+            schema_name: t.try(:schema_name).ast,
+            table_name: t.try(:table_name).ast,
+            dblink: l.try(:dblink).ast,
+            subquery: t.try(:subquery).ast,
+            table_alias: a.try(:t_alias).ast,
           ]
         end
       }
@@ -154,7 +154,7 @@ module OracleSqlParser::Grammar
       current_of_keyword space? cursor_name {
         def ast
           OracleSqlParser::Ast::CurrentOf[
-            :cursor => cursor_name.ast
+            cursor: cursor_name.ast
           ]
         end
       }
@@ -179,7 +179,7 @@ module OracleSqlParser::Grammar
     rule sequence
       ident space? '.' space? n:(currval_keyword / nextval_keyword) {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
+          OracleSqlParser::Ast::Identifier[name: text_value]
         end
       }
     end

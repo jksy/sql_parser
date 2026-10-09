@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Util
+  # A copy of an AST whose number and text literals are replaced with bind
+  # variables (:a0, :a1, ...), along with the replaced values in params.
   class ParameternizedQuery
     attr_reader :ast, :params
+
     def initialize(original)
       @index = 0
       @params = {}
@@ -8,7 +13,7 @@ module OracleSqlParser::Util
         case v
         when OracleSqlParser::Ast::NumberLiteral, OracleSqlParser::Ast::TextLiteral
           assign_parameter(v)
-        else 
+        else
           v
         end
       end
@@ -22,7 +27,7 @@ module OracleSqlParser::Util
       name = "a#{@index}"
       @index += 1
       @params[name] = value
-      OracleSqlParser::Ast::Variable[:name =>name] 
+      OracleSqlParser::Ast::Variable[name: name]
     end
   end
 end

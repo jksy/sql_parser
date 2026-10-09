@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class TableReference < Hash
-
     def inspect
       "#<#{self.class.name} #{@ast.inspect}>"
     end
 
-    def to_sql(options = {})
+    def to_sql(_options = {})
       result = ''
       result += "#{@ast[:schema_name].to_sql}." if @ast[:schema_name]
       result += @ast[:table_name].to_sql if @ast[:table_name]

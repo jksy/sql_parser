@@ -30,7 +30,7 @@ bundle exec ruby -Ilib -Itest test/grammar/select_test.rb -n test_select_where  
 
 - `lib/oracle-sql-parser/grammar.rb` と `ast.rb` の require 順は依存順。新しいファイルは依存先より後に追加する
 - 各 treetop ルールは `ast` メソッドで `OracleSqlParser::Ast::<Class>[key: value, ...]` を返す。AST クラスは `Ast::Hash` を継承して `to_sql` を定義し、`Ast::Base.[]` は `new` の別名
-- キーワードは生成済みの `<word>_keyword` ルールを使い、`Ast::Keyword[:name => text_value]` になる。`ident` は `!keyword` で予約語を除外しているので、新しい予約語は generator に追加する
+- キーワードは生成済みの `<word>_keyword` ルールを使い、`Ast::Keyword[name: text_value]` になる。`ident` は `!keyword` で予約語を除外しているので、新しい予約語は generator に追加する
 - 文法追加の手順は `/add-grammar-rule` スキルにまとめてある
 
 ## PR 運用 / リリース

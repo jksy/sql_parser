@@ -1,2 +1,4 @@
-require 'oracle-sql-parser/util/parameterizable.rb'
-require 'oracle-sql-parser/util/parameterized_query.rb'
+# frozen_string_literal: true
+
+require 'oracle-sql-parser/util/parameterizable'
+require 'oracle-sql-parser/util/parameterized_query'

@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class GroupByClause < Hash
-    def to_sql(options ={})
-      result = "group by #{@ast[:targets].to_sql(:separator => ',')}"
-      if @ast[:having]
-        result += " having #{@ast[:having].to_sql}"
-      end
+    def to_sql(_options = {})
+      result = "group by #{@ast[:targets].to_sql(separator: ',')}"
+      result += " having #{@ast[:having].to_sql}" if @ast[:having]
       result
     end
   end

@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class FunctionExpression < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       sql = []
       sql << @ast[:name].to_sql
       sql << '('
-      if @ast[:args]
-        sql << @ast[:args].map(&:to_sql).join(',')
-      end
+      sql << @ast[:args].map(&:to_sql).join(',') if @ast[:args]
       sql << ')'
-      sql.join()
+      sql.join
     end
   end
 end

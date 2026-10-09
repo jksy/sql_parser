@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class UpdateStatement < Hash
     def to_sql
       result = []
-      result << "update"
+      result << 'update'
       result << @ast[:target]
       result << @ast[:set]
       result << @ast[:where_clause]

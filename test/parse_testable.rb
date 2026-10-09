@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module ParseTestable
   Ast = OracleSqlParser::Ast
   def parser
-    parser ||= OracleSqlParser::Grammar::GrammarParser.new
+    @parser ||= OracleSqlParser::Grammar::GrammarParser.new
   end
 
   def generate_ast(query)
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + " " * ([parser.failure_column.to_i-1, 0].max) + "*\n"
+      message = "\n#{query}\n#{' ' * [parser.failure_column.to_i - 1, 0].max}*\n"
       begin
         message = parser.failure_reason + message
       rescue NoMethodError => e
@@ -44,28 +46,24 @@ module ParseTestable
     method_names.each do |name|
       OracleSqlParser::Grammar::GrammarParser.send(:define_method, "#{name}_new") do
         truncate_length = 40
-        indent = indent + 1
-        head = if index != 0
-                 input[0..index-1]
-               else
+        indent += 1
+        head = if index.zero?
                  ''
+               else
+                 input[0..(index - 1)]
                end
         tail = input.gsub(head, '')
-        if head.length >= truncate_length
-          head = '...' + head[truncate_length-3..-1]
-        end
-        if tail.length >= truncate_length
-          tail = tail[0..truncate_length-1] + '...'
-        end
+        head = "...#{head[(truncate_length - 3)..]}" if head.length >= truncate_length
+        tail = "#{tail[0..(truncate_length - 1)]}..." if tail.length >= truncate_length
         parsing_text = "#{head}#{'*'.green}#{tail}"
-        puts(" " * indent + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
+        puts((' ' * indent) + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
         result = send("#{name}_old")
-        indent = indent - 1
+        indent -= 1
         result
       end
       OracleSqlParser::Grammar::GrammarParser.class_eval do
-        alias_method "#{name}_old", "#{name}"
-        alias_method "#{name}", "#{name}_new"
+        alias_method "#{name}_old", name.to_s
+        alias_method name.to_s, "#{name}_new"
       end
     end
   end

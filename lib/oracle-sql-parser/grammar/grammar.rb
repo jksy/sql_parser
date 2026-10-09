@@ -190,7 +190,7 @@ module OracleSqlParser::Grammar
 
     module IdentContent1
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 
@@ -256,7 +256,7 @@ module OracleSqlParser::Grammar
 
     module IdentContentWithDoubleQuote1
       def ast
-        OracleSqlParser::Ast::Identifier[:name => name.text_value, :quoted => true]
+        OracleSqlParser::Ast::Identifier[name: name.text_value, quoted: true]
       end
     end
 
@@ -552,7 +552,7 @@ module OracleSqlParser::Grammar
 
     module NumberLiteral2
       def ast
-        OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+        OracleSqlParser::Ast::NumberLiteral.new(value: text_value)
       end
     end
 
@@ -698,7 +698,7 @@ module OracleSqlParser::Grammar
 
     module Integer1
       def ast
-        OracleSqlParser::Ast::NumberLiteral.new(:value => text_value)
+        OracleSqlParser::Ast::NumberLiteral.new(value: text_value)
       end
     end
 
@@ -773,7 +773,7 @@ module OracleSqlParser::Grammar
 
     module TextLiteral2
       def ast
-        OracleSqlParser::Ast::TextLiteral.new(:value => text_value[1..-2])
+        OracleSqlParser::Ast::TextLiteral.new(value: text_value[1..-2])
       end
     end
 
@@ -944,11 +944,11 @@ module OracleSqlParser::Grammar
     module TableReference6
       def ast
         OracleSqlParser::Ast::TableReference[
-          :schema_name => t.try(:schema_name).ast,
-          :table_name => t.try(:table_name).ast,
-          :dblink => l.try(:dblink).ast,
-          :subquery => t.try(:subquery).ast,
-          :table_alias => a.try(:t_alias).ast,
+          schema_name: t.try(:schema_name).ast,
+          table_name: t.try(:table_name).ast,
+          dblink: l.try(:dblink).ast,
+          subquery: t.try(:subquery).ast,
+          table_alias: a.try(:t_alias).ast,
         ]
       end
     end
@@ -1132,7 +1132,7 @@ module OracleSqlParser::Grammar
     module CurrentOf1
       def ast
         OracleSqlParser::Ast::CurrentOf[
-          :cursor => cursor_name.ast
+          cursor: cursor_name.ast
         ]
       end
     end
@@ -1242,7 +1242,7 @@ module OracleSqlParser::Grammar
 
     module Sequence1
       def ast
-        OracleSqlParser::Ast::Identifier[:name => text_value]
+        OracleSqlParser::Ast::Identifier[name: text_value]
       end
     end
 

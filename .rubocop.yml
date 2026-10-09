@@ -1,6 +1,3 @@
-# Offenses in existing code are listed in .rubocop_todo.yml; remove entries
-# from there as they get fixed.
-inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.2
@@ -15,9 +12,60 @@ AllCops:
     - 'lib/oracle-sql-parser/grammar/{condition,delete,expression,grammar,insert,reserved_word,select,update}.rb'
     - 'lib/oracle-sql-parser/grammar/{condition,expression,select}/*.rb'
 
+# The gem is named oracle-sql-parser, so `require 'oracle-sql-parser'` needs
+# this file name.
+Naming/FileName:
+  Exclude:
+    - 'lib/oracle-sql-parser.rb'
+
 # Test files and grammar builders are long by nature.
 Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
     - 'Rakefile'
     - '*.gemspec'
+
+# to_sql methods list the parts of a clause one by one, which reads better
+# than splitting them up. Tests (expected ASTs, debug helpers) and the
+# reserved word list in the generator are long by nature.
+Metrics/MethodLength:
+  Max: 20
+  CountAsOne: ['array', 'hash', 'heredoc', 'method_call']
+  Exclude:
+    - 'test/**/*'
+    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - 'test/**/*'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+    - 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
+
+# Continuation lines are indented one level rather than aligned with the
+# first argument (e.g. `assert_ast_sql_equal "sql",` followed by the AST).
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+# base.rb also extends core classes (nil, Numeric, Object, String) for the
+# AST, and the adapter test base defines its ActiveRecord models.
+Style/OneClassPerFile:
+  Exclude:
+    - 'lib/oracle-sql-parser/ast/base.rb'
+    - 'test/oracle_enhanced-adapter/base_test.rb'
+
+# AST node classes are named after the Oracle grammar elements they
+# represent, and tests document themselves.
+Style/Documentation:
+  Exclude:
+    - 'lib/oracle-sql-parser/ast/**/*'
+    - 'test/**/*'
+
+# Namespaces are opened compactly (`module OracleSqlParser::Ast`) with the
+# classes nested inside, which neither enforced style accepts. Rewriting it
+# would only reindent every file.
+Style/ClassAndModuleChildren:
+  Enabled: false

@@ -41,7 +41,7 @@ module OracleSqlParser::Grammar
 
     module WhereClause1
       def ast
-        OracleSqlParser::Ast::WhereClause[:condition => logical_condition.ast]
+        OracleSqlParser::Ast::WhereClause[condition: logical_condition.ast]
       end
     end
 
@@ -235,13 +235,13 @@ module OracleSqlParser::Grammar
         if respond_to? :op
           if respond_to? :left
             OracleSqlParser::Ast::LogicalCondition[
-              :left => left.ast,
-              :op => op.ast,
-              :right => right.ast]
+              left: left.ast,
+              op: op.ast,
+              right: right.ast]
           else
             OracleSqlParser::Ast::LogicalCondition[
-              :op => op.ast,
-              :right => right.ast]
+              op: op.ast,
+              right: right.ast]
           end
         else
           cond.ast

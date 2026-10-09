@@ -1,40 +1,42 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 module OracleSqlParser::Ast
   class Hash < Base
     extend Forwardable
+
     def_delegators :@ast, :keys, :[]
 
-    def initialize(value = {})
+    # Base#initialize only accepts scalar values, so it is not called here.
+    def initialize(value = {}) # rubocop:disable Lint/MissingSuper
       raise "only ::Hash instance #{value.inspect}" unless value.instance_of? ::Hash
+
       @ast = value
     end
 
     def remove_nil_values!
-      @ast.delete_if{|k, v| v.nil?}
-      @ast.each {|k, v| v.remove_nil_values! if v.respond_to? :remove_nil_values!}
+      @ast.delete_if { |_k, v| v.nil? }
+      @ast.each_value { |v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
       self
     end
 
     def map_ast!(&block)
       mapped = @ast.class.new
       @ast.each do |k, v|
-        if v.is_a? OracleSqlParser::Ast::Base
-          v.map_ast!(&block)
-        end
+        v.map_ast!(&block) if v.is_a? OracleSqlParser::Ast::Base
         mapped[k] = block.call(v)
       end
       @ast = mapped
     end
 
     def inspect
-      "#<#{self.class.name}\n" +
-      @ast.map{|k,v| "#{k.inspect} => #{v.inspect}"}.join(",\n").gsub(/^/, '  ') +
-      "}>\n"
+      items = @ast.map { |k, v| "#{k.inspect} => #{v.inspect}" }.join(",\n").gsub(/^/, '  ')
+      "#<#{self.class.name}\n#{items}}>\n"
     end
 
-    def to_sql(options = {:separator => ' '})
-      @ast.map do |k,v|
+    def to_sql(options = { separator: ' ' })
+      @ast.map do |_k, v|
         if v.respond_to? :to_sql
           v.to_sql
         else
@@ -44,16 +46,21 @@ module OracleSqlParser::Ast
     end
 
     def self.[](value)
-      self.new(value)
+      new(value)
     end
 
     def []=(name, value)
       @ast[name] = value
     end
 
-    def method_missing(name, *args)
-      return @ast.send(:[], name) if @ast.has_key? name
+    def method_missing(name, *_args)
+      return @ast.send(:[], name) if @ast.key? name
+
       raise "no method:#{name}, #{@ast.class} in #{self.class}"
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      @ast.key?(name) || super
     end
   end
 end

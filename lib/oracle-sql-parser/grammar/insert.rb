@@ -111,10 +111,10 @@ module OracleSqlParser::Grammar
       def ast
         insert_into_ast = insert_into_clause.ast
         OracleSqlParser::Ast::InsertStatement[
-          :insert => insert_into_ast.table,
-          :alias => insert_into_ast.alias,
-          :columns => insert_into_ast.column,
-          :values => values.ast
+          insert: insert_into_ast.table,
+          alias: insert_into_ast.alias,
+          columns: insert_into_ast.column,
+          values: values.ast
         ]
       end
 
@@ -253,9 +253,9 @@ module OracleSqlParser::Grammar
     module InsertIntoClause2
       def ast
         OracleSqlParser::Ast::Hash[
-          :table => dml_table_expression_clause.ast,
-          :alias => try(:table_alias).try(:t_alias).ast,
-          :column => insert_column_names.ast
+          table: dml_table_expression_clause.ast,
+          alias: try(:table_alias).try(:t_alias).ast,
+          column: insert_column_names.ast
         ]
       end
     end

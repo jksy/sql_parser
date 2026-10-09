@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class IsOfTypeCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:target],
         @ast[:is],
         @ast[:not],
         @ast[:of],
         @ast[:type],
-        "(#{@ast[:types].map(&:to_sql).join(',')})",
+        "(#{@ast[:types].map(&:to_sql).join(',')})"
       ].compact.map(&:to_sql).join(' ')
     end
   end

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class TextLiteral < Hash
     def inspect
       "#<#{self.class.name} #{@ast.inspect}>"
     end
 
-    def to_sql(options = {})
+    def to_sql(_options = {})
       "'#{@ast[:value]}'"
     end
 

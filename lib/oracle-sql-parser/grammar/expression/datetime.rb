@@ -42,10 +42,10 @@ module OracleSqlParser::Grammar::Expression
     module DatetimeExpression3
       def ast
         OracleSqlParser::Ast::DatetimeExpression[
-          :expr => not_loop_sql_expression.ast,
-          :at => d.try(:at_keyword).ast,
-          :local => d.try(:local_keyword).ast,
-          :timezone => d.try(:datetime_timezone_clause).ast,
+          expr: not_loop_sql_expression.ast,
+          at: d.try(:at_keyword).ast,
+          local: d.try(:local_keyword).ast,
+          timezone: d.try(:datetime_timezone_clause).ast,
         ]
       end
     end
@@ -166,9 +166,9 @@ module OracleSqlParser::Grammar::Expression
     module DatetimeTimezoneClause1
       def ast
         OracleSqlParser::Ast::TimezoneClause[
-          :time => time_keyword.ast,
-          :zone => zone_keyword.ast,
-          :expr => expr.ast,
+          time: time_keyword.ast,
+          zone: zone_keyword.ast,
+          expr: expr.ast,
         ]
       end
     end

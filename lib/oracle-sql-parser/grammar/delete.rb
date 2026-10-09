@@ -44,8 +44,8 @@ module OracleSqlParser::Grammar
     module DeleteStatement2
       def ast
         OracleSqlParser::Ast::DeleteStatement[
-          :target => delete_from_clause.ast,
-          :where_clause => condition.try(:delete_condition).ast
+          target: delete_from_clause.ast,
+          where_clause: condition.try(:delete_condition).ast
         ]
       end
     end
@@ -200,8 +200,8 @@ module OracleSqlParser::Grammar
           table_or_subquery
         else
           OracleSqlParser::Ast::DeleteTarget[
-            :name => t.ast,
-            :alias => a.try(:t_alias).ast,
+            name: t.ast,
+            alias: a.try(:t_alias).ast,
           ]
         end
       end
@@ -295,8 +295,8 @@ module OracleSqlParser::Grammar
     module DeleteTargetSubquery2
       def ast
         OracleSqlParser::Ast::DeleteTarget[
-          :table => t.try(:table_keyword).ast,
-          :name => subquery.ast
+          table: t.try(:table_keyword).ast,
+          name: subquery.ast
         ]
       end
     end
@@ -405,7 +405,7 @@ module OracleSqlParser::Grammar
 
     module DeleteCondition1
       def ast
-        OracleSqlParser::Ast::WhereClause[:condition => where.ast]
+        OracleSqlParser::Ast::WhereClause[condition: where.ast]
       end
     end
 

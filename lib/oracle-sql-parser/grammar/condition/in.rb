@@ -45,9 +45,9 @@ module OracleSqlParser::Grammar::Condition
     module InCondition2
       def ast
         OracleSqlParser::Ast::InCondition[
-          :target => target.ast,
-          :not => not_keyword.ast,
-          :values =>  values.ast
+          target: target.ast,
+          not: not_keyword.ast,
+          values:  values.ast
         ]
       end
 

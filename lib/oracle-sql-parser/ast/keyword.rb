@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class Keyword < Hash
     def inspect
@@ -5,4 +7,3 @@ module OracleSqlParser::Ast
     end
   end
 end
-

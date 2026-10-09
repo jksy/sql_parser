@@ -4,8 +4,8 @@ module OracleSqlParser::Grammar::Select
       order_keyword space siblings:siblings_keyword? space? by_keyword space order_by_clause_items {
         def ast
           OracleSqlParser::Ast::OrderByClause[
-            :siblings => siblings.ast,
-            :items => order_by_clause_items.ast
+            siblings: siblings.ast,
+            items: order_by_clause_items.ast
           ]
         end
       }
@@ -32,9 +32,9 @@ module OracleSqlParser::Grammar::Select
       nulls:(nulls_keyword space first_or_last:(first_keyword / last_keyword))? {
         def ast
           OracleSqlParser::Ast::OrderByClauseItem[
-            :target => target.ast,
-            :asc => asc.ast,
-            :nulls => nulls.try(:first_or_last).ast,
+            target: target.ast,
+            asc: asc.ast,
+            nulls: nulls.try(:first_or_last).ast,
           ]
         end
       }

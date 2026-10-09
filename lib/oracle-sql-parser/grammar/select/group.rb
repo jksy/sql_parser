@@ -63,10 +63,10 @@ module OracleSqlParser::Grammar::Select
     module GroupByClause3
       def ast
         OracleSqlParser::Ast::GroupByClause[
-          :targets => OracleSqlParser::Ast::Array[
+          targets: OracleSqlParser::Ast::Array[
             target.ast, *more_targets.map(&:ast)
           ],
-          :having => h.try(:condition).ast
+          having: h.try(:condition).ast
         ]
       end
 
@@ -267,8 +267,8 @@ module OracleSqlParser::Grammar::Select
     module RollupCubeClause1
       def ast
         OracleSqlParser::Ast::RollupCubeClause[
-          :func_name => func_name.ast,
-          :args => grouping_expression_list.ast
+          func_name: func_name.ast,
+          args: grouping_expression_list.ast
         ]
       end
     end

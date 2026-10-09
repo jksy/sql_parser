@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Util
+  # Adds to_parameterized to AST nodes.
   module Parameterizable
     def to_parameternized
-      Kernel.warn "to_parameternized is deprecated and will be removed. use to_parameterized"
+      Kernel.warn 'to_parameternized is deprecated and will be removed. use to_parameterized'
       to_parameterized
     end
 

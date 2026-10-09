@@ -9,9 +9,9 @@ module OracleSqlParser::Grammar::Select
       )? {
         def ast
           OracleSqlParser::Ast::ForUpdateClause[
-            :columns => of.try(:for_update_clause_columns).ast,
-            :wait => wait.try(:w).ast,
-            :time => wait.try(:time).ast
+            columns: of.try(:for_update_clause_columns).ast,
+            wait: wait.try(:w).ast,
+            time: wait.try(:time).ast
           ].remove_nil_values!
         end
       }
@@ -38,7 +38,7 @@ module OracleSqlParser::Grammar::Select
         space? column_name
       ) {
         def ast
-          OracleSqlParser::Ast::Identifier[:name => text_value]
+          OracleSqlParser::Ast::Identifier[name: text_value]
         end
       }
     end

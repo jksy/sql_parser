@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class NullCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:target],
-        "is",
+        'is',
         @ast[:not],
-        "null"
+        'null'
       ].compact.map(&:to_sql).join(' ')
     end
   end

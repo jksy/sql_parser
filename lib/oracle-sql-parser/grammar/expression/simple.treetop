@@ -21,7 +21,7 @@ module OracleSqlParser::Grammar::Expression
         ( rowid_keyword / column_name )
       ) {
         def ast
-          OracleSqlParser::Ast::Identifier.new(:name => text_value)
+          OracleSqlParser::Ast::Identifier.new(name: text_value)
         end
       }
     end

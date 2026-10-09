@@ -1,7 +1,16 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # Specify your gem's dependencies in oracle-sql-parser.gemspec
 gemspec
+
+gem 'appraisal'
+gem 'colorize'
+gem 'pry-byebug'
+gem 'rake', '~> 13.0'
+gem 'rubocop', '~> 1.91'
+gem 'test-unit', '~> 3.5'
 
 group :test do
   gem 'simplecov', '>= 1.0', require: false # SimpleCov.skip needs 1.0+

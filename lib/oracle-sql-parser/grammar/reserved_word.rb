@@ -102,7 +102,7 @@ module OracleSqlParser::Grammar
 
     module AccessKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -215,7 +215,7 @@ module OracleSqlParser::Grammar
 
     module AddKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -298,7 +298,7 @@ module OracleSqlParser::Grammar
 
     module AllKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -381,7 +381,7 @@ module OracleSqlParser::Grammar
 
     module AlterKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -484,7 +484,7 @@ module OracleSqlParser::Grammar
 
     module AndKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -567,7 +567,7 @@ module OracleSqlParser::Grammar
 
     module AnyKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -650,7 +650,7 @@ module OracleSqlParser::Grammar
 
     module AsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -723,7 +723,7 @@ module OracleSqlParser::Grammar
 
     module AscKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -806,7 +806,7 @@ module OracleSqlParser::Grammar
 
     module AtKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -879,7 +879,7 @@ module OracleSqlParser::Grammar
 
     module AuditKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -982,7 +982,7 @@ module OracleSqlParser::Grammar
 
     module BetweenKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1105,7 +1105,7 @@ module OracleSqlParser::Grammar
 
     module ByKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1178,7 +1178,7 @@ module OracleSqlParser::Grammar
 
     module CaseKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1271,7 +1271,7 @@ module OracleSqlParser::Grammar
 
     module CastKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1364,7 +1364,7 @@ module OracleSqlParser::Grammar
 
     module CharKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1457,7 +1457,7 @@ module OracleSqlParser::Grammar
 
     module CheckKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1560,7 +1560,7 @@ module OracleSqlParser::Grammar
 
     module ClusterKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1683,7 +1683,7 @@ module OracleSqlParser::Grammar
 
     module ColumnKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1796,7 +1796,7 @@ module OracleSqlParser::Grammar
 
     module ColumnValueKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -1969,7 +1969,7 @@ module OracleSqlParser::Grammar
 
     module CommentKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2092,7 +2092,7 @@ module OracleSqlParser::Grammar
 
     module CompressKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2225,7 +2225,7 @@ module OracleSqlParser::Grammar
 
     module ConnectKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2348,7 +2348,7 @@ module OracleSqlParser::Grammar
 
     module CreateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2461,7 +2461,7 @@ module OracleSqlParser::Grammar
 
     module CrossKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2564,7 +2564,7 @@ module OracleSqlParser::Grammar
 
     module CubeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2657,7 +2657,7 @@ module OracleSqlParser::Grammar
 
     module CurrentKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2780,7 +2780,7 @@ module OracleSqlParser::Grammar
 
     module CurrentOfKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -2933,7 +2933,7 @@ module OracleSqlParser::Grammar
 
     module CurrvalKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3056,7 +3056,7 @@ module OracleSqlParser::Grammar
 
     module CursorKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3169,7 +3169,7 @@ module OracleSqlParser::Grammar
 
     module DateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3262,7 +3262,7 @@ module OracleSqlParser::Grammar
 
     module DayKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3345,7 +3345,7 @@ module OracleSqlParser::Grammar
 
     module DbtimezoneKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3498,7 +3498,7 @@ module OracleSqlParser::Grammar
 
     module DecimalKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3621,7 +3621,7 @@ module OracleSqlParser::Grammar
 
     module DefaultKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3744,7 +3744,7 @@ module OracleSqlParser::Grammar
 
     module DeleteKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3857,7 +3857,7 @@ module OracleSqlParser::Grammar
 
     module DescKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -3950,7 +3950,7 @@ module OracleSqlParser::Grammar
 
     module DistinctKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4083,7 +4083,7 @@ module OracleSqlParser::Grammar
 
     module DropKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4176,7 +4176,7 @@ module OracleSqlParser::Grammar
 
     module ElseKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4269,7 +4269,7 @@ module OracleSqlParser::Grammar
 
     module EmptyKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4372,7 +4372,7 @@ module OracleSqlParser::Grammar
 
     module EndKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4455,7 +4455,7 @@ module OracleSqlParser::Grammar
 
     module EscapeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4568,7 +4568,7 @@ module OracleSqlParser::Grammar
 
     module ExclusiveKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4711,7 +4711,7 @@ module OracleSqlParser::Grammar
 
     module ExistsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4824,7 +4824,7 @@ module OracleSqlParser::Grammar
 
     module FetchKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -4927,7 +4927,7 @@ module OracleSqlParser::Grammar
 
     module FileKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5020,7 +5020,7 @@ module OracleSqlParser::Grammar
 
     module FirstKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5123,7 +5123,7 @@ module OracleSqlParser::Grammar
 
     module FloatKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5226,7 +5226,7 @@ module OracleSqlParser::Grammar
 
     module ForKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5309,7 +5309,7 @@ module OracleSqlParser::Grammar
 
     module FromKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5402,7 +5402,7 @@ module OracleSqlParser::Grammar
 
     module FullKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5495,7 +5495,7 @@ module OracleSqlParser::Grammar
 
     module GrantKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5598,7 +5598,7 @@ module OracleSqlParser::Grammar
 
     module GroupKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5701,7 +5701,7 @@ module OracleSqlParser::Grammar
 
     module HavingKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5814,7 +5814,7 @@ module OracleSqlParser::Grammar
 
     module IdentifiedKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -5967,7 +5967,7 @@ module OracleSqlParser::Grammar
 
     module ImmediateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6110,7 +6110,7 @@ module OracleSqlParser::Grammar
 
     module InKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6183,7 +6183,7 @@ module OracleSqlParser::Grammar
 
     module IncrementKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6326,7 +6326,7 @@ module OracleSqlParser::Grammar
 
     module IndexKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6429,7 +6429,7 @@ module OracleSqlParser::Grammar
 
     module InfiniteKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6562,7 +6562,7 @@ module OracleSqlParser::Grammar
 
     module InitialKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6685,7 +6685,7 @@ module OracleSqlParser::Grammar
 
     module InnerKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6788,7 +6788,7 @@ module OracleSqlParser::Grammar
 
     module InsertKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -6901,7 +6901,7 @@ module OracleSqlParser::Grammar
 
     module IntegerKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7024,7 +7024,7 @@ module OracleSqlParser::Grammar
 
     module IntersectKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7167,7 +7167,7 @@ module OracleSqlParser::Grammar
 
     module IntoKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7260,7 +7260,7 @@ module OracleSqlParser::Grammar
 
     module IsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7333,7 +7333,7 @@ module OracleSqlParser::Grammar
 
     module JoinKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7426,7 +7426,7 @@ module OracleSqlParser::Grammar
 
     module LastKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7519,7 +7519,7 @@ module OracleSqlParser::Grammar
 
     module LeftKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7612,7 +7612,7 @@ module OracleSqlParser::Grammar
 
     module LevelKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7715,7 +7715,7 @@ module OracleSqlParser::Grammar
 
     module LikeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7808,7 +7808,7 @@ module OracleSqlParser::Grammar
 
     module Like2Keyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -7911,7 +7911,7 @@ module OracleSqlParser::Grammar
 
     module Like4Keyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8014,7 +8014,7 @@ module OracleSqlParser::Grammar
 
     module LikecKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8117,7 +8117,7 @@ module OracleSqlParser::Grammar
 
     module LocalKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8220,7 +8220,7 @@ module OracleSqlParser::Grammar
 
     module LockKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8313,7 +8313,7 @@ module OracleSqlParser::Grammar
 
     module LongKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8406,7 +8406,7 @@ module OracleSqlParser::Grammar
 
     module MaxextentsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8559,7 +8559,7 @@ module OracleSqlParser::Grammar
 
     module MemberKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8672,7 +8672,7 @@ module OracleSqlParser::Grammar
 
     module MinusKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8775,7 +8775,7 @@ module OracleSqlParser::Grammar
 
     module MlslabelKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -8908,7 +8908,7 @@ module OracleSqlParser::Grammar
 
     module ModeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9001,7 +9001,7 @@ module OracleSqlParser::Grammar
 
     module ModifyKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9114,7 +9114,7 @@ module OracleSqlParser::Grammar
 
     module MonthKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9217,7 +9217,7 @@ module OracleSqlParser::Grammar
 
     module NanKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9300,7 +9300,7 @@ module OracleSqlParser::Grammar
 
     module NaturalKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9423,7 +9423,7 @@ module OracleSqlParser::Grammar
 
     module NestedTableIdKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9626,7 +9626,7 @@ module OracleSqlParser::Grammar
 
     module NextKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9719,7 +9719,7 @@ module OracleSqlParser::Grammar
 
     module NextvalKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9842,7 +9842,7 @@ module OracleSqlParser::Grammar
 
     module NoauditKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -9965,7 +9965,7 @@ module OracleSqlParser::Grammar
 
     module NocompressKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10118,7 +10118,7 @@ module OracleSqlParser::Grammar
 
     module NotKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10201,7 +10201,7 @@ module OracleSqlParser::Grammar
 
     module NowaitKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10314,7 +10314,7 @@ module OracleSqlParser::Grammar
 
     module NullKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10407,7 +10407,7 @@ module OracleSqlParser::Grammar
 
     module NullsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10510,7 +10510,7 @@ module OracleSqlParser::Grammar
 
     module NumberKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10623,7 +10623,7 @@ module OracleSqlParser::Grammar
 
     module OfKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10696,7 +10696,7 @@ module OracleSqlParser::Grammar
 
     module OfflineKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10819,7 +10819,7 @@ module OracleSqlParser::Grammar
 
     module OffsetKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -10932,7 +10932,7 @@ module OracleSqlParser::Grammar
 
     module OnKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11005,7 +11005,7 @@ module OracleSqlParser::Grammar
 
     module OnlineKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11118,7 +11118,7 @@ module OracleSqlParser::Grammar
 
     module OnlyKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11211,7 +11211,7 @@ module OracleSqlParser::Grammar
 
     module OptionKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11324,7 +11324,7 @@ module OracleSqlParser::Grammar
 
     module OrKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11397,7 +11397,7 @@ module OracleSqlParser::Grammar
 
     module OrderKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11500,7 +11500,7 @@ module OracleSqlParser::Grammar
 
     module OuterKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11603,7 +11603,7 @@ module OracleSqlParser::Grammar
 
     module PctfreeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11726,7 +11726,7 @@ module OracleSqlParser::Grammar
 
     module PercentKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11849,7 +11849,7 @@ module OracleSqlParser::Grammar
 
     module PriorKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -11952,7 +11952,7 @@ module OracleSqlParser::Grammar
 
     module PrivilegesKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12105,7 +12105,7 @@ module OracleSqlParser::Grammar
 
     module PublicKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12218,7 +12218,7 @@ module OracleSqlParser::Grammar
 
     module RawKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12301,7 +12301,7 @@ module OracleSqlParser::Grammar
 
     module RegexpLikeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12464,7 +12464,7 @@ module OracleSqlParser::Grammar
 
     module RenameKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12577,7 +12577,7 @@ module OracleSqlParser::Grammar
 
     module ResourceKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12710,7 +12710,7 @@ module OracleSqlParser::Grammar
 
     module RevokeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12823,7 +12823,7 @@ module OracleSqlParser::Grammar
 
     module RightKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -12926,7 +12926,7 @@ module OracleSqlParser::Grammar
 
     module RollupKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13039,7 +13039,7 @@ module OracleSqlParser::Grammar
 
     module RowKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13122,7 +13122,7 @@ module OracleSqlParser::Grammar
 
     module RowidKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13225,7 +13225,7 @@ module OracleSqlParser::Grammar
 
     module RownumKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13338,7 +13338,7 @@ module OracleSqlParser::Grammar
 
     module RowsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13431,7 +13431,7 @@ module OracleSqlParser::Grammar
 
     module SecondKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13544,7 +13544,7 @@ module OracleSqlParser::Grammar
 
     module SelectKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13657,7 +13657,7 @@ module OracleSqlParser::Grammar
 
     module SessionKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13780,7 +13780,7 @@ module OracleSqlParser::Grammar
 
     module SessiontimezoneKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -13983,7 +13983,7 @@ module OracleSqlParser::Grammar
 
     module SetKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14066,7 +14066,7 @@ module OracleSqlParser::Grammar
 
     module ShareKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14169,7 +14169,7 @@ module OracleSqlParser::Grammar
 
     module SiblingsKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14302,7 +14302,7 @@ module OracleSqlParser::Grammar
 
     module SizeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14395,7 +14395,7 @@ module OracleSqlParser::Grammar
 
     module SmallintKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14528,7 +14528,7 @@ module OracleSqlParser::Grammar
 
     module StartKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14631,7 +14631,7 @@ module OracleSqlParser::Grammar
 
     module SubmultisetKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14794,7 +14794,7 @@ module OracleSqlParser::Grammar
 
     module SuccessfulKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -14947,7 +14947,7 @@ module OracleSqlParser::Grammar
 
     module SynonymKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15070,7 +15070,7 @@ module OracleSqlParser::Grammar
 
     module SysdateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15193,7 +15193,7 @@ module OracleSqlParser::Grammar
 
     module SystimestampKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15366,7 +15366,7 @@ module OracleSqlParser::Grammar
 
     module TableKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15469,7 +15469,7 @@ module OracleSqlParser::Grammar
 
     module ThenKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15562,7 +15562,7 @@ module OracleSqlParser::Grammar
 
     module TiesKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15655,7 +15655,7 @@ module OracleSqlParser::Grammar
 
     module TimeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15748,7 +15748,7 @@ module OracleSqlParser::Grammar
 
     module ToKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15821,7 +15821,7 @@ module OracleSqlParser::Grammar
 
     module TriggerKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -15944,7 +15944,7 @@ module OracleSqlParser::Grammar
 
     module TypeKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16037,7 +16037,7 @@ module OracleSqlParser::Grammar
 
     module UidKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16120,7 +16120,7 @@ module OracleSqlParser::Grammar
 
     module UnionKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16223,7 +16223,7 @@ module OracleSqlParser::Grammar
 
     module UniqueKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16336,7 +16336,7 @@ module OracleSqlParser::Grammar
 
     module UpdateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16449,7 +16449,7 @@ module OracleSqlParser::Grammar
 
     module UserKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16542,7 +16542,7 @@ module OracleSqlParser::Grammar
 
     module UsingKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16645,7 +16645,7 @@ module OracleSqlParser::Grammar
 
     module ValidateKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16778,7 +16778,7 @@ module OracleSqlParser::Grammar
 
     module ValuesKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -16891,7 +16891,7 @@ module OracleSqlParser::Grammar
 
     module VarcharKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17014,7 +17014,7 @@ module OracleSqlParser::Grammar
 
     module Varchar2Keyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17147,7 +17147,7 @@ module OracleSqlParser::Grammar
 
     module ViewKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17240,7 +17240,7 @@ module OracleSqlParser::Grammar
 
     module WaitKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17333,7 +17333,7 @@ module OracleSqlParser::Grammar
 
     module WhenKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17426,7 +17426,7 @@ module OracleSqlParser::Grammar
 
     module WheneverKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17559,7 +17559,7 @@ module OracleSqlParser::Grammar
 
     module WhereKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17662,7 +17662,7 @@ module OracleSqlParser::Grammar
 
     module WithKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17755,7 +17755,7 @@ module OracleSqlParser::Grammar
 
     module YearKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 
@@ -17848,7 +17848,7 @@ module OracleSqlParser::Grammar
 
     module ZoneKeyword1
       def ast
-        OracleSqlParser::Ast::Keyword.new(:name => text_value)
+        OracleSqlParser::Ast::Keyword.new(name: text_value)
       end
     end
 

@@ -30,10 +30,10 @@ module OracleSqlParser::Grammar
     module UpdateStatement1
       def ast
         OracleSqlParser::Ast::UpdateStatement[
-          :target => update_target_clause.ast,
-          :set => update_set_clause.ast,
-          :where_clause => update_where_clause.ast,
-          :returning =>  returing.ast
+          target: update_target_clause.ast,
+          set: update_set_clause.ast,
+          where_clause: update_where_clause.ast,
+          returning:  returing.ast
         ]
       end
     end
@@ -202,8 +202,8 @@ module OracleSqlParser::Grammar
     module UpdateTargetTable5
       def ast
         if respond_to? :t_alias
-          OracleSqlParser::Ast::Hash[:name => query_name.t.ast,
-                                     :alias => t_alias.ast]
+          OracleSqlParser::Ast::Hash[name: query_name.t.ast,
+                                     alias: t_alias.ast]
         else
           query_name.t.ast
         end
@@ -540,9 +540,9 @@ module OracleSqlParser::Grammar
     module UpdateTargetColumn1
       def ast
         OracleSqlParser::Ast::UpdateSetColumn[
-          :column_name => column_name.ast,
-          :op => '=',
-          :value => sql_expression.ast
+          column_name: column_name.ast,
+          op: '=',
+          value: sql_expression.ast
         ]
       end
     end
@@ -620,7 +620,7 @@ module OracleSqlParser::Grammar
     module UpdateWhereClause1
       def ast
         OracleSqlParser::Ast::WhereClause[
-          :condition => update_condition.ast
+          condition: update_condition.ast
         ]
       end
     end

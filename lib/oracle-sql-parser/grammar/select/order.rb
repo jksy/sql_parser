@@ -38,8 +38,8 @@ module OracleSqlParser::Grammar::Select
     module OrderByClause1
       def ast
         OracleSqlParser::Ast::OrderByClause[
-          :siblings => siblings.ast,
-          :items => order_by_clause_items.ast
+          siblings: siblings.ast,
+          items: order_by_clause_items.ast
         ]
       end
     end
@@ -253,9 +253,9 @@ module OracleSqlParser::Grammar::Select
     module OrderByClauseItem2
       def ast
         OracleSqlParser::Ast::OrderByClauseItem[
-          :target => target.ast,
-          :asc => asc.ast,
-          :nulls => nulls.try(:first_or_last).ast,
+          target: target.ast,
+          asc: asc.ast,
+          nulls: nulls.try(:first_or_last).ast,
         ]
       end
     end

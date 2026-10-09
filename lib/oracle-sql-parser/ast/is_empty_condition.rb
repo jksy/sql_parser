@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class IsEmptyCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       @ast.values_at(:target, :is, :not, :empty).compact.map(&:to_sql).join(' ')
     end
   end

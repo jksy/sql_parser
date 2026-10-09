@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../test_helper.rb', File.dirname(__FILE__))
 # ActiveSupport 6.1 references Logger without requiring it, which fails with
 # concurrent-ruby >= 1.3.5 (it no longer loads logger itself).
@@ -6,7 +8,7 @@ require 'active_record'
 require 'active_record/connection_adapters/oracle_enhanced_adapter'
 
 class ::TestEmployee < ActiveRecord::Base
-  has_one :company, nil, :class_name => 'TestCompany'
+  has_one :company, nil, class_name: 'TestCompany'
 end
 
 class ::TestCompany < ActiveRecord::Base
@@ -14,29 +16,34 @@ end
 
 module OracleEnhancedAdapter
   class BaseTest < Test::Unit::TestCase
-
     include ParseTestable
 
     def self.connection_params
       return @connection_params if defined? @connection_params
 
       path = File.expand_path('connection_params.yml', File.dirname(__FILE__))
-      if File.readable? path
-        @connection_params = YAML::load_file(path)
-      else
-        @connection_params = {'username' => ENV['ORACLE_USERNAME'],
-                              'password' => ENV['ORACLE_PASSWORD'],
-                              'host' => ENV['ORACLE_HOST'],
-                              'port' => ENV['ORACLE_PORT'].to_i,
-                              'database' => ENV['ORACLE_SID']}
-      end
+      @connection_params = if File.readable? path
+                             YAML.load_file(path)
+                           else
+                             { 'username' => ENV.fetch('ORACLE_USERNAME', nil),
+                               'password' => ENV.fetch('ORACLE_PASSWORD', nil),
+                               'host' => ENV.fetch('ORACLE_HOST', nil),
+                               'port' => ENV['ORACLE_PORT'].to_i,
+                               'database' => ENV.fetch('ORACLE_SID', nil) }
+                           end
       @connection_params.merge!('adapter' => 'oracle_enhanced')
       @connection_params
     end
 
+    def self.drop_if_exists(sql)
+      @conn.execute sql
+    rescue StandardError
+      nil # the object does not exist yet
+    end
+
     def self.create_test_table
       @conn = ActiveRecord::Base.connection
-      @conn.execute "DROP TABLE test_employees" rescue nil
+      drop_if_exists 'DROP TABLE test_employees'
       @conn.execute <<-SQL
         CREATE TABLE test_employees (
           id            NUMBER PRIMARY KEY,
@@ -53,7 +60,7 @@ module OracleEnhancedAdapter
           created_at    DATE
         )
       SQL
-      @conn.execute "DROP TABLE test_companies" rescue nil
+      drop_if_exists 'DROP TABLE test_companies'
       @conn.execute <<-SQL
         CREATE TABLE test_companies (
           id      NUMBER PRIMARY KEY,
@@ -61,12 +68,12 @@ module OracleEnhancedAdapter
         )
       SQL
 
-      @conn.execute "DROP SEQUENCE test_employees_seq" rescue nil
+      drop_if_exists 'DROP SEQUENCE test_employees_seq'
       @conn.execute <<-SQL
         CREATE SEQUENCE test_employees_seq  MINVALUE 1
           INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE
       SQL
-      ActiveRecord::Base.clear_cache! if ActiveRecord::Base.respond_to? "clear_cache!".to_sym
+      ActiveRecord::Base.clear_cache! if ActiveRecord::Base.respond_to? :clear_cache!
     end
   end
 end

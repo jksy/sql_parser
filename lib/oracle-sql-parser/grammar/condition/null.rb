@@ -48,8 +48,8 @@ module OracleSqlParser::Grammar::Condition
     module NullCondition2
       def ast
         OracleSqlParser::Ast::NullCondition[
-          :target => expr.ast,
-          :not => not_keyword.ast]
+          target: expr.ast,
+          not: not_keyword.ast]
       end
 
       def not_keyword

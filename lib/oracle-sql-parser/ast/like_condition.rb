@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class LikeCondition < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       sql = [
         @ast[:target],
         @ast[:not],
         @ast[:like],
-        @ast[:text],
+        @ast[:text]
       ]
       if @ast[:escape]
-        sql << "escape"
+        sql << 'escape'
         sql << @ast[:escape]
       end
       sql.map(&:to_sql).compact.join(' ')

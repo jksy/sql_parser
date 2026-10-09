@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 module OracleSqlParser::Ast
   class CursorExpression < Hash
-    def to_sql(options = {})
+    def to_sql(_options = {})
       [
         @ast[:cursor],
         '(',
         @ast[:subquery],
-        ')',
+        ')'
       ].map(&:to_sql).join
     end
   end
 end
-

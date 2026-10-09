@@ -87,15 +87,15 @@ module OracleSqlParser::Grammar::Expression
     module IntervalExpression6
       def ast
         OracleSqlParser::Ast::IntervalExpression[
-          :left => left.ast,
-          :right => right.ast,
-          :day => e.try(:day_keyword).ast,
-          :year => e.try(:year_keyword).ast,
-          :leading_field_precision => e.try(:l).try(:leading_field_precision).ast,
-          :to => e.try(:to_keyword).ast,
-          :second => e.try(:second_keyword).ast,
-          :month => e.try(:month_keyword).ast,
-          :fractional_second_precision => e.try(:f).try(:fractional_second_precision).ast,
+          left: left.ast,
+          right: right.ast,
+          day: e.try(:day_keyword).ast,
+          year: e.try(:year_keyword).ast,
+          leading_field_precision: e.try(:l).try(:leading_field_precision).ast,
+          to: e.try(:to_keyword).ast,
+          second: e.try(:second_keyword).ast,
+          month: e.try(:month_keyword).ast,
+          fractional_second_precision: e.try(:f).try(:fractional_second_precision).ast,
         ]
       end
     end
@@ -501,7 +501,7 @@ module OracleSqlParser::Grammar::Expression
 
     module LeadingFieldPrecision0
       def ast
-        OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        OracleSqlParser::Ast::NumberLiteral[value: text_value]
       end
     end
 
@@ -533,7 +533,7 @@ module OracleSqlParser::Grammar::Expression
 
     module FractionalSecondPrecision0
       def ast
-        OracleSqlParser::Ast::NumberLiteral[:value => text_value]
+        OracleSqlParser::Ast::NumberLiteral[value: text_value]
       end
     end
 
