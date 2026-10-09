@@ -11,12 +11,12 @@ ADAPTER_GEMFILE = 'gemfiles/adapter_6.gemfile'
 
 desc 'generate parser files'
 task :gen do
-  generate_parser_files(false)
+  generate_parser_files
 end
 
 desc 'generate parser files(force)'
 task :gen_force do
-  generate_parser_files(true)
+  generate_parser_files(force: true)
 end
 
 desc 'clean files'
@@ -86,27 +86,27 @@ rescue Bundler::BundlerError
   false
 end
 
-def generate_parser_files(force = false)
+def generate_parser_files(force: false)
   word_generator = 'lib/oracle-sql-parser/grammar/reserved_word_generator.rb'
   output = 'lib/oracle-sql-parser/grammar/reserved_word.treetop'
-  do_if_changed(word_generator, output, force) do
+  do_if_changed(word_generator, output, force:) do
     sh "ruby #{word_generator}"
   end
 
   GRAMMAR_FILES.each do |f|
-    tt(f, force)
+    tt(f, force:)
   end
 end
 
-def tt(f, force = false)
+def tt(f, force: false)
   output = "#{f.gsub(/\.treetop$/, '')}.rb"
 
-  do_if_changed(f, output, force) do
+  do_if_changed(f, output, force:) do
     sh "tt #{f} -f -o #{output}"
   end
 end
 
-def do_if_changed(src, output, force = false, &block)
+def do_if_changed(src, output, force: false)
   force = true unless File.exist?(output)
   return unless force || File::Stat.new(src).mtime >= File::Stat.new(output).mtime
 

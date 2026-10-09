@@ -9,7 +9,7 @@ module ParseTestable
   def generate_ast(query)
     result = parser.parse query
     if result.nil?
-      message = "\n#{query}\n" + (' ' * [parser.failure_column.to_i - 1, 0].max) + "*\n"
+      message = "\n#{query}\n#{' ' * [parser.failure_column.to_i - 1, 0].max}*\n"
       begin
         message = parser.failure_reason + message
       rescue NoMethodError => e
@@ -53,8 +53,8 @@ module ParseTestable
                  input[0..(index - 1)]
                end
         tail = input.gsub(head, '')
-        head = '...' + head[(truncate_length - 3)..-1] if head.length >= truncate_length
-        tail = tail[0..(truncate_length - 1)] + '...' if tail.length >= truncate_length
+        head = "...#{head[(truncate_length - 3)..]}" if head.length >= truncate_length
+        tail = "#{tail[0..(truncate_length - 1)]}..." if tail.length >= truncate_length
         parsing_text = "#{head}#{'*'.green}#{tail}"
         puts((' ' * indent) + name.to_s + ":#{index}" + ": \t\t#{parsing_text}")
         result = send("#{name}_old")
@@ -62,8 +62,8 @@ module ParseTestable
         result
       end
       OracleSqlParser::Grammar::GrammarParser.class_eval do
-        alias_method "#{name}_old", "#{name}"
-        alias_method "#{name}", "#{name}_new"
+        alias_method "#{name}_old", name.to_s
+        alias_method name.to_s, "#{name}_new"
       end
     end
   end

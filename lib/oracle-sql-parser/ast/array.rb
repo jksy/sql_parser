@@ -41,15 +41,14 @@ module OracleSqlParser::Ast
     end
 
     def remove_nil_values!
-      @ast.delete_if { |v| v.nil? }
+      @ast.delete_if(&:nil?)
       @ast.each { |v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
       self
     end
 
     def inspect
-      "#<#{self.class.name} [\n" +
-        @ast.map { |v| "#{v.inspect}" }.join(",\n").gsub(/^/, '  ') +
-        "\n]>\n"
+      items = @ast.map(&:inspect).join(",\n").gsub(/^/, '  ')
+      "#<#{self.class.name} [\n#{items}\n]>\n"
     end
   end
 end

@@ -74,7 +74,7 @@ module OracleSqlParser::Ast
       if original.is_a? OracleSqlParser::Ast::Base
         original.deep_dup
       elsif original.is_a? ::Hash
-        ::Hash[original.map { |k, v| [k, deep_dup(v)] }]
+        original.to_h { |k, v| [k, deep_dup(v)] }
       elsif original.is_a? ::Array
         original.map { |v| deep_dup(v) }
       elsif original.duplicable?

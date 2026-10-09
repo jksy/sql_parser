@@ -26,3 +26,10 @@ Metrics/BlockLength:
 # first argument (e.g. `assert_ast_sql_equal "sql",` followed by the AST).
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
+
+# base.rb also extends core classes (nil, Numeric, Object, String) for the
+# AST, and the adapter test base defines its ActiveRecord models.
+Style/OneClassPerFile:
+  Exclude:
+    - 'lib/oracle-sql-parser/ast/base.rb'
+    - 'test/oracle_enhanced-adapter/base_test.rb'

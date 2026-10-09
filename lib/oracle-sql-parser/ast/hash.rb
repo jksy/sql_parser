@@ -17,7 +17,7 @@ module OracleSqlParser::Ast
 
     def remove_nil_values!
       @ast.delete_if { |_k, v| v.nil? }
-      @ast.each { |_k, v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
+      @ast.each_value { |v| v.remove_nil_values! if v.respond_to? :remove_nil_values! }
       self
     end
 
@@ -31,9 +31,8 @@ module OracleSqlParser::Ast
     end
 
     def inspect
-      "#<#{self.class.name}\n" +
-        @ast.map { |k, v| "#{k.inspect} => #{v.inspect}" }.join(",\n").gsub(/^/, '  ') +
-        "}>\n"
+      items = @ast.map { |k, v| "#{k.inspect} => #{v.inspect}" }.join(",\n").gsub(/^/, '  ')
+      "#<#{self.class.name}\n#{items}}>\n"
     end
 
     def to_sql(options = { separator: ' ' })
@@ -55,9 +54,13 @@ module OracleSqlParser::Ast
     end
 
     def method_missing(name, *_args)
-      return @ast.send(:[], name) if @ast.has_key? name
+      return @ast.send(:[], name) if @ast.key? name
 
       raise "no method:#{name}, #{@ast.class} in #{self.class}"
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      @ast.key?(name) || super
     end
   end
 end
