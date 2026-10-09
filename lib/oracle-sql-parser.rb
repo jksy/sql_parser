@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Parses Oracle SQL into an AST that can be turned back into SQL (to_sql)
+# or into SQL with bind variables (to_parameterized).
 module OracleSqlParser
 end
 require 'treetop'

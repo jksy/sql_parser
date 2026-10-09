@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module OracleSqlParser
+  # AST nodes built by the grammar rules' ast methods.
   module Ast
   end
 end

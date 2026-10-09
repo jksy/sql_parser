@@ -1,6 +1,3 @@
-# Offenses in existing code are listed in .rubocop_todo.yml; remove entries
-# from there as they get fixed.
-inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.2
@@ -59,3 +56,16 @@ Style/OneClassPerFile:
   Exclude:
     - 'lib/oracle-sql-parser/ast/base.rb'
     - 'test/oracle_enhanced-adapter/base_test.rb'
+
+# AST node classes are named after the Oracle grammar elements they
+# represent, and tests document themselves.
+Style/Documentation:
+  Exclude:
+    - 'lib/oracle-sql-parser/ast/**/*'
+    - 'test/**/*'
+
+# Namespaces are opened compactly (`module OracleSqlParser::Ast`) with the
+# classes nested inside, which neither enforced style accepts. Rewriting it
+# would only reindent every file.
+Style/ClassAndModuleChildren:
+  Enabled: false

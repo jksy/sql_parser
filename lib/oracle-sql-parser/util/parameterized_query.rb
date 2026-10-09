@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module OracleSqlParser::Util
+  # A copy of an AST whose number and text literals are replaced with bind
+  # variables (:a0, :a1, ...), along with the replaced values in params.
   class ParameternizedQuery
     attr_reader :ast, :params
 

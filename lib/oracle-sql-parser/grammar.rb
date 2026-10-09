@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Treetop parsers generated from the .treetop files in this directory.
 module OracleSqlParser::Grammar
 end
 require 'oracle-sql-parser/grammar/reserved_word'

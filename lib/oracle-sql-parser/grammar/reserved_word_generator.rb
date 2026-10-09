@@ -2,12 +2,15 @@
 
 module OracleSqlParser
   module Grammar
+    # Writes reserved_word.treetop: one <word>_keyword rule per keyword and a
+    # keyword rule matching any of them.
     class ReservedWordGenerator
       def self.generate_grammer
         filename = ARGV[1] || File.expand_path('./reserved_word.treetop', File.dirname(__FILE__))
         File.write(filename, generate_grammer_string(filename))
       end
 
+      # The case-insensitive <word>_keyword rule for a single keyword.
       class KeywordRule
         attr_reader :keyword
 
@@ -45,6 +48,7 @@ module OracleSqlParser
         end
       end
 
+      # A rule matching any of the keywords it holds.
       class MatchKeyword < Array
         attr_reader :rule_name
 
