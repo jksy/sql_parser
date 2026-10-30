@@ -26,9 +26,9 @@ jobs:
         ruby: ['3.2', '3.3', '3.4', '4.0']
 
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7.0.1
 
-      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+      - uses: ruby/setup-ruby@v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
@@ -50,7 +50,7 @@ jobs:
       # Authenticates with GitHub OIDC (public repository), so no upload token is needed.
       - name: Upload coverage to Codecov
         if: matrix.ruby == '3.4'
-        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        uses: codecov/codecov-action@v7.1.1
         with:
           files: coverage/coverage.xml
           flags: unit
@@ -94,7 +94,7 @@ jobs:
       ORACLE_PASSWORD: parser_test
 
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7.0.1
 
       # Same packages as .devcontainer/Dockerfile: Basic Light for the client
       # libraries and the SDK for building ruby-oci8. The unversioned zips are
@@ -114,7 +114,7 @@ jobs:
           sudo ln -s /opt/oracle/instantclient_* /opt/oracle/instantclient
           ls /opt/oracle/instantclient/libclntsh.so*
 
-      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+      - uses: ruby/setup-ruby@v1.335.0
         with:
           ruby-version: '3.4'
           bundler-cache: true
@@ -126,7 +126,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: matrix.gemfile == 'adapter_8'
-        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        uses: codecov/codecov-action@v7.1.1
         with:
           files: coverage/coverage.xml
           flags: adapter
@@ -137,8 +137,8 @@ jobs:
     name: RuboCop
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1.335.0
         with:
           ruby-version: '3.4'
           bundler-cache: true
@@ -148,8 +148,8 @@ jobs:
     name: Build gem
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1.335.0
         with:
           ruby-version: '3.4'
           bundler-cache: true
