@@ -13,3 +13,13 @@ updates:
       interval: weekly
     labels:
       - dependencies
+  # The official tool images that CI runs, pinned by tag and digest in
+  # the Dockerfiles under .github/tools/.
+  - package-ecosystem: docker
+    directories:
+      - /.github/tools/actionlint
+      - /.github/tools/gitleaks
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
